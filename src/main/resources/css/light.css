@@ -1,0 +1,56 @@
+/* Font family */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Colori di base */
+:root {
+  --primary-color: #b5f1cc;
+  --secondary-color: #faf9e2;
+  --background-color: #f7f4d8;
+  --accent-color: #f1eac7;
+  --accent-color-dark: #efe4b7;
+}
+
+/* Menu bar */
+.menu-bar {
+  -fx-background-color: var(--primary-color);
+  -fx-text-fill: var(--secondary-color);
+  -fx-padding: 5px 10px;
+}
+
+.menu-item {
+  -fx-text-fill: var(--secondary-color);
+}
+
+.menu-item:hover {
+  -fx-background-color: var(--secondary-color);
+  -fx-text-fill: var(--primary-color);
+}
+
+/* Pulsanti */
+.button {
+  -fx-background-color: var(--primary-color);
+  -fx-text-fill: var(--secondary-color);
+  -fx-padding: 5px 10px;
+  -fx-border-radius: 5px;
+}
+
+.button:hover {
+  -fx-background-color: var(--accent-color);
+  -fx-text-fill: var(--secondary-color);
+}
+
+/* Casella di testo */
+.text-field {
+  -fx-background-color: var(--background-color);
+  -fx-border-color: var(--primary-color);
+  -fx-border-radius: 5px;
+  -fx-padding: 5px;
+}
+
+.text-field:focused {
+  -fx-background-color: var(--accent-color);
+  -fx-border-color: var(--primary-color);
+  -fx-text-fill: var(--secondary-color);
+}
