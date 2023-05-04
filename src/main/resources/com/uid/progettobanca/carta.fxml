@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="177.0" prefWidth="257.0" stylesheets="impos.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.CartaController">
+   <children>
+      <Pane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="ImmagineCarta" fitHeight="177.0" fitWidth="257.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="infocarta" layoutX="14.0" layoutY="63.0" mnemonicParsing="false" onAction="#infopremuto" text="info carta" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
