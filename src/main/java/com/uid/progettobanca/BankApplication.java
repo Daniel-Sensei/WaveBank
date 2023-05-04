@@ -21,7 +21,7 @@ public class BankApplication extends Application {
         BorderPane.setAlignment(menuBar, Pos.CENTER_RIGHT);
         borderPane.setCenter(home);
 
-        Scene scene = new Scene(borderPane, 800, 600);
+        Scene scene = new Scene(borderPane, 1280, 720);
 
         stage.setTitle("BankApplication");
         stage.setScene(scene);

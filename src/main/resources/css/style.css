@@ -1,0 +1,12 @@
+
+
+.menu-bar {
+    -fx-background-color: primary-color;
+    -fx-text-fill: secondary-color;
+    -fx-font-size: 30px;
+}
+
+/*Specifico per cambiare colore alla label*/
+.menu-bar > .label {
+  -fx-text-fill: secondary-color;
+}

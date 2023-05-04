@@ -1,50 +1,8 @@
-/* Font family */
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Colori di base */
-:root {
-  --primary-color: #b5f1cc; /* verde */
-  --secondary-color: #2c2d31; /* grigio scuro chiaro */
-  --background-color: #111214; /* nero */
-  --accent-color:  #28292d; /* grigio scuro */
-  --accent-color-dark: #1e1f23; /* grigio scuro scuro */
-}
-
-/* Menu bar */
-.menu-bar {
-  -fx-background-color: var(--secondary-color);
-  -fx-text-fill: var(--primary-color);
-  -fx-padding: 5px 10px;
-}
-
-.menu-item {
-  -fx-text-fill: var(--primary-color);
-}
-
-.menu-item:hover {
-  -fx-background-color: var(--primary-color);
-  -fx-text-fill: var(--background-color);
-}
-
-/* Pulsanti */
-.button {
-  -fx-background-color: var(--primary-color);
-  -fx-text-fill: var(--background-color);
-}
-
-.button:hover {
-  -fx-background-color: var(--accent-color);
-  -fx-text-fill: var(--primary-color);
-}
-
-/* Sfondo */
-.background {
-  -fx-background-color: var(--background-color);
-}
-
-/* Testo */
-.text {
-  -fx-text-fill: var(--primary-color);
+/* Colori dark */
+* {
+  primary-color: #b5f1cc; /* verde */
+  secondary-color: #2c2d31; /* grigio scuro chiaro */
+  background-color: #111214; /* nero */
+  accent-color:  #28292d; /* grigio scuro */
+  accent-color-dark: #1e1f23; /* grigio scuro scuro */
 }
