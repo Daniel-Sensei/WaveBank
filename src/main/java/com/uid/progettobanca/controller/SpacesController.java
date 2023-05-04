@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -20,18 +21,6 @@ public class SpacesController {
 
     @FXML
     private Button newSpace;
-
-    @FXML
-    private Pane space;
-
-    @FXML
-    private Button spaceDoor;
-
-    @FXML
-    private Text spaceName;
-
-    @FXML
-    private Text spaceSaldo;
 
     @FXML
     void createNewSpace(MouseEvent event) {

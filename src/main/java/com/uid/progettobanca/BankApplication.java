@@ -14,7 +14,7 @@ public class BankApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Parent menuBar = FXMLLoader.load(getClass().getResource("menuBar.fxml"));
-        Parent home = FXMLLoader.load(BankApplication.class.getResource("spaces.fxml"));
+        Parent home = FXMLLoader.load(BankApplication.class.getResource("hello-view.fxml"));
 
         BorderPane borderPane = new BorderPane();
         borderPane.setTop(menuBar);
@@ -26,6 +26,7 @@ public class BankApplication extends Application {
         stage.setTitle("BankApplication");
         stage.setScene(scene);
         stage.show();
+        stage.setResizable(false);
     }
 
     public static void main(String[] args) {

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="space" prefHeight="224.0" prefWidth="184.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SingleSpaceController">
+   <children>
+      <Button fx:id="spaceDoor" layoutX="1.0" mnemonicParsing="false" prefHeight="184.0" prefWidth="184.0" />
+      <Label fx:id="spaceName" layoutX="13.0" layoutY="184.0" text="Conto corrente principale">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="spaceSaldo" layoutX="65.0" layoutY="200.0" text="1200.00$">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
