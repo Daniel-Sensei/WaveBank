@@ -13,3 +13,7 @@
 .menu-bar > .label {
   -fx-text-fill: secondary-color;
 }
+
+.button{
+  -fx-background-radius: 100px;
+}
