@@ -6,10 +6,10 @@ body {
 /* Colori di base */
 :root {
   --primary-color: #b5f1cc; /* verde */
-  --secondary-color: #2c2d31; /* grigio scuro */
-  --background-color: #28292d; /* nero scuro */
-  --accent-color: #1e1f23; /* grigio scuro */
-  --accent-color-dark: #111214; /* nero */
+  --secondary-color: #2c2d31; /* grigio scuro chiaro */
+  --background-color: #111214; /* nero */
+  --accent-color:  #28292d; /* grigio scuro */
+  --accent-color-dark: #1e1f23; /* grigio scuro scuro */
 }
 
 /* Menu bar */
