@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <ScrollPane prefHeight="660.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController">
    <content>
       <VBox prefWidth="920.0" spacing="20.0">
@@ -53,6 +52,6 @@
       </VBox>
    </content>
    <padding>
-      <Insets left="180.0" right="180.0" top="80.0" />
+      <Insets left="200.0" right="200.0" top="80.0" />
    </padding>
 </ScrollPane>

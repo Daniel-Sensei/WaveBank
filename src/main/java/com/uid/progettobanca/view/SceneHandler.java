@@ -85,6 +85,30 @@ public class SceneHandler {
         }
     }
 
+    public void createSpaceScene() {
+        try {
+            Parent menuBar = loadRootFromFXML("menuBar.fxml");
+            Parent home = loadRootFromFXML("spaces.fxml");
+
+            borderPane.setTop(menuBar);
+            BorderPane.setAlignment(menuBar, Pos.CENTER_RIGHT);
+            borderPane.setCenter(home);
+
+            //per rimuovere le parti inutilizzate (inferiore, sinistra e destra)
+            Node centerNode = borderPane.getCenter();
+            BorderPane.setMargin(centerNode, new Insets(0));
+
+            scene = new Scene(borderPane, 1280, 720);
+
+            stage.setTitle("BankApplication");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+
+        } catch (IOException ignored) {
+        }
+    }
+
 
 /*****************
     public void createLoginScene() {
