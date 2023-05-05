@@ -38,7 +38,7 @@ public class SceneHandler {
     }
 
     private <T> T loadRootFromFXML(String resourceName) throws IOException {
-        String separator = File.separator;
+        String separator = File.separator; //il path si adatta ai diversi sistemi operativi
         //cambiando il nome della cartella bisogna cambiare anche il riferimento qui dentro
         String absolutePath = System.getProperty("user.dir") + separator + "src" + separator + "main" + separator + "resources" + separator + "com" + separator + "uid" + separator + "progettobanca" + separator + resourceName;
         FXMLLoader fxmlLoader = new FXMLLoader(new File(absolutePath).toURI().toURL());
@@ -101,5 +101,5 @@ public class SceneHandler {
         alert.setContentText(message);
         alert.show();
     }
-*****************/
+ *****************/
 }
