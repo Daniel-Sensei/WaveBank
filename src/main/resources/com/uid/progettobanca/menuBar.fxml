@@ -4,23 +4,83 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="1280.0" styleClass="menu-bar" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label text="Home">
-         <graphic>
-            <ImageView fx:id="homeImageView" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" smooth="false" style="-fx-opacity: 10;">
-               <image>
-                  <Image url="@../../../assets/images/home.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Label>
+      <HBox alignment="CENTER_RIGHT" layoutX="43.0" layoutY="20.0" prefHeight="100.0" prefWidth="200.0" styleClass="menu-bar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="Home">
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../assets/images/home.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label text="Spaces">
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../assets/images/home.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label text="Mammata">
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../assets/images/home.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label text="Bastarda">
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../assets/images/home.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label text="Troia">
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../assets/images/home.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label text="Zoccola">
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../assets/images/home.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label text="Cacca">
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../assets/images/home.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+         </children>
+      </HBox>
    </children>
    <stylesheets>
       <URL value="@../../../css/style.css" />
       <URL value="@../../../css/light.css" />
       <URL value="@../../../css/fonts.css" />
    </stylesheets>
-</HBox>
+</AnchorPane>
