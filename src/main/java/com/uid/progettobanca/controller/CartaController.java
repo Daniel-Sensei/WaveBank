@@ -9,6 +9,9 @@ package com.uid.progettobanca.controller;
 public class CartaController {
 
     @FXML
+    private Button bloccaButton;
+
+    @FXML
     private Button eliminaButton;
 
     @FXML
@@ -16,6 +19,11 @@ public class CartaController {
 
     @FXML
     private Button infoButton;
+
+    @FXML
+    void bloccaPremuto(ActionEvent event) {
+
+    }
 
     @FXML
     void eliminaPremuto(ActionEvent event) {
@@ -27,8 +35,7 @@ public class CartaController {
 
     }
     public void initialize(){
-        immagineCarta.setImage(new Image("assets/images/carta.png"));
+        immagineCarta.setImage(new Image("assets/images/CartaPaint.png"));
     }
-
 
 }
