@@ -38,9 +38,13 @@ public class SceneHandler {
     }
 
     private <T> T loadRootFromFXML(String resourceName) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(SceneHandler.class.getResource(resourceName));
+        String separator = File.separator;
+        //cambiando il nome della cartella bisogna cambiare anche il riferimento qui dentro
+        String absolutePath = System.getProperty("user.dir") + separator + "src" + separator + "main" + separator + "resources" + separator + "com" + separator + "uid" + separator + "progettobanca" + separator + resourceName;
+        FXMLLoader fxmlLoader = new FXMLLoader(new File(absolutePath).toURI().toURL());
         return fxmlLoader.load();
     }
+
 
     public void createHomeScene() {
         try {
@@ -66,9 +70,9 @@ public class SceneHandler {
         }
     }
 
-    public void createOperation() {
+    public void createOperationScene() {
         try {
-            Parent operation = loadRootFromFXML("C:\\Users\\campa\\IdeaProjects\\progettoBanca\\src\\main\\resources\\com\\uid\\progettobanca\\operations_temp.fxml");
+            Parent operation =loadRootFromFXML("operations_temp.fxml");
             borderPane.setCenter(operation);
         } catch (IOException ignored) {
         }
