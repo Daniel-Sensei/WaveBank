@@ -28,12 +28,16 @@ public class SceneHandler {
     }
 
     public void init(Stage stage) {
+        //inizializzazione della parte visiva del programma, da modificare all'aggiunta del login
         if (this.stage == null) {
             this.stage = stage;
             this.stage.setTitle("Wave Bank");
+            scene = new Scene(borderPane, 1280, 720);
+            stage.setTitle("BankApplication");
             createMenuBar();
             createHomeScene();
             this.stage.setScene(scene);
+            this.stage.setResizable(false);
             this.stage.show();
         }
     }
@@ -47,21 +51,28 @@ public class SceneHandler {
     }
 
     public void createMenuBar() {
+        //creazione menù bar, l'unico che non dovete copiare, la menù bar viene creata una sola volta e in questa vengono inizializzate un paion di altre cose
         try {
             Parent menuBar = loadRootFromFXML("menuBar.fxml");
             borderPane.setTop(menuBar);
             BorderPane.setAlignment(menuBar, Pos.CENTER_RIGHT);
-
-            scene = new Scene(borderPane, 1280, 720);
-
-            stage.setTitle("BankApplication");
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.show();
-
         } catch (IOException ignored) {
         }
     }
+
+
+    /*************
+     //POTETE UTILIZZARE QUESTO COME TEPLATE
+         public void createNOMEScene() {
+            try {
+                Parent center = loadRootFromFXML("NOMEFILE.fxml");
+                borderPane.setCenter(center);
+                Node centerNode = borderPane.getCenter();
+                BorderPane.setMargin(centerNode, new Insets(0));
+            } catch (IOException ignored) {
+            }
+         }
+     *************/
 
     public void createHomeScene() {
         try {
@@ -83,34 +94,6 @@ public class SceneHandler {
             BorderPane.setMargin(centerNode, new Insets(0));
         } catch (IOException ignored) {
         }
-    }
-
-    public void createSpaceScene() {
-        try {
-            Parent menuBar = loadRootFromFXML("menuBar.fxml");
-            Parent home = loadRootFromFXML("spaces.fxml");
-
-            borderPane.setTop(menuBar);
-            BorderPane.setAlignment(menuBar, Pos.CENTER_RIGHT);
-            borderPane.setCenter(home);
-
-            //per rimuovere le parti inutilizzate (inferiore, sinistra e destra)
-            Node centerNode = borderPane.getCenter();
-            BorderPane.setMargin(centerNode, new Insets(0));
-
-            scene = new Scene(borderPane, 1280, 720);
-
-            stage.setTitle("BankApplication");
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.show();
-
-        } catch (IOException ignored) {
-        }
-    }
-
-    public void createSpaceFormScene() {
-
     }
 
 

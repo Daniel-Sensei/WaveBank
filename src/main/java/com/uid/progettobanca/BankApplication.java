@@ -1,6 +1,7 @@
 package com.uid.progettobanca;
 
 import com.uid.progettobanca.controller.SpacesController;
+import com.uid.progettobanca.view.SceneHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -15,21 +16,11 @@ import java.io.IOException;
 public class BankApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Parent menuBar = FXMLLoader.load(getClass().getResource("menuBar.fxml"));
-        Parent home = FXMLLoader.load(BankApplication.class.getResource("home.fxml"));
-
-        BorderPane borderPane = new BorderPane();
-        borderPane.setTop(menuBar);
-        BorderPane.setAlignment(menuBar, Pos.CENTER_RIGHT);
-        borderPane.setCenter(home);
-
-        Scene scene = new Scene(borderPane, 1280, 720);
-
-        stage.setTitle("BankApplication");
-        stage.setScene(scene);
-        stage.show();
-        stage.setResizable(false);
-
+        //qui viene inizializzata la scena principale
+        SceneHandler.getInstance().init(stage);
+        //per passare alla pagina che volete usate --> SceneHandler.getInstance().<nomeMetodo()>;
+        //ad esempio per debuggin o se non ci sono i pulsati per controllare com'è la schermata operazioni faccio:
+        //SceneHandler.getInstance().createOperationScene();
     }
 
     public static void main(String[] args) {

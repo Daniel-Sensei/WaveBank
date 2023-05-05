@@ -49,12 +49,9 @@
                </VBox.margin>
             </FlowPane>
          </children>
-         <padding>
-            <Insets top="60.0" />
-         </padding>
       </VBox>
    </content>
    <padding>
-      <Insets left="200.0" right="200.0" />
+      <Insets left="200.0" right="200.0" top="80.0" />
    </padding>
 </ScrollPane>
