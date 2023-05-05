@@ -1,10 +1,11 @@
 
 
 .menu-bar {
-    -fx-background-color: #36A18B;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 2, 4);
+    -fx-background-color: #1B1B1B;
+    -fx-background-color: linear-gradient(to bottom, #121212, #1B1B1B);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 0, 4, 4, 1);
     -fx-text-fill: secondary-color;
-    -fx-font-size: 20px;
+    -fx-font-size: 14px;
     /*
     -fx-font-weight: bold;
     */
@@ -12,7 +13,7 @@
 
 /*Specifico per cambiare colore alla label*/
 .menu-bar > .label {
-    -fx-text-fill: black;
+  -fx-text-fill: white;
 }
 
 .background {
@@ -20,29 +21,43 @@
 }
 
 .background > .label {
-    -fx-text-fill: black;
+  -fx-text-fill: black;
 }
 
 .button {
-    -fx-background-color: #36A18B;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);
-    -fx-background-radius: 100px;
+  -fx-background-color: #36A18B;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);
+  -fx-background-radius: 100px;
 }
 
 .rounded-button {
-    -fx-background-color: #36A18B;
-    -fx-background-radius: 100px;
-}
+  -fx-background-color: #36A18B;
+  -fx-background-radius: 100px;
+  }
 
 .home-label {
-    -fx-text-fill: #ffffff;
-    -fx-font-size: 22px;
-    -fx-font-weight: bold;
+  -fx-text-fill: #ffffff;
+  -fx-font-size: 22px;
+  -fx-font-weight: bold;
+}
+
+.highlight-box {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+}
+
+.home-label:hover + .highlight-box {
+    opacity: 1;
+    background-color: #36A18B;
 }
 
 .button-label {
-    -fx-text-fill: #ffffff;
-    -fx-font-size: 14px;
+  -fx-text-fill: #ffffff;
+  -fx-font-size: 14px;
 }
 
 .scroll-pane .viewport {
@@ -50,15 +65,15 @@
 }
 
 .search-bar {
-    -fx-background-color: #3B3B3B;
-    -fx-background-radius: 10px;
+  -fx-background-color: #3B3B3B;
+  -fx-background-radius: 10px;
 }
 
 .button-search-bar {
-    -fx-background-color: #2D2D2D;
-    -fx-text-fill: #36A18B;
-    -fx-font-size: 14px;
-    -fx-background-radius: 10px;
+  -fx-background-color: #2D2D2D;
+  -fx-text-fill: #36A18B;
+  -fx-font-size: 14px;
+  -fx-background-radius: 10px;
 }
 
 .text-field {
@@ -68,20 +83,20 @@
 }
 
 .transaction{
-    -fx-background-color: #1B1B1B;
-    /* Imposta il colore del bordo su bianco */
-    -fx-border-color: white;
-    /* Imposta la larghezza del bordo a 1px */
-    -fx-border-width: 0.1px;
-    -fx-font-size: 14px;
-    -fx-text-fill: white;
+  -fx-background-color: #1B1B1B;
+  /* Imposta il colore del bordo su bianco */
+  -fx-border-color: white;
+  /* Imposta la larghezza del bordo a 1px */
+  -fx-border-width: 0.1px;
+  -fx-font-size: 14px;
+  -fx-text-fill: white;
 }
 
 .transaction > .button{
-    -fx-background-color: #2D2D2D;
-    -fx-background-radius: 100px;
-    -fx-font-size: 14px;
-    -fx-text-fill: white;
+  -fx-background-color: #2D2D2D;
+  -fx-background-radius: 100px;
+  -fx-font-size: 14px;
+  -fx-text-fill: white;
 }
 
 /*

@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1280.0" style="-fx-background-color: #121212;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19">
+<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1280.0" style="-fx-background-color: #121212;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <padding>
-      <Insets bottom="30.0" left="200.0" right="200.0" top="30.0" />
+      <Insets bottom="30.0" left="200.0" right="200.0" />
    </padding>
    <stylesheets>
       <URL value="@../../../css/style.css" />
@@ -271,7 +271,7 @@
             </VBox>
          </children>
          <padding>
-            <Insets bottom="50.0" />
+            <Insets bottom="50.0" top="30.0" />
          </padding>
       </VBox>
    </content>
