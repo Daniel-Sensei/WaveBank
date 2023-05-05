@@ -1,24 +1,34 @@
 package com.uid.progettobanca.controller;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+        import javafx.event.ActionEvent;
+        import javafx.fxml.FXML;
+        import javafx.scene.control.Button;
+        import javafx.scene.image.Image;
+        import javafx.scene.image.ImageView;
 
 public class CartaController {
 
     @FXML
-    private ImageView ImmagineCarta;
+    private Button eliminaButton;
 
     @FXML
-    private Button infocarta;
+    private ImageView immagineCarta;
 
     @FXML
-    void infopremuto(ActionEvent event) {
+    private Button infoButton;
+
+    @FXML
+    void eliminaPremuto(ActionEvent event) {
+
+    }
+
+    @FXML
+    void infoPremuto(ActionEvent event) {
 
     }
     public void initialize(){
-        ImmagineCarta.setImage(new Image("images/carta.png"));
+        immagineCarta.setImage(new Image("assets/images/carta.png"));
     }
+
+
 }
