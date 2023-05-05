@@ -31,6 +31,7 @@ public class SceneHandler {
         if (this.stage == null) {
             this.stage = stage;
             this.stage.setTitle("Wave Bank");
+            createMenuBar();
             createHomeScene();
             this.stage.setScene(scene);
             this.stage.show();
@@ -45,19 +46,11 @@ public class SceneHandler {
         return fxmlLoader.load();
     }
 
-
-    public void createHomeScene() {
+    public void createMenuBar() {
         try {
             Parent menuBar = loadRootFromFXML("menuBar.fxml");
-            Parent home = loadRootFromFXML("hello-view.fxml");
-
             borderPane.setTop(menuBar);
             BorderPane.setAlignment(menuBar, Pos.CENTER_RIGHT);
-            borderPane.setCenter(home);
-
-            //per rimuovere le parti inutilizzate (inferiore, sinistra e destra)
-            Node centerNode = borderPane.getCenter();
-            BorderPane.setMargin(centerNode, new Insets(0));
 
             scene = new Scene(borderPane, 1280, 720);
 
@@ -70,10 +63,24 @@ public class SceneHandler {
         }
     }
 
+    public void createHomeScene() {
+        try {
+            Parent home = loadRootFromFXML("home.fxml");
+            borderPane.setCenter(home);
+            //per rimuovere le parti inutilizzate (inferiore, sinistra e destra)
+            Node centerNode = borderPane.getCenter();
+            BorderPane.setMargin(centerNode, new Insets(0));
+        } catch (IOException ignored) {
+        }
+    }
+
     public void createOperationScene() {
         try {
             Parent operation =loadRootFromFXML("operations_temp.fxml");
             borderPane.setCenter(operation);
+            //per rimuovere le parti inutilizzate (inferiore, sinistra e destra)
+            Node centerNode = borderPane.getCenter();
+            BorderPane.setMargin(centerNode, new Insets(0));
         } catch (IOException ignored) {
         }
     }
