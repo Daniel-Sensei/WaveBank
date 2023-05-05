@@ -7,7 +7,7 @@
 
 <VBox alignment="CENTER" prefHeight="224.0" prefWidth="184.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SingleSpaceController">
    <children>
-      <Button fx:id="spaceDoor" mnemonicParsing="false" prefHeight="184.0" prefWidth="184.0" />
+      <Button fx:id="spaceDoor" mnemonicParsing="false" onAction="#openSpaceForm" prefHeight="184.0" prefWidth="184.0" />
       <Label fx:id="spaceName" text="Conto corrente principale">
          <font>
             <Font size="14.0" />

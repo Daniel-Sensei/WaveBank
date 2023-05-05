@@ -109,6 +109,10 @@ public class SceneHandler {
         }
     }
 
+    public void createSpaceFormScene() {
+
+    }
+
 
 /*****************
     public void createLoginScene() {
