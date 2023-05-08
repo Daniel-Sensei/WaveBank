@@ -6,6 +6,7 @@ package com.uid.progettobanca.controller;
         import javafx.fxml.FXMLLoader;
         import javafx.scene.Parent;
         import javafx.scene.control.Button;
+        import javafx.scene.control.ScrollPane;
         import javafx.scene.layout.HBox;
 
         import java.io.IOException;
@@ -26,6 +27,8 @@ public class PaginaCarteController {
 
     @FXML
     private Button sinistra;
+    @FXML
+    private ScrollPane scrollPane;
 
     @FXML
     void aggiungiPremuto(ActionEvent event) {
@@ -41,12 +44,16 @@ public class PaginaCarteController {
 
     @FXML
     void destraPressed(ActionEvent event) {
-
+        double hvalue = scrollPane.getHvalue();
+        hvalue += 0.1;
+        scrollPane.setHvalue(hvalue < 0 ? 0 : hvalue);
     }
 
     @FXML
     void sinistraPressed(ActionEvent event) {
-
+        double hvalue = scrollPane.getHvalue();
+        hvalue -= 0.1;    // da settare in base alla larghezza e numero delle carte
+        scrollPane.setHvalue(hvalue > 1 ? 1 : hvalue);
     }
 
 }
