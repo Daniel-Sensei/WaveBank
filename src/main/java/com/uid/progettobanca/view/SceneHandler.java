@@ -7,16 +7,27 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class SceneHandler {
 
     private static final SceneHandler instance = new SceneHandler();
     private Stage stage;
     private Scene scene;
+
+    private final static String RESOURCE_PATH = "/";
+    /*
+    private final static String CSS_PATH = RESOURCE_PATH + "css/";
+    private String theme = "light";
+     */
+    private final static String FONTS_PATH = RESOURCE_PATH + "fonts/";
 
     private BorderPane borderPane = new BorderPane();
 
@@ -34,10 +45,14 @@ public class SceneHandler {
             this.stage.setTitle("Wave Bank");
             scene = new Scene(borderPane, 1280, 720);
             stage.setTitle("BankApplication");
+
+            loadFonts();
+
+
             createMenuBar();
             createHomeScene();
             this.stage.setScene(scene);
-            this.stage.getScene().getStylesheets().addAll("css/style.css", "css/light.css", "css/fonts.css");
+            this.stage.getScene().getStylesheets().addAll("css/fonts.css", "css/light.css", "css/style.css");
             this.stage.setResizable(false);
             this.stage.show();
         }
@@ -49,6 +64,12 @@ public class SceneHandler {
         String absolutePath = System.getProperty("user.dir") + separator + "src" + separator + "main" + separator + "resources" + separator + "com" + separator + "uid" + separator + "progettobanca" + separator + resourceName;
         FXMLLoader fxmlLoader = new FXMLLoader(new File(absolutePath).toURI().toURL());
         return fxmlLoader.load();
+    }
+
+    private void loadFonts() {
+        for (String font : List.of(FONTS_PATH + "Roboto/Roboto-Regular.ttf", FONTS_PATH + "Roboto/Roboto-Bold.ttf")) {
+            Font.loadFont(Objects.requireNonNull(SceneHandler.class.getResource(font)).toExternalForm(), 10);
+        }
     }
 
     public void createMenuBar() {
