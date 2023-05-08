@@ -10,6 +10,9 @@
 
   textColor: black; /* nero */
 
+  shade1: #5cb3a0; /* verde chiaro */
+  shade2: #f0f0f0; /* grigio chiaro */
+
   /* DA COMPLETARE */
   accent-color: #f1eac7; /* giallo medio-scuro */
   accent-color-dark: #efe4b7; // giallo scuro */

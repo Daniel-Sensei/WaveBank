@@ -5,10 +5,14 @@
 
   primaryColor: #36a18b; /* verde N26 */
   secondaryColor: #1b1b1b; /* grigio scuro chiaro N26 */
-  tertiaryColor: #3b3b3b; /* grigio chiaro searchBar N26 */
-  quaternaryColor: #2D2D2D; /* grigio scuro N26 */
+  tertiaryColor: #2D2D2D; /* grigio chiaro N26 */
+  quaternaryColor: #3b3b3b; /* grigio chiaro barra N26 */
 
   textColor: #ffffff; /* bianco */
+
+  shade1: #5cb3a0; /* verde chiaro */
+  shade2: #252525; /* grigio scuro */
+
   /*
   DA COMPLETARE
 

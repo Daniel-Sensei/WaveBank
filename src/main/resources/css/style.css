@@ -21,7 +21,6 @@
 
 .text-field:hover,
 .text-field:focused {
-    -fx-border-width: 3px;
     -fx-border-color: tertiaryColor;
 }
 
@@ -36,37 +35,28 @@
 
 .button:hover,
 .button:focused {
-/*
-    DEFINIRE COLORE shade3
-    -fx-background-color: shade3;
-*/
+    -fx-background-color: shade1;
 }
 
 .button:pressed {
-/*
-    DEFINIRE COLORE shade3
-    -fx-background-color: derive(shade3, 30%);
-*/
+    -fx-background-color: derive(shade1, 30%);
 }
 
 .secondaryButton {
-    -fx-background-color: tertiaryColor;
+    -fx-background-color: backgroundColor;
+    -fx-border-color: textColor;
+    -fx-border-width: 0.2px;
+    -fx-border-radius: 100px;
     -fx-text-fill: textColor;
 }
 
 .secondaryButton:hover,
 .secondaryButton:focused {
-/*
-    DEFINIRE COLORE shade1
-    -fx-background-color: shade1;
-*/
+    -fx-background-color: shade2;
 }
 
 .secondaryButton:pressed {
-/*
-    DEFINIRE COLORE shade1
-    -fx-background-color: derive(shade1, 30%);
-*/
+    -fx-background-color: derive(shade2, 30%);
 }
 
 .tertiaryButton {
@@ -76,13 +66,14 @@
 
 .tertiaryButton:hover,
 .tertiaryButton:focused {
-    /*-fx-background-color: shade1;*/ /* NON FUNZIONA */
+    -fx-background-color: derive(quaternaryColor, 10%);
     -fx-blend-mode: null;
 }
 
 .tertiaryButton:pressed {
-    /*-fx-background-color: derive(shade1, 30%);*/ /* NON FUNZIONA */
+    -fx-background-color: derive(quaternaryColor, 30%);
 }
+
 
 /* LABELS */
 .label {
@@ -104,14 +95,17 @@
 /* MENU BAR */
 .menu-bar {
     -fx-background-color: secondaryColor;
-    /*
-    -fx-background-color: linear-gradient(to bottom, #121212, #1B1B1B);
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 0, 4, 4, 1);
-    */
-    -fx-font-size: 30px;
-    /*
+}
+
+.menu-bar .label {
+    -fx-font-size: 16px;
     -fx-font-weight: bold;
-    */
+}
+
+.menu-bar .label:hover,
+.menu-bar .label:focused{
+    -fx-background-color: shade1;
+    -fx-background-radius: 10px;
 }
 
 /*
@@ -135,4 +129,9 @@ DA CONTROLLARE
   -fx-border-color: textColor;
   /* Imposta la larghezza del bordo a 1px */
   -fx-border-width: 0.1px;
+}
+
+.transaction:hover,
+.transaction:focused {
+    -fx-background-color: shade2;
 }
