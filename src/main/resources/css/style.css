@@ -70,14 +70,16 @@
 }
 
 .tertiaryButton {
-    -fx-background-color: quaternaryColor;
-    -fx-background-radius: 10px;
+    -fx-background-color: backgroundColor;
+    -fx-background-radius: 100px;
+    -fx-border-radius: 100px;
+    -fx-border-color: tertiaryColor;
 }
 
 .tertiaryButton:hover,
 .tertiaryButton:focused {
     /*-fx-background-color: shade1;*/ /* NON FUNZIONA */
-    -fx-blend-mode: null;
+    -fx-blend-mode: screen;
 }
 
 .tertiaryButton:pressed {
@@ -135,4 +137,28 @@ DA CONTROLLARE
   -fx-border-color: textColor;
   /* Imposta la larghezza del bordo a 1px */
   -fx-border-width: 0.1px;
+}
+
+.carta{
+  -fx-background-color: secondaryColor;
+  -fx-border-radius: 10px;
+  -fx-background-radius: 10px;
+  /* Imposta il colore del bordo su bianco */
+  -fx-border-color: tertiaryColor;
+  /* Imposta la larghezza del bordo a 1px */
+  -fx-border-width: 1.5px;
+}
+
+
+/* SCROLL PANE */      /* CSS TEMPORANEO, VERRà SOSTITUITO CON DEI PULSANTI NELL'INTERFACCIA MA ORA NO CHE è TARDI*/
+.scroll-pane {
+    -fx-background-color: #F5F5F5;
+}
+
+.scroll-pane .scroll-bar {
+    -fx-background-color: #C0C0C0;
+}
+
+.scroll-pane .scroll-bar:horizontal .thumb {
+    -fx-background-color: #A9A9A9;
 }

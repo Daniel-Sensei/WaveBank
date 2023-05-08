@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="245.0" prefWidth="300.0" style="-fx-background-color: #1b1b1b;" styleClass="contorno" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.CartaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="245.0" prefWidth="300.0" styleClass="carta" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.CartaController">
    <children>
       <VBox alignment="CENTER" layoutX="41.0" layoutY="2.0" prefHeight="314.0" prefWidth="296.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fx:id="immagineCarta" fitHeight="130.0" fitWidth="217.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="immagineCarta" fitHeight="148.0" fitWidth="217.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
@@ -22,19 +22,19 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="50.0" prefWidth="50.0">
                      <children>
-                        <Button fx:id="infoButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#infoPremuto" prefHeight="30.0" prefWidth="30.0" styleClass="rounded-button" />
+                        <Button fx:id="infoButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#infoPremuto" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
                         <Label styleClass="button-label" text="Info" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="40.0" prefWidth="40.0">
                      <children>
-                        <Button fx:id="bloccaButton" mnemonicParsing="false" onAction="#bloccaPremuto" prefHeight="30.0" prefWidth="30.0" styleClass="rounded-button" />
+                        <Button fx:id="bloccaButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#bloccaPremuto" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
                         <Label styleClass="button-label" text="Blocca" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="50.0" prefWidth="50.0">
                      <children>
-                        <Button fx:id="eliminaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminaPremuto" prefHeight="30.0" prefWidth="30.0" styleClass="rounded-button" />
+                        <Button fx:id="eliminaButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eliminaPremuto" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
                         <Label styleClass="button-label" text="Elimina" />
                      </children>
                   </VBox>
@@ -46,7 +46,6 @@
    <stylesheets>
       <URL value="@../../../css/style.css" />
       <URL value="@../../../css/fonts.css" />
-      <URL value="@../../../css/dark.css" />
-      <URL value="@../../../css/stileCarte.css" />
+      <URL value="@../../../css/light.css" />
    </stylesheets>
 </AnchorPane>

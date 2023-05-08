@@ -35,7 +35,7 @@ public class CartaController {
 
     }
     public void initialize(){
-        immagineCarta.setImage(new Image("assets/images/CartaPaint.png"));
+        immagineCarta.setImage(new Image("assets/images/carta.png"));
     }
 
 }
