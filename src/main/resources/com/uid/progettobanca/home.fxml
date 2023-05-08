@@ -11,7 +11,7 @@
 
 <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <padding>
-      <Insets bottom="30.0" left="200.0" right="200.0" />
+      <Insets left="200.0" right="200.0" />
    </padding>
    <content>
       <VBox prefWidth="840.0" spacing="20.0">
@@ -75,10 +75,10 @@
             </AnchorPane>
             <VBox prefWidth="840.0">
                <children>
-                  <Label style="-fx-text-fill: white;" text="OGGI" />
+                  <Label text="OGGI" />
                   <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="840.0" spacing="10.0" styleClass="transaction">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="secondaryButton" />
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
                         <Label prefHeight="20.0" prefWidth="580.0" text="Vivo Market" HBox.hgrow="ALWAYS" />
                         <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 5,95 $" />
                      </children>
@@ -91,7 +91,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="840.0" spacing="10.0" styleClass="transaction">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="secondaryButton" />
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
                         <Label prefHeight="20.0" prefWidth="580.0" text="Apple" HBox.hgrow="ALWAYS" />
                         <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 10,57 $" />
                      </children>
@@ -101,7 +101,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="840.0" spacing="10.0" styleClass="transaction">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="secondaryButton" />
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
                         <Label prefHeight="20.0" prefWidth="580.0" styleClass="button-label" text="Breil" HBox.hgrow="ALWAYS" />
                         <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 324,88 $" />
                      </children>
@@ -111,7 +111,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="840.0" spacing="10.0" styleClass="transaction">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="secondaryButton" />
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
                         <Label prefHeight="20.0" prefWidth="580.0" styleClass="button-label" text="Palestra" HBox.hgrow="ALWAYS" />
                         <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 67,00" />
                      </children>
@@ -126,10 +126,10 @@
             </VBox>
             <VBox prefWidth="840.0" styleClass="transaction-block">
                <children>
-                  <Label style="-fx-text-fill: white;" text="MERCOLEDI 3 MAGGIO" />
+                  <Label text="MERCOLEDI 3 MAGGIO" />
                   <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="840.0" spacing="10.0" styleClass="transaction">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" />
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
                         <Label prefHeight="20.0" prefWidth="580.0" styleClass="button-label" text="American Food 4 U" HBox.hgrow="ALWAYS" />
                         <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 12,98$" />
                      </children>
@@ -142,7 +142,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="840.0" spacing="10.0" styleClass="transaction">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" />
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
                         <Label prefHeight="20.0" prefWidth="580.0" styleClass="button-label" text="Test" HBox.hgrow="ALWAYS" />
                         <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 5,75 $" />
                      </children>
@@ -154,7 +154,7 @@
             </VBox>
             <VBox prefWidth="840.0" styleClass="transaction-block">
                <children>
-                  <Label style="-fx-text-fill: white;" text="MARTEDI 2 MAGGIO" />
+                  <Label text="MARTEDI 2 MAGGIO" />
                   <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="840.0" spacing="10.0" styleClass="transaction">
                      <children>
                         <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" />
@@ -192,7 +192,7 @@
             </VBox>
             <VBox prefWidth="840.0" styleClass="transaction-block">
                <children>
-                  <Label style="-fx-text-fill: white;" text="MARTEDI 2 MAGGIO" />
+                  <Label text="MARTEDI 2 MAGGIO" />
                   <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="840.0" spacing="10.0" styleClass="transaction">
                      <children>
                         <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" />
@@ -230,7 +230,7 @@
             </VBox>
             <VBox prefWidth="840.0" styleClass="transaction-block">
                <children>
-                  <Label style="-fx-text-fill: white;" text="MARTEDI 2 MAGGIO" />
+                  <Label text="MARTEDI 2 MAGGIO" />
                   <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="840.0" spacing="10.0" styleClass="transaction">
                      <children>
                         <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" />
