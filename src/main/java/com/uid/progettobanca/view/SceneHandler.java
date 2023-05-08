@@ -37,6 +37,7 @@ public class SceneHandler {
             createMenuBar();
             createHomeScene();
             this.stage.setScene(scene);
+            this.stage.getScene().getStylesheets().addAll("css/style.css", "css/light.css", "css/fonts.css");
             this.stage.setResizable(false);
             this.stage.show();
         }

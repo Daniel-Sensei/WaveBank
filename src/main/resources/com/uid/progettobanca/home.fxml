@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -10,15 +9,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1280.0" style="-fx-background-color: #121212;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <padding>
       <Insets bottom="30.0" left="200.0" right="200.0" />
    </padding>
-   <stylesheets>
-      <URL value="@../../../css/style.css" />
-      <URL value="@../../../css/light.css" />
-      <URL value="@../../../css/fonts.css" />
-   </stylesheets>
    <content>
       <VBox prefWidth="840.0" spacing="20.0">
          <children>
@@ -28,25 +22,25 @@
                      <children>
                         <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label style="-fx-font-size: 22; -fx-font-weight: bold;" styleClass="home-label" text="Home" />
-                              <Label style="-fx-font-size: 20;" styleClass="home-label" text="100,00 $" />
+                              <Label styleClass="titleLabel" text="Home" />
+                              <Label styleClass="titleLabel" text="100,00 $" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" prefWidth="100.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="rounded-button" />
+                              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" />
                               <Label styleClass="button-label" text="Invia" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" prefWidth="100.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="rounded-button" />
+                              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" />
                               <Label styleClass="button-label" text="Ricevi" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" prefWidth="100.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #2D2D2D;" styleClass="rounded-button" />
+                              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" styleClass="secondaryButton" />
                               <Label styleClass="button-label" text="Statistiche" />
                            </children>
                         </VBox>
@@ -59,30 +53,33 @@
                               <Insets />
                            </HBox.margin>
                            <children>
-                              <TextField prefHeight="40.0" prefWidth="687.0" promptText="Cerca sul conto principale" styleClass="text-field">
+                              <TextField prefHeight="40.0" prefWidth="546.0" promptText="Cerca sul conto principale" HBox.hgrow="ALWAYS">
                                  <HBox.margin>
-                                    <Insets left="30.0" />
+                                    <Insets />
                                  </HBox.margin>
                               </TextField>
                            </children>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="240.0" spacing="8.0">
                            <children>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="110.0" style="-fx-text-fill: white;" styleClass="button-search-bar" text="Filtra" />
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="110.0" styleClass="button-search-bar" text="Cerca" />
+                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="110.0" style="-fx-text-fill: textColor;" styleClass="tertiaryButton" text="Filtra" />
+                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="110.0" styleClass="tertiaryButton" text="Cerca" />
                            </children>
                         </HBox>
                      </children>
                   </HBox>
                </children>
             </AnchorPane>
-            <VBox prefWidth="840.0" styleClass="transaction-block">
+            <VBox prefWidth="840.0">
                <children>
                   <Label style="-fx-text-fill: white;" text="OGGI" />
                   <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="840.0" spacing="10.0" styleClass="transaction">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" />
-                        <Label prefHeight="20.0" prefWidth="580.0" styleClass="button-label" text="Vivo Market" HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="secondaryButton" />
+                        <Label prefHeight="20.0" prefWidth="580.0" text="Vivo Market" HBox.hgrow="ALWAYS" />
                         <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 5,95 $" />
                      </children>
                      <VBox.margin>
@@ -94,8 +91,8 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="840.0" spacing="10.0" styleClass="transaction">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" />
-                        <Label prefHeight="20.0" prefWidth="580.0" styleClass="button-label" text="Apple" HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="secondaryButton" />
+                        <Label prefHeight="20.0" prefWidth="580.0" text="Apple" HBox.hgrow="ALWAYS" />
                         <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 10,57 $" />
                      </children>
                      <padding>
@@ -104,7 +101,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="840.0" spacing="10.0" styleClass="transaction">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" />
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="secondaryButton" />
                         <Label prefHeight="20.0" prefWidth="580.0" styleClass="button-label" text="Breil" HBox.hgrow="ALWAYS" />
                         <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 324,88 $" />
                      </children>
@@ -114,7 +111,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="840.0" spacing="10.0" styleClass="transaction">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" />
+                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="secondaryButton" />
                         <Label prefHeight="20.0" prefWidth="580.0" styleClass="button-label" text="Palestra" HBox.hgrow="ALWAYS" />
                         <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 67,00" />
                      </children>

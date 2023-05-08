@@ -1,107 +1,138 @@
+/* Style.css */
 
+* {
+    -fx-text-fill: textColor;
+    -fx-background-color: transparent;
+}
 
+/* se definisco il background direttamente sopra lo sovrascrive anche alle etichette e caselle di testo, quindi dobbiamo fare una classe apposita per lo sfondo */
+
+.background {
+    -fx-background-color: backgroundColor;
+}
+
+/* TEXT FIELDS */
+.text-field {
+    -fx-background-color: transparent;
+    -fx-border-radius: 5px;
+    -fx-font-size: 13px;
+    -fx-text-fill: textColor;
+}
+
+.text-field:hover,
+.text-field:focused {
+    -fx-border-width: 3px;
+    -fx-border-color: tertiaryColor;
+}
+
+/* BUTTONS */
+.button {
+    -fx-background-color: primaryColor;
+    -fx-text-fill: textColor;
+    -fx-font-size: 14px;
+    /*-fx-font-weight: bold;*/
+    -fx-background-radius: 100px;
+}
+
+.button:hover,
+.button:focused {
+/*
+    DEFINIRE COLORE shade3
+    -fx-background-color: shade3;
+*/
+}
+
+.button:pressed {
+/*
+    DEFINIRE COLORE shade3
+    -fx-background-color: derive(shade3, 30%);
+*/
+}
+
+.secondaryButton {
+    -fx-background-color: tertiaryColor;
+    -fx-text-fill: textColor;
+}
+
+.secondaryButton:hover,
+.secondaryButton:focused {
+/*
+    DEFINIRE COLORE shade1
+    -fx-background-color: shade1;
+*/
+}
+
+.secondaryButton:pressed {
+/*
+    DEFINIRE COLORE shade1
+    -fx-background-color: derive(shade1, 30%);
+*/
+}
+
+.tertiaryButton {
+    -fx-background-color: quaternaryColor;
+    -fx-background-radius: 10px;
+}
+
+.tertiaryButton:hover,
+.tertiaryButton:focused {
+    /*-fx-background-color: shade1;*/ /* NON FUNZIONA */
+    -fx-blend-mode: null;
+}
+
+.tertiaryButton:pressed {
+    /*-fx-background-color: derive(shade1, 30%);*/ /* NON FUNZIONA */
+}
+
+/* LABELS */
+.label {
+    -fx-text-fill: textColor;
+    /*-fx-font-weight: bold;*/
+    -fx-font-size: 12px;
+}
+
+.BankTitleLabel {
+    -fx-font-family: "Inter Bold";
+    -fx-font-size: 20px;
+}
+
+.titleLabel {
+    -fx-font-size: 22px;
+    -fx-font-family: "Inter Bold";
+}
+
+/* MENU BAR */
 .menu-bar {
-    -fx-background-color: #1B1B1B;
+    -fx-background-color: secondaryColor;
+    /*
     -fx-background-color: linear-gradient(to bottom, #121212, #1B1B1B);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 0, 4, 4, 1);
-    -fx-text-fill: secondary-color;
-    -fx-font-size: 14px;
+    */
+    -fx-font-size: 30px;
     /*
     -fx-font-weight: bold;
     */
 }
 
-/*Specifico per cambiare colore alla label*/
-.menu-bar > .label {
-  -fx-text-fill: white;
-}
+/*
+DA CONTROLLARE
 
-.background {
-    -fx-background-color: #ffffff;
+.menu-bar .label {
+    -fx-font-size: 30px;
 }
-
-.background > .label {
-  -fx-text-fill: black;
-}
-
-.button {
-  -fx-background-color: #36A18B;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);
-  -fx-background-radius: 100px;
-}
-
-.rounded-button {
-  -fx-background-color: #36A18B;
-  -fx-background-radius: 100px;
-  }
-
-.home-label {
-  -fx-text-fill: #ffffff;
-  -fx-font-size: 22px;
-  -fx-font-weight: bold;
-}
-
-.highlight-box {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    opacity: 0;
-}
-
-.home-label:hover + .highlight-box {
-    opacity: 1;
-    background-color: #36A18B;
-}
-
-.button-label {
-  -fx-text-fill: #ffffff;
-  -fx-font-size: 14px;
-}
-
-.scroll-pane .viewport {
-    -fx-background-color: #121212;
-}
+*/
 
 .search-bar {
-  -fx-background-color: #3B3B3B;
+  -fx-background-color: tertiaryColor;
   -fx-background-radius: 10px;
-}
-
-.button-search-bar {
-  -fx-background-color: #2D2D2D;
-  -fx-text-fill: #36A18B;
-  -fx-font-size: 14px;
-  -fx-background-radius: 10px;
-}
-
-.text-field {
-    -fx-background-color: #3B3B3B;
-    -fx-font-size: 14px;
-    -fx-text-fill: white;
 }
 
 .transaction{
-  -fx-background-color: #1B1B1B;
+  -fx-background-color: secondaryColor;
+  -fx-border-radius: 10px;
+  -fx-background-radius: 10px;
   /* Imposta il colore del bordo su bianco */
-  -fx-border-color: white;
+  -fx-border-color: textColor;
   /* Imposta la larghezza del bordo a 1px */
   -fx-border-width: 0.1px;
-  -fx-font-size: 14px;
-  -fx-text-fill: white;
 }
-
-.transaction > .button{
-  -fx-background-color: #2D2D2D;
-  -fx-background-radius: 100px;
-  -fx-font-size: 14px;
-  -fx-text-fill: white;
-}
-
-/*
-.transaction-block{
-  -fx-background-color: #1B1B1B;
-  -fx-background-radius: 10;
-}
-*/

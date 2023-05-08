@@ -1,8 +1,19 @@
-/* Colori dark */
+/* Colori Dark */
+
 * {
-  primary-color: #b5f1cc; /* verde */
-  secondary-color: #2c2d31; /* grigio scuro chiaro */
-  background-color: #111214; /* nero */
-  accent-color:  #28292d; /* grigio scuro */
-  accent-color-dark: #1e1f23; /* grigio scuro scuro */
+  backgroundColor: #121212; /* nero N26 */
+
+  primaryColor: #36a18b; /* verde N26 */
+  secondaryColor: #1b1b1b; /* grigio scuro chiaro N26 */
+  tertiaryColor: #3b3b3b; /* grigio chiaro searchBar N26 */
+  quaternaryColor: #2D2D2D; /* grigio scuro N26 */
+
+  textColor: #ffffff; /* bianco */
+  /*
+  DA COMPLETARE
+
+  accent-color:  #28292d; // grigio scuro
+  accent-color-dark: #1e1f23; // grigio scuro scuro
+  */
+
 }
