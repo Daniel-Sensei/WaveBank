@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -12,27 +11,23 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox alignment="CENTER_RIGHT" layoutX="43.0" layoutY="20.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0" style="-fx-background-color: #1B1B1B;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER_RIGHT" layoutX="43.0" layoutY="20.0" prefHeight="100.0" prefWidth="200.0" spacing="30.0" styleClass="menu-bar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <TextArea opacity="0.0" prefHeight="200.0" prefWidth="200.0" styleClass="highlight-box" />
             <Label text="Home">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../assets/images/menu-bar-dark/home.png" />
+                        <Image url="@../../../assets/images/menu-bar-light/home.png" />
                      </image>
                   </ImageView>
                </graphic>
-               <styleClass>
-                  <String fx:value="home-label" />
-                  <String fx:value="highlight-box" />
-               </styleClass>
             </Label>
-            <Label styleClass="home-label" text="Spaces">
+            <Label text="Spaces">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../assets/images/menu-bar-dark/spaces.png" />
+                        <Image url="@../../../assets/images/menu-bar-light/spaces.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -41,7 +36,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../assets/images/menu-bar-dark/coin.png" />
+                        <Image url="@../../../assets/images/menu-bar-light/coin.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -50,7 +45,7 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../assets/images/menu-bar-dark/credit-card.png" />
+                        <Image url="@../../../assets/images/menu-bar-light/credit-card.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -59,14 +54,14 @@
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../assets/images/menu-bar-dark/user.png" />
+                        <Image url="@../../../assets/images/menu-bar-light/user.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Label>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../assets/images/menu-bar-dark/setting.png" />
+                  <Image url="@../../../assets/images/menu-bar-light/setting.png" />
                </image>
             </ImageView>
          </children>
@@ -77,7 +72,6 @@
    </children>
    <stylesheets>
       <URL value="@../../../css/style.css" />
-      <URL value="@../../../css/light.css" />
       <URL value="@../../../css/fonts.css" />
    </stylesheets>
 </AnchorPane>

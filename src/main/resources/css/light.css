@@ -1,8 +1,16 @@
 /* Colori light */
 * {
-  primary-color: #b5f1cc; /* verde */
-  secondary-color: #f7f4d8; /* giallo medio */
-  background-color: #faf9e2; /* giallo chiaro */
+
+  backgroundColor: #ffffff; /* binaco */
+
+  primaryColor: #36a18b; /* verde N26 */
+  secondaryColor: #f2f2f2; /* giallo medio */
+  tertiaryColor: #e9eef2; /* grigio chiaro searchBar N26 */
+  quaternaryColor: #efeced; /* grigio scuro N26 */
+
+  textColor: black; /* nero */
+
+  /* DA COMPLETARE */
   accent-color: #f1eac7; /* giallo medio-scuro */
-  accent-color-dark: #efe4b7; /* giallo scuro */
+  accent-color-dark: #efe4b7; // giallo scuro */
 }
