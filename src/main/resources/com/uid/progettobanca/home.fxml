@@ -9,11 +9,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <padding>
-      <Insets bottom="30.0" left="200.0" right="200.0" />
+      <Insets left="200.0" right="200.0" />
    </padding>
    <content>
       <VBox prefWidth="840.0" spacing="20.0">
@@ -24,10 +23,7 @@
                      <children>
                         <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label styleClass="titleLabel" text="Home">
-                                 <font>
-                                    <Font name="Comic Sans MS" size="12.0" />
-                                 </font></Label>
+                              <Label styleClass="titleLabel" text="Home" />
                               <Label styleClass="titleLabel" text="100,00 $" />
                            </children>
                         </VBox>
@@ -278,8 +274,8 @@
       </VBox>
    </content>
    <stylesheets>
-      <URL value="@../../../css/fonts.css" />
-      <URL value="@../../../css/dark.css" />
+      <URL value="@../../../css/light.css" />
       <URL value="@../../../css/style.css" />
+      <URL value="@../../../css/fonts.css" />
    </stylesheets>
 </ScrollPane>
