@@ -31,7 +31,7 @@
                <children>
                   <VBox alignment="CENTER">
                      <children>
-                        <Button fx:id="newSpace" mnemonicParsing="false" onMouseClicked="#createNewSpace" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" />
+                        <Button fx:id="newSpace" mnemonicParsing="false" onAction="#createSpaceForm" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" />
                         <Label text="Nuovo spazio" />
                      </children>
                   </VBox>
