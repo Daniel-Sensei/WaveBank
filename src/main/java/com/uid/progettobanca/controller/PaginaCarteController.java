@@ -1,6 +1,10 @@
 package com.uid.progettobanca.controller;
 
         import com.uid.progettobanca.BankApplication;
+        import javafx.animation.Interpolator;
+        import javafx.animation.KeyFrame;
+        import javafx.animation.KeyValue;
+        import javafx.animation.Timeline;
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
         import javafx.fxml.FXMLLoader;
@@ -8,11 +12,13 @@ package com.uid.progettobanca.controller;
         import javafx.scene.control.Button;
         import javafx.scene.control.ScrollPane;
         import javafx.scene.layout.HBox;
+        import javafx.util.Duration;
 
         import java.io.IOException;
 
 public class PaginaCarteController {
-
+    int numcarte=0;
+    float scrollPerPress=0;
     @FXML
     private Button aggiungi;
 
@@ -36,6 +42,11 @@ public class PaginaCarteController {
             FXMLLoader space = new FXMLLoader(BankApplication.class.getResource("/com/uid/progettobanca/carta.fxml"));
             Parent scene = space.load();
             listaCarte.getChildren().add(scene);
+            numcarte++;
+            scrollPerPress = (float) 1/(numcarte-3);
+            if(numcarte >3){
+                destra.setVisible(true);;
+            }
         }
         catch(IOException e){
             System.out.println("contatto fallito");
@@ -45,15 +56,43 @@ public class PaginaCarteController {
     @FXML
     void destraPressed(ActionEvent event) {
         double hvalue = scrollPane.getHvalue();
-        hvalue += 0.1;
-        scrollPane.setHvalue(hvalue < 0 ? 0 : hvalue);
+        hvalue += scrollPerPress;
+      //  scrollPane.setHvalue(hvalue < 0 ? 0 : hvalue);
+        animateHBarValue(scrollPane, hvalue);
+        if(hvalue >= 1){
+            destra.setVisible(false);
+        }
+        if (hvalue > 0){
+            sinistra.setVisible(true);
+        }
     }
 
     @FXML
     void sinistraPressed(ActionEvent event) {
         double hvalue = scrollPane.getHvalue();
-        hvalue -= 0.1;    // da settare in base alla larghezza e numero delle carte
-        scrollPane.setHvalue(hvalue > 1 ? 1 : hvalue);
+        hvalue -= scrollPerPress;
+       // scrollPane.setHvalue(hvalue > 1 ? 1 : hvalue);
+        animateHBarValue(scrollPane, hvalue);
+        if(hvalue <= 0){
+            sinistra.setVisible(false);
+        }
+        if(hvalue < 1){
+            destra.setVisible(true);
+        }
     }
+
+    public void initialize(){
+        destra.setVisible(false);
+        sinistra.setVisible(false);
+    }
+
+    private void animateHBarValue(ScrollPane scrollPane, double newValue) {
+        Timeline timeline = new Timeline();
+        KeyValue kv = new KeyValue(scrollPane.hvalueProperty(), newValue, Interpolator.EASE_BOTH);
+        KeyFrame kf = new KeyFrame(Duration.seconds(0.5), kv);
+        timeline.getKeyFrames().add(kf);
+        timeline.play();
+    }
+
 
 }
