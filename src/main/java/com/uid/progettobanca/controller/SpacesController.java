@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 
-import java.io.File;
 import java.io.IOException;
 
 public class SpacesController {
@@ -32,7 +31,7 @@ public class SpacesController {
     @FXML
     void createNewSpace(MouseEvent event) throws IOException {
         try{
-            FXMLLoader space = new FXMLLoader(BankApplication.class.getResource("/single-space.fxml"));
+            FXMLLoader space = new FXMLLoader(BankApplication.class.getResource("/com/uid/progettobanca/single-space.fxml"));
             Parent scene = space.load();
             listOfSpaces.getChildren().add(scene);
 

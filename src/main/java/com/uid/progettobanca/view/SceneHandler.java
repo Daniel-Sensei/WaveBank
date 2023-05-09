@@ -118,6 +118,16 @@ public class SceneHandler {
         }
     }
 
+    public void createSpaceScene() {
+        try {
+            Parent center = loadRootFromFXML("spaces.fxml");
+            borderPane.setCenter(center);
+            Node centerNode = borderPane.getCenter();
+            BorderPane.setMargin(centerNode, new Insets(0));
+        } catch (IOException ignored) {
+        }
+    }
+
 
 /*****************
     public void createLoginScene() {
