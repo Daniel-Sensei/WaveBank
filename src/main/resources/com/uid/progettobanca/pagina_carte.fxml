@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="981.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.PaginaCarteController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.PaginaCarteController">
    <children>
-      <HBox fx:id="piano" alignment="CENTER" layoutY="1.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox prefHeight="650.0" prefWidth="1280.0">
          <children>
             <Button fx:id="aggiungi" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#aggiungiPremuto" text="Aggiungi Carta" textAlignment="CENTER" />
-            <Button fx:id="sinistra" mnemonicParsing="false" onAction="#sinistraPressed" text="&lt;" />
-            <ScrollPane fx:id="scrollPane" hbarPolicy="ALWAYS" prefHeight="383.0" prefWidth="800.0" styleClass="scrollpane">
-               <content>
-                  <HBox fx:id="listaCarte" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="337.0" prefWidth="202.0" spacing="15.0" />
-               </content>
-            </ScrollPane>
-            <Button fx:id="destra" mnemonicParsing="false" onAction="#destraPressed" text="&gt;" />
+            <HBox fx:id="piano" alignment="CENTER" prefHeight="654.0" prefWidth="1280.0" spacing="20.0">
+               <children>
+                  <Button fx:id="sinistra" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#sinistraPressed" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" text="&lt;" />
+                  <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="569.0" prefWidth="1316.0" styleClass="scrollpane" vbarPolicy="NEVER">
+                     <content>
+                        <HBox fx:id="listaCarte" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="523.0" prefWidth="1077.0" spacing="89.0" />
+                     </content>
+                  </ScrollPane>
+                  <Button fx:id="destra" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#destraPressed" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" text="&gt;" />
+               </children>
+            </HBox>
          </children>
-      </HBox>
+         <padding>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+         </padding>
+      </VBox>
    </children>
-   <stylesheets>
-      <URL value="@../../../css/fonts.css" />
-      <URL value="@../../../css/style.css" />
-      <URL value="@../../../css/light.css" />
-   </stylesheets>
 </AnchorPane>

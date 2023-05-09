@@ -70,13 +70,17 @@
 }
 
 .tertiaryButton {
-    -fx-background-color: quaternaryColor;
-    -fx-background-radius: 10px;
+    -fx-background-color: secondaryColor;
+    -fx-background-radius: 100px;
+    -fx-border-color: tertiaryColor;
+    -fx-border-width: 1px;
+    -fx-border-radius: 100px;
 }
 
 .tertiaryButton:hover,
 .tertiaryButton:focused {
     /*-fx-background-color: shade1;*/ /* NON FUNZIONA */
+    -fx-background-color: quaternaryColor;
     -fx-blend-mode: null;
 }
 
@@ -135,4 +139,18 @@ DA CONTROLLARE
   -fx-border-color: textColor;
   /* Imposta la larghezza del bordo a 1px */
   -fx-border-width: 0.1px;
+}
+
+.frame-carta{
+  -fx-background-color: secondaryColor;
+  -fx-border-radius: 10px;
+  -fx-background-radius: 10px;
+  /* Imposta il colore del bordo su bianco */
+  -fx-border-color: tertiaryColor;
+  /* Imposta la larghezza del bordo a 1px */
+  -fx-border-width: 1.7px;
+}
+
+.carta{  /*non si vede l'ombra sotto la carta*/
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 2);
 }
