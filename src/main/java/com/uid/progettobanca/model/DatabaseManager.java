@@ -14,6 +14,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,8 +78,25 @@ public class DatabaseManager {
             // è l'unica parte che potete modificare all'interno della safe-zone, previa mia autorizzazione
             // so che è presuntuoso ma in quanto admin del db preferirei sapere in anticipo le eventuali modifiche apportate
 
-            statement.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT)");
-            statement.execute("CREATE TABLE IF NOT EXISTS orders (id INTEGER PRIMARY KEY, user_id INTEGER, amount REAL)");
+            statement.execute("CREATE TABLE IF NOT EXISTS conti (iban CHAR(27) PRIMARY KEY, saldo REAL, dataApertura DATE);");
+
+            // è necessazio inserire il prefisso internazionale per il cellulare: es. 0039 Italia
+            statement.execute("CREATE TABLE IF NOT EXISTS utenti ("+
+                                    "cf CHAR(16) PRIMARY KEY, nome VARCHAR(50), cognome VARCHAR(50), "+
+                                    "indirizzo varchar, dataNascita Date, #telefono char(14), email varchar(319), "+
+                                    "iban  CHAR(27) FOREIGN KEY (iban) REFERENCES conti(iban));");
+
+            statement.execute("CREATE TABLE IF NOT EXISTS spaces ("+
+                                    "iban CHAR(27), spaceID INTEGET AUTOINCREMENT, "+
+                                    "saldo REAL, dataApertura DATE, "+
+                                    "PRIMARY KEY (iban, spaceID), "+
+                                    "FOREIGN KEY (iban) REFERENCES conti(iban));");
+
+            statement.execute("CREATE TABLE IF NOT EXISTS carte ("+
+                                    "#carta CHAR(16) PRIMARY KEY, "+
+                                    "cvv char(3), scadenza DATE, "+
+                                    "bloccata TINYINT[1], tipo varchar(10), "+
+                                    "cf CHAR(16) FOREIGN KEY (cf) REFERENCES utenti(cf));");
 
             System.out.println("tabelle inserite");
 
@@ -106,6 +124,36 @@ public class DatabaseManager {
     // il funzionamento è simile tra loro, ma se volete a me sta bene essere l'unico che gestisce il db e creare delle funzioni per voi
     // se volete potete comunque crearvi le funzioni da soli, non ci sono problemi, ma non ne sarò responsabile
     // -gian
+
+    public void inserisciConto(String iban, double saldo, LocalDate dataApertura) throws SQLException {
+        Connection conn = getConnection();
+
+        try {
+            // Verifica che l'IBAN rispetti la regex
+            if (!iban.matches("[A-Z]{2}[0-9]{2}[A-Z][0-9]{22}")) {
+                throw new IllegalArgumentException("L'IBAN inserito non è valido.");
+                //successivamente verrà creato un messaggio d'errore a schermo
+            }
+
+            // Crea la query per l'inserimento dei dati nella tabella
+            String query = "INSERT INTO conti (iban, saldo, dataApertura) VALUES (?, ?, ?)";
+
+            // Prepara la query per l'esecuzione
+            PreparedStatement stmt = conn.prepareStatement(query);
+
+            // Imposta i parametri della query con i valori passati alla funzione
+            stmt.setString(1, iban);
+            stmt.setDouble(2, saldo);
+            stmt.setDate(3, Date.valueOf(dataApertura));
+
+            // Esegui la query per l'inserimento dei dati nella tabella
+            stmt.executeUpdate();
+        } finally {
+            // Chiudi la connessione al database
+            conn.close();
+        }
+    }
+
 
 
     public List<Integer> getUsers() throws SQLException {
