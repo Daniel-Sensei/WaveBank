@@ -1,12 +1,13 @@
 package com.uid.progettobanca.controller;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.view.SceneHandler;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 
 import java.io.IOException;
@@ -28,20 +29,17 @@ public class SpacesController {
     @FXML
     private Label saldo;
 
+    public FlowPane getListOfSpaces() {
+        return listOfSpaces;
+    }
+
     @FXML
-    void createNewSpace(MouseEvent event) throws IOException {
-        try{
-            FXMLLoader space = new FXMLLoader(BankApplication.class.getResource("/com/uid/progettobanca/single-space.fxml"));
-            Parent scene = space.load();
-            listOfSpaces.getChildren().add(scene);
+    void createSpaceForm(ActionEvent event) throws IOException {
+        SceneHandler.getInstance().createSpaceFormScene();
+    }
 
-        }
-        catch(IOException e){
-            System.out.println("contatto fallito");
-        }
-        }
 
-}
+    }
 
 
 

@@ -30,7 +30,7 @@ public class BankApplication extends Application {
         SceneHandler.getInstance().init(stage);
 
         //per passare poi alla pagina che volete bisogna aggiungere una seconda chiamata del tipo: --> SceneHandler.getInstance().<nomeMetodo()>;
-        //ad esempio per debuggin o se non ci sono i pulsati per controllare com'è la schermata operazioni aggiungo:
+        //successivamente questa funzioone dovrà essere richiamata dal pulsante nella menubar
         //SceneHandler.getInstance().createOperationScene();
     }
 
