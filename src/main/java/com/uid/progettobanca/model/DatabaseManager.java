@@ -63,6 +63,18 @@ public class DatabaseManager {
         }
     }
 
+    private static String getIbanCheckTrigger(String tableName, String ibanColumnName) {
+        return "CREATE TRIGGER check_iban_" + tableName + "\n" +
+                "BEFORE INSERT ON " + tableName + "\n" +
+                "FOR EACH ROW\n" +
+                "BEGIN\n" +
+                "    IF NOT (NEW." + ibanColumnName + " REGEXP '[A-Z]{2}[0-9]{2}[A-Z][0-9]{22}') THEN\n" +
+                "       SELECT RAISE(ABORT, 'Il valore inserito nel campo IBAN non rispetta il formato richiesto.') WHERE 1;\n" +
+                "    END IF;\n" +
+                "END;";
+    }
+
+
     private void createDatabase(Path dbPath) throws SQLException {
         Connection connection = null;
         Statement statement = null;
@@ -155,6 +167,18 @@ public class DatabaseManager {
                                     "nome VARCHAR(50) not null, cognome VARCHAR(50) not null, "+
                                     "iban_to  CHAR(27) not null, "+
                                     "cf CHAR(16) FOREIGN KEY (cf) REFERENCES utenti(cf));");
+
+
+            //di seguito sono riportati i trigger che controllano che l'iban inserito sia valido:
+
+            statement.execute(getIbanCheckTrigger("conti", "iban"));
+
+            statement.execute(getIbanCheckTrigger("utenti", "iban"));
+
+            statement.execute(getIbanCheckTrigger("rubrica", "iban_to"));
+
+            statement.execute(getIbanCheckTrigger("aziende", "iban"));
+
 
         } catch (SQLException e) {
             System.err.println("Error creating database: " + e.getMessage());
