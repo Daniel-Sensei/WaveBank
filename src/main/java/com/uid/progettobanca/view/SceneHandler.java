@@ -23,10 +23,12 @@ public class SceneHandler {
     private Scene scene;
 
     private final static String RESOURCE_PATH = "/";
-    /*
+
+    /**
     private final static String CSS_PATH = RESOURCE_PATH + "css/";
     private String theme = "light";
-     */
+     **/
+
     private final static String FONTS_PATH = RESOURCE_PATH + "fonts/";
 
     private BorderPane borderPane = new BorderPane();
@@ -44,7 +46,6 @@ public class SceneHandler {
             this.stage = stage;
             this.stage.setTitle("Wave Bank");
             scene = new Scene(borderPane, 1280, 720);
-            stage.setTitle("BankApplication");
 
             loadFonts();
 
@@ -80,20 +81,6 @@ public class SceneHandler {
         } catch (IOException ignored) {
         }
     }
-
-
-    /*************
-     //POTETE UTILIZZARE QUESTO COME TEPLATE
-         public void createNOMEScene() {
-            try {
-                Parent center = loadRootFromFXML("NOMEFILE.fxml");
-                borderPane.setCenter(center);
-                Node centerNode = borderPane.getCenter();
-                BorderPane.setMargin(centerNode, new Insets(0));
-            } catch (IOException ignored) {
-            }
-         }
-     *************/
 
     public void createPage(String pageName) {
         try {
