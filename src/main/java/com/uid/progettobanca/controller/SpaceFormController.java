@@ -36,7 +36,7 @@ public class SpaceFormController {
 
     @FXML
     void cancelSpaceForm(ActionEvent event) {
-        SceneHandler.getInstance().createSpaceScene();
+        SceneHandler.getInstance().createPage("space-form.fxml");
     }
 
     @FXML

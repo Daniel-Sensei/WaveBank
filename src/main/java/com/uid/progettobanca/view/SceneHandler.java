@@ -50,7 +50,7 @@ public class SceneHandler {
 
 
             createMenuBar();
-            createHomeScene();
+            createPage("home.fxml");
             this.stage.setScene(scene);
             this.stage.getScene().getStylesheets().addAll("css/fonts.css", "css/light.css", "css/style.css");
             this.stage.setResizable(false);
@@ -96,42 +96,11 @@ public class SceneHandler {
          }
      *************/
 
-    public void createHomeScene() {
+    public void createPage(String pageName) {
         try {
-            Parent home = loadRootFromFXML("home.fxml");
-            borderPane.setCenter(home);
+            Parent page = loadRootFromFXML(pageName);
+            borderPane.setCenter(page);
             //per rimuovere le parti inutilizzate (inferiore, sinistra e destra)
-            Node centerNode = borderPane.getCenter();
-            BorderPane.setMargin(centerNode, new Insets(0));
-        } catch (IOException ignored) {
-        }
-    }
-
-    public void createOperationScene() {
-        try {
-            Parent operation =loadRootFromFXML("operations_temp.fxml");
-            borderPane.setCenter(operation);
-            //per rimuovere le parti inutilizzate (inferiore, sinistra e destra)
-            Node centerNode = borderPane.getCenter();
-            BorderPane.setMargin(centerNode, new Insets(0));
-        } catch (IOException ignored) {
-        }
-    }
-
-    public void createSpaceScene() {
-        try {
-            Parent center = loadRootFromFXML("spaces.fxml");
-            borderPane.setCenter(center);
-            Node centerNode = borderPane.getCenter();
-            BorderPane.setMargin(centerNode, new Insets(0));
-        } catch (IOException ignored) {
-        }
-    }
-
-    public void createSpaceFormScene() {
-        try {
-            Parent center = loadRootFromFXML("space-form.fxml");
-            borderPane.setCenter(center);
             Node centerNode = borderPane.getCenter();
             BorderPane.setMargin(centerNode, new Insets(0));
         } catch (IOException ignored) {

@@ -7,6 +7,6 @@ public class HomeController {
 
     @FXML
     protected void onOperazioniButtonClick() {
-        SceneHandler.getInstance().createOperationScene();
+        SceneHandler.getInstance().createPage("operations_temp.fxml");
     }
 }
