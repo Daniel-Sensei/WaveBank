@@ -12,7 +12,7 @@
 }
 
 /* TEXT FIELDS */
-.text-field {
+/*.text-field {
     -fx-background-color: tertiaryColor;
     -fx-border-radius: 5px;
     -fx-border-width: 3px;
@@ -24,7 +24,7 @@
 .text-field:hover,
 .text-field:focused {
     -fx-border-color: tertiaryColor;
-}
+}*/
 
 /* TEXT AREA */
 .text-area {
@@ -37,7 +37,7 @@
 }
 
 .text-area:hover,
-.text-field:focused {
+.text-area:focused {
     -fx-border-color: tertiaryColor;
 }
 
@@ -192,3 +192,18 @@ DA CONTROLLARE
 .vbox-with-rounded-border-hbox:focused{
     -fx-background-color: shade2;
 }
+
+.text-field-prova {
+    -fx-border-width: 0 0 0 4px; /* Imposta la larghezza del bordo solo per il lato sinistro */
+    -fx-border-color: transparent;
+    -fx-transition: -fx-border-color 0.3s;
+    -fx-background-color: backgroundColor;
+    -fx-font-size: 18px;
+    -fx-text-fill: textColor;
+}
+
+.text-field-prova:hover,
+.text-field-prova:focused {
+    -fx-border-color: #36a18b;
+}
+
