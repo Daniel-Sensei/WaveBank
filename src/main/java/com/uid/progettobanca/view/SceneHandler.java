@@ -22,7 +22,7 @@ public class SceneHandler {
     private Stage stage;
     private Scene scene;
 
-    private final static String RESOURCE_PATH = "/";
+    private final static String RESOURCE_PATH = "/css/";
 
     /**
     private final static String CSS_PATH = RESOURCE_PATH + "css/";
@@ -45,6 +45,9 @@ public class SceneHandler {
         if (this.stage == null) {
             this.stage = stage;
             this.stage.setTitle("Wave Bank");
+
+            borderPane.getStyleClass().add("root"); /*imposta proprietà root per il font family*/
+
             scene = new Scene(borderPane, 1280, 720);
 
             loadFonts();
@@ -52,7 +55,9 @@ public class SceneHandler {
             createMenuBar();
             createPage("home.fxml");
             this.stage.setScene(scene);
-            this.stage.getScene().getStylesheets().addAll("css/fonts.css", "css/light.css", "css/style.css");
+
+            this.stage.getScene().getStylesheets().addAll("/css/fonts.css", "/css/light.css", "/css/style.css");
+
             this.stage.setResizable(false);
             this.stage.show();
         }
@@ -67,7 +72,7 @@ public class SceneHandler {
     }
 
     private void loadFonts() {
-        for (String font : List.of(FONTS_PATH + "Roboto/Roboto-Regular.ttf", FONTS_PATH + "Roboto/Roboto-Bold.ttf")) {
+        for (String font : List.of(FONTS_PATH + "Roboto/Roboto-Regular.ttf", FONTS_PATH + "Roboto/Roboto-Bold.ttf", FONTS_PATH + "GoodDog.otf")) {
             Font.loadFont(Objects.requireNonNull(SceneHandler.class.getResource(font)).toExternalForm(), 10);
         }
     }

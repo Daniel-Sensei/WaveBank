@@ -1,8 +1,3 @@
-@font-face {
-    font-family: 'DarumaDropOne';
-    src: url('/fonts/DarumadropOne/DarumadropOne-Regular.ttf');
-}
-
-.serialConn {
-    -fx-font-family: 'DarumaDropOne';
+.root {
+    -fx-font-family: 'Roboto';
 }
