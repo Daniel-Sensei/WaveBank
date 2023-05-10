@@ -24,14 +24,14 @@ public class BankApplication extends Application {
     public void start(Stage stage){
 
         // inserisco la funzione createDB() per rendere il tutto più pulito e leggibile
-        createDB();
+        // attualmente è commentata in attesa che il db sia pronto
+        //createDB();
 
         //qui viene inizializzata la scena principale con menù bar ed home di default
         SceneHandler.getInstance().init(stage);
 
-        //per passare poi alla pagina che volete bisogna aggiungere una seconda chiamata del tipo: --> SceneHandler.getInstance().<nomeMetodo()>;
+        //per passare alla pagina che volete bisogna aggiungere una seconda chiamata --> SceneHandler.getInstance().nomeMetodo();
         //successivamente questa funzioone dovrà essere richiamata dal pulsante nella menubar
-        //SceneHandler.getInstance().createOperationScene();
     }
 
     public static void main(String[] args) {
