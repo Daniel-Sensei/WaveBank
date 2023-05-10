@@ -66,7 +66,7 @@ public class SceneHandler {
     }
 
     private void loadFonts() {
-        for (String font : List.of(FONTS_PATH + "DarumadropOne/DarumadropOne-Regular.ttf")) {
+        for (String font : List.of(FONTS_PATH + "Roboto/Roboto-Regular.ttf", FONTS_PATH + "Roboto/Roboto-Bold.ttf")) {
             Font.loadFont(Objects.requireNonNull(SceneHandler.class.getResource(font)).toExternalForm(), 10);
         }
     }
