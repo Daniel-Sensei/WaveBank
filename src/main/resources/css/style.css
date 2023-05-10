@@ -137,3 +137,13 @@ DA CONTROLLARE
 .transaction:focused {
     -fx-background-color: shade2;
 }
+
+.card{
+  -fx-background-color: secondaryColor;
+  -fx-border-radius: 10px;
+  -fx-background-radius: 10px;
+  /* Imposta il colore del bordo su bianco */
+  -fx-border-color: textColor;
+  /* Imposta la larghezza del bordo a 1px */
+  -fx-border-width: 0.3px;
+}

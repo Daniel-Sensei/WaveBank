@@ -43,9 +43,11 @@ public class PaginaCarteController {
             Parent scene = space.load();
             listaCarte.getChildren().add(scene);
             numcarte++;
-            scrollPerPress = (float) 1/(numcarte-3);
-            if(numcarte >3){
+            scrollPerPress = (float) 1/(numcarte-1);
+            if(numcarte >1){
                 destra.setVisible(true);;
+                sinistra.setVisible(true);
+                sinistra.setDisable(true);
             }
         }
         catch(IOException e){
@@ -60,10 +62,10 @@ public class PaginaCarteController {
       //  scrollPane.setHvalue(hvalue < 0 ? 0 : hvalue);
         animateHBarValue(scrollPane, hvalue);
         if(hvalue >= 1){
-            destra.setVisible(false);
+            destra.setDisable(true);
         }
         if (hvalue > 0){
-            sinistra.setVisible(true);
+            sinistra.setDisable(false);
         }
     }
 
@@ -74,10 +76,10 @@ public class PaginaCarteController {
        // scrollPane.setHvalue(hvalue > 1 ? 1 : hvalue);
         animateHBarValue(scrollPane, hvalue);
         if(hvalue <= 0){
-            sinistra.setVisible(false);
+            sinistra.setDisable(true);
         }
         if(hvalue < 1){
-            destra.setVisible(true);
+            destra.setDisable(false);
         }
     }
 
