@@ -48,7 +48,6 @@ public class SceneHandler {
 
             loadFonts();
 
-
             createMenuBar();
             createPage("home.fxml");
             this.stage.setScene(scene);
