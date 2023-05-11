@@ -53,7 +53,7 @@ public class SceneHandler {
             loadFonts();
 
             createMenuBar();
-            createPage("home.fxml");
+            createPage("spaces.fxml");
             this.stage.setScene(scene);
 
             this.stage.getScene().getStylesheets().addAll("/css/fonts.css", "/css/light.css", "/css/style.css");
@@ -91,9 +91,15 @@ public class SceneHandler {
         try {
             Parent page = loadRootFromFXML(pageName);
             borderPane.setCenter(page);
+            page.requestFocus();
+            page.setOnMouseClicked(event -> {
+                // Rimuovi il focus da qualsiasi elemento attualmente in focus
+                page.requestFocus();
+            });
             //per rimuovere le parti inutilizzate (inferiore, sinistra e destra)
             Node centerNode = borderPane.getCenter();
             BorderPane.setMargin(centerNode, new Insets(0));
+
         } catch (IOException ignored) {
         }
     }

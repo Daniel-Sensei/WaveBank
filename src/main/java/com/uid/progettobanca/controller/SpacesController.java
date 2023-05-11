@@ -36,6 +36,7 @@ public class SpacesController {
     @FXML
     void createSpaceForm(ActionEvent event) throws IOException {
         SceneHandler.getInstance().createPage("space-form.fxml");
+
     }
 
 
