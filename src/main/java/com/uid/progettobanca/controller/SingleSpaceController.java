@@ -24,15 +24,7 @@ public class SingleSpaceController {
 
     @FXML
     void openSpaceForm(ActionEvent event) throws IOException {
-            try{
-                FXMLLoader space = new FXMLLoader(BankApplication.class.getResource("/com/uid/progettobanca/single-space.fxml"));
-                Parent scene = space.load();
-
-
-            }
-            catch(IOException e){
-                System.out.println("contatto fallito");
-            }
+        SceneHandler.getInstance().createPage("space-form.fxml");
         }
     }
 
