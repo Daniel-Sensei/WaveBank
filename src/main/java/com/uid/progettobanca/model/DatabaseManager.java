@@ -120,6 +120,7 @@ public class DatabaseManager {
             statement.execute("CREATE TABLE IF NOT EXISTS spaces ("+
                                     "iban CHAR(27), spaceID INTEGET AUTOINCREMENT, "+
                                     "saldo REAL not null, dataApertura DATE not null, "+
+                                    "nome VARCHAR not null, imagePath VARCHAR not null, "+
                                     "PRIMARY KEY (iban, spaceID), "+
                                     "FOREIGN KEY (iban) REFERENCES conti(iban));");
 

@@ -8,11 +8,17 @@ public class Space {
     private double saldo;
     private LocalDate dataApertura;
 
-    public Space(String iban, int spaceID, double saldo, LocalDate dataApertura) {
+    private String nome;
+
+    private String imagePath;
+
+    public Space(String iban, int spaceID, double saldo, LocalDate dataApertura, String nome, String imagePath) {
         this.iban = iban;
         this.spaceID = spaceID;
         this.saldo = saldo;
         this.dataApertura = dataApertura;
+        this.nome = nome;
+        this.imagePath = imagePath;
     }
 
     public String getIban() {
@@ -47,6 +53,14 @@ public class Space {
         this.dataApertura = dataApertura;
     }
 
+    public String getNome() {return nome;}
+
+    public void setNome(String nome) {this.nome = nome;}
+
+    public String getImagePath() {return imagePath;}
+
+    public void setImagePath(String imagePath) {this.imagePath = imagePath;}
+
     @Override
     public String toString() {
         return "Spaces{" +
@@ -54,6 +68,8 @@ public class Space {
                 ", spaceID=" + spaceID +
                 ", saldo=" + saldo +
                 ", dataApertura=" + dataApertura +
+                ", nome='" + nome + '\'' +
+                ", imagePath='" + imagePath + '\'' +
                 '}';
     }
 }

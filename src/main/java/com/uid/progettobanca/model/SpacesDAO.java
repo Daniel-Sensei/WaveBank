@@ -18,11 +18,13 @@ public class SpacesDAO {
     //inserimento tramite oggetto di tipo space
 
     public void insert(Space spaces) throws SQLException {
-        String query = "INSERT INTO spaces (iban, saldo, dataApertura) VALUES (?, ?, ?)";
+        String query = "INSERT INTO spaces (iban, saldo, dataApertura, nome, imagePath) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, spaces.getIban());
             stmt.setDouble(2, spaces.getSaldo());
             stmt.setDate(3, Date.valueOf(spaces.getDataApertura()));
+            stmt.setString(4, spaces.getNome());
+            stmt.setString(5, spaces.getImagePath());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
@@ -46,7 +48,9 @@ public class SpacesDAO {
                             result.getString("iban"),
                             result.getInt("spaceID"),
                             result.getDouble("saldo"),
-                            result.getDate("dataApertura").toLocalDate()
+                            result.getDate("dataApertura").toLocalDate(),
+                            result.getString("nome"),
+                            result.getString("imagePath")
                     );
                 } else {
                     return null;
@@ -65,7 +69,9 @@ public class SpacesDAO {
                             result.getString("iban"),
                             result.getInt("spaceID"),
                             result.getDouble("saldo"),
-                            result.getDate("dataApertura").toLocalDate()
+                            result.getDate("dataApertura").toLocalDate(),
+                            result.getString("nome"),
+                            result.getString("imagePath")
                         )
                     );
             }
@@ -76,13 +82,14 @@ public class SpacesDAO {
 
     //  aggiornamento:
 
-    public void update(Space spaces) throws SQLException {
-        String query = "UPDATE spaces SET saldo = ?, dataApertura = ? WHERE iban = ? AND spaceID = ?";
+    public void update(Space space) throws SQLException {
+        String query = "UPDATE spaces SET saldo = ?, nome = ?, imagePath = ? WHERE iban = ? AND spaceID = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setDouble(1, spaces.getSaldo());
-            stmt.setDate(2, Date.valueOf(spaces.getDataApertura()));
-            stmt.setString(3, spaces.getIban());
-            stmt.setInt(4, spaces.getSpaceID());
+            stmt.setDouble(1, space.getSaldo());
+            stmt.setString(2, space.getNome());
+            stmt.setString(3, space.getImagePath());
+            stmt.setString(4, space.getIban());
+            stmt.setInt(5, space.getSpaceID());
             stmt.executeUpdate();
         }
     }
