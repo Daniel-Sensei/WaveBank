@@ -36,7 +36,6 @@ public class TransazioniDAO {
     }
 
 
-
     //  getting:
 
     //seleziona una transazione tramite l'id di quest'ultima
@@ -46,8 +45,7 @@ public class TransazioniDAO {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return new Transazione(
-                            rs.getInt("transaction_id"),
+                    return new Transazione(id,
                             rs.getString("iban_from"),
                             rs.getString("iban_to"),
                             rs.getInt("space_from"),

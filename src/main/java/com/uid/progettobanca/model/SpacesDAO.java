@@ -24,29 +24,29 @@ public class SpacesDAO {
             stmt.setString(4, space.getNome());
             stmt.setString(5, space.getImagePath());
             stmt.executeUpdate();
-            ResultSet rs = stmt.getGeneratedKeys();
-            if (rs.next()) {
-                space.setSpaceId(rs.getInt(1));
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    space.setSpaceId(rs.getInt(1));
+                }
             }
-            rs.close();
         }
     }
 
 
     //  getting:
 
-    public Space selectByIbanSpaceId(String iban, int spaceID) throws SQLException {
-        String query = "SELECT * FROM spaces WHERE iban = ? AND spaceID = ?";
+    public Space selectByIbanSpace_id(String iban, int space_id) throws SQLException {
+        String query = "SELECT * FROM spaces WHERE iban = ? AND space_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
-            stmt.setInt(2, spaceID);
-            try (ResultSet result = stmt.executeQuery()) {
-                if (result.next()) {
-                    return new Space(iban, spaceID,
-                            result.getDouble("saldo"),
-                            result.getDate("dataApertura").toLocalDate(),
-                            result.getString("nome"),
-                            result.getString("imagePath")
+            stmt.setInt(2, space_id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Space(iban, space_id,
+                            rs.getDouble("saldo"),
+                            rs.getDate("dataApertura").toLocalDate(),
+                            rs.getString("nome"),
+                            rs.getString("imagePath")
                     );
                 } else {
                     return null;
@@ -59,15 +59,15 @@ public class SpacesDAO {
         String query = "SELECT * FROM spaces WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
-            try (ResultSet result = stmt.executeQuery()) {
+            try (ResultSet rs = stmt.executeQuery()) {
                 List<Space> spaces = new ArrayList<>();
-                while (result.next()) {
+                while (rs.next()) {
                     spaces.add(new Space(iban,
-                                    result.getInt("spaceID"),
-                                    result.getDouble("saldo"),
-                                    result.getDate("dataApertura").toLocalDate(),
-                                    result.getString("nome"),
-                                    result.getString("imagePath")
+                                    rs.getInt("space_id"),
+                                    rs.getDouble("saldo"),
+                                    rs.getDate("dataApertura").toLocalDate(),
+                                    rs.getString("nome"),
+                                    rs.getString("imagePath")
                             )
                     );
                 }
@@ -81,7 +81,7 @@ public class SpacesDAO {
 
     //aggiornamento limitato a saldo, nome e imagePath tramite oggetto di tipo space
     public void update(Space space) throws SQLException {
-        String query = "UPDATE spaces SET saldo = ?, nome = ?, imagePath = ? WHERE iban = ? AND spaceID = ?";
+        String query = "UPDATE spaces SET saldo = ?, nome = ?, imagePath = ? WHERE iban = ? AND space_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setDouble(1, space.getSaldo());
             stmt.setString(2, space.getNome());
@@ -92,40 +92,13 @@ public class SpacesDAO {
         }
     }
 
-    //aggiornamento generico di un campo per evitare duplicazione di codice
-    public void updateField(String fieldName, String fieldValue, String iban, int spaceID) throws SQLException {
-        String query = "UPDATE spaces SET " + fieldName + " = ? WHERE iban = ? AND spaceID = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, fieldValue);
-            stmt.setString(2, iban);
-            stmt.setInt(3, spaceID);
-            stmt.executeUpdate();
-        }
-    }
-
-    //aggiornamento del saldo tramite id e iban
-    public void updateSaldo(double saldo, String iban, int spaceID) throws SQLException {
-        updateField("saldo", String.valueOf(saldo), iban, spaceID);
-    }
-
-    //aggiornamento del nome tramite id e iban
-    public void updateNome(String nome, String iban, int spaceID) throws SQLException {
-        updateField("nome", nome, iban, spaceID);
-    }
-
-    //aggiornamento dell'immagine tramite id e iban
-    public void updateImagePath(String imagePath, String iban, int spaceID) throws SQLException {
-        updateField("imagePath", imagePath, iban, spaceID);
-    }
-
-
     //  rimozione:
 
-    public void delete(Space spaces) throws SQLException {
-        String query = "DELETE FROM spaces WHERE iban = ? AND spaceID = ?";
+    public void delete(String iban, int space_id) throws SQLException {
+        String query = "DELETE FROM spaces WHERE iban = ? AND space_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, spaces.getIban());
-            stmt.setInt(2, spaces.getSpaceId());
+            stmt.setString(1, iban);
+            stmt.setInt(2, space_id);
             stmt.executeUpdate();
         }
     }

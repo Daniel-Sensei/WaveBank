@@ -118,7 +118,7 @@ public class DatabaseManager {
                                     "iban  CHAR(27)  not null FOREIGN KEY (iban) REFERENCES conti(iban));");
 
             statement.execute("CREATE TABLE IF NOT EXISTS spaces ("+
-                                    "iban CHAR(27), spaceID INTEGET AUTOINCREMENT, "+
+                                    "iban CHAR(27), space_id INTEGET AUTOINCREMENT, "+
                                     "saldo REAL not null, dataApertura DATE not null, "+
                                     "nome VARCHAR not null, imagePath VARCHAR not null, "+
                                     "PRIMARY KEY (iban, spaceID), "+
@@ -163,8 +163,8 @@ public class DatabaseManager {
                                     "iban  CHAR(27) unique not null);");
 
             //il campo cf chiave esterna indica l'utente che ha inserito la voce nella rubrica, così facendo possiamo dividere le voci associate per utente
-            statement.execute("CREATE TABLE IF NOT EXISTS rubrica ("+
-                                    "rubrica_id INTEGET AUTOINCREMENT PRIMARY KEY, "+
+            statement.execute("CREATE TABLE IF NOT EXISTS contatti ("+
+                                    "contatto_id INTEGET AUTOINCREMENT PRIMARY KEY, "+
                                     "nome VARCHAR(50) not null, cognome VARCHAR(50) not null, "+
                                     "iban_to  CHAR(27) not null, "+
                                     "cf CHAR(16) FOREIGN KEY (cf) REFERENCES utenti(cf));");
