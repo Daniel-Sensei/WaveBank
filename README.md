@@ -1,9 +1,19 @@
-# progettoBanca
+# Progetto Banca
 
-# description
+# Disclaimer
+This project is for educational purposes only. 
+It is not intended to be used for any other purpose.
+
+# Copyright
+We do not own any of the copyright protected material that may have been used in this project.
+All the rights belong to the respective owners.
+
+# Description
 Project for UID exam: 
 Online Banking Application
 
-Key-Words:
-TBR (to-be-reviewed): waiting for group leader to check the file/s
-TBF (to-be-fixed): know error that has to be fixed
+# Authors
+- Daniel-Sensei
+- Gianpoo
+- Tropy22
+- Tulorolo
