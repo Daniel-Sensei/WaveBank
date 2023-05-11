@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane prefHeight="660.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController">
+<ScrollPane prefHeight="620.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController">
    <content>
       <VBox prefWidth="920.0" spacing="20.0">
          <children>
             <VBox>
                <children>
-                  <Label fx:id="Title" text="Spaces">
+                  <Label fx:id="Title" styleClass="BankTitleLabel" text="Spaces">
                      <font>
                         <Font size="24.0" />
                      </font>
