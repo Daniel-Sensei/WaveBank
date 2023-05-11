@@ -8,12 +8,14 @@
   tertiaryColor: #f2f2f2; /* grigio chiaro searchBar N26 */
   quaternaryColor: #efeced; /* grigio scuro N26 */
 
+  borderColor: #d8d8d8; /* grigio chiaro */
+
   textColor: black; /* nero */
 
   shade1: #5cb3a0; /* verde chiaro */
   shade2: #f0f0f0; /* grigio chiaro */
 
   /* DA COMPLETARE */
-  accent-color: #f1eac7; /* giallo medio-scuro */
-  accent-color-dark: #efe4b7; // giallo scuro */
+  accentColor: #9a9a9a; /* grigio-scuro */
+  accentColorDark: #efe4b7; // giallo scuro */
 }

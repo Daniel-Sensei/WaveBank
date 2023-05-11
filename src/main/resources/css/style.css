@@ -11,6 +11,51 @@
     -fx-background-color: backgroundColor;
 }
 
+/* SCROLL BAR */
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: backgroundColor;
+    -fx-border-color : transparent;
+}
+
+.scroll-bar .increment-button ,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0.25em;
+    -fx-background-insets: 2 1 2 1, 3 2 3 2, 4 3 4 3;
+}
+
+.scroll-bar .increment-button:hover ,
+.scroll-bar .decrement-button:hover {
+    -fx-background-color: shade2;
+    -fx-padding: 0.25em;
+    -fx-background-insets: 2 1 2 1, 3 2 3 2, 4 3 4 3;
+}
+
+.scroll-bar > .increment-button > .increment-arrow,
+.scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: textColor;
+}
+
+.scroll-bar > .increment-button:hover > .increment-arrow,
+.scroll-bar > .decrement-button:hover > .decrement-arrow {
+    -fx-background-color: textColor;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-background-color: borderColor;
+}
+
+
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover{
+    -fx-background-color: accentColor;
+}
+
 /* TEXT FIELDS */
 /*.text-field {
     -fx-background-color: tertiaryColor;
@@ -29,17 +74,26 @@
 /* TEXT AREA */
 .text-area {
     -fx-background-color: transparent;
+    /*
     -fx-border-radius: 5px;
     -fx-border-width: 3px;
     -fx-border-color: tertiaryColor;
+    */
+
     -fx-font-size: 13px;
     -fx-text-fill: textColor;
 }
 
+.text{
+    -fx-fill: textColor;
+}
+
+/*
 .text-area:hover,
 .text-area:focused {
     -fx-border-color: tertiaryColor;
 }
+*/
 
 /* BUTTONS */
 .button {
@@ -61,7 +115,7 @@
 
 .secondaryButton {
     -fx-background-color: backgroundColor;
-    -fx-border-color: textColor;
+    -fx-border-color: borderColor;
     -fx-border-width: 0.2px;
     -fx-border-radius: 100px;
     -fx-text-fill: textColor;
@@ -97,7 +151,7 @@
     -fx-text-fill: textColor;
     -fx-background-color: transparent;
     /*-fx-font-weight: bold;*/
-    -fx-font-size: 12px;
+    -fx-font-size: 13px;
 }
 
 .BankTitleLabel {
@@ -110,6 +164,11 @@
     -fx-font-family: "Roboto Bold";
 }
 
+.subtitleLabel {
+    -fx-font-size: 14px;
+    -fx-font-family: "Roboto Bold";
+}
+
 /* MENU BAR */
 .menu-bar {
     -fx-background-color: secondaryColor;
@@ -117,52 +176,67 @@
 
 .menu-bar .label {
     -fx-font-size: 16px;
-    /*-fx-font-weight: bold;*/
+    -fx-font-family: "Roboto Bold";
 }
 
 .menu-bar .label:hover,
 .menu-bar .label:focused{
-    /*
+
     -fx-background-color: derive(shade1, 15%);
+    -fx-text-fill: white;
     -fx-background-radius: 10px;
-    */
-    -fx-text-fill: primaryColor;
-}
 
-/*
-DA CONTROLLARE
-
-.menu-bar .label {
-    -fx-font-size: 30px;
 }
-*/
 
 .search-bar {
   -fx-background-color: tertiaryColor;
   -fx-background-radius: 10px;
 }
 
-.transaction{
-  -fx-background-color: secondaryColor;
-  -fx-border-radius: 10px;
-  -fx-background-radius: 10px;
-  /* Imposta il colore del bordo su bianco */
-  -fx-border-color: textColor;
-  /* Imposta la larghezza del bordo a 1px */
-  -fx-border-width: 0.1px;
+/* NON TOCCATE QUESTA VBOX E LE HBOX SOTTO */
+
+.vbox-with-rounded-border {
+    -fx-background-color: secondaryColor; /* Colore di sfondo della VBox */
+    -fx-background-radius: 10px; /* Raggio dei bordi per rendere la VBox tondeggiante */
+    -fx-border-radius: 10px;
+    -fx-border-color: borderColor;
+    -fx-border-width: 0.4px 0.4px 0px 0.4px;
 }
 
-.transaction:hover,
-.transaction:focused {
-    -fx-background-color: shade2;
+.vbox-with-rounded-border-hbox {
+    -fx-border-color: borderColor;
+    -fx-border-width: 0 0 0.4px 4px;
 }
+
+.vbox-with-rounded-border-hbox-bottom {
+    -fx-border-color: borderColor;
+    -fx-border-width: 0 0 0px 4px;
+}
+
+.vbox-with-rounded-border-hbox:hover,
+.vbox-with-rounded-border-hbox:focused{
+    -fx-background-color: shade2; /*OPPURE SI PUO METTERE shade2*/
+    -fx-border-width: 0 0 0px 4px; /* Imposta la larghezza del bordo solo per il lato sinistro */
+    -fx-border-color: #36a18b;
+    -fx-transition: -fx-border-color 0.6s;
+}
+
+.vbox-with-rounded-border-hbox-bottom:hover,
+.vbox-with-rounded-border-hbox-bottom:focused{
+    -fx-background-color: shade2; /*OPPURE SI PUO METTERE shade2*/
+    -fx-border-width: 0 0 0 4px; /* Imposta la larghezza del bordo solo per il lato sinistro */
+    -fx-border-color: #36a18b;
+    -fx-transition: -fx-border-color 0.6s;
+}
+
+/* CARD FORTUNATO */
 
 .card{
   -fx-background-color: secondaryColor;
   -fx-border-radius: 10px;
   -fx-background-radius: 10px;
-  -fx-border-color: textColor;
-  -fx-border-width: 0.3px;
+  -fx-border-color: borderColor; /* da salvare nel light.css */
+  -fx-border-width: 0.4px;
 }
 
 .card-no-border{
@@ -170,28 +244,12 @@ DA CONTROLLARE
   -fx-border-radius: 10px;
   -fx-background-radius: 10px;
   -fx-border-width: 0 0 1px 0;
-  -fx-border-color: textColor;
+  -fx-border-color: borderColor;
   /* Imposta il colore del bordo su bianco */
   /* Imposta la larghezza del bordo a 1px */
 }
 
-.vbox-with-rounded-border {
-    -fx-background-color: secondaryColor; /* Colore di sfondo della VBox */
-    -fx-background-radius: 10px; /* Raggio dei bordi per rendere la VBox tondeggiante */
-    -fx-border-radius: 10px;
-    -fx-border-color: textColor;
-    -fx-border-width: 0.2px;
-}
-
-.vbox-with-rounded-border-hbox {
-    -fx-border-color: textColor;
-    -fx-border-width: 0 0 0.2px 0; /* Imposta solo il bordo inferiore delle HBox a 1px */
-}
-
-.vbox-with-rounded-border-hbox:hover,
-.vbox-with-rounded-border-hbox:focused{
-    -fx-background-color: shade2;
-}
+/* TEST */
 
 .text-field-prova {
     -fx-border-width: 0 0 0 4px; /* Imposta la larghezza del bordo solo per il lato sinistro */
@@ -207,3 +265,8 @@ DA CONTROLLARE
     -fx-border-color: #36a18b;
 }
 
+.rubrica{
+   -fx-border-width: 0.4px 0 0.4px 0;
+   -fx-border-color: borderColor;
+   -fx-border-radius: 10px;
+}

@@ -8,16 +8,17 @@
   tertiaryColor: #2D2D2D; /* grigio chiaro N26 */
   quaternaryColor: #3b3b3b; /* grigio chiaro barra N26 */
 
+  borderColor: #808080; /* grigio chiaro */
+
   textColor: #ffffff; /* bianco */
 
   shade1: #5cb3a0; /* verde chiaro */
   shade2: #252525; /* grigio scuro */
 
-  /*
-  DA COMPLETARE
 
-  accent-color:  #28292d; // grigio scuro
-  accent-color-dark: #1e1f23; // grigio scuro scuro
-  */
+
+  accentColor:  #666666;
+  accentColorDark: #1e1f23;
+
 
 }
