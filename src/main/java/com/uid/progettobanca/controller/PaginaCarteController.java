@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller;
 
         import com.uid.progettobanca.BankApplication;
+        import com.uid.progettobanca.view.SceneHandler;
         import javafx.animation.Interpolator;
         import javafx.animation.KeyFrame;
         import javafx.animation.KeyValue;
@@ -11,6 +12,7 @@ package com.uid.progettobanca.controller;
         import javafx.scene.Parent;
         import javafx.scene.control.Button;
         import javafx.scene.control.ScrollPane;
+        import javafx.scene.image.ImageView;
         import javafx.scene.layout.HBox;
         import javafx.util.Duration;
 
@@ -38,22 +40,9 @@ public class PaginaCarteController {
 
     @FXML
     void aggiungiPremuto(ActionEvent event) {
-        try{
-            FXMLLoader space = new FXMLLoader(BankApplication.class.getResource("/com/uid/progettobanca/carta.fxml"));
-            Parent scene = space.load();
-            listaCarte.getChildren().add(scene);
-            numcarte++;
-            scrollPerPress = (float) 1/(numcarte-1);
-            if(numcarte >1){
-                destra.setVisible(true);;
-                sinistra.setVisible(true);
-                sinistra.setDisable(true);
-            }
-        }
-        catch(IOException e){
-            System.out.println("contatto fallito");
-        }
+        SceneHandler.getInstance().createPage("card-form.fxml");
     }
+
 
     @FXML
     void destraPressed(ActionEvent event) {
@@ -84,8 +73,8 @@ public class PaginaCarteController {
     }
 
     public void initialize(){
-        destra.setVisible(false);
-        sinistra.setVisible(false);
+        /*destra.setVisible(false);
+        sinistra.setVisible(false);*/
     }
 
     private void animateHBarValue(ScrollPane scrollPane, double newValue) {
@@ -96,5 +85,33 @@ public class PaginaCarteController {
         timeline.play();
     }
 
+
+
+    @FXML
+    private Button bloccaButton;
+
+    @FXML
+    private Button eliminaButton;
+
+    @FXML
+    private ImageView immagineCarta;
+
+    @FXML
+    private Button infoButton;
+
+    @FXML
+    void bloccaPremuto(ActionEvent event) {
+
+    }
+
+    @FXML
+    void eliminaPremuto(ActionEvent event) {
+
+    }
+
+    @FXML
+    void infoPremuto(ActionEvent event) {
+
+    }
 
 }

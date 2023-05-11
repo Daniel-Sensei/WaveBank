@@ -44,8 +44,8 @@
       </VBox>
    </children>
    <stylesheets>
-      <URL value="@../../../css/fonts.css" />
-      <URL value="@../../../css/light.css" />
-      <URL value="@../../../css/style.css" />
+      <URL value="@../../../../../../../../temporanea/progettoBanca/src/main/resources/css/fonts.css" />
+      <URL value="@../../../../../../../../temporanea/progettoBanca/src/main/resources/css/light.css" />
+      <URL value="@../../../../../../../../temporanea/progettoBanca/src/main/resources/css/style.css" />
    </stylesheets>
 </Pane>
