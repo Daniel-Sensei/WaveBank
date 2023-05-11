@@ -6,16 +6,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.FlowPane;
 
 public class SpaceFormController {
 
     @FXML
-    private FlowPane imageBox;
+    private Button cancel;
 
     @FXML
-    private Button cancel;
+    private ImageView image1;
 
     @FXML
     private ImageView image2;
@@ -33,10 +31,16 @@ public class SpaceFormController {
     private ImageView image6;
 
     @FXML
-    private ImageView imagePicker;
+    private ImageView image7;
+
+    @FXML
+    private ImageView image8;
 
     @FXML
     private TextField inputSpaceName;
+
+    @FXML
+    private TextField inputSpaceSaldo;
 
     @FXML
     private Button spaceCreationConfirm;
@@ -49,13 +53,6 @@ public class SpaceFormController {
     @FXML
     void createSpace(ActionEvent event) {
 
-    }
-
-    @FXML
-    void openFlowPane(MouseEvent event) {
-        if(imageBox.isVisible()) imageBox.setVisible(false);
-        else
-            imageBox.setVisible(true);
     }
 
 }
