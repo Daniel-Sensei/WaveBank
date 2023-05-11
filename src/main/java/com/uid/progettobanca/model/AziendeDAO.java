@@ -41,7 +41,7 @@ public class AziendeDAO {
                             rs.getString("p_iva"),
                             rs.getString("nome"),
                             rs.getString("indirizzo"),
-                            rs.getString("iban");
+                            rs.getString("iban"));
                 } else {
                     return null;
                 }

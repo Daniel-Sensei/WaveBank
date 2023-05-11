@@ -64,9 +64,8 @@ public class CarteDAO {
                             )
                     );
                 }
-                rs.close();
+                return carte;
             }
-            return carte;
         }
     }
 

@@ -33,8 +33,8 @@ public class TransazioniDAO {
             }
             rs.close();
         }
-        }
     }
+
 
 
     //  getting:
