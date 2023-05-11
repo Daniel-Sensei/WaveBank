@@ -85,21 +85,23 @@ public class ContiDAO {
 
     //  aggiornamenti:
 
+    //aggiornamento limitato al saldo tramite iban
     public void update(String iban, double nuovoSaldo) throws SQLException {
         String query = "UPDATE conti SET saldo = ? WHERE iban = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setDouble(1, nuovoSaldo);
-            pstmt.setString(2, iban);
-            pstmt.executeUpdate();
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setDouble(1, nuovoSaldo);
+            stmt.setString(2, iban);
+            stmt.executeUpdate();
         }
     }
 
+    //aggiornamento tramite oggetto di tipo conto
     public void update(Conto conto) throws SQLException {
         String query = "UPDATE conti SET saldo = ? WHERE iban = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setDouble(1, conto.getSaldo());
-            pstmt.setString(2, conto.getIban());
-            pstmt.executeUpdate();
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setDouble(1, conto.getSaldo());
+            stmt.setString(2, conto.getIban());
+            stmt.executeUpdate();
         }
     }
 
@@ -108,9 +110,9 @@ public class ContiDAO {
 
     public void delete(String iban) throws SQLException {
         String query = "DELETE FROM conti WHERE iban = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setString(1, iban);
-            pstmt.executeUpdate();
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, iban);
+            stmt.executeUpdate();
         }
     }
 }

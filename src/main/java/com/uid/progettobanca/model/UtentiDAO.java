@@ -115,7 +115,7 @@ public class UtentiDAO {
     }
 
 
-    //  rimozione di un utente:
+    //  rimozione:
 
     public void delete(String cf) throws SQLException {
         String query = "DELETE FROM utenti WHERE cf = ?";

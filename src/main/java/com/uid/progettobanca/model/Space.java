@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Space {
     private String iban;
-    private int spaceID;
+    private int spaceId;
     private double saldo;
     private LocalDate dataApertura;
 
@@ -12,9 +12,22 @@ public class Space {
 
     private String imagePath;
 
-    public Space(String iban, int spaceID, double saldo, LocalDate dataApertura, String nome, String imagePath) {
+
+    //  costruttori:
+
+    //  costruttore completo per estrarre un oggetto space dal database
+    public Space(String iban, int spaceId, double saldo, LocalDate dataApertura, String nome, String imagePath) {
         this.iban = iban;
-        this.spaceID = spaceID;
+        this.spaceId = spaceId;
+        this.saldo = saldo;
+        this.dataApertura = dataApertura;
+        this.nome = nome;
+        this.imagePath = imagePath;
+    }
+
+    //  costruttore per inserire un nuovo oggetto space nel database
+    public Space(String iban, double saldo, LocalDate dataApertura, String nome, String imagePath) {
+        this.iban = iban;
         this.saldo = saldo;
         this.dataApertura = dataApertura;
         this.nome = nome;
@@ -29,12 +42,12 @@ public class Space {
         this.iban = iban;
     }
 
-    public int getSpaceID() {
-        return spaceID;
+    public int getSpaceId() {
+        return spaceId;
     }
 
-    public void setSpaceID(int spaceID) {
-        this.spaceID = spaceID;
+    public void setSpaceId(int spaceId) {
+        this.spaceId = spaceId;
     }
 
     public double getSaldo() {
@@ -65,7 +78,7 @@ public class Space {
     public String toString() {
         return "Spaces{" +
                 "iban='" + iban + '\'' +
-                ", spaceID=" + spaceID +
+                ", spaceID=" + spaceId +
                 ", saldo=" + saldo +
                 ", dataApertura=" + dataApertura +
                 ", nome='" + nome + '\'' +
