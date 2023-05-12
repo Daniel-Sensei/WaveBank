@@ -346,6 +346,33 @@
   /* Imposta la larghezza del bordo a 1px */
 }
 
+/* Spiner Fortu*/
+.spinner {
+    -fx-background-color: white;
+        -fx-border-color: accentColor;
+        -fx-border-width: 0.5px;
+        -fx-border-radius: 10px;
+}
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+	-fx-background-color: white;
+	-fx-background-radius: 10px;
+}
+.spinner .increment-arrow-button:hover,
+.spinner .decrement-arrow-button:hover {
+	-fx-background-color: quaternaryColor;
+}
+.spinner .increment-arrow-button:hover:pressed,
+.spinner .decrement-arrow-button:hover:pressed,
+.spinner .increment-arrow-button:pressed,
+.spinner .decrement-arrow-button:pressed {
+	-fx-background-color: tertiaryColor;
+}
+.spinner .increment-arrow-button .increment-arrow,
+.spinner .decrement-arrow-button .decrement-arrow {
+	-fx-background-color: accentColor;
+}
+
 /* TEST PIETRO */
 
 .text-field-prova {

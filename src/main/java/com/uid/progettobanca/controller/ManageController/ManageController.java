@@ -16,29 +16,13 @@ package com.uid.progettobanca.controller.ManageController;
 public class ManageController {
     int numcarte=0;
     float scrollPerPress=0;
-    @FXML
-    private Button aggiungi;
-
-    @FXML
-    private Button destra;
-
-    @FXML
-    private HBox listaCarte;
-
-    @FXML
-    private HBox piano;
-
-    @FXML
-    private Button sinistra;
-    @FXML
-    private ScrollPane scrollPane;
 
     @FXML
     void aggiungiPremuto(ActionEvent event) {
         SceneHandler.getInstance().createPage(SceneHandler.getInstance().MANAGE_PATH + "formCreateCard.fxml");
     }
 
-
+/*
     @FXML
     void destraPressed(ActionEvent event) {
         double hvalue = scrollPane.getHvalue();
@@ -65,48 +49,11 @@ public class ManageController {
         if(hvalue < 1){
             destra.setDisable(false);
         }
-    }
+    } */
 
     public void initialize(){
         /*destra.setVisible(false);
         sinistra.setVisible(false);*/
-    }
-
-    private void animateHBarValue(ScrollPane scrollPane, double newValue) {
-        Timeline timeline = new Timeline();
-        KeyValue kv = new KeyValue(scrollPane.hvalueProperty(), newValue, Interpolator.EASE_BOTH);
-        KeyFrame kf = new KeyFrame(Duration.seconds(0.5), kv);
-        timeline.getKeyFrames().add(kf);
-        timeline.play();
-    }
-
-
-
-    @FXML
-    private Button bloccaButton;
-
-    @FXML
-    private Button eliminaButton;
-
-    @FXML
-    private ImageView immagineCarta;
-
-    @FXML
-    private Button infoButton;
-
-    @FXML
-    void bloccaPremuto(ActionEvent event) {
-
-    }
-
-    @FXML
-    void eliminaPremuto(ActionEvent event) {
-
-    }
-
-    @FXML
-    void infoPremuto(ActionEvent event) {
-
     }
 
 }
