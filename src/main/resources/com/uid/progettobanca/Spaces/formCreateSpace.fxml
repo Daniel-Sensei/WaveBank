@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="660.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController.SpaceFormController">
+   <children>
+      <VBox layoutX="516.0" layoutY="70.0" prefHeight="200.0" prefWidth="100.0" spacing="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="Crea un nuovo spazio" textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <stylesheets>
+                  <URL value="@../../../../css/fonts.css" />
+                  <URL value="@../../../../css/style.css" />
+               </stylesheets>
+               <styleClass>
+                  <String fx:value="serialConn" />
+                  <String fx:value="BankTitleLabel" />
+               </styleClass>
+            </Label>
+            <HBox prefWidth="200.0" spacing="15.0">
+               <children>
+                  <ImageView fx:id="image1" fitHeight="91.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../assets/images/spaces-immage/shopping.png" />
+                     </image></ImageView>
+                  <ImageView fx:id="image2" fitHeight="91.0" fitWidth="91.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../assets/images/spaces-immage/fast-food.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="image3" fitHeight="91.0" fitWidth="91.0" layoutX="116.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../assets/images/spaces-immage/lifesaver.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="image4" fitHeight="91.0" fitWidth="91.0" layoutX="223.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../assets/images/spaces-immage/budget.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="image5" fitHeight="91.0" fitWidth="91.0" layoutX="329.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../assets/images/spaces-immage/repair-tools.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="image6" fitHeight="91.0" fitWidth="91.0" layoutX="436.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../assets/images/spaces-immage/online-shopping.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="image7" fitHeight="91.0" fitWidth="91.0" layoutX="329.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../assets/images/spaces-immage/drugstore.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="image8" fitHeight="91.0" fitWidth="91.0" layoutX="436.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../assets/images/spaces-immage/education.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <VBox spacing="20.0">
+               <children>
+                  <Label text="Inserisci il nome del tuo spazio">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="inputSpaceName" prefHeight="60.0" prefWidth="380.0" promptText="Foresta dei cazzi volanti" styleClass="text-field-prova">
+                     <VBox.margin>
+                        <Insets right="500.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <VBox spacing="20.0">
+                     <children>
+                        <Label text="Inserisci il saldo iniziale ">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER_LEFT" spacing="20.0">
+                           <VBox.margin>
+                              <Insets right="500.0" />
+                           </VBox.margin>
+                           <children>
+                              <TextField fx:id="inputSpaceSaldo" prefHeight="40.0" prefWidth="96.0" promptText="0" styleClass="text-field-prova">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </TextField>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="€">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <HBox spacing="60.0">
+               <children>
+                  <Button fx:id="spaceCreationConfirm" mnemonicParsing="false" onAction="#createSpace" prefHeight="35.0" prefWidth="202.0" text="Accetta e crea uno spazio">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="cancel" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#cancelSpaceForm" prefHeight="35.0" prefWidth="202.0" styleClass="secondaryButton" text="Annulla">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets top="60.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

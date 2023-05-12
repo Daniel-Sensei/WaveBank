@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,6 +29,11 @@ public class SceneHandler {
      **/
 
     private final static String FONTS_PATH = RESOURCE_PATH + "fonts/";
+    public final static String HOME_PATH = "/Home/";
+    public final static String MANAGE_PATH = "/Manage/";
+    public final static String OPERATIONS_PATH = "/Operations/";
+    public final static String SPACES_PATH = "/Spaces/";
+    public final static String MY_ACCOUNT_PATH = "/MyAccount/";
 
     private BorderPane borderPane = new BorderPane();
 
@@ -53,11 +57,11 @@ public class SceneHandler {
             loadFonts();
 
             createMenuBar();
-            createPage("home.fxml");
+            createPage(SceneHandler.getInstance().HOME_PATH + "home.fxml");
 
 
             this.stage.setScene(scene);
-            this.stage.getScene().getStylesheets().addAll("/css/fonts.css", "/css/dark.css", "/css/style.css");
+            this.stage.getScene().getStylesheets().addAll("/css/fonts.css", "/css/light.css", "/css/style.css");
             this.stage.setResizable(false);
             this.stage.show();
         }
@@ -72,7 +76,7 @@ public class SceneHandler {
     }
 
     private void loadFonts() {
-        for (String font : List.of(FONTS_PATH + "Roboto/Roboto-Regular.ttf", FONTS_PATH + "Roboto/Roboto-Bold.ttf", FONTS_PATH + "GoodDog.otf")) {
+        for (String font : List.of(FONTS_PATH + "Roboto/Roboto-Regular.ttf", FONTS_PATH + "Roboto/Roboto-Bold.ttf")) {
             Font.loadFont(Objects.requireNonNull(SceneHandler.class.getResource(font)).toExternalForm(), 10);
         }
     }

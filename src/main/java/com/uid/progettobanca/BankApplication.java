@@ -1,6 +1,6 @@
 package com.uid.progettobanca;
 
-import com.uid.progettobanca.model.DatabaseManager;
+import com.uid.progettobanca.model.DAO.DatabaseManager;
 import com.uid.progettobanca.view.SceneHandler;
 
 import javafx.application.Application;
