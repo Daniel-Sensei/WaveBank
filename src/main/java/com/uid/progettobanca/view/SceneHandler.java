@@ -53,11 +53,11 @@ public class SceneHandler {
             loadFonts();
 
             createMenuBar();
-            createPage("spaces.fxml");
+            createPage("home.fxml");
+
+
             this.stage.setScene(scene);
-
-            this.stage.getScene().getStylesheets().addAll("/css/fonts.css", "/css/light.css", "/css/style.css");
-
+            this.stage.getScene().getStylesheets().addAll("/css/fonts.css", "/css/dark.css", "/css/style.css");
             this.stage.setResizable(false);
             this.stage.show();
         }

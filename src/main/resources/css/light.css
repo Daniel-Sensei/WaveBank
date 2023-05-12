@@ -1,12 +1,13 @@
 /* Colori light */
 * {
-
   backgroundColor: #f9f9f9; /* binaco */
 
   primaryColor: #36a18b; /* verde N26 */
   secondaryColor: #ffffff; /* giallo medio */
   tertiaryColor: #f2f2f2; /* grigio chiaro searchBar N26 */
   quaternaryColor: #efeced; /* grigio scuro N26 */
+
+  greenButtonColor: #48ac98; /* verde chiaro */
 
   borderColor: #d8d8d8; /* grigio chiaro */
 

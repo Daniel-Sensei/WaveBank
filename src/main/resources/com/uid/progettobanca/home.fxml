@@ -9,36 +9,36 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <padding>
       <Insets left="200.0" right="200.0" />
    </padding>
    <content>
-      <VBox prefWidth="840.0" spacing="20.0">
+      <VBox spacing="20.0">
          <children>
             <AnchorPane>
                <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="840.0">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" spacing="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                        <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                            <children>
                               <Label styleClass="titleLabel" text="Home" />
                               <Label styleClass="titleLabel" text="100,00 $" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefWidth="100.0">
+                        <VBox alignment="CENTER">
                            <children>
                               <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
                               <Label styleClass="button-label" text="Invia" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefWidth="100.0">
+                        <VBox alignment="CENTER">
                            <children>
                               <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
                               <Label styleClass="button-label" text="Ricevi" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefWidth="100.0">
+                        <VBox alignment="CENTER">
                            <children>
                               <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
                               <Label styleClass="button-label" text="Statistiche" />
@@ -46,45 +46,42 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="840.0" AnchorPane.topAnchor="110.0">
+                  <HBox alignment="CENTER_LEFT" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="600.0" styleClass="search-bar">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
+                        <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <TextField prefHeight="40.0" prefWidth="546.0" promptText="Cerca sul conto principale" HBox.hgrow="ALWAYS">
+                              <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <TextField prefHeight="40.0" promptText="Cerca sul conto principale" styleClass="search-bar" HBox.hgrow="ALWAYS">
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </TextField>
+                                 </children>
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
-                              </TextField>
-                           </children>
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="240.0" spacing="8.0">
-                           <children>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="110.0" style="-fx-text-fill: textColor;" styleClass="tertiaryButton" text="Filtra" />
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="100.0" prefWidth="110.0" styleClass="tertiaryButton" text="Cerca" />
+                              </HBox>
+                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="tertiaryButton" text="Filtra" />
+                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="tertiaryButton" text="Cerca" />
                            </children>
                         </HBox>
                      </children>
                   </HBox>
                </children>
             </AnchorPane>
-            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0">
+            <VBox>
                <children>
                   <Label text="OGGI" />
                   <VBox styleClass="vbox-with-rounded-border">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="840.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                            <children>
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
-                              <Label prefHeight="20.0" prefWidth="500.0" text="Vivo Market" HBox.hgrow="ALWAYS" />
-                              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                              <Label text="Vivo Market" HBox.hgrow="ALWAYS" />
+                              <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 5,95 $" />
+                                    <Label alignment="CENTER_RIGHT" styleClass="button-label" text="- 5,95 $" />
                                  </children>
                               </HBox>
                            </children>
@@ -92,7 +89,7 @@
                               <Insets left="15.0" right="15.0" />
                            </padding>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="840.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                            <children>
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
                               <Label prefHeight="20.0" prefWidth="500.0" text="Palestra" HBox.hgrow="ALWAYS" />
@@ -106,7 +103,7 @@
                               <Insets left="15.0" right="15.0" />
                            </padding>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="840.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                            <children>
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
                               <Label prefHeight="20.0" prefWidth="500.0" text="Mc Donald's" HBox.hgrow="ALWAYS" />
@@ -120,7 +117,7 @@
                               <Insets left="15.0" right="15.0" />
                            </padding>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="840.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox-bottom">
+                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox-bottom">
                            <children>
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
                               <Label prefHeight="20.0" prefWidth="500.0" text="Amazon" HBox.hgrow="ALWAYS" />
@@ -135,21 +132,20 @@
                            </padding>
                         </HBox>
                      </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
                   </VBox>
-               </children>
-            </VBox>
-            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0">
-               <children>
-                  <Label text="IERI" />
+                  <Label text="OGGI" />
                   <VBox styleClass="vbox-with-rounded-border">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="840.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                            <children>
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
-                              <Label prefHeight="20.0" prefWidth="500.0" text="Apple" HBox.hgrow="ALWAYS" />
-                              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                              <Label text="Vivo Market" HBox.hgrow="ALWAYS" />
+                              <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 12,95 $" />
+                                    <Label alignment="CENTER_RIGHT" styleClass="button-label" text="- 5,95 $" />
                                  </children>
                               </HBox>
                            </children>
@@ -157,13 +153,41 @@
                               <Insets left="15.0" right="15.0" />
                            </padding>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="840.0" spacing="10.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                            <children>
                               <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
-                              <Label prefHeight="20.0" prefWidth="500.0" text="Samsung" HBox.hgrow="ALWAYS" />
+                              <Label prefHeight="20.0" prefWidth="500.0" text="Palestra" HBox.hgrow="ALWAYS" />
                               <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 5,95 $" />
+                                    <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 25,95 $" />
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets left="15.0" right="15.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
+                              <Label prefHeight="20.0" prefWidth="500.0" text="Mc Donald's" HBox.hgrow="ALWAYS" />
+                              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 59,05 $" />
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets left="15.0" right="15.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox-bottom">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
+                              <Label prefHeight="20.0" prefWidth="500.0" text="Amazon" HBox.hgrow="ALWAYS" />
+                              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 23,00 $" />
                                  </children>
                               </HBox>
                            </children>
@@ -172,96 +196,17 @@
                            </padding>
                         </HBox>
                      </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
                   </VBox>
                </children>
-            </VBox>
-            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0">
-               <children>
-                  <Label text="MARTEDI 2 MAGGIO" />
-                  <VBox styleClass="vbox-with-rounded-border">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="840.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
-                           <children>
-                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
-                              <Label prefHeight="20.0" prefWidth="500.0" text="Vivo Market" HBox.hgrow="ALWAYS" />
-                              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 5,95 $" />
-                                 </children>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets left="15.0" right="15.0" />
-                           </padding>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="840.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
-                           <children>
-                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
-                              <Label prefHeight="20.0" prefWidth="500.0" text="Vivo Market" HBox.hgrow="ALWAYS" />
-                              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 5,95 $" />
-                                 </children>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets left="15.0" right="15.0" />
-                           </padding>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="840.0" spacing="10.0">
-                           <children>
-                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
-                              <Label prefHeight="20.0" prefWidth="500.0" text="Vivo Market" HBox.hgrow="ALWAYS" />
-                              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 5,95 $" />
-                                 </children>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets left="15.0" right="15.0" />
-                           </padding>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0">
-               <children>
-                  <Label text="LUNEDI 1 MAGGIO" />
-                  <VBox styleClass="vbox-with-rounded-border">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="840.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
-                           <children>
-                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
-                              <Label prefHeight="20.0" prefWidth="500.0" text="Vivo Market" HBox.hgrow="ALWAYS" />
-                              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 5,95 $" />
-                                 </children>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets left="15.0" right="15.0" />
-                           </padding>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="840.0" spacing="10.0">
-                           <children>
-                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
-                              <Label prefHeight="20.0" prefWidth="500.0" text="Vivo Market" HBox.hgrow="ALWAYS" />
-                              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 5,95 $" />
-                                 </children>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets left="15.0" right="15.0" />
-                           </padding>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
             </VBox>
          </children>
          <padding>

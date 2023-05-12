@@ -27,11 +27,11 @@ public class BankApplication extends Application {
         // attualmente è commentata in attesa che il db sia pronto
         //createDB();
 
-        // qui viene inizializzata la scena principale con menù bar ed home di default
+        //qui viene inizializzata la scena principale con menù bar ed home di default
         SceneHandler.getInstance().init(stage);
 
-        // per passare alla pagina che volete bisogna aggiungere una seconda chiamata --> SceneHandler.getInstance().nomeMetodo();
-        // successivamente questa funzioone dovrà essere richiamata dal pulsante nella menubar
+        //per passare alla pagina che volete bisogna aggiungere una seconda chiamata --> SceneHandler.getInstance().nomeMetodo();
+        //successivamente questa funzioone dovrà essere richiamata dal pulsante nella menubar
     }
 
     public static void main(String[] args) {
