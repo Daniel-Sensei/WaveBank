@@ -105,6 +105,7 @@ public class SceneHandler {
             BorderPane.setMargin(centerNode, new Insets(0));
 
         } catch (IOException ignored) {
+            System.out.println("Errore nella creazione della pagina: " + pageName);
         }
     }
 
