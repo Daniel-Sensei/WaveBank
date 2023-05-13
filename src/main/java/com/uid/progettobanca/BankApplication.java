@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 public class BankApplication extends Application {
 
-    private void createDB(){
+    private void initializeDB(){
         //inizializzazione/creazione DatabaseManager e del relativo db
         try {
             // SOLO LA PRIMA VOLTA che si richiama bisogna specificare il nome del database nel getInstance
@@ -25,7 +25,7 @@ public class BankApplication extends Application {
 
         // inserisco la funzione createDB() per rendere il tutto più pulito e leggibile
         // attualmente è commentata in attesa che il db sia pronto
-        //createDB();
+        //initializeDB();
 
         //qui viene inizializzata la scena principale con menù bar ed home di default
         SceneHandler.getInstance().init(stage);

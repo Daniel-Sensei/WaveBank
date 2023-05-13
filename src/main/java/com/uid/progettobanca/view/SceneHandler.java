@@ -22,14 +22,21 @@ public class SceneHandler {
     private Stage stage;
     private Scene scene;
 
-    private final static String RESOURCE_PATH = "/css/";
+
+    private static final String separator = File.separator; //il path si adatta ai diversi sistemi operativi
+
+
+    //cambiando il nome della cartella bisogna cambiare anche il riferimento qui dentro
+    private final static String ABSOLUTE_PATH = System.getProperty("user.dir") + separator + "src" + separator + "main" + separator + "resources" + separator + "com" + separator + "uid" + separator + "progettobanca" + separator;
+
+    private final static String CSS_PATH = "/css/" ;
 
     /**
-    private final static String CSS_PATH = RESOURCE_PATH + "css/";
-    private String theme = "light";
+     private final static String CSS_PATH = RESOURCE_PATH + "css/";
+     private String theme = "light";
      **/
 
-    private final static String FONTS_PATH = RESOURCE_PATH + "fonts/";
+    private final static String FONTS_PATH = CSS_PATH + "fonts/";
     public final static String HOME_PATH = "/Home/";
     public final static String MANAGE_PATH = "/Manage/";
     public final static String OPERATIONS_PATH = "/Operations/";
@@ -58,21 +65,18 @@ public class SceneHandler {
             loadFonts();
 
             createMenuBar();
-            createPage(SceneHandler.getInstance().HOME_PATH + "home.fxml");
+            createPage(HOME_PATH + "home.fxml");
 
 
             this.stage.setScene(scene);
-            this.stage.getScene().getStylesheets().addAll("/css/fonts.css", "/css/light.css", "/css/style.css");
+            this.stage.getScene().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + "light.css", CSS_PATH + "style.css");
             this.stage.setResizable(false);
             this.stage.show();
         }
     }
 
     private <T> T loadRootFromFXML(String resourceName) throws IOException {
-        String separator = File.separator; //il path si adatta ai diversi sistemi operativi
-        //cambiando il nome della cartella bisogna cambiare anche il riferimento qui dentro
-        String absolutePath = System.getProperty("user.dir") + separator + "src" + separator + "main" + separator + "resources" + separator + "com" + separator + "uid" + separator + "progettobanca" + separator + resourceName;
-        FXMLLoader fxmlLoader = new FXMLLoader(new File(absolutePath).toURI().toURL());
+        FXMLLoader fxmlLoader = new FXMLLoader(new File(ABSOLUTE_PATH + resourceName).toURI().toURL());
         return fxmlLoader.load();
     }
 
@@ -97,15 +101,13 @@ public class SceneHandler {
             Parent page = loadRootFromFXML(pageName);
             borderPane.setCenter(page);
 
-
             page.requestFocus();
             page.setOnMouseClicked(event -> {
                 // Rimuovi il focus da qualsiasi elemento attualmente in focus
                 page.requestFocus();
             });
 
-
-            //per rimuovere le parti inutilizzate (inferiore, sinistra e destra)
+            //per rimuovere le parti inutilizzate del borderPane (inferiore, sinistra e destra)
             Node centerNode = borderPane.getCenter();
             BorderPane.setMargin(centerNode, new Insets(0));
 
@@ -125,26 +127,26 @@ public class SceneHandler {
 
 
 /*****************
-    public void createLoginScene() {
-        try {
-            if(scene == null)
-                scene = new Scene(loadRootFromFXML("login_view.fxml"));
-            else
-                scene.setRoot(loadRootFromFXML("login_view.fxml"));
-            stage.setMinWidth(300);
-            stage.setMinHeight(200);
-            stage.setWidth(300);
-            stage.setHeight(200);
-            stage.setResizable(false);
-        } catch (IOException ignored) {
-        }
-    }
+ public void createLoginScene() {
+ try {
+ if(scene == null)
+ scene = new Scene(loadRootFromFXML("login_view.fxml"));
+ else
+ scene.setRoot(loadRootFromFXML("login_view.fxml"));
+ stage.setMinWidth(300);
+ stage.setMinHeight(200);
+ stage.setWidth(300);
+ stage.setHeight(200);
+ stage.setResizable(false);
+ } catch (IOException ignored) {
+ }
+ }
 
-    public void createErrorMessage(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Errore");
-        alert.setContentText(message);
-        alert.show();
-    }
+ public void createErrorMessage(String message) {
+ Alert alert = new Alert(Alert.AlertType.ERROR);
+ alert.setTitle("Errore");
+ alert.setContentText(message);
+ alert.show();
+ }
  *****************/
 }

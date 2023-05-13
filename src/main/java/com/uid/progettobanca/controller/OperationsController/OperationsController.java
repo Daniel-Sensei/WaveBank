@@ -60,34 +60,38 @@ public class OperationsController implements Initializable {
         operationsImages.add(ricaricaTelefonica);
     }
 
+    void openGenericForm(String formName){
+        SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + formName);
+    }
+
     @FXML
     void openFormBollettino(MouseEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().OPERATIONS_PATH + "formBollettino.fxml");
+        openGenericForm("formBollettino.fxml");
     }
 
     @FXML
     void openFormBolloAuto(MouseEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().OPERATIONS_PATH + "formBolloAuto.fxml");
+        openGenericForm("formBolloAuto.fxml");
     }
 
     @FXML
     void openFormBonifico(MouseEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().OPERATIONS_PATH + "formBonifico.fxml");
+        openGenericForm("formBonifico.fxml");
     }
 
     @FXML
     void openFormF24(MouseEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().OPERATIONS_PATH + "formF24.fxml");
+        openGenericForm("formF24.fxml");
     }
 
     @FXML
     void openFormPagamentiRicorrenti(MouseEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().OPERATIONS_PATH + "formPagamentiRicorrenti.fxml");
+        openGenericForm("formPagamentiRicorrenti.fxml");
     }
 
     @FXML
     void openFormRicaricaTelefonica(MouseEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().OPERATIONS_PATH + "formRicaricaTelefonica.fxml");
+        openGenericForm("formRicaricaTelefonica.fxml");
     }
 
     @Override
