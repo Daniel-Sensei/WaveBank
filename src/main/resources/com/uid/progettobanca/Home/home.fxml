@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.HomeController.HomeController">
    <padding>
       <Insets left="200.0" right="200.0" />
    </padding>
@@ -18,7 +18,7 @@
          <children>
             <AnchorPane>
                <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" spacing="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" spacing="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
                         <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                            <children>
@@ -26,21 +26,21 @@
                               <Label styleClass="titleLabel" text="100,00 $" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER">
+                        <VBox alignment="CENTER" spacing="5.0">
                            <children>
                               <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
                               <Label styleClass="button-label" text="Invia" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER">
+                        <VBox alignment="CENTER" spacing="5.0">
                            <children>
                               <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
                               <Label styleClass="button-label" text="Ricevi" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER">
+                        <VBox alignment="CENTER" spacing="5.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
+                              <Button fx:id="statistics" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
                               <Label styleClass="button-label" text="Statistiche" />
                            </children>
                         </VBox>

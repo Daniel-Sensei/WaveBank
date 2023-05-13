@@ -1,5 +1,6 @@
 package com.uid.progettobanca.view;
 
+import com.uid.progettobanca.Settings;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -95,11 +96,15 @@ public class SceneHandler {
         try {
             Parent page = loadRootFromFXML(pageName);
             borderPane.setCenter(page);
+
+
             page.requestFocus();
             page.setOnMouseClicked(event -> {
                 // Rimuovi il focus da qualsiasi elemento attualmente in focus
                 page.requestFocus();
             });
+
+
             //per rimuovere le parti inutilizzate (inferiore, sinistra e destra)
             Node centerNode = borderPane.getCenter();
             BorderPane.setMargin(centerNode, new Insets(0));
@@ -107,6 +112,15 @@ public class SceneHandler {
         } catch (IOException ignored) {
             System.out.println("Errore nella creazione della pagina: " + pageName);
         }
+    }
+
+    public void switchTheme(){
+        Settings.switchTheme();
+        this.stage.getScene().getStylesheets().clear();
+        this.stage.getScene().getStylesheets().addAll("/css/fonts.css", "/css/" + Settings.CSS_THEME, "/css/style.css");
+        createMenuBar();
+        //Bisogna caricare la pagina delle impostazioni
+        //createPage(SceneHandler.getInstance().HOME_PATH + "home.fxml");
     }
 
 
