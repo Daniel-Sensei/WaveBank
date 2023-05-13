@@ -53,23 +53,19 @@ public class MenuBarController implements Initializable {
         menuBarImages.add(manage);
         menuBarImages.add(myAccount);
     }
-    private void loadImage(){
-        for(ImageView imageView : menuBarImages){
-            imageView.setImage(ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + imageView.getId() + ".png"));
-        }
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(menuBarImages.isEmpty()){
             loadMenuBarImages();
         }
-        loadImage();
+        GenericController.loadImages(menuBarImages);
     }
 
     @FXML
     void loadHome(MouseEvent event) {
         SceneHandler.getInstance().createPage(SceneHandler.getInstance().HOME_PATH + "home.fxml");
+        //homeLabel.setStyle("-fx-text-fill: greenButtonColor");
     }
 
     @FXML
@@ -91,6 +87,7 @@ public class MenuBarController implements Initializable {
     void loadSpaces(MouseEvent event) {
         //SceneHandler.getInstance().switchTheme();
         SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "spaces.fxml");
+        //spacesLabel.setStyle("-fx-text-fill: primaryColor");
     }
 
 }

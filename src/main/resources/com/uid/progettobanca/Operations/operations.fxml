@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.OperationsController">
    <padding>
       <Insets left="200.0" right="200.0" />
    </padding>
@@ -168,13 +168,9 @@
                         <Label styleClass="subtitleLabel" text="Invia" />
                         <VBox alignment="TOP_CENTER" prefWidth="400.0" styleClass="vbox-with-rounded-border">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                              <HBox fx:id="bonificoHBox" alignment="CENTER_LEFT" onMouseClicked="#openFormBonifico" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                                  <children>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../assets/images/menu-bar-light/coin.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="bonifico" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                                     <Label text="Bonifico SEPA" />
                                  </children>
                                  <padding>
@@ -184,13 +180,9 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                              <HBox fx:id="bollettinoHBox" alignment="CENTER_LEFT" onMouseClicked="#openFormBollettino" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                                  <children>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../assets/images/menu-bar-light/coin.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="bollettino" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                                     <Label text="Bollettino Postale" />
                                  </children>
                                  <padding>
@@ -200,13 +192,9 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                              <HBox fx:id="ricaricaTelefonicaHBox" alignment="CENTER_LEFT" onMouseClicked="#openFormRicaricaTelefonica" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                                  <children>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../assets/images/menu-bar-light/coin.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="ricaricaTelefonica" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                                     <Label text="Ricarica telefonica" />
                                  </children>
                                  <padding>
@@ -216,13 +204,9 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                              <HBox fx:id="pagamentiRicorrentiHBox" alignment="CENTER_LEFT" onMouseClicked="#openFormPagamentiRicorrenti" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                                  <children>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../assets/images/menu-bar-light/coin.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="pagamentiRicorrenti" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                                     <Label text="Pagamenti ricorrenti" />
                                  </children>
                                  <padding>
@@ -232,13 +216,9 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                              <HBox fx:id="bolloAutoHBox" alignment="CENTER_LEFT" onMouseClicked="#openFormBolloAuto" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                                  <children>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../assets/images/menu-bar-light/coin.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="bolloAuto" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                                     <Label text="Bollo auto" />
                                  </children>
                                  <padding>
@@ -248,13 +228,9 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox-bottom">
+                              <HBox fx:id="F24HBox" alignment="CENTER_LEFT" onMouseClicked="#openFormF24" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox-bottom">
                                  <children>
-                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../assets/images/menu-bar-light/coin.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="F24" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                                     <Label text="F24 semplificato" />
                                  </children>
                                  <padding>

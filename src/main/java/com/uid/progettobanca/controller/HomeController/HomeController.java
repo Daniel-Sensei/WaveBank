@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.HomeController;
 
 import com.uid.progettobanca.Settings;
+import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.view.ImageUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,23 +24,13 @@ public class HomeController implements Initializable {
         homeButtons.add(statistics);
     }
 
-    private void loadImage(){
-        for(Button button : homeButtons){
-            Image image = ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + button.getId() + ".png");
-            ImageView imageView = new ImageView(image);
-            imageView.setFitHeight(25);
-            imageView.setFitWidth(25);
-            button.setContentDisplay(ContentDisplay.CENTER);
-            button.setGraphic(imageView);
-        }
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(homeButtons.isEmpty()){
             loadHomeButtons();
         }
-        loadImage();
+        GenericController.loadImagesButton(homeButtons);
     }
 
 
