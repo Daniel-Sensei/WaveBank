@@ -7,17 +7,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpacesDAO {
-    private Connection conn;
+    private static Connection conn;
 
-    public SpacesDAO(Connection conn) {
-        this.conn = conn;
+    static {
+        try {
+            conn = DatabaseManager.getInstance().getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private SpacesDAO() {}
+
+    private static SpacesDAO instance = null;
+
+    public static SpacesDAO getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new SpacesDAO();
+        }
+        return instance;
     }
 
 
     //  inserimenti:
 
     //inserimento tramite oggetto di tipo space
-    public void insert(Space space) throws SQLException {
+    public static void insert(Space space) throws SQLException {
         String query = "INSERT INTO spaces (iban, saldo, dataApertura, nome, imagePath) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, space.getIban());
@@ -37,7 +52,7 @@ public class SpacesDAO {
 
     //  getting:
 
-    public Space selectByIbanSpace_id(String iban, int space_id) throws SQLException {
+    public static Space selectByIbanSpace_id(String iban, int space_id) throws SQLException {
         String query = "SELECT * FROM spaces WHERE iban = ? AND space_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
@@ -57,7 +72,7 @@ public class SpacesDAO {
         }
     }
 
-    public List<Space> selectAllByIban(String iban) throws SQLException {
+    public static List<Space> selectAllByIban(String iban) throws SQLException {
         String query = "SELECT * FROM spaces WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
@@ -82,7 +97,7 @@ public class SpacesDAO {
     //  aggiornamento:
 
     //aggiornamento limitato a saldo, nome e imagePath tramite oggetto di tipo space
-    public void update(Space space) throws SQLException {
+    public static void update(Space space) throws SQLException {
         String query = "UPDATE spaces SET saldo = ?, nome = ?, imagePath = ? WHERE iban = ? AND space_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setDouble(1, space.getSaldo());
@@ -96,7 +111,7 @@ public class SpacesDAO {
 
     //  rimozione:
 
-    public void delete(String iban, int space_id) throws SQLException {
+    public static void delete(String iban, int space_id) throws SQLException {
         String query = "DELETE FROM spaces WHERE iban = ? AND space_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);

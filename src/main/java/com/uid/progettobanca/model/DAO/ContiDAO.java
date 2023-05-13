@@ -3,21 +3,38 @@ package com.uid.progettobanca.model.DAO;
 import com.uid.progettobanca.model.Conto;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ContiDAO {
-    private Connection conn;
 
-    public ContiDAO(Connection conn) {
-        this.conn = conn;
+    private static Connection conn;
+
+    static {
+        try {
+            conn = DatabaseManager.getInstance().getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private ContiDAO() {}
+
+    private static ContiDAO instance = null;
+
+    public static ContiDAO getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new ContiDAO();
+        }
+        return instance;
     }
 
 
     //  Inserimenti:
 
     //inserimento tramite oggetto di tipo conto
-    public void insert(Conto conto) throws SQLException {
+    public static void insert(Conto conto) throws SQLException {
         String query = "INSERT INTO conti (iban, saldo, dataApertura) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, conto.getIban());
@@ -28,21 +45,12 @@ public class ContiDAO {
     }
 
     //inserimento specificando tutti i parametri
-    public void insert(String iban, double saldo, Date dataApertura) throws SQLException {
+    public static void insert(String iban, double saldo, LocalDate dataApertura) throws SQLException {
         String query = "INSERT INTO conti (iban, saldo, dataApertura) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
             stmt.setDouble(2, saldo);
-            stmt.setDate(3, dataApertura);
-            stmt.executeUpdate();
-        }
-    }
-
-    //inserimento inserendo solo i parametri strettamente necessari
-    public void insert(String iban) throws SQLException {
-        String query = "INSERT INTO conti (iban) VALUES (?)";
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, iban);
+            stmt.setDate(3, Date.valueOf(dataApertura));
             stmt.executeUpdate();
         }
     }
@@ -50,7 +58,7 @@ public class ContiDAO {
 
     //  getting:
 
-    public Conto selectByIban(String iban) throws SQLException {
+    public static Conto selectByIban(String iban) throws SQLException {
         String query = "SELECT * FROM conti WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
@@ -67,7 +75,7 @@ public class ContiDAO {
         }
     }
 
-    public List<Conto> selectAll() throws SQLException {
+    public static List<Conto> selectAll() throws SQLException {
         String query = "SELECT * FROM conti";
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
@@ -88,7 +96,7 @@ public class ContiDAO {
     //  aggiornamenti:
 
     //aggiornamento limitato al saldo tramite iban
-    public void update(String iban, double nuovoSaldo) throws SQLException {
+    public static void update(String iban, double nuovoSaldo) throws SQLException {
         String query = "UPDATE conti SET saldo = ? WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setDouble(1, nuovoSaldo);
@@ -98,7 +106,7 @@ public class ContiDAO {
     }
 
     //aggiornamento tramite oggetto di tipo conto
-    public void update(Conto conto) throws SQLException {
+    public static void update(Conto conto) throws SQLException {
         String query = "UPDATE conti SET saldo = ? WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setDouble(1, conto.getSaldo());
@@ -110,7 +118,7 @@ public class ContiDAO {
 
     //  rimozione:
 
-    public void delete(String iban) throws SQLException {
+    public static void delete(String iban) throws SQLException {
         String query = "DELETE FROM conti WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);

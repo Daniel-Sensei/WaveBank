@@ -8,10 +8,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UtentiDAO {
-    private Connection conn;
+    private static Connection conn;
 
-    public UtentiDAO(Connection conn) {
-        this.conn = conn;
+    static {
+        try {
+            conn = DatabaseManager.getInstance().getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public UtentiDAO() {}
+
+    private static UtentiDAO instance = null;
+
+    public static UtentiDAO getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new UtentiDAO();
+        }
+        return instance;
     }
 
 
@@ -19,7 +34,7 @@ public class UtentiDAO {
 
 
     //inserimento tramite oggetto di tipo utente
-    public void insert(Utente utente) throws SQLException {
+    public static void insert(Utente utente) throws SQLException {
         String query = "INSERT INTO utenti (cf, nome, cognome, indirizzo, dataNascita, telefono, email, iban) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, utente.getCf());
@@ -35,7 +50,7 @@ public class UtentiDAO {
     }
 
     //inserimento specificando i parametri
-    public void insert(String cf, String nome, String cognome, String indirizzo, LocalDate dataNascita, String telefono, String email, String iban) throws SQLException {
+    public static void insert(String cf, String nome, String cognome, String indirizzo, LocalDate dataNascita, String telefono, String email, String iban) throws SQLException {
         String query = "INSERT INTO utenti (cf, nome, cognome, indirizzo, dataNascita, telefono, email, iban) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, cf);
@@ -53,7 +68,7 @@ public class UtentiDAO {
 
     //  getting:
 
-    public Utente selectByCf(String cf) throws SQLException {
+    public static Utente selectByCf(String cf) throws SQLException {
         String query = "SELECT * FROM utenti WHERE cf = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, cf);
@@ -75,7 +90,7 @@ public class UtentiDAO {
         }
     }
 
-    public List<Utente> selectAll() throws SQLException {
+    public static List<Utente> selectAll() throws SQLException {
         String query = "SELECT * FROM utenti";
         try (Statement stmt = conn.createStatement();
              ResultSet result = stmt.executeQuery(query)) {
@@ -100,7 +115,7 @@ public class UtentiDAO {
 
     //  aggiornamento:
 
-    public void update(Utente utente) throws SQLException {
+    public static void update(Utente utente) throws SQLException {
         //l'aggiornamento avviene tramite un oggetto di tipo utente che dobbiamo aver precedentemente modificato
         String query = "UPDATE utenti SET nome = ?, cognome = ?, indirizzo = ?, dataNascita = ?, telefono = ?, email = ?, iban = ? WHERE cf = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -119,7 +134,7 @@ public class UtentiDAO {
 
     //  rimozione:
 
-    public void delete(String cf) throws SQLException {
+    public static void delete(String cf) throws SQLException {
         String query = "DELETE FROM utenti WHERE cf = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, cf);

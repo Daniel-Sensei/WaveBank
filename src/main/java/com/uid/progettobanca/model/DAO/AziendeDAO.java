@@ -8,17 +8,31 @@ import java.util.List;
 
 public class AziendeDAO {
 
-    private Connection conn;
+    private static Connection conn;
 
-    public AziendeDAO(Connection conn) {
-        this.conn = conn;
+    static {
+        try {
+            conn = DatabaseManager.getInstance().getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
+    private AziendeDAO(){}
+
+    private static AziendeDAO instance = null;
+
+    public static AziendeDAO getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new AziendeDAO();
+        }
+        return instance;
+    }
 
     // Inserimenti:
 
     //inserimento tramite oggetto azienda
-    public void insert(Azienda azienda) throws SQLException {
+    public static void insert(Azienda azienda) throws SQLException {
         String query = "INSERT INTO aziende(p_iva, nome, indirizzo, iban) VALUES(?,?,?,?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, azienda.getPiva());
@@ -33,7 +47,7 @@ public class AziendeDAO {
     // getting:
 
     //selezione di un'azienda tramite partita iva
-    public Azienda selectByIban(String iban) throws SQLException {
+    public static Azienda selectByIban(String iban) throws SQLException {
         String query = "SELECT * FROM aziende WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
@@ -52,7 +66,7 @@ public class AziendeDAO {
     }
 
     //selezione di tutte le aziende
-    public List<Azienda> selectAll() throws SQLException {
+    public static List<Azienda> selectAll() throws SQLException {
         String query = "SELECT * FROM aziende";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             ResultSet rs = stmt.executeQuery();
@@ -74,7 +88,7 @@ public class AziendeDAO {
     // Aggiornamenti:
 
     //aggiornamento tramite oggetto azienda
-    public void update(Azienda azienda) throws SQLException {
+    public static void update(Azienda azienda) throws SQLException {
         String query = "UPDATE aziende SET nome=?, indirizzo=?, iban=? WHERE p_iva=?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, azienda.getNome());
@@ -86,7 +100,7 @@ public class AziendeDAO {
     }
 
     // update generico per evitare duplicazione di codice
-    public void updateField(String fieldName, String fieldValue, String idName, String idValue) throws SQLException {
+    public static void updateField(String fieldName, String fieldValue, String idName, String idValue) throws SQLException {
         String query = "UPDATE aziende SET " + fieldName + " = ? WHERE " + idName + " = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, fieldValue);
@@ -95,22 +109,22 @@ public class AziendeDAO {
         }
     }
 
-    public void updateNome(String piva, String nome) throws SQLException {
+    public static void updateNome(String piva, String nome) throws SQLException {
         updateField("nome", nome, "p_iva", piva);
     }
 
-    public void updateIndirizzo(String piva, String indirizzo) throws SQLException {
+    public static void updateIndirizzo(String piva, String indirizzo) throws SQLException {
         updateField("indirizzo", indirizzo, "p_iva", piva);
     }
 
-    public void updateIban(String piva, String iban) throws SQLException {
+    public static void updateIban(String piva, String iban) throws SQLException {
         updateField("iban", iban, "p_iva", piva);
     }
 
 
     // Rimozione:
 
-    public void delete(String piva) throws SQLException {
+    public static void delete(String piva) throws SQLException {
         String query = "DELETE FROM aziende WHERE p_iva = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, piva);

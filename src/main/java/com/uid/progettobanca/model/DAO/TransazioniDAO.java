@@ -7,17 +7,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransazioniDAO {
-    private Connection conn;
+    private static Connection conn;
 
-    public TransazioniDAO(Connection conn) {
-        this.conn = conn;
+    static {
+        try {
+            conn = DatabaseManager.getInstance().getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private TransazioniDAO() {}
+
+    private static TransazioniDAO instance = null;
+
+    public static TransazioniDAO getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new TransazioniDAO();
+        }
+        return instance;
     }
 
 
     //  Inserimenti:
 
     //inserimento tramite oggetto di tipo transazione
-    public void insert(Transazione transazione) throws SQLException {
+    public static void insert(Transazione transazione) throws SQLException {
         String query = "INSERT INTO transazioni (iban_from, iban_to, space_from, data, importo, descrizione, tag, commenti) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, transazione.getIbanFrom());
@@ -41,7 +56,7 @@ public class TransazioniDAO {
     //  getting:
 
     //seleziona una transazione tramite l'id di quest'ultima
-    public Transazione selectById(int id) throws SQLException {
+    public static Transazione selectById(int id) throws SQLException {
         String query = "SELECT * FROM transazioni WHERE transaction_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, id);
@@ -65,8 +80,7 @@ public class TransazioniDAO {
     }
 
     //seleziona tutte le transazioni
-
-    public List<Transazione> selectAll() throws SQLException {
+    public static List<Transazione> selectAll() throws SQLException {
         String query = "SELECT * FROM transazioni";
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
@@ -89,7 +103,7 @@ public class TransazioniDAO {
     }
 
     //seleziona tutte le transazioni di un determinato iban
-    public List<Transazione> selectByIban(String iban) throws SQLException {
+    public static List<Transazione> selectByIban(String iban) throws SQLException {
         String query = "SELECT * FROM transazioni WHERE iban_from = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
@@ -117,7 +131,7 @@ public class TransazioniDAO {
     //  aggiornamento:
 
     // aggiornamento limitato a descrizione, tag e commenti tramite oggetto di tipo transazione
-    public void update(Transazione transazione) throws SQLException {
+    public static void update(Transazione transazione) throws SQLException {
         String query = "UPDATE transazioni SET descrizione = ?, tag = ?, commenti = ? WHERE transaction_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, transazione.getDescrizione());
@@ -129,7 +143,7 @@ public class TransazioniDAO {
     }
 
     // aggiornamento di descrizione, tag e commenti tramite id
-    public void update(String descrizione, String tag, String commenti, int id) throws SQLException {
+    public static void update(String descrizione, String tag, String commenti, int id) throws SQLException {
         String query = "UPDATE transazioni SET descrizione = ?, tag = ?, commenti = ? WHERE transaction_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, descrizione);
@@ -144,7 +158,7 @@ public class TransazioniDAO {
     //  rimozione:
 
     // Rimozione della transazione tramite l'ID della transazione
-    public void delete(int transactionId) throws SQLException {
+    public static void delete(int transactionId) throws SQLException {
         String query = "DELETE FROM transazioni WHERE transaction_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, transactionId);
