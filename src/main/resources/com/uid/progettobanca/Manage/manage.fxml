@@ -34,12 +34,12 @@
                <children>
                   <VBox spacing="25.0">
                      <children>
-                        <LineChart fx:id="chart" prefHeight="300.0" prefWidth="350.0" styleClass="vbox-with-rounded-border">
+                        <LineChart fx:id="chart" createSymbols="false" legendVisible="false" prefHeight="300.0" prefWidth="350.0" styleClass="vbox-with-rounded-border">
                           <xAxis>
-                            <CategoryAxis styleClass="chart-horizontal-grid-lines" />
+                            <CategoryAxis gapStartAndEnd="false" styleClass="chart-horizontal-grid-lines" tickMarkVisible="false" />
                           </xAxis>
                           <yAxis>
-                            <NumberAxis animated="false" minorTickVisible="false" side="LEFT" styleClass="chart-vertical-grid-lines" tickLabelsVisible="false" />
+                            <NumberAxis animated="false" forceZeroInRange="false" minorTickVisible="false" side="RIGHT" styleClass="chart-vertical-grid-lines" tickMarkVisible="false" />
                           </yAxis>
                            <padding>
                               <Insets right="10.0" top="10.0" />

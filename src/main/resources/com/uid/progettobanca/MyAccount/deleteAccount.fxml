@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.MyAccountController.SecurityController">
+   <padding>
+      <Insets left="200.0" right="200.0" />
+   </padding>
+   <children>
+      <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="50.0" top="30.0" />
+         </padding>
+         <children>
+            <AnchorPane>
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="70.0">
+                     <children>
+                        <VBox alignment="CENTER_LEFT" spacing="3.0">
+                           <children>
+                              <Label styleClass="titleLabel" text="Chiudi conto" />
+                              <Label styleClass="subtitleLabel" text="Indietro">
+                                 <graphic>
+                                    <ImageView fitHeight="12.0" fitWidth="12.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../assets/images/light/right-arrow.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <VBox>
+               <children>
+                  <TextArea prefHeight="337.0" prefWidth="880.0" text="Termini e condizioni per la chiusura del conto corrente presso Wave Bank:&#10;&#10;1. Il titolare del conto deve presentare una richiesta scritta di chiusura del conto corrente alla Wave Bank.&#10;2. Il saldo attuale del conto deve essere pari a zero prima che la richiesta di chiusura possa essere accettata.&#10;3. Tutti i prelievi autorizzati e gli assegni emessi dal titolare del conto devono essere liquidati prima della chiusura del conto.&#10;4. Se il conto ha un saldo negativo, il titolare del conto deve pagare la somma dovuta prima che la richiesta di chiusura possa essere accettata.&#10;5. La Wave Bank può richiedere al titolare del conto di fornire documenti di identità aggiuntivi per confermare la sua identità prima di procedere alla chiusura del conto.&#10;6. La Wave Bank provvederà alla chiusura del conto entro un periodo di tempo ragionevole dopo aver ricevuto la richiesta di chiusura.&#10;7. La Wave Bank non sarà responsabile per eventuali transazioni o addebiti sul conto dopo la ricezione della richiesta di chiusura, inclusi quelli che possono verificarsi a causa di ritardi di elaborazione.&#10;8. Dopo la chiusura del conto, qualsiasi importo residuo verrà trasferito al titolare del conto sotto forma di assegno o tramite bonifico bancario a un conto esterno fornito dal titolare del conto.&#10;9. Il titolare del conto è responsabile di assicurarsi di aver cancellato tutte le autorizzazioni di pagamento automatico e di aver informato i suoi creditori e altri fornitori di servizi dell'intenzione di chiudere il conto corrente presso la Wave Bank.&#10;10. Il titolare del conto è consapevole che la chiusura del conto potrebbe influire sulla sua capacità di ottenere credito in futuro presso la Wave Bank o altre istituzioni finanziarie." wrapText="true" />
+               </children>
+            </VBox>
+            <HBox alignment="CENTER" spacing="40.0">
+               <children>
+                  <TextField promptText="Conferma password" />
+                  <Button mnemonicParsing="false" style="-fx-background-color: primaryColor;" styleClass="tertiaryButton" text="Conferma" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.MyAccountController.SecurityController">
+   <padding>
+      <Insets left="200.0" right="200.0" />
+   </padding>
+   <children>
+      <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="50.0" top="30.0" />
+         </padding>
+         <children>
+            <AnchorPane>
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="70.0">
+                     <children>
+                        <VBox alignment="CENTER_LEFT" spacing="3.0">
+                           <children>
+                              <Label styleClass="titleLabel" text="Impostazioni App" />
+                              <Label styleClass="subtitleLabel" text="Indietro">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <HBox spacing="20.0">
+               <children>
+                  <VBox fillWidth="false" spacing="5.0">
+                     <children>
+                        <Label text="Impostazioni" />
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="365.0" spacing="10.0" styleClass="card">
+                           <children>
+                              <Label styleClass="subtitleLabel" text="Lingua" />
+                              <VBox HBox.hgrow="ALWAYS" />
+                              <ComboBox promptText="Italiano" styleClass="combo-box" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="365.0" spacing="10.0" styleClass="card">
+                           <children>
+                              <Label styleClass="subtitleLabel" text="Tema" />
+                              <VBox HBox.hgrow="ALWAYS" />
+                              <ComboBox promptText="Chiaro" styleClass="combo-box" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Label text="Informazioni sull' uso" />
+                        <TextArea prefHeight="304.0" prefWidth="469.0" styleClass="card" text="&quot;L'uso di questa applicazione mobile è a proprio rischio e pericolo. Non ci assumiamo alcuna responsabilità per eventuali danni derivanti dall'utilizzo di questa applicazione. Tutte le informazioni fornite dall'applicazione sono fornite solo a scopo informativo e non costituiscono consiglio finanziario, fiscale, legale o di altro tipo. Si consiglia di consultare un professionista qualificato per tutte le decisioni finanziarie, fiscali e legali. Tutte le informazioni fornite dall'applicazione sono soggette a modifiche senza preavviso. Non garantiamo la disponibilità continua dell'applicazione o l'accuratezza delle informazioni fornite dall'applicazione. L'utente si impegna a utilizzare l'applicazione solo per scopi leciti e accetta di non utilizzare l'applicazione per finalità fraudolente o illecite. L'utente è responsabile di mantenere la riservatezza delle informazioni del proprio conto e di prendere tutte le precauzioni necessarie per prevenire l'accesso non autorizzato al proprio conto. Ci riserviamo il diritto di sospendere o disattivare l'account di un utente in qualsiasi momento, senza preavviso, a nostra esclusiva discrezione.&quot;" wrapText="true" />
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox VBox.vgrow="ALWAYS" />
+            <Label style="-fx-text-fill: accentColor;" text="App non soggetta a copyright. Utilizzo riservato a fini didattici" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -82,13 +82,6 @@ public class ManageController {
 
         chart.getData().add(data);
 
-        chart.getXAxis().setAutoRanging(true);
-        chart.getYAxis().setSide(Side.RIGHT);
-        chart.getYAxis().setTickMarkVisible(false);
-        chart.getXAxis().setTickMarkVisible(false);
-
-        chart.setHorizontalZeroLineVisible(false);
-        chart.setVerticalZeroLineVisible(false);
 
     }
 
