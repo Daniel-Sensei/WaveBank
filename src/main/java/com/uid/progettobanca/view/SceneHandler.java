@@ -29,19 +29,19 @@ public class SceneHandler {
     //cambiando il nome della cartella bisogna cambiare anche il riferimento qui dentro
     private final static String ABSOLUTE_PATH = System.getProperty("user.dir") + separator + "src" + separator + "main" + separator + "resources" + separator + "com" + separator + "uid" + separator + "progettobanca" + separator;
 
-    private final static String CSS_PATH = "/css/";
+    private final static String CSS_PATH = "/css/" ;
 
     /**
      private final static String CSS_PATH = RESOURCE_PATH + "css/";
      private String theme = "light";
      **/
 
-    private final static String FONTS_PATH = CSS_PATH + "fonts" + separator;
-    public final static String HOME_PATH = "/Home" + separator;
-    public final static String MANAGE_PATH = "/Manage" + separator;
-    public final static String OPERATIONS_PATH = "/Operations" + separator;
-    public final static String SPACES_PATH = "/Spaces" + separator;
-    public final static String MY_ACCOUNT_PATH = "/MyAccount" + separator;
+    private final static String FONTS_PATH = CSS_PATH + "fonts/";
+    public final static String HOME_PATH = "/Home/";
+    public final static String MANAGE_PATH = "/Manage/";
+    public final static String OPERATIONS_PATH = "/Operations/";
+    public final static String SPACES_PATH = "/Spaces/";
+    public final static String MY_ACCOUNT_PATH = "/MyAccount/";
 
     private BorderPane borderPane = new BorderPane();
 
@@ -69,7 +69,7 @@ public class SceneHandler {
 
 
             this.stage.setScene(scene);
-            this.stage.getScene().getStylesheets().addAll("/css/fonts.css", "/css/light.css", "/css/style.css");
+            this.stage.getScene().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + "light.css", CSS_PATH + "style.css");
             this.stage.setResizable(false);
             this.stage.show();
         }
