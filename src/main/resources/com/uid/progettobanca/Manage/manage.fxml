@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
@@ -22,7 +23,7 @@
                <children>
                   <Label text="Le mie carte" />
                   <VBox HBox.hgrow="ALWAYS" />
-                  <Button fx:id="aggiungi" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#aggiungiPremuto" prefHeight="30.0" text="Aggiungi Carta" textAlignment="CENTER" />
+                  <Button fx:id="add" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addPressed" prefHeight="30.0" text="Aggiungi Carta" textAlignment="CENTER" />
                </children>
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
@@ -32,12 +33,12 @@
                <children>
                   <VBox alignment="CENTER">
                      <children>
-                        <LineChart prefHeight="241.0" prefWidth="306.0" styleClass="card">
+                        <LineChart fx:id="chart" prefHeight="241.0" prefWidth="306.0">
                           <xAxis>
-                            <CategoryAxis side="BOTTOM" />
+                            <CategoryAxis side="BOTTOM" styleClass="chart-horizontal-grid-lines" />
                           </xAxis>
                           <yAxis>
-                            <NumberAxis side="LEFT" />
+                            <NumberAxis side="LEFT" styleClass="chart-vertical-grid-lines" />
                           </yAxis>
                         </LineChart>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
@@ -65,58 +66,64 @@
                      <children>
                         <HBox fx:id="piano" alignment="CENTER" spacing="20.0">
                            <children>
-                              <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="secondaryButton" text="&lt;" />
                               <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" styleClass="scrollpane" vbarPolicy="NEVER">
                                  <content>
-                                    <VBox alignment="CENTER" prefHeight="354.0" prefWidth="370.0">
+                                    <VBox alignment="CENTER">
                                        <children>
-                                          <HBox fx:id="listaCarte" alignment="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" />
-                                          <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="353.0" prefWidth="355.0" styleClass="card" VBox.vgrow="ALWAYS">
+                                          <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="card" VBox.vgrow="ALWAYS">
                                              <children>
-                                                <VBox alignment="CENTER" prefHeight="357.0" prefWidth="357.0" spacing="30.0">
+                                                <HBox alignment="CENTER">
                                                    <children>
-                                                      <ImageView fx:id="immagineCarta" fitHeight="266.0" fitWidth="299.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="carta">
-                                                         <VBox.margin>
-                                                            <Insets bottom="10.0" />
-                                                         </VBox.margin>
-                                                         <image>
-                                                            <Image url="@../../../../assets/images/carta.png" />
-                                                         </image>
-                                                      </ImageView>
-                                                      <HBox alignment="CENTER" prefHeight="47.0" prefWidth="300.0" spacing="40.0">
+                                                      <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="secondaryButton" text="&lt;" />
+                                                      <VBox alignment="CENTER" prefHeight="357.0" prefWidth="357.0" spacing="30.0">
                                                          <children>
-                                                            <VBox alignment="CENTER" prefHeight="50.0" prefWidth="50.0">
+                                                            <ImageView fx:id="immagineCarta" fitHeight="266.0" fitWidth="299.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" styleClass="carta">
+                                                               <VBox.margin>
+                                                                  <Insets bottom="10.0" />
+                                                               </VBox.margin>
+                                                               <image>
+                                                                  <Image url="@../../../../assets/images/carta.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                            <HBox alignment="CENTER" prefHeight="47.0" prefWidth="300.0" spacing="40.0">
                                                                <children>
-                                                                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="secondaryButton" />
-                                                                  <Label styleClass="button-label" text="Info" />
+                                                                  <VBox alignment="CENTER" prefHeight="50.0" prefWidth="50.0">
+                                                                     <children>
+                                                                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="secondaryButton" />
+                                                                        <Label styleClass="button-label" text="Info" />
+                                                                     </children>
+                                                                  </VBox>
+                                                                  <VBox alignment="CENTER" prefHeight="40.0" prefWidth="40.0">
+                                                                     <children>
+                                                                        <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="secondaryButton" />
+                                                                        <Label styleClass="button-label" text="Blocca" />
+                                                                     </children>
+                                                                  </VBox>
+                                                                  <VBox alignment="CENTER" prefHeight="50.0" prefWidth="50.0">
+                                                                     <children>
+                                                                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="secondaryButton" />
+                                                                        <Label styleClass="button-label" text="Elimina" />
+                                                                     </children>
+                                                                  </VBox>
                                                                </children>
-                                                            </VBox>
-                                                            <VBox alignment="CENTER" prefHeight="40.0" prefWidth="40.0">
-                                                               <children>
-                                                                  <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="secondaryButton" />
-                                                                  <Label styleClass="button-label" text="Blocca" />
-                                                               </children>
-                                                            </VBox>
-                                                            <VBox alignment="CENTER" prefHeight="50.0" prefWidth="50.0">
-                                                               <children>
-                                                                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="secondaryButton" />
-                                                                  <Label styleClass="button-label" text="Elimina" />
-                                                               </children>
-                                                            </VBox>
+                                                               <VBox.margin>
+                                                                  <Insets />
+                                                               </VBox.margin>
+                                                            </HBox>
                                                          </children>
-                                                         <VBox.margin>
-                                                            <Insets />
-                                                         </VBox.margin>
-                                                      </HBox>
+                                                      </VBox>
+                                                      <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="secondaryButton" text="&gt;" />
                                                    </children>
-                                                </VBox>
+                                                   <padding>
+                                                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                   </padding>
+                                                </HBox>
                                              </children>
                                           </Pane>
                                        </children>
                                     </VBox>
                                  </content>
                               </ScrollPane>
-                              <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="secondaryButton" text="&gt;" />
                            </children>
                         </HBox>
                      </children>
@@ -129,4 +136,9 @@
          </children>
       </VBox>
    </children>
+   <stylesheets>
+      <URL value="@../../../../css/fonts.css" />
+      <URL value="@../../../../css/light.css" />
+      <URL value="@../../../../css/style.css" />
+   </stylesheets>
 </AnchorPane>
