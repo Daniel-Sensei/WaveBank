@@ -13,7 +13,7 @@
 
 <ScrollPane fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1280.0" styleClass="background" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <padding>
-      <Insets left="200.0" right="200.0" />
+      <Insets left="200.0" right="215.0" />
    </padding>
    <content>
       <VBox>

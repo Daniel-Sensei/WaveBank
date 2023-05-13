@@ -139,7 +139,7 @@
 .secondaryButton {
     -fx-background-color: backgroundColor;
     -fx-border-color: borderColor;
-    -fx-border-width: 0.2px;
+    -fx-border-width: 0.6px;
     -fx-border-radius: 100px;
     -fx-text-fill: textColor;
 }
@@ -400,8 +400,10 @@
     -fx-border-color: #36a18b;
 }
 
+/*
 .rubrica{
    -fx-border-width: 0.4px 0 0.4px 0;
    -fx-border-color: borderColor;
    -fx-border-radius: 10px;
 }
+*/

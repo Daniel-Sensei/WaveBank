@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -28,13 +30,13 @@
                         </VBox>
                         <VBox alignment="CENTER" spacing="5.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
+                              <Button fx:id="send" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
                               <Label styleClass="button-label" text="Invia" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" spacing="5.0">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
+                              <Button fx:id="receive" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
                               <Label styleClass="button-label" text="Ricevi" />
                            </children>
                         </VBox>
@@ -50,11 +52,12 @@
                      <children>
                         <HBox alignment="CENTER_RIGHT" fillHeight="false" spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                              <HBox alignment="CENTER_LEFT" styleClass="search-bar" HBox.hgrow="ALWAYS">
                                  <children>
+                                    <ImageView fx:id="search" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                                     <TextField prefHeight="40.0" promptText="Cerca sul conto principale" styleClass="search-bar" HBox.hgrow="ALWAYS">
                                        <padding>
-                                          <Insets left="10.0" />
+                                          <Insets left="2.0" />
                                        </padding>
                                     </TextField>
                                  </children>
@@ -62,7 +65,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </HBox>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="tertiaryButton" text="Filtra" />
+                              <Button fx:id="filter" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" styleClass="tertiaryButton" />
                               <Button alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="tertiaryButton" text="Cerca" />
                            </children>
                         </HBox>
@@ -214,4 +217,8 @@
          </padding>
       </VBox>
    </content>
+   <stylesheets>
+      <URL value="@../../../../css/light.css" />
+      <URL value="@../../../../css/style.css" />
+   </stylesheets>
 </ScrollPane>
