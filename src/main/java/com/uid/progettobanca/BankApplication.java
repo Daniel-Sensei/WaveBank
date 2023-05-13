@@ -21,11 +21,13 @@ public class BankApplication extends Application {
 
 
     @Override
-    public void start(Stage stage){
+    public void start(Stage stage) {
 
         // inserisco la funzione createDB() per rendere il tutto più pulito e leggibile
         // attualmente è commentata in attesa che il db sia pronto
         //initializeDB();
+
+        // alla fine della pagina c'è un commento sull'uso del database
 
         //qui viene inizializzata la scena principale con menù bar ed home di default
         SceneHandler.getInstance().init(stage);
@@ -37,4 +39,27 @@ public class BankApplication extends Application {
     public static void main(String[] args) {
         launch();
     }
+
+
+    /**
+
+     //esempio di utilizzo dei DAO per il database, potete fare così ed utilizzarle in qualunque altra classe vogliate
+     //inserimento di un conto e stampa di tutti i conti presenti nel database
+
+     try{
+
+         //inserisco un conto con un iban fittizio, un saldo iniziale di 0 e la data di oggi
+         ContiDAO.insert("IT0000000000000", 0, LocalDate.now());
+
+         //stampo tutti i conti presenti nel database
+         System.out.println(ContiDAO.selectAll());
+
+     } catch (SQLException e) {
+         //in caso di errore lo stampo
+         System.err.println("Error inserting conto: " + e.getMessage());
+     }
+
+     **/
 }
+
+

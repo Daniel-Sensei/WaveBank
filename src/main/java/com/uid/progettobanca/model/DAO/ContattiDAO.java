@@ -7,17 +7,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContattiDAO {
-    private Connection conn;
+    private static Connection conn;
 
-    public ContattiDAO(Connection conn) {
-        this.conn = conn;
+    static {
+        try {
+            conn = DatabaseManager.getInstance().getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private ContattiDAO() {}
+
+    private static ContattiDAO instance = null;
+
+    public static ContattiDAO getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new ContattiDAO();
+        }
+        return instance;
     }
 
 
     //  Inserimenti:
 
     //inserimehnto tramite oggetto di tipo rubrica
-    public void insert(Contatto contatto) throws SQLException {
+    public static void insert(Contatto contatto) throws SQLException {
         String query = "INSERT INTO contatti (nome, cognome, iban_to, cf) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, contatto.getNome());
@@ -37,7 +52,7 @@ public class ContattiDAO {
     // getting:
 
     //restituisce tutte le carte associare ad un utente
-    public List<Contatto> selectAllByCF(String cf) throws SQLException {
+    public static List<Contatto> selectAllByCF(String cf) throws SQLException {
         String query = "SELECT * FROM contatti WHERE cf = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, cf);
@@ -58,7 +73,7 @@ public class ContattiDAO {
         }
     }
 
-    public Contatto selectById(int contatto_id) throws SQLException {
+    public static Contatto selectById(int contatto_id) throws SQLException {
         String query = "SELECT * FROM contatti WHERE contatto_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, contatto_id);
@@ -81,7 +96,7 @@ public class ContattiDAO {
     //  aggiornamento:
 
     //aggiornamento limitato a saldo, nome e imagePath tramite oggetto di tipo contatto
-    public void update(Contatto contatto) throws SQLException {
+    public static void update(Contatto contatto) throws SQLException {
         String query = "UPDATE contatti SET nome = ?, cognome = ?, iban_to = ?  WHERE contatto_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, contatto.getNome());
@@ -95,7 +110,7 @@ public class ContattiDAO {
 
     //  rimozione:
 
-    public void delete(int contatto_id) throws SQLException {
+    public static void delete(int contatto_id) throws SQLException {
         String query = "DELETE FROM contatti WHERE contatto_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, contatto_id);

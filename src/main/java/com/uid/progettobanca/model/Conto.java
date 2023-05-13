@@ -36,4 +36,13 @@ public class Conto {
     public void setDataApertura(LocalDate dataApertura) {
         this.dataApertura = dataApertura;
     }
+
+    @Override
+    public String toString() {
+        return "Conto{" +
+                "iban='" + iban + '\'' +
+                ", saldo=" + saldo +
+                ", dataApertura=" + dataApertura +
+                '}';
+    }
 }

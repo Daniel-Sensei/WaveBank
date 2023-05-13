@@ -63,18 +63,6 @@ public class DatabaseManager {
         }
     }
 
-    private static String getIbanCheckTrigger(String tableName, String ibanColumnName) {
-        return "CREATE TRIGGER check_iban_" + tableName + "\n" +
-                "BEFORE INSERT ON " + tableName + "\n" +
-                "FOR EACH ROW\n" +
-                "BEGIN\n" +
-                "    IF NOT (NEW." + ibanColumnName + " REGEXP '[A-Z]{2}[0-9]{2}[A-Z][0-9]{22}') THEN\n" +
-                "       SELECT RAISE(ABORT, 'Il valore inserito nel campo IBAN non rispetta il formato richiesto.') WHERE 1;\n" +
-                "    END IF;\n" +
-                "END;";
-    }
-
-
     private void createDatabase(Path dbPath) throws SQLException {
         Connection connection = null;
         Statement statement = null;
@@ -92,46 +80,31 @@ public class DatabaseManager {
 
             statement.execute("CREATE TABLE IF NOT EXISTS conti (iban CHAR(27) PRIMARY KEY, saldo REAL, dataApertura DATE);");
 
-            //trigger che controlla se vengono inseriti nuovi iban senza saldo li imposta automaticamente a 0 con data apertura ad "oggi"
-            statement.execute("CREATE TRIGGER set_conto_defaults\n" +
-                                    "BEFORE INSERT ON conti\n" +
-                                    "FOR EACH ROW\n" +
-                                    "BEGIN\n" +
-                                    "    -- Imposta il saldo a 0 se è nullo\n" +
-                                    "    IF NEW.saldo IS NULL THEN\n" +
-                                    "        SET NEW.saldo = 0;\n" +
-                                    "    END IF;\n" +
-                                    "\n" +
-                                    "    -- Imposta la data di apertura a quella odierna se è nulla\n" +
-                                    "    IF NEW.dataApertura IS NULL THEN\n" +
-                                    "        SET NEW.dataApertura = date('now');\n" +
-                                    "    END IF;\n" +
-                                    "END;\n");
-
             // è necessazio inserire il prefisso internazionale per il cellulare: es. 0039 Italia
             // da controllare durante l'inserimento di ogni elemento
             statement.execute("CREATE TABLE IF NOT EXISTS utenti ("+
-                                    "cf CHAR(16) PRIMARY KEY, "+
+                                    "user_id INTEGER AUTO_INCREMENT PRIMARY KEY, "+
                                     "nome VARCHAR(50) not null, cognome VARCHAR(50) not null, "+
                                     "indirizzo varchar not null, dataNascita Date not null, "+
-                                    "#telefono char(14) not null, email varchar(319) not null, "+
-                                    "iban  CHAR(27)  not null FOREIGN KEY (iban) REFERENCES conti(iban));");
+                                    "telefono char(14) not null, email varchar(319) not null, "+
+                                    "password varchar not null, "+
+                                    "iban CHAR(27) not null, FOREIGN KEY (iban) REFERENCES conti(iban));");
 
             statement.execute("CREATE TABLE IF NOT EXISTS spaces ("+
-                                    "iban CHAR(27), space_id INTEGET AUTOINCREMENT, "+
+                                    "iban CHAR(27), space_id INTEGER AUTO_INCREMENT, "+
                                     "saldo REAL not null, dataApertura DATE not null, "+
                                     "nome VARCHAR not null, imagePath VARCHAR not null, "+
-                                    "PRIMARY KEY (iban, spaceID), "+
+                                    "PRIMARY KEY (iban, space_id), "+
                                     "FOREIGN KEY (iban) REFERENCES conti(iban));");
 
             statement.execute("CREATE TABLE IF NOT EXISTS carte ("+
-                                    "#carta CHAR(16) PRIMARY KEY, "+
+                                    "num CHAR(16) PRIMARY KEY, "+
                                     "cvv char(3) not null, scadenza DATE not null, "+
                                     "bloccata TINYINT[1] not null, tipo varchar(10) not null, "+
-                                    "cf CHAR(16) FOREIGN KEY (cf) REFERENCES utenti(cf));");
+                                    "user_id CHAR(16) not null, FOREIGN KEY (user_id) REFERENCES utenti(user_id));");
 
             statement.execute("CREATE TABLE IF NOT EXISTS transazioni ("+
-                                    "transaction_id INTEGET AUTOINCREMENT PRIMARY KEY, "+
+                                    "transaction_id INTEGET AUTO_INCREMENT PRIMARY KEY, "+
                                     "iban_from CHAR(27) not null, iban_to CHAR(27), "+
                                     "space_from integer, data date, "+
                                     "importo integer, descrizione varchar, "+
@@ -150,7 +123,7 @@ public class DatabaseManager {
                                     "        WHERE NOT EXISTS (\n" +
                                     "            SELECT 1\n" +
                                     "            FROM spaces\n" +
-                                    "            WHERE iban = NEW.iban_from AND spaceID = NEW.space_from\n" +
+                                    "            WHERE iban = NEW.iban_from AND space_id = NEW.space_from\n" +
                                     "        )\n" +
                                     "    );\n" +
                                     "END;");
@@ -162,24 +135,12 @@ public class DatabaseManager {
                                     "nome VARCHAR(50) not null, indirizzo varchar not null, "+
                                     "iban  CHAR(27) unique not null);");
 
-            //il campo cf chiave esterna indica l'utente che ha inserito la voce nella rubrica, così facendo possiamo dividere le voci associate per utente
+            //il campo user_id chiave esterna indica l'utente che ha inserito la voce nella rubrica, così facendo possiamo dividere le voci associate per utente
             statement.execute("CREATE TABLE IF NOT EXISTS contatti ("+
-                                    "contatto_id INTEGET AUTOINCREMENT PRIMARY KEY, "+
+                                    "contatto_id INTEGET AUTO_INCREMENT PRIMARY KEY, "+
                                     "nome VARCHAR(50) not null, cognome VARCHAR(50) not null, "+
                                     "iban_to  CHAR(27) not null, "+
-                                    "cf CHAR(16) FOREIGN KEY (cf) REFERENCES utenti(cf));");
-
-
-            //di seguito sono riportati i trigger che controllano che l'iban inserito sia valido:
-
-            statement.execute(getIbanCheckTrigger("conti", "iban"));
-
-            statement.execute(getIbanCheckTrigger("utenti", "iban"));
-
-            statement.execute(getIbanCheckTrigger("rubrica", "iban_to"));
-
-            statement.execute(getIbanCheckTrigger("aziende", "iban"));
-
+                                    "user_id CHAR(16) NOT NULL, FOREIGN KEY (user_id) REFERENCES utenti(user_id));");
 
         } catch (SQLException e) {
             System.err.println("Error creating database: " + e.getMessage());
