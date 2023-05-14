@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -125,6 +126,13 @@ public class SceneHandler {
         //createPage(SceneHandler.getInstance().HOME_PATH + "home.fxml");
     }
 
+    public void showError(String pageTitle, String upperMassage, String downMessage) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(pageTitle);
+        alert.setHeaderText(upperMassage);
+        alert.setContentText(downMessage);
+        alert.show();
+    }
 
 /*****************
  public void createLoginScene() {
@@ -140,13 +148,6 @@ public class SceneHandler {
  stage.setResizable(false);
  } catch (IOException ignored) {
  }
- }
-
- public void createErrorMessage(String message) {
- Alert alert = new Alert(Alert.AlertType.ERROR);
- alert.setTitle("Errore");
- alert.setContentText(message);
- alert.show();
  }
  *****************/
 }
