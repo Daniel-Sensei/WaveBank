@@ -99,9 +99,23 @@
     -fx-text-fill: textColor;
 }
 
+
 .text-field:focused {
     -fx-border-color: greenButtonColor;
 }
+
+.text-field-login{
+    -fx-background-color: transparent;
+    -fx-control-inner-background: rgba(0, 0, 0, 0.6);
+    -fx-border-width: 2px;
+    -fx-font-family: "Roboto Bold";
+}
+
+
+.text-field-login:focused{
+    -fx-border-color: primaryColor;
+}
+
 
 /* TEXT AREA */
 
@@ -123,7 +137,6 @@
     -fx-background-color: primaryColor;
     -fx-text-fill: textColor;
     -fx-font-size: 14px;
-    /*-fx-font-weight: bold;*/
     -fx-background-radius: 100px;
 }
 
@@ -135,6 +148,7 @@
 .button:pressed {
     -fx-background-color: derive(shade1, 30%);
 }
+
 
 .secondaryButton {
     -fx-background-color: backgroundColor;

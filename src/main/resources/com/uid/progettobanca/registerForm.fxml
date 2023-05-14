@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="470.0" styleClass="background" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="com.uid.progettobanca.controller.RegisterFormController">
+   <content>
+      <VBox alignment="CENTER" spacing="20.0">
+         <children>
+            <Label styleClass="titleLabel" text="REGISTRAZIONE">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </Label>
+            <VBox spacing="5.0">
+               <children>
+                  <Label text="Nome" />
+                  <TextField fx:id="name" prefHeight="35.0" />
+               </children>
+            </VBox>
+            <VBox spacing="5.0">
+               <children>
+                  <Label text="Cognome" />
+                  <TextField fx:id="surname" prefHeight="35.0" />
+               </children>
+            </VBox>
+            <VBox spacing="5.0">
+               <children>
+                  <Label text="Data di nascita (gg/mm/aaa)" />
+                  <TextField fx:id="date" prefHeight="35.0" />
+               </children>
+            </VBox>
+            <VBox spacing="5.0">
+               <children>
+                  <Label text="Email" />
+                  <TextField fx:id="email" prefHeight="35.0" />
+               </children>
+            </VBox>
+            <VBox spacing="5.0">
+               <children>
+                  <Label text="Password" />
+                  <TextField fx:id="password" prefHeight="35.0" />
+               </children>
+            </VBox>
+            <VBox spacing="5.0">
+               <children>
+                  <Label text="Conferma Password" />
+                  <TextField fx:id="confirmPassword" prefHeight="35.0" />
+               </children>
+            </VBox>
+            <VBox spacing="5.0">
+               <children>
+                  <Label text="Indirizzo di residenza" />
+                  <TextField fx:id="address" prefHeight="35.0" />
+               </children>
+            </VBox>
+            <VBox spacing="5.0">
+               <children>
+                  <Label text="Cellulare" />
+                  <TextField fx:id="phone" prefHeight="35.0" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+            </VBox>
+            <Button fx:id="registerButton" mnemonicParsing="false" onAction="#checkRegistration" prefHeight="40.0" prefWidth="100.0" styleClass="tertiaryButton" text="Registrati">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label text="Cliccando su Registrati accetti i termini delle nostre condizioni e confermi di aver compreso le nostre politiche per la privacy" textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="50.0" left="70.0" right="70.0" top="30.0" />
+         </padding>
+      </VBox>
+   </content>
+</ScrollPane>

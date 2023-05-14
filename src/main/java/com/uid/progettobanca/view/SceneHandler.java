@@ -8,6 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -16,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class SceneHandler {
 
@@ -56,7 +59,6 @@ public class SceneHandler {
     public void init(Stage stage) {
         //inizializzazione della parte visiva del programma, da modificare all'aggiunta del login
         if (this.stage == null) {
-            System.out.println("Stage is null");
             this.stage = stage;
             this.stage.setTitle("Wave Bank");
 
@@ -103,6 +105,7 @@ public class SceneHandler {
             Parent page = loadRootFromFXML(pageName);
             borderPane.setCenter(page);
 
+
             page.requestFocus();
             page.setOnMouseClicked(event -> {
                 // Rimuovi il focus da qualsiasi elemento attualmente in focus
@@ -129,7 +132,6 @@ public class SceneHandler {
 
      public void createLoginScene(Stage stage) {
          if (this.stage == null) {
-             System.out.println("Create login scene");
              this.stage = stage;
              this.stage.setTitle("Login");
 
@@ -148,6 +150,8 @@ public class SceneHandler {
              this.stage.show();
          }
      }
+
+
 
     public void showError(String pageTitle, String upperMassage, String downMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

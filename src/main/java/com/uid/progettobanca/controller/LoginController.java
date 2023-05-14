@@ -10,25 +10,23 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
-import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.Effect;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-
+import javafx.scene.control.Label;
 public class LoginController implements Initializable {
 
     @FXML
     private MediaView backgroundMediaView;
-
     @FXML
     private TextField emailField;
 
@@ -36,7 +34,7 @@ public class LoginController implements Initializable {
     private Button login;
 
     @FXML
-    private TextField passwordField;
+    private PasswordField passwordField;
 
     @FXML
     void onLoginButtonClick(ActionEvent event) {
@@ -53,6 +51,14 @@ public class LoginController implements Initializable {
 
     private int loadAttempts = 0;
     private static final int MAX_LOAD_ATTEMPTS = 5;
+    @FXML
+    private Label registerLabel;
+
+    @FXML
+    void openRegisterForm(MouseEvent event) {
+        SceneHandler.getInstance().createPage("registerForm.fxml");
+    }
+
     private void handleLoadError() {
         if (loadAttempts < MAX_LOAD_ATTEMPTS) {
             // Incrementa il numero di tentativi di caricamento
@@ -86,7 +92,7 @@ public class LoginController implements Initializable {
 
         // Creazione del filtro opaco
         ColorAdjust colorAdjust = new ColorAdjust();
-        colorAdjust.setBrightness(0.4); // Imposta il valore di opacità desiderato (da -1 a 1)
+        colorAdjust.setBrightness(0.5); // Imposta il valore di opacità desiderato (da -1 a 1)
         backgroundMediaView.setEffect(colorAdjust);
 
     }

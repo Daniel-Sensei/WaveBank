@@ -2,8 +2,10 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
 
-<AnchorPane prefHeight="720.0" prefWidth="470.0" styleClass="background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.LoginController">
+<AnchorPane prefHeight="720.0" prefWidth="470.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.LoginController">
    <children>
       <MediaView fx:id="backgroundMediaView" fitHeight="720.0" fitWidth="470.0" layoutX="93.0" layoutY="132.0" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <VBox alignment="TOP_CENTER" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -26,10 +28,10 @@
                <children>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../assets/images/IconDark/users.png" />
+                        <Image url="@../../../assets/images/IconDark/users-alt.png" />
                      </image>
                   </ImageView>
-                  <TextField fx:id="emailField" prefHeight="35.0" promptText="Username" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="emailField" prefHeight="35.0" promptText="Email" styleClass="text-field-login" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <HBox alignment="CENTER" spacing="15.0">
@@ -39,7 +41,7 @@
                         <Image url="@../../../assets/images/IconDark/lock.png" />
                      </image>
                   </ImageView>
-                  <TextField fx:id="passwordField" prefHeight="35.0" promptText="Password" HBox.hgrow="ALWAYS" />
+                  <PasswordField fx:id="passwordField" prefHeight="35.0" promptText="Password" styleClass="text-field-login" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <Button fx:id="login" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="40.0" prefWidth="100.0" styleClass="tertiaryButton" text="Login">
@@ -52,14 +54,20 @@
                   <VBox alignment="CENTER">
                      <children>
                         <Label text="Non sei registrato?" />
-                        <Label styleClass="subtitleLabel" text="Registrati ora" underline="true" />
+                        <Label fx:id="registerLabel" onMouseClicked="#openRegisterForm" styleClass="subtitleLabel" text="Registrati ora" underline="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Label>
                      </children>
                   </VBox>
                   <HBox HBox.hgrow="ALWAYS" />
                   <VBox alignment="CENTER">
                      <children>
                         <Label text="Passoword dimenticata?" />
-                        <Label styleClass="subtitleLabel" text="Reimposta" underline="true" />
+                        <Label styleClass="subtitleLabel" text="Reimposta" underline="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Label>
                      </children>
                   </VBox>
                </children>
