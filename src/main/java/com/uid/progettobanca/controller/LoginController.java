@@ -3,6 +3,7 @@ package com.uid.progettobanca.controller;
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
+import com.uid.progettobanca.model.Utente;
 import com.uid.progettobanca.view.ImageUtils;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.animation.PauseTransition;
@@ -21,6 +22,8 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.scene.control.Label;
 public class LoginController implements Initializable {
@@ -94,6 +97,16 @@ public class LoginController implements Initializable {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(0.5); // Imposta il valore di opacità desiderato (da -1 a 1)
         backgroundMediaView.setEffect(colorAdjust);
+
+        /*
+        LocalDate date = LocalDate.of(2002, 1, 1);
+        try {
+            UtentiDAO.insert(new Utente("Mario", "Rossi", "via dei Mille", date, "123", "mario@gmail.com", "ciao"));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+         */
 
     }
 }

@@ -23,6 +23,16 @@ public class Utente {
         this.iban = iban;
     }
 
+    public Utente(String nome, String cognome, String indirizzo, LocalDate dataNascita, String telefono, String email, String iban) {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.indirizzo = indirizzo;
+        this.dataNascita = dataNascita;
+        this.telefono = telefono;
+        this.email = email;
+        this.iban = iban;
+    }
+
     public String getUserId() {
         return user_id;
     }
