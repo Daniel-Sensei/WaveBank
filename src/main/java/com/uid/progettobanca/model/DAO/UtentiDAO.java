@@ -146,7 +146,12 @@ public class UtentiDAO {
     // restituisce l'id dell'utente se il login va a buon fine, altrimenti null
     public static String login (String email, String password) throws SQLException {
         // cripta la password inserita dall'utente
-        String hashedPassword = hashPassword(password);
+        String hashedPassword = null;
+        try {
+            hashedPassword = hashPassword(password);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
         // cerca l'utente nel database
         String query = "SELECT password, user_id FROM utenti WHERE email = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
