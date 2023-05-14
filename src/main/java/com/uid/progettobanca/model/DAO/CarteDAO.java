@@ -35,28 +35,30 @@ public class CarteDAO {
 
     //inserimento tramite oggetto di tipo carta
     public static void insert(Carta carta) throws SQLException {
-        String query = "INSERT INTO carte (num, cvv, scadenza, bloccata, tipo, cf) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO carte (num, cvv, scadenza, pin, bloccata, tipo, cf) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, carta.getNumCarta());
             stmt.setString(2, carta.getCvv());
             stmt.setDate(3, Date.valueOf(carta.getScadenza()));
-            stmt.setBoolean(4, carta.isBloccata());
-            stmt.setString(5, carta.getTipo());
-            stmt.setString(6, carta.getCf());
+            stmt.setString(4, carta.getPin());
+            stmt.setBoolean(5, carta.isBloccata());
+            stmt.setString(6, carta.getTipo());
+            stmt.setString(7, carta.getCf());
             stmt.executeUpdate();
         }
     }
 
     //inserimento specificando tutti i parametri
-    public static void insert(String num, String cvv, LocalDate scadenza, boolean bloccata, String tipo, String cf) throws SQLException {
-        String query = "INSERT INTO carte (num, cvv, scadenza, bloccata, tipo, cf) VALUES (?, ?, ?, ?, ?, ?)";
+    public static void insert(String num, String cvv, LocalDate scadenza, String pin, boolean bloccata, String tipo, String cf) throws SQLException {
+        String query = "INSERT INTO carte (num, cvv, scadenza, pin, bloccata, tipo, cf) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, num);
             stmt.setString(2, cvv);
             stmt.setDate(3, Date.valueOf(scadenza));
-            stmt.setBoolean(4, bloccata);
-            stmt.setString(5, tipo);
-            stmt.setString(6, cf);
+            stmt.setString(4, pin);
+            stmt.setBoolean(5, bloccata);
+            stmt.setString(6, tipo);
+            stmt.setString(7, cf);
             stmt.executeUpdate();
         }
     }
@@ -76,6 +78,7 @@ public class CarteDAO {
                                     rs.getString("num"),
                                     rs.getString("cvv"),
                                     rs.getDate("scadenza").toLocalDate(),
+                                    rs.getString("pin"),
                                     rs.getBoolean("bloccata"),
                                     rs.getString("tipo"),
                                     cf)
@@ -96,6 +99,7 @@ public class CarteDAO {
                     return new Carta(num,
                             rs.getString("cvv"),
                             rs.getDate("scadenza").toLocalDate(),
+                            rs.getString("pin"),
                             rs.getBoolean("bloccata"),
                             rs.getString("tipo"),
                             rs.getString("cf")
@@ -112,10 +116,11 @@ public class CarteDAO {
 
     //aggiorna lo stato di blocco di una carta
     public static void update(Carta carta) throws SQLException {
-        String query = "UPDATE carte SET bloccata = ? WHERE num = ?";
+        String query = "UPDATE carte SET bloccata = ?, pin = ? WHERE num = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setBoolean(1, carta.isBloccata());
-            stmt.setString(2, carta.getNumCarta());
+            stmt.setString(2, carta.getPin());
+            stmt.setString(3, carta.getNumCarta());
             stmt.executeUpdate();
         }
     }

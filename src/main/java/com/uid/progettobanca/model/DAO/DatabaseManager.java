@@ -98,8 +98,8 @@ public class DatabaseManager {
                                     "FOREIGN KEY (iban) REFERENCES conti(iban));");
 
             statement.execute("CREATE TABLE IF NOT EXISTS carte ("+
-                                    "num CHAR(16) PRIMARY KEY, "+
-                                    "cvv char(3) not null, scadenza DATE not null, "+
+                                    "num CHAR(16) PRIMARY KEY, cvv char(3) not null, "+
+                                    "scadenza DATE not null, pin char(3) not null, "+
                                     "bloccata TINYINT[1] not null, tipo varchar(10) not null, "+
                                     "user_id CHAR(16) not null, FOREIGN KEY (user_id) REFERENCES utenti(user_id));");
 
