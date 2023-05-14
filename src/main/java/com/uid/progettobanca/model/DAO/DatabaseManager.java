@@ -23,6 +23,7 @@ import org.sqlite.SQLiteDataSource;
 import static java.io.File.separator;
 
 public class DatabaseManager {
+
     private static String databaseUrl;
     private static DatabaseManager instance;
     private final SQLiteDataSource dataSource = new SQLiteDataSource();

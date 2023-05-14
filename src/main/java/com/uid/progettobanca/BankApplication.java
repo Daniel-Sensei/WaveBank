@@ -9,6 +9,12 @@ import javafx.stage.Stage;
 
 public class BankApplication extends Application {
 
+    //ho inserito qui i currently logged user per poterli usare in tutto il programma
+    //spostateli se non vi piace la posizione
+    private static String currentlyLoggedUser = null;
+    public static void setCurrentlyLoggedUser(String user) {currentlyLoggedUser = user;}
+    public static String getCurrentlyLoggedUser() {return currentlyLoggedUser;}
+
     private void initializeDB(){
         //inizializzazione/creazione DatabaseManager e del relativo db
         try {
@@ -25,7 +31,7 @@ public class BankApplication extends Application {
 
         // inserisco la funzione createDB() per rendere il tutto più pulito e leggibile
         // attualmente è commentata in attesa che il db sia pronto
-        //initializeDB();
+        initializeDB();
 
         // alla fine della pagina c'è un commento sull'uso del database
 

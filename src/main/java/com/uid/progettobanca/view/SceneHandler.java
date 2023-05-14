@@ -127,8 +127,6 @@ public class SceneHandler {
         //createPage(SceneHandler.getInstance().HOME_PATH + "home.fxml");
     }
 
-
-
      public void createLoginScene(Stage stage) {
          if (this.stage == null) {
              System.out.println("Create login scene");

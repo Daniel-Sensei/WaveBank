@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
 
-
-<AnchorPane prefHeight="720.0" prefWidth="470.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.LoginController">
+<AnchorPane prefHeight="720.0" prefWidth="470.0" styleClass="background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.LoginController">
    <children>
       <MediaView fx:id="backgroundMediaView" fitHeight="720.0" fitWidth="470.0" layoutX="93.0" layoutY="132.0" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <VBox alignment="TOP_CENTER" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -30,7 +29,7 @@
                         <Image url="@../../../assets/images/IconDark/users.png" />
                      </image>
                   </ImageView>
-                  <TextField prefHeight="35.0" promptText="Username" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="emailField" prefHeight="35.0" promptText="Username" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <HBox alignment="CENTER" spacing="15.0">
@@ -40,10 +39,10 @@
                         <Image url="@../../../assets/images/IconDark/lock.png" />
                      </image>
                   </ImageView>
-                  <TextField prefHeight="35.0" promptText="Password" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="passwordField" prefHeight="35.0" promptText="Password" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="tertiaryButton" text="Login">
+            <Button fx:id="login" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="40.0" prefWidth="100.0" styleClass="tertiaryButton" text="Login">
                <VBox.margin>
                   <Insets bottom="120.0" top="10.0" />
                </VBox.margin>
