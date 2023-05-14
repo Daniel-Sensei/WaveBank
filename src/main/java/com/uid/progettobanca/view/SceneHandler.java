@@ -56,6 +56,7 @@ public class SceneHandler {
     public void init(Stage stage) {
         //inizializzazione della parte visiva del programma, da modificare all'aggiunta del login
         if (this.stage == null) {
+            System.out.println("Stage is null");
             this.stage = stage;
             this.stage.setTitle("Wave Bank");
 
@@ -126,6 +127,30 @@ public class SceneHandler {
         //createPage(SceneHandler.getInstance().HOME_PATH + "home.fxml");
     }
 
+
+
+     public void createLoginScene(Stage stage) {
+         if (this.stage == null) {
+             System.out.println("Create login scene");
+             this.stage = stage;
+             this.stage.setTitle("Login");
+
+             borderPane.getStyleClass().add("root"); /*imposta proprietà root per il font family*/
+
+             scene = new Scene(borderPane, 470, 720);
+
+             loadFonts();
+
+             createPage( "login.fxml");
+
+
+             this.stage.setScene(scene);
+             this.stage.getScene().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + "light.css", CSS_PATH + "style.css");
+             this.stage.setResizable(false);
+             this.stage.show();
+         }
+     }
+
     public void showError(String pageTitle, String upperMassage, String downMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(pageTitle);
@@ -134,20 +159,12 @@ public class SceneHandler {
         alert.show();
     }
 
-/*****************
- public void createLoginScene() {
- try {
- if(scene == null)
- scene = new Scene(loadRootFromFXML("login_view.fxml"));
- else
- scene.setRoot(loadRootFromFXML("login_view.fxml"));
- stage.setMinWidth(300);
- stage.setMinHeight(200);
- stage.setWidth(300);
- stage.setHeight(200);
- stage.setResizable(false);
- } catch (IOException ignored) {
- }
+ /*****************
+ public void createErrorMessage(String message) {
+ Alert alert = new Alert(Alert.AlertType.ERROR);
+ alert.setTitle("Errore");
+ alert.setContentText(message);
+ alert.show();
  }
  *****************/
 }

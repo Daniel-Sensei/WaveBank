@@ -6,6 +6,7 @@ public class Settings {
     public static String CSS_THEME = "light.css";
     public static String IMAGE_THEME = "IconLight/";
     public static String IMAGE_PATH = "assets/images/" + IMAGE_THEME;
+    public static String VIDEO_PATH = "assets/videos/";
 
     public static void switchTheme() {
         darkTheme = !darkTheme;

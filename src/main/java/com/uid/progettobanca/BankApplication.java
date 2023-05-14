@@ -30,11 +30,12 @@ public class BankApplication extends Application {
         // alla fine della pagina c'è un commento sull'uso del database
 
         //qui viene inizializzata la scena principale con menù bar ed home di default
-        SceneHandler.getInstance().init(stage);
+        SceneHandler.getInstance().createLoginScene(stage);
 
         //per mostrare un messaggio di errore basta chiamare questa funzione
         // si passano 3 parametri: titolo in alto, intestazione e contenuto
-        SceneHandler.getInstance().showError("Errore", "L'applicazione ha riscontrato un errore durante l'esecuzione", "In realtà no e basta cliccare il pulsante per chiudere questo messaggio");
+
+        //SceneHandler.getInstance().showError("Errore", "L'applicazione ha riscontrato un errore durante l'esecuzione", "In realtà no e basta cliccare il pulsante per chiudere questo messaggio");
 
         //per passare alla pagina che volete bisogna aggiungere una seconda chiamata --> SceneHandler.getInstance().nomeMetodo();
         //successivamente questa funzioone dovrà essere richiamata dal pulsante nella menubar
