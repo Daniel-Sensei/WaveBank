@@ -86,7 +86,7 @@ public class DatabaseManager {
                                     "user_id INTEGER AUTO_INCREMENT PRIMARY KEY, "+
                                     "nome VARCHAR(50) not null, cognome VARCHAR(50) not null, "+
                                     "indirizzo varchar not null, dataNascita Date not null, "+
-                                    "telefono char(14) not null, email varchar(319) not null, "+
+                                    "telefono char(14) unique not null, email varchar(319) unique not null, "+
                                     "password varchar not null, "+
                                     "iban CHAR(27) not null, FOREIGN KEY (iban) REFERENCES conti(iban));");
 

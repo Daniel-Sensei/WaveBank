@@ -3,7 +3,7 @@ package com.uid.progettobanca.model;
 import java.time.LocalDate;
 
 public class Utente {
-    private String cf;
+    private String user_id;
     private String nome;
     private String cognome;
     private String indirizzo;
@@ -12,8 +12,8 @@ public class Utente {
     private String email;
     private String iban;
 
-    public Utente(String cf, String nome, String cognome, String indirizzo, LocalDate dataNascita, String telefono, String email, String iban) {
-        this.cf = cf;
+    public Utente(String user_id, String nome, String cognome, String indirizzo, LocalDate dataNascita, String telefono, String email, String iban) {
+        this.user_id = user_id;
         this.nome = nome;
         this.cognome = cognome;
         this.indirizzo = indirizzo;
@@ -23,12 +23,12 @@ public class Utente {
         this.iban = iban;
     }
 
-    public String getCf() {
-        return cf;
+    public String getUserId() {
+        return user_id;
     }
 
-    public void setCf(String cf) {
-        this.cf = cf;
+    public void setUserId(String user_id) {
+        this.user_id = user_id;
     }
 
     public String getNome() {
@@ -90,7 +90,7 @@ public class Utente {
     @Override
     public String toString() {
         return "Utente{" +
-                "cf='" + cf + '\'' +
+                "cf='" + user_id + '\'' +
                 ", nome='" + nome + '\'' +
                 ", cognome='" + cognome + '\'' +
                 ", indirizzo='" + indirizzo + '\'' +
