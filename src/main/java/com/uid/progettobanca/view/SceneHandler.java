@@ -123,13 +123,16 @@ public class SceneHandler {
         }
     }
 
-    public void setPage(String pageName){
-        System.out.println("SetPage= " + pageName);
-        for(String page : pages.keySet()){
-            if(page.equals(pageName)){
-                borderPane.setCenter(pages.get(page));
-                break;
-            }
+    /* Bisognerebbe sostituire le chiamate a createPage() con questa funzione,
+    e se questa funzione restituisce true allora bisogna creare la pagina
+     */
+    public boolean setPage(String pageName){
+        if(pages.containsKey(pageName)){
+            borderPane.setCenter(pages.get(pageName));
+            return true;
+        }
+        else {
+            return false;
         }
 
         /* STAMPO I VALORI PER VERIFICARE LE PAGINE CREATE (DA ELIMINARE)
