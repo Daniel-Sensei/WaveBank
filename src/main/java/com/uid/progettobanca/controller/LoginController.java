@@ -43,9 +43,11 @@ public class LoginController implements Initializable {
     void onLoginButtonClick(ActionEvent event) {
         try {
             //in questa funzione viene effettuato il login e se va a buon fine viene settato il currentlyLoggedUser
-            String user = UtentiDAO.login(emailField.getText(), passwordField.getText());
-            if (user!=null) {
+            int user = UtentiDAO.login(emailField.getText(), passwordField.getText());
+            if (user!=0) {
                 BankApplication.setCurrentlyLoggedUser(user);
+
+                System.out.println("Login effettuato con successo");
 
                 //ora bisogna passare alla homePage ovvero fare l'init chiudendo questa finestra
             }
@@ -97,16 +99,5 @@ public class LoginController implements Initializable {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(0.5); // Imposta il valore di opacità desiderato (da -1 a 1)
         backgroundMediaView.setEffect(colorAdjust);
-
-        /*
-        LocalDate date = LocalDate.of(2002, 1, 1);
-        try {
-            UtentiDAO.insert(new Utente("Mario", "Rossi", "via dei Mille", date, "123", "mario@gmail.com", "ciao"));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-         */
-
     }
 }

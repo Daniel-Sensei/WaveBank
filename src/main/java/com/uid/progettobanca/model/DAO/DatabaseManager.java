@@ -84,18 +84,18 @@ public class DatabaseManager {
             // è necessazio inserire il prefisso internazionale per il cellulare: es. 0039 Italia
             // da controllare durante l'inserimento di ogni elemento
             statement.execute("CREATE TABLE IF NOT EXISTS utenti ("+
-                                    "user_id INTEGER AUTO_INCREMENT PRIMARY KEY, "+
+                                    "user_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
                                     "nome VARCHAR(50) not null, cognome VARCHAR(50) not null, "+
                                     "indirizzo varchar not null, dataNascita Date not null, "+
                                     "telefono char(14) unique not null, email varchar(319) unique not null, "+
-                                    "password varchar not null, "+
+                                    "password varchar not null, salt blob not null, " +
                                     "iban CHAR(27) not null, FOREIGN KEY (iban) REFERENCES conti(iban));");
 
             statement.execute("CREATE TABLE IF NOT EXISTS spaces ("+
-                                    "iban CHAR(27), space_id INTEGER AUTO_INCREMENT, "+
+                                    "space_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
                                     "saldo REAL not null, dataApertura DATE not null, "+
                                     "nome VARCHAR not null, imagePath VARCHAR not null, "+
-                                    "PRIMARY KEY (iban, space_id), "+
+                                    "iban CHAR(27) NOT NULL, "+
                                     "FOREIGN KEY (iban) REFERENCES conti(iban));");
 
             statement.execute("CREATE TABLE IF NOT EXISTS carte ("+
@@ -105,7 +105,7 @@ public class DatabaseManager {
                                     "user_id CHAR(16) not null, FOREIGN KEY (user_id) REFERENCES utenti(user_id));");
 
             statement.execute("CREATE TABLE IF NOT EXISTS transazioni ("+
-                                    "transaction_id INTEGET AUTO_INCREMENT PRIMARY KEY, "+
+                                    "transaction_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
                                     "iban_from CHAR(27) not null, iban_to CHAR(27), "+
                                     "space_from integer, data date, "+
                                     "importo integer, descrizione varchar, "+

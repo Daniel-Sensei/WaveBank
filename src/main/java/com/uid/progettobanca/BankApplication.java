@@ -1,19 +1,25 @@
 package com.uid.progettobanca;
 
+import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.DAO.DatabaseManager;
+import com.uid.progettobanca.model.DAO.UtentiDAO;
+import com.uid.progettobanca.model.Utente;
 import com.uid.progettobanca.view.SceneHandler;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
+import java.sql.SQLException;
+import java.time.LocalDate;
 
 
 public class BankApplication extends Application {
 
     //ho inserito qui i currently logged user per poterli usare in tutto il programma
     //spostateli se non vi piace la posizione
-    private static String currentlyLoggedUser = null;
-    public static void setCurrentlyLoggedUser(String user) {currentlyLoggedUser = user;}
-    public static String getCurrentlyLoggedUser() {return currentlyLoggedUser;}
+    private static int currentlyLoggedUser = 0;
+    public static void setCurrentlyLoggedUser(int user) {currentlyLoggedUser = user;}
+    public static int getCurrentlyLoggedUser() {return currentlyLoggedUser;}
 
     private void initializeDB(){
         //inizializzazione/creazione DatabaseManager e del relativo db
@@ -33,6 +39,7 @@ public class BankApplication extends Application {
         // attualmente è commentata in attesa che il db sia pronto
         initializeDB();
 
+
         // alla fine della pagina c'è un commento sull'uso del database
 
         //qui viene inizializzata la scena principale con menù bar ed home di default
@@ -40,7 +47,6 @@ public class BankApplication extends Application {
 
         //per mostrare un messaggio di errore basta chiamare questa funzione
         // si passano 3 parametri: titolo in alto, intestazione e contenuto
-
         //SceneHandler.getInstance().showError("Errore", "L'applicazione ha riscontrato un errore durante l'esecuzione", "In realtà no e basta cliccare il pulsante per chiudere questo messaggio");
 
         //per passare alla pagina che volete bisogna aggiungere una seconda chiamata --> SceneHandler.getInstance().nomeMetodo();
@@ -50,6 +56,23 @@ public class BankApplication extends Application {
     public static void main(String[] args) {
         launch();
     }
+
+    /**
+     *         Esempio di inserimento di un utente e di un conto nel database
+     *         è necessario anche il conto poichè la tabella utenti ha una foreign key che fa riferimento alla tabella conti
+     *
+     *         LocalDate date = LocalDate.of(2002, 1, 1);
+     *
+     *         try {
+     *
+     *             ContiDAO.insert("IT0000000000000", 23430, LocalDate.now());
+     *
+     *             UtentiDAO.insert(new Utente("Mario", "Rossi", "via dei Mille", date, "12345", "mario@example.com", "password", "IT0000000000000"));
+     *
+     *         } catch (SQLException e) {
+     *             throw new RuntimeException(e);
+     *         }
+     */
 
 
     /**
