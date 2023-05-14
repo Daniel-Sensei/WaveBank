@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -64,7 +63,7 @@
                   <VBox alignment="CENTER">
                      <children>
                         <Label text="Passoword dimenticata?" />
-                        <Label styleClass="subtitleLabel" text="Reimposta" underline="true">
+                        <Label fx:id="resetLabel" onMouseClicked="#openResetForm" styleClass="subtitleLabel" text="Reimposta" underline="true">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Label>
@@ -78,8 +77,4 @@
          </padding>
       </VBox>
    </children>
-   <stylesheets>
-      <URL value="@../../../css/style.css" />
-      <URL value="@../../../css/light.css" />
-   </stylesheets>
 </AnchorPane>

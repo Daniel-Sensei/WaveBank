@@ -38,6 +38,8 @@ public class LoginController implements Initializable {
 
     @FXML
     private PasswordField passwordField;
+    @FXML
+    private Label resetLabel;
 
     @FXML
     void onLoginButtonClick(ActionEvent event) {
@@ -62,6 +64,10 @@ public class LoginController implements Initializable {
     @FXML
     void openRegisterForm(MouseEvent event) {
         SceneHandler.getInstance().createPage("registerForm.fxml");
+    }
+    @FXML
+    void openResetForm(MouseEvent event) {
+        SceneHandler.getInstance().createPage("passwordRecovery.fxml");
     }
 
     private void handleLoadError() {
@@ -99,5 +105,16 @@ public class LoginController implements Initializable {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(0.5); // Imposta il valore di opacità desiderato (da -1 a 1)
         backgroundMediaView.setEffect(colorAdjust);
+
+        /*
+        LocalDate date = LocalDate.of(2002, 1, 1);
+        try {
+            UtentiDAO.insert(new Utente("Mario", "Rossi", "via dei Mille", date, "123", "mario@gmail.com", "ciao"));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+         */
+
     }
 }

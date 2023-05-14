@@ -16,8 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SceneHandler {
@@ -48,6 +47,8 @@ public class SceneHandler {
     public final static String MY_ACCOUNT_PATH = "/MyAccount/";
 
     private BorderPane borderPane = new BorderPane();
+
+    Map<String, Parent> pages = new HashMap<>();
 
     public static SceneHandler getInstance() {
         return instance;
@@ -103,6 +104,7 @@ public class SceneHandler {
     public void createPage(String pageName) {
         try {
             Parent page = loadRootFromFXML(pageName);
+            pages.put(pageName, page);
             borderPane.setCenter(page);
 
 
@@ -119,6 +121,27 @@ public class SceneHandler {
         } catch (IOException ignored) {
             System.out.println("Errore nella creazione della pagina: " + pageName);
         }
+    }
+
+    public void setPage(String pageName){
+        System.out.println("SetPage= " + pageName);
+        for(String page : pages.keySet()){
+            if(page.equals(pageName)){
+                borderPane.setCenter(pages.get(page));
+                break;
+            }
+        }
+
+        /* STAMPO I VALORI PER VERIFICARE LE PAGINE CREATE (DA ELIMINARE)
+        for (Map.Entry<String, Parent> entry : pages.entrySet()) {
+            String key = entry.getKey();
+            Parent value = entry.getValue();
+
+            // Esempio di utilizzo dei valori
+            System.out.println("Chiave: " + key + ", Valore: " + value);
+        }
+         */
+
     }
 
     public void switchTheme(){
