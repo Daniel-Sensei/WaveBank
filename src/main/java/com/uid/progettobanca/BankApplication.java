@@ -3,6 +3,7 @@ package com.uid.progettobanca;
 import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.DAO.DatabaseManager;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
+import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.model.Utente;
 import com.uid.progettobanca.view.SceneHandler;
 
@@ -51,6 +52,8 @@ public class BankApplication extends Application {
 
         //qui viene inizializzata la scena principale con menù bar ed home di default
         SceneHandler.getInstance().createLoginScene(stage);
+
+
 
         //per mostrare un messaggio di errore basta chiamare questa funzione
         // si passano 3 parametri: titolo in alto, intestazione e contenuto
