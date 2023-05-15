@@ -96,6 +96,10 @@ public class SceneHandler {
         }
     }
 
+    public Parent loadPage(String pageName) throws IOException {
+        return loadRootFromFXML(pageName);
+    }
+
     public void createMenuBar() {
         //creazione menù bar, l'unico che non dovete copiare, la menù bar viene creata una sola volta e in questa vengono inizializzate un paion di altre cose
         try {

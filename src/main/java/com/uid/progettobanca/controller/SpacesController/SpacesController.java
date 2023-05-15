@@ -1,18 +1,26 @@
 package com.uid.progettobanca.controller.SpacesController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.model.DAO.SpacesDAO;
+import com.uid.progettobanca.model.Space;
+import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.ResourceBundle;
 
-public class SpacesController {
+public class SpacesController implements Initializable {
 
     @FXML
     private Button Stats;
@@ -39,8 +47,20 @@ public class SpacesController {
 
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        SpacesManager spacesList = new SpacesManager();
+        for (int i = 0; i < spacesList.getSize(); i++) {
+            try {
+                Parent singleSpace = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().SPACES_PATH + "singleSpace.fxml");
+                listOfSpaces.getChildren().add(singleSpace);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
+        }
     }
+}
 
 
 

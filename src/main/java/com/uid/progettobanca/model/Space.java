@@ -70,7 +70,7 @@ public class Space {
 
     public void setNome(String nome) {this.nome = nome;}
 
-    public String getImagePath() {return imagePath;}
+    public String getImage() {return imagePath;}
 
     public void setImagePath(String imagePath) {this.imagePath = imagePath;}
 

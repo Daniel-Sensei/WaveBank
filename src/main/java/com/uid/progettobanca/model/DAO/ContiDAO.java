@@ -1,6 +1,7 @@
 package com.uid.progettobanca.model.DAO;
 
 import com.uid.progettobanca.model.Conto;
+import com.uid.progettobanca.model.Space;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -61,7 +62,12 @@ public class ContiDAO {
 
     public static String generateNew() throws SQLException {
         String iban = generateRandomIban();
-        insert(iban, 100, LocalDate.now());
+        int saldo = 500;
+        LocalDate data = LocalDate.now();
+        insert(iban, saldo, data);
+
+        SpacesDAO.insert(new Space(iban,saldo,data,"Conto corrente Principale","wallet.png" ));
+
         return iban;
     }
 

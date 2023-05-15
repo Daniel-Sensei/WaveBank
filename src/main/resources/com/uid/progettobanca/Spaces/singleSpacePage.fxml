@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController.SingleSpacePageController">
+   <padding>
+      <Insets left="200.0" right="200.0" top="160.0" />
+   </padding>
+   <children>
+      <HBox alignment="CENTER" layoutX="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <ImageView fx:id="spaceLogoButton" fitHeight="94.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../assets/images/spacesImage/bags.png" />
+               </image>
+               <HBox.margin>
+                  <Insets bottom="30.0" top="30.0" />
+               </HBox.margin>
+            </ImageView>
+         </children>
+      </HBox>
+      <ScrollPane hbarPolicy="NEVER" layoutX="450.0" layoutY="159.0" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox alignment="TOP_CENTER" prefHeight="540.0" prefWidth="879.0" spacing="25.0">
+               <children>
+                  <HBox prefHeight="121.0" prefWidth="839.0">
+                     <children>
+                        <VBox spacing="15.0">
+                           <children>
+                              <Label styleClass="titleLabel" text="Conto corrente principale">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="balanceLabel" text="10000000">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="203.0" spacing="10.0">
+                                 <children>
+                                    <ImageView fx:id="eyeBalance" fitHeight="10.0" fitWidth="10.0" onMouseClicked="#hideBalance" pickOnBounds="true" preserveRatio="true" />
+                                    <Label text="%saldo attuale" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="155.0" prefWidth="839.0" spacing="25.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="70.0" prefWidth="80.0">
+                           <children>
+                              <Button fx:id="sendButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" textAlignment="CENTER" />
+                              <Label text="Invia" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="70.0" prefWidth="80.0">
+                           <children>
+                              <Button fx:id="receiveButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" textAlignment="CENTER" />
+                              <Label text="Ricevi" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="70.0" prefWidth="80.0">
+                           <children>
+                              <Button fx:id="statButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" styleClass="tertiaryButton" textAlignment="CENTER" />
+                              <Label text="Statistiche" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="70.0" prefWidth="80.0">
+                           <children>
+                              <Button fx:id="optionButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" styleClass="tertiaryButton" textAlignment="CENTER" />
+                              <Label prefHeight="19.0" prefWidth="82.0" text="Impostazioni" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <VBox>
+                     <children>
+                        <Label text="OGGI" />
+                        <VBox fx:id="listOfTransaction" styleClass="vbox-with-rounded-border">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="75.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
+                                    <Label text="Vivo Market" HBox.hgrow="ALWAYS" />
+                                    <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" styleClass="button-label" text="- 5,95 $" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="15.0" right="15.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="75.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
+                                    <Label prefHeight="20.0" prefWidth="500.0" text="Palestra" HBox.hgrow="ALWAYS" />
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 25,95 $" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="15.0" right="15.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="75.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
+                                    <Label prefHeight="20.0" prefWidth="500.0" text="Mc Donald's" HBox.hgrow="ALWAYS" />
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 59,05 $" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="15.0" right="15.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="75.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox-bottom">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
+                                    <Label prefHeight="20.0" prefWidth="500.0" text="Amazon" HBox.hgrow="ALWAYS" />
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="150.0" styleClass="button-label" text="- 23,00 $" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="15.0" right="15.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets top="20.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" top="15.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+   <stylesheets>
+      <URL value="@../../../../css/dark.css" />
+      <URL value="@../../../../css/style.css" />
+   </stylesheets>
+</AnchorPane>

@@ -17,6 +17,11 @@ public class GenericController {
         }
     }
 
+    public static void setSpaceImage(String name, ImageView imageView){
+        imageView.setImage(ImageUtils.loadImageFromResource(Settings.SPACE_IMAGE_PATH + name));
+    }
+
+
     public static void loadImagesButton(ArrayList<Button> buttons) {
         for(Button button : buttons){
             Image image = ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + button.getId() + ".png");

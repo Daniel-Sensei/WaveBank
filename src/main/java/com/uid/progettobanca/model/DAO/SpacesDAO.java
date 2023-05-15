@@ -3,8 +3,7 @@ package com.uid.progettobanca.model.DAO;
 import com.uid.progettobanca.model.Space;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Queue;
 
 public class SpacesDAO {
     private static Connection conn;
@@ -39,7 +38,7 @@ public class SpacesDAO {
             stmt.setDouble(2, space.getSaldo());
             stmt.setDate(3, Date.valueOf(space.getDataApertura()));
             stmt.setString(4, space.getNome());
-            stmt.setString(5, space.getImagePath());
+            stmt.setString(5, space.getImage());
             stmt.executeUpdate();
             try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
@@ -72,12 +71,12 @@ public class SpacesDAO {
         }
     }
 
-    public static List<Space> selectAllByIban(String iban) throws SQLException {
+    public static Queue<Space> selectAllByIban(String iban) throws SQLException {
         String query = "SELECT * FROM spaces WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
             try (ResultSet rs = stmt.executeQuery()) {
-                List<Space> spaces = new ArrayList<>();
+                Queue<Space> spaces = null;
                 while (rs.next()) {
                     spaces.add(new Space(iban,
                                     rs.getInt("space_id"),
@@ -102,7 +101,7 @@ public class SpacesDAO {
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setDouble(1, space.getSaldo());
             stmt.setString(2, space.getNome());
-            stmt.setString(3, space.getImagePath());
+            stmt.setString(3, space.getImage());
             stmt.setString(4, space.getIban());
             stmt.setInt(5, space.getSpaceId());
             stmt.executeUpdate();
