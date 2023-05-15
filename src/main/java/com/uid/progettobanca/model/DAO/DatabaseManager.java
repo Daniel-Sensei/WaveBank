@@ -89,6 +89,7 @@ public class DatabaseManager {
                                     "indirizzo varchar not null, dataNascita Date not null, "+
                                     "telefono char(14) unique not null, email varchar(319) unique not null, "+
                                     "password varchar not null, salt blob not null, " +
+                                    "domanda varchar not null, risposta varchar not null, " +
                                     "iban CHAR(27) unique not null, FOREIGN KEY (iban) REFERENCES conti(iban));");
 
             statement.execute("CREATE TABLE IF NOT EXISTS spaces ("+
@@ -107,7 +108,7 @@ public class DatabaseManager {
             statement.execute("CREATE TABLE IF NOT EXISTS transazioni ("+
                                     "transaction_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
                                     "iban_from CHAR(27) not null, iban_to CHAR(27), "+
-                                    "space_from integer, data date, "+
+                                    "space_from integer, dateTime Timestamp, "+
                                     "importo integer, descrizione varchar, "+
                                     "tag varchar, commenti varchar, "+
                                     "FOREIGN KEY (iban_from) REFERENCES conti(iban));");
@@ -161,85 +162,4 @@ public class DatabaseManager {
         TUTTO CIO' CHE SI TROVA AL DI SOPRA DI QUESTO COMMENTO NON VA MODIFICATO
      *
      ****************************************************************************/
-
-
-
-
-
-
-    /**
-
-    public void inserisciConto(String iban, double saldo, LocalDate dataApertura) throws SQLException {
-        Connection conn = getConnection();
-
-        try {
-            // Verifica che l'iban rispetti la regex
-            if (!iban.matches("[A-Z]{2}[0-9]{2}[A-Z][0-9]{22}")) {
-                throw new IllegalArgumentException("L'iban inserito non è valido.");
-                //successivamente verrà creato un messaggio d'errore a schermo
-            }
-
-            // Crea la query per l'inserimento dei dati nella tabella
-            String query = "INSERT INTO conti (iban, saldo, dataApertura) VALUES (?, ?, ?)";
-
-            // Prepara la query per l'esecuzione
-            PreparedStatement stmt = conn.prepareStatement(query);
-
-            // Imposta i parametri della query con i valori passati alla funzione
-            stmt.setString(1, iban);
-            stmt.setDouble(2, saldo);
-            stmt.setDate(3, Date.valueOf(dataApertura));
-
-            // Esegui la query per l'inserimento dei dati nella tabella
-            stmt.executeUpdate();
-        } finally {
-            // Chiudi la connessione al database
-            conn.close();
-        }
-    }
-
-    public List<Integer> getUsers() throws SQLException {
-        List<Integer> userIds = new ArrayList<>();
-
-        Connection conn = null;
-        try {
-            conn = getConnection();
-            if (conn != null) {
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT id FROM users");
-                while (rs.next()) {
-                    int userId = rs.getInt("id");
-                    userIds.add(userId);
-                }
-            }
-        } finally {
-            if (conn != null) {
-                conn.close();
-            }
-        }
-
-        return userIds;
-    }
-
-    public void insertUsers() throws SQLException {
-        if(getUsers().isEmpty()) {
-            Connection conn = null;
-            try {
-                conn = getConnection();
-                if (conn != null) {
-                    Statement stmt = conn.createStatement();
-                    stmt.executeUpdate("INSERT INTO users (id, name) VALUES (1, 'Mario Rossi')");
-                    stmt.executeUpdate("INSERT INTO users (id, name) VALUES (2, 'Luigi Verdi')");
-                    stmt.executeUpdate("INSERT INTO users (id, name) VALUES (3, 'Giovanni Bianchi')");
-                    System.out.println("utenti inseriti");
-                }
-            } finally {
-                if (conn != null) {
-                    conn.close();
-                }
-            }
-        }
-    }
-
-    **/
 }

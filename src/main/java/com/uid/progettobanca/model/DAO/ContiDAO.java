@@ -6,6 +6,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ContiDAO {
 
@@ -44,7 +45,8 @@ public class ContiDAO {
         }
     }
 
-    //inserimento specificando tutti i parametri
+    // inserimento specificando i valori
+
     public static void insert(String iban, double saldo, LocalDate dataApertura) throws SQLException {
         String query = "INSERT INTO conti (iban, saldo, dataApertura) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -53,6 +55,14 @@ public class ContiDAO {
             stmt.setDate(3, Date.valueOf(dataApertura));
             stmt.executeUpdate();
         }
+    }
+
+    //inserimento tramite inizializzazione randomica
+
+    public static String generateNew() throws SQLException {
+        String iban = generateRandomIban();
+        insert(iban, 100, LocalDate.now());
+        return iban;
     }
 
 
@@ -124,6 +134,43 @@ public class ContiDAO {
             stmt.setString(1, iban);
             stmt.executeUpdate();
         }
+    }
+
+
+    // funzioni di servizio
+
+    public static String generateRandomIban() {
+        String countryCode = "IT";
+        String bankCode = "00000"; // Esempio di codice banca
+        String branchCode = "00000"; // Esempio di codice filiale
+        String accountNumber = generateRandomDigits(12); // Numero di conto casuale
+
+        String iban = countryCode + bankCode + branchCode + accountNumber;
+
+        // Calcola la cifra di controllo del modulo 97
+        int checkDigit = calculateMod97(iban);
+
+        // Costruisci l'IBAN completo con la cifra di controllo
+        iban = countryCode + checkDigit + bankCode + branchCode + accountNumber;
+
+        return iban;
+    }
+
+    public static int calculateMod97(String iban) {
+        String rearrangedIban = iban.substring(4) + iban.substring(0, 4);
+        long numericIban = Long.parseLong(rearrangedIban);
+        int mod97 = (int) (numericIban % 97);
+        int checkDigit = 98 - mod97;
+        return checkDigit;
+    }
+
+    public static String generateRandomDigits(int length) {
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            sb.append(random.nextInt(10));
+        }
+        return sb.toString();
     }
 }
 

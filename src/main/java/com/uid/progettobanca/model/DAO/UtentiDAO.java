@@ -37,7 +37,7 @@ public class UtentiDAO {
 
     //inserimento tramite oggetto di tipo utente
     public static void insert(Utente utente) throws SQLException {
-        String query = "INSERT INTO utenti (nome, cognome, indirizzo, dataNascita, telefono, email, password, salt, iban) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO utenti (nome, cognome, indirizzo, dataNascita, telefono, email, password, salt, domanda, risposta, iban) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             byte[] salt = generateSalt();
             stmt.setString(1, utente.getNome());
@@ -48,6 +48,8 @@ public class UtentiDAO {
             stmt.setString(6, utente.getEmail());
             stmt.setString(7, hashPassword(utente.getPassword(), salt));
             stmt.setBytes(8, salt);
+            stmt.setString(9, utente.getDomanda());
+            stmt.setString(10, utente.getRisposta());
             stmt.setString(9, utente.getIban());
             stmt.executeUpdate();
         } catch (NoSuchAlgorithmException e) {
@@ -73,6 +75,8 @@ public class UtentiDAO {
                             result.getString("email"),
                             result.getString("password"),
                             result.getBytes("salt"),
+                            result.getString("domanda"),
+                            result.getString("risposta"),
                             result.getString("iban")
                     );
                 } else {
@@ -98,6 +102,8 @@ public class UtentiDAO {
                             result.getString("email"),
                             result.getString("password"),
                             result.getBytes("salt"),
+                            result.getString("domanda"),
+                            result.getString("risposta"),
                             result.getString("iban")
                         )
                     );
@@ -155,6 +161,24 @@ public class UtentiDAO {
         }
     }
 
+    // funzione che restituisce una coppia di stringhe formata da domanda e risposta
+
+    public static String[] getDomandaRisposta(String email) throws SQLException {
+        String query = "SELECT domanda, risposta FROM utenti WHERE email = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, email);
+            try (ResultSet result = stmt.executeQuery()) {
+                if (result.next()) {
+                    String[] domandaRisposta = new String[2];
+                    domandaRisposta[0] = result.getString("domanda");
+                    domandaRisposta[1] = result.getString("risposta");
+                    return domandaRisposta;
+                } else {
+                    return null;
+                }
+            }
+        }
+    }
 
     // cambio password
 

@@ -1,13 +1,13 @@
 package com.uid.progettobanca.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Transazione {
     private int transactionId;
     private String ibanFrom;
     private String ibanTo;
     private int spaceFrom;
-    private LocalDate data;
+    private LocalDateTime dateTime;
     private double importo;
     private String descrizione;
     private String tag;
@@ -17,11 +17,11 @@ public class Transazione {
     //  Costruttori:
 
     //questo costruttore serve quando si crea una transazione da inserire nel database
-    public Transazione(String ibanFrom, String ibanTo, int spaceFrom, LocalDate data, double importo, String descrizione, String tag, String commenti) {
+    public Transazione(String ibanFrom, String ibanTo, int spaceFrom, LocalDateTime dateTime, double importo, String descrizione, String tag, String commenti) {
         this.ibanFrom = ibanFrom;
         this.ibanTo = ibanTo;
         this.spaceFrom = spaceFrom;
-        this.data = data;
+        this.dateTime = dateTime;
         this.importo = importo;
         this.descrizione = descrizione;
         this.tag = tag;
@@ -29,12 +29,12 @@ public class Transazione {
     }
 
     //questo costruttore serve quando si crea una transazione da estrarre dal database
-    public Transazione(int transactionId, String ibanFrom, String ibanTo, int spaceFrom, LocalDate data, double importo, String descrizione, String tag, String commenti) {
+    public Transazione(int transactionId, String ibanFrom, String ibanTo, int spaceFrom, LocalDateTime dateTime, double importo, String descrizione, String tag, String commenti) {
         this.transactionId = transactionId;
         this.ibanFrom = ibanFrom;
         this.ibanTo = ibanTo;
         this.spaceFrom = spaceFrom;
-        this.data = data;
+        this.dateTime = dateTime;
         this.importo = importo;
         this.descrizione = descrizione;
         this.tag = tag;
@@ -57,9 +57,9 @@ public class Transazione {
 
     public void setSpaceFrom(int spaceFrom) {this.spaceFrom = spaceFrom;}
 
-    public LocalDate getData() {return data;}
+    public LocalDateTime getDateTime() {return dateTime;}
 
-    public void setData(LocalDate data) {this.data = data;}
+    public void setDateTime(LocalDateTime dateTime) {this.dateTime = dateTime;}
 
     public double getImporto() {return importo;}
 
@@ -84,7 +84,7 @@ public class Transazione {
                 ", ibanFrom='" + ibanFrom + '\'' +
                 ", ibanTo='" + ibanTo + '\'' +
                 ", spaceFrom=" + spaceFrom +
-                ", data=" + data +
+                ", data=" + dateTime +
                 ", importo=" + importo +
                 ", descrizione='" + descrizione + '\'' +
                 ", tag='" + tag + '\'' +

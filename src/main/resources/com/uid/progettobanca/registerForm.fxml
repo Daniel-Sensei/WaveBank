@@ -53,8 +53,8 @@
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <Label text="Data di nascita (gg/mm/aaa)" />
-                  <TextField fx:id="date" prefHeight="35.0" />
+                  <Label text="Data di nascita (aaaa-mm-gg)" />
+                  <TextField fx:id="date" prefHeight="35.0" promptText="anno-mese-giorno" />
                </children>
             </VBox>
             <VBox spacing="5.0">

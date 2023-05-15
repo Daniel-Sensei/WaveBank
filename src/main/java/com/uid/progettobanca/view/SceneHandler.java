@@ -172,21 +172,19 @@ public class SceneHandler {
      }
 
 
-
-    public void showError(String pageTitle, String upperMassage, String downMessage) {
+    public void showError(String pageTitle, String headerMassage, String contentText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(pageTitle);
-        alert.setHeaderText(upperMassage);
-        alert.setContentText(downMessage);
-        alert.show();
+        alert.setHeaderText(headerMassage);
+        alert.setContentText(contentText);
+        alert.showAndWait();
     }
 
- /*****************
- public void createErrorMessage(String message) {
- Alert alert = new Alert(Alert.AlertType.ERROR);
- alert.setTitle("Errore");
- alert.setContentText(message);
- alert.show();
- }
- *****************/
+    public void showInformation(String title, String headerMassage, String contentText) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(headerMassage);
+        alert.setContentText(contentText);
+        alert.showAndWait();
+    }
 }

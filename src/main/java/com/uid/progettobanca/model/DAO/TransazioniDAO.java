@@ -33,12 +33,12 @@ public class TransazioniDAO {
 
     //inserimento tramite oggetto di tipo transazione
     public static void insert(Transazione transazione) throws SQLException {
-        String query = "INSERT INTO transazioni (iban_from, iban_to, space_from, data, importo, descrizione, tag, commenti) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO transazioni (iban_from, iban_to, space_from, dateTime, importo, descrizione, tag, commenti) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, transazione.getIbanFrom());
             stmt.setString(2, transazione.getIbanTo());
             stmt.setInt(3, transazione.getSpaceFrom());
-            stmt.setDate(4, Date.valueOf(transazione.getData()));
+            stmt.setTimestamp(4, Timestamp.valueOf(transazione.getDateTime()));
             stmt.setDouble(5, transazione.getImporto());
             stmt.setString(6, transazione.getDescrizione());
             stmt.setString(7, transazione.getTag());
@@ -66,7 +66,7 @@ public class TransazioniDAO {
                             rs.getString("iban_from"),
                             rs.getString("iban_to"),
                             rs.getInt("space_from"),
-                            rs.getDate("data").toLocalDate(),
+                            rs.getTimestamp("dateTime").toLocalDateTime(),
                             rs.getDouble("importo"),
                             rs.getString("descrizione"),
                             rs.getString("tag"),
@@ -91,7 +91,7 @@ public class TransazioniDAO {
                         rs.getString("iban_from"),
                         rs.getString("iban_to"),
                         rs.getInt("space_from"),
-                        rs.getDate("data").toLocalDate(),
+                        rs.getTimestamp("dateTime").toLocalDateTime(),
                         rs.getDouble("importo"),
                         rs.getString("descrizione"),
                         rs.getString("tag"),
@@ -115,7 +115,7 @@ public class TransazioniDAO {
                             rs.getString("iban_from"),
                             rs.getString("iban_to"),
                             rs.getInt("space_from"),
-                            rs.getDate("data").toLocalDate(),
+                            rs.getTimestamp("dateTime").toLocalDateTime(),
                             rs.getDouble("importo"),
                             rs.getString("descrizione"),
                             rs.getString("tag"),
