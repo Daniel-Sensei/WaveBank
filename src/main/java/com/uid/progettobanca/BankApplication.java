@@ -59,24 +59,6 @@ public class BankApplication extends Application {
     }
 
     /**
-     *         Esempio di inserimento di un utente e di un conto nel database
-     *         è necessario anche il conto poichè la tabella utenti ha una foreign key che fa riferimento alla tabella conti
-     *
-     *         LocalDate date = LocalDate.of(2002, 1, 1);
-     *
-     *         try {
-     *
-     *             ContiDAO.insert("IT0000000000000", 23430, LocalDate.now());
-     *
-     *             UtentiDAO.insert(new Utente("Mario", "Rossi", "via dei Mille", date, "12345", "mario@example.com", "password", "IT0000000000000"));
-     *
-     *         } catch (SQLException e) {
-     *             throw new RuntimeException(e);
-     *         }
-     */
-
-
-    /**
 
      //esempio di utilizzo dei DAO per il database, potete fare così ed utilizzarle in qualunque altra classe vogliate
      //inserimento di un conto e stampa di tutti i conti presenti nel database

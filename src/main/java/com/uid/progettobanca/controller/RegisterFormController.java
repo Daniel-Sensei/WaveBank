@@ -79,7 +79,7 @@ public class RegisterFormController implements Initializable {
             } else {
                 try {
                     UtentiDAO.insert(new Utente(name.getText(), surname.getText(), address.getText(), LocalDate.parse(date.getText()), phone.getText(), email.getText(), password.getText(), questions.getValue(), answer.getText(), ContiDAO.generateNew()));
-                    SceneHandler.getInstance().showInformation("Registrazione", "Registrazione effettuata con successo", "Ora puoi effettuare il login");
+                    SceneHandler.getInstance().showInfo("Registrazione", "Registrazione effettuata con successo", "Ora puoi effettuare il login");
                     SceneHandler.getInstance().setPage("login.fxml");
                 } catch (SQLException e) {
                     System.out.println(e.getMessage());

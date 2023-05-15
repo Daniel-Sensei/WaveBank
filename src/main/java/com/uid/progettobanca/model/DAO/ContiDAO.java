@@ -93,6 +93,24 @@ public class ContiDAO {
         }
     }
 
+    // get saldo by iban
+
+    public static double getSaldoByIban(String iban) throws SQLException {
+        String query = "SELECT saldo FROM conti WHERE iban = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, iban);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getDouble("saldo");
+                } else {
+                    return 0;
+                }
+            }
+        }
+    }
+
+    //seleziona tutti i conti
+
     public static List<Conto> selectAll() throws SQLException {
         String query = "SELECT * FROM conti";
         try (Statement stmt = conn.createStatement();
@@ -125,17 +143,18 @@ public class ContiDAO {
 
     //trasferimento di denaro tra due conti usando le transazioni di SQLite
     public static void transazione(String iban_to, String iban_from, double importo) throws SQLException {
-        String query = "UPDATE conti SET saldo = saldo ? ? WHERE iban = ?";
+        String query = "UPDATE conti SET saldo = saldo - ? WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             conn.setAutoCommit(false);
-            stmt.setString(1, "-");
-            stmt.setDouble(2, importo);
-            stmt.setString(3, iban_from);
+            stmt.setDouble(1, importo);
+            stmt.setString(2, iban_from);
             stmt.executeUpdate();
-            //controllare se esiste il secondo conto ed in caso aggiungere
-            stmt.setString(1, "+");
-            stmt.setString(3, iban_to);
-            stmt.executeUpdate();
+            //se esiste il conto di destinazione aggiorna il saldo
+            if(selectByIban(iban_to) != null) {
+                stmt.setDouble(1, importo*-1);
+                stmt.setString(2, iban_to);
+                stmt.executeUpdate();
+            }
             conn.commit();
             conn.setAutoCommit(true);
         }

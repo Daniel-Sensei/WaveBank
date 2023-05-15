@@ -39,13 +39,14 @@ public class BonificoController {
     private Button sendButton;
 
     @FXML
-    void onSendClick(ActionEvent event) {
+    void onSendButtonClick(ActionEvent event) {
         try {
-            ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), Double.parseDouble(fieldAmount.getText()));
+            ContiDAO.transazione(fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedIban(), Double.parseDouble(fieldAmount.getText()));
             Transazione t = new Transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedMainSpace(), LocalDateTime.now(), Double.parseDouble(fieldAmount.getText()), fieldDescr.getText(), "Altro", "");
             if(saveContact.isSelected()){
                 ContattiDAO.insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedUser()));
             }
+            SceneHandler.getInstance().showInfo("Bonifico", "Bonifico effettuato con successo", "Il bonifico è andato a buon fine.");
         } catch (SQLException e) {
             SceneHandler.getInstance().showError("Errore", "Errore durante l'inserimento del contatto ", e.getMessage());
         }

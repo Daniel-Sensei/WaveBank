@@ -33,7 +33,7 @@ public class ContattiDAO {
 
     //inserimehnto tramite oggetto di tipo rubrica
     public static void insert(Contatto contatto) throws SQLException {
-        String query = "INSERT INTO contatti (nome, cognome, iban_to, cf) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO contatti (nome, cognome, iban_to, user_id) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, contatto.getNome());
             stmt.setString(2, contatto.getCognome());

@@ -1,6 +1,8 @@
 package com.uid.progettobanca.view;
 
+import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
+import com.uid.progettobanca.model.DAO.ContiDAO;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -40,7 +43,7 @@ public class SceneHandler {
      **/
 
     private final static String FONTS_PATH = CSS_PATH + "fonts/";
-    public final static String HOME_PATH = "Home/";
+    public final static String HOME_PATH = "/Home/";
     public final static String MANAGE_PATH = "/Manage/";
     public final static String OPERATIONS_PATH = "/Operations/";
     public final static String SPACES_PATH = "/Spaces/";
@@ -106,7 +109,12 @@ public class SceneHandler {
             Parent menuBar = loadRootFromFXML("menuBar.fxml");
             borderPane.setTop(menuBar);
             BorderPane.setAlignment(menuBar, Pos.CENTER_RIGHT);
+            String iban = BankApplication.getCurrentlyLoggedIban();
+            System.out.println(ContiDAO.getSaldoByIban(iban));
+            System.out.println(BankApplication.getCurrentlyLoggedIban());
         } catch (IOException ignored) {
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -184,7 +192,7 @@ public class SceneHandler {
         alert.showAndWait();
     }
 
-    public void showInformation(String title, String headerMassage, String contentText) {
+    public void showInfo(String title, String headerMassage, String contentText) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(headerMassage);

@@ -33,7 +33,7 @@
                                  <graphic>
                                     <ImageView fitHeight="12.0" fitWidth="12.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../assets/images/light/right-arrow.png" />
+                                          <Image url="@../../../../assets/images/IconLight/arrow-small-left.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
