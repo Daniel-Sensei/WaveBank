@@ -57,11 +57,16 @@ public class SceneHandler {
     private SceneHandler() {
     }
 
+    public Stage getStage() {
+        return stage;
+    }
+
     public void init(Stage stage) {
         //inizializzazione della parte visiva del programma, da modificare all'aggiunta del login
-        if (this.stage == null) {
             this.stage = stage;
             this.stage.setTitle("Wave Bank");
+
+            borderPane = new BorderPane();
 
             borderPane.getStyleClass().add("root"); /*imposta proprietà root per il font family*/
 
@@ -77,7 +82,7 @@ public class SceneHandler {
             this.stage.getScene().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + "light.css", CSS_PATH + "style.css");
             this.stage.setResizable(false);
             this.stage.show();
-        }
+
     }
 
     private <T> T loadRootFromFXML(String resourceName) throws IOException {

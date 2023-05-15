@@ -50,8 +50,9 @@ public class LoginController implements Initializable {
                 BankApplication.setCurrentlyLoggedUser(user);
 
                 System.out.println("Login effettuato con successo");
+                BankApplication.setCurrentlyLoggedIban(UtentiDAO.selectByUserId(user).getIban());
 
-                //ora bisogna passare alla homePage ovvero fare l'init chiudendo questa finestra
+                SceneHandler.getInstance().init(SceneHandler.getInstance().getStage());
             }
         } catch (Exception ignored) {}
     }

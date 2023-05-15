@@ -38,41 +38,41 @@
                <children>
                   <ImageView fx:id="image1" fitHeight="91.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../assets/images/spaces-immage/shopping.png" />
+                        <Image url="@../../../../assets/images/spacesImage/shopping.png" />
                      </image></ImageView>
                   <ImageView fx:id="image2" fitHeight="91.0" fitWidth="91.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../assets/images/spaces-immage/fast-food.png" />
+                        <Image url="@../../../../assets/images/spacesImage/fast-food.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="image3" fitHeight="91.0" fitWidth="91.0" layoutX="116.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../assets/images/spaces-immage/lifesaver.png" />
+                        <Image url="@../../../../assets/images/spacesImage/lifesaver.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="image4" fitHeight="91.0" fitWidth="91.0" layoutX="223.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../assets/images/spaces-immage/budget.png" />
+                        <Image url="@../../../../assets/images/spacesImage/budget.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="image5" fitHeight="91.0" fitWidth="91.0" layoutX="329.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../assets/images/spaces-immage/repair-tools.png" />
+                        <Image url="@../../../../assets/images/spacesImage/repair-tools.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="image6" fitHeight="91.0" fitWidth="91.0" layoutX="436.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../assets/images/spaces-immage/online-shopping.png" />
+                        <Image url="@../../../../assets/images/spacesImage/online-shopping.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="image7" fitHeight="91.0" fitWidth="91.0" layoutX="329.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../assets/images/spaces-immage/drugstore.png" />
+                        <Image url="@../../../../assets/images/spacesImage/drugstore.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="image8" fitHeight="91.0" fitWidth="91.0" layoutX="436.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../assets/images/spaces-immage/education.png" />
+                        <Image url="@../../../../assets/images/spacesImage/education.png" />
                      </image>
                   </ImageView>
                </children>

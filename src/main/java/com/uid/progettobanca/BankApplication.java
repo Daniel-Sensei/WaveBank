@@ -21,6 +21,10 @@ public class BankApplication extends Application {
     public static void setCurrentlyLoggedUser(int user) {currentlyLoggedUser = user;}
     public static int getCurrentlyLoggedUser() {return currentlyLoggedUser;}
 
+    private static String currentlyLoggedIban = null;
+    public static void setCurrentlyLoggedIban(String iban) {currentlyLoggedIban = iban;}
+    public static String getCurrentlyLoggedIban() {return currentlyLoggedIban;}
+
     private void initializeDB(){
         //inizializzazione/creazione DatabaseManager e del relativo db
         try {
@@ -38,6 +42,17 @@ public class BankApplication extends Application {
         // inserisco la funzione createDB() per rendere il tutto più pulito e leggibile
         // attualmente è commentata in attesa che il db sia pronto
         initializeDB();
+
+        LocalDate date = LocalDate.of(2002, 1, 1);
+        /*
+        try {
+            ContiDAO.insert("IT0000000000000", 23430, LocalDate.now());
+            UtentiDAO.insert(new Utente("Mario", "Rossi", "via dei Mille", date, "12345", "mario@example.com", "password", "IT0000000000000"));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+         */
 
 
         // alla fine della pagina c'è un commento sull'uso del database
