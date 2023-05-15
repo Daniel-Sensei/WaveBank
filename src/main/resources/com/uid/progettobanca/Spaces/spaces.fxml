@@ -43,7 +43,7 @@
                   </VBox>
                </children>
             </HBox>
-            <FlowPane fx:id="listOfSpaces" hgap="20.0" prefWidth="920.0" vgap="20.0">
+            <FlowPane fx:id="listOfSpaces" hgap="20.0" vgap="20.0">
                <VBox.margin>
                   <Insets />
                </VBox.margin>

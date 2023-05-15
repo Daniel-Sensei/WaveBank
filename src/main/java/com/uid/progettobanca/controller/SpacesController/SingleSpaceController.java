@@ -30,11 +30,14 @@ public class SingleSpaceController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        SpacesManager listOfSpaces = new SpacesManager();
         // prendo lo space dalla queue contenente tutti gli spaces di quel account
-        space = listOfSpaces.getNextSpace();
+
+        SpacesManager.getInstance().fillQueue();
+        space = SpacesManager.getInstance().getNextSpace();
+        //System.out.println("SONO TROPOO FORTE A CREARE SPACE SINGLE");
 
         GenericController.setSpaceImage(space.getImage(), spaceImage);
+        //System.out.println("Single space image loaded");
         spaceName.setText(space.getNome());
         spaceBalance.setText(space.getSaldo() + " €");
 

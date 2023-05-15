@@ -16,7 +16,6 @@ public class HomeController implements Initializable {
     @FXML
     private Button filter;
 
-
     @FXML
     private Button receive;
 

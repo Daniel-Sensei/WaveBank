@@ -40,7 +40,7 @@ public class SceneHandler {
      **/
 
     private final static String FONTS_PATH = CSS_PATH + "fonts/";
-    public final static String HOME_PATH = "/Home/";
+    public final static String HOME_PATH = "Home/";
     public final static String MANAGE_PATH = "/Manage/";
     public final static String OPERATIONS_PATH = "/Operations/";
     public final static String SPACES_PATH = "/Spaces/";

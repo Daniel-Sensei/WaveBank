@@ -49,16 +49,20 @@ public class SpacesController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        SpacesManager spacesList = new SpacesManager();
-        for (int i = 0; i < spacesList.getSize(); i++) {
+        SpacesManager.getInstance().fillQueue();
+        for (int i = 0; i < SpacesManager.getInstance().getSize(); i++) {
             try {
+                System.out.println("Sto caricando single space");
                 Parent singleSpace = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().SPACES_PATH + "singleSpace.fxml");
                 listOfSpaces.getChildren().add(singleSpace);
             } catch (IOException e) {
+                System.out.println("Initialize spaces failed");
                 throw new RuntimeException(e);
             }
 
         }
+
+
     }
 }
 
