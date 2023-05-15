@@ -1,5 +1,6 @@
 package com.uid.progettobanca.model.DAO;
 
+import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.Conto;
 import com.uid.progettobanca.model.Space;
 
@@ -65,8 +66,9 @@ public class ContiDAO {
         int saldo = 500;
         LocalDate data = LocalDate.now();
         insert(iban, saldo, data);
-
-        SpacesDAO.insert(new Space(iban,saldo,data,"Conto corrente Principale","wallet.png" ));
+        Space s = new Space(iban,saldo,data,"Conto corrente Principale","wallet.png" );
+        SpacesDAO.insert(s);
+        BankApplication.setCurrentlyLoggedMainSpace(s.getSpaceId());
 
         return iban;
     }

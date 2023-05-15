@@ -2,6 +2,7 @@ package com.uid.progettobanca.controller;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
+import com.uid.progettobanca.model.DAO.SpacesDAO;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
 import com.uid.progettobanca.model.Utente;
 import com.uid.progettobanca.view.ImageUtils;
@@ -47,10 +48,15 @@ public class LoginController implements Initializable {
             //in questa funzione viene effettuato il login e se va a buon fine viene settato il currentlyLoggedUser
             int user = UtentiDAO.login(emailField.getText(), passwordField.getText());
             if (user!=0) {
+                System.out.println("Login effettuato con successo");
+
                 BankApplication.setCurrentlyLoggedUser(user);
 
-                System.out.println("Login effettuato con successo");
-                BankApplication.setCurrentlyLoggedIban(UtentiDAO.selectByUserId(user).getIban());
+                String iban = UtentiDAO.selectByUserId(user).getIban();
+                BankApplication.setCurrentlyLoggedIban(iban);
+
+                int mainSpace = SpacesDAO.selectAllByIban(iban).peek().getSpaceId();
+                BankApplication.setCurrentlyLoggedMainSpace(mainSpace);
 
                 SceneHandler.getInstance().init(SceneHandler.getInstance().getStage());
             }

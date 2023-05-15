@@ -1,16 +1,10 @@
 package com.uid.progettobanca;
 
-import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.DAO.DatabaseManager;
-import com.uid.progettobanca.model.DAO.UtentiDAO;
-import com.uid.progettobanca.model.Utente;
 import com.uid.progettobanca.view.SceneHandler;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-
-import java.sql.SQLException;
-import java.time.LocalDate;
 
 
 public class BankApplication extends Application {
@@ -25,9 +19,9 @@ public class BankApplication extends Application {
     public static void setCurrentlyLoggedIban(String iban) {currentlyLoggedIban = iban;}
     public static String getCurrentlyLoggedIban() {return currentlyLoggedIban;}
 
-    private static int currentlyLoggedSpace = 0;
-    public static void setCurrentlyLoggedSpace(int space) {currentlyLoggedSpace = space;}
-    public static int getCurrentlyLoggedSpace() {return currentlyLoggedSpace;}
+    private static int currentlyLoggedMainSpace = 0;
+    public static void setCurrentlyLoggedMainSpace(int space) {currentlyLoggedMainSpace = space;}
+    public static int getCurrentlyLoggedMainSpace() {return currentlyLoggedMainSpace;}
 
     private void initializeDB(){
         //inizializzazione/creazione DatabaseManager e del relativo db
