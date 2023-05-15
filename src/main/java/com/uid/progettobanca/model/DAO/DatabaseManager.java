@@ -89,7 +89,7 @@ public class DatabaseManager {
                                     "indirizzo varchar not null, dataNascita Date not null, "+
                                     "telefono char(14) unique not null, email varchar(319) unique not null, "+
                                     "password varchar not null, salt blob not null, " +
-                                    "iban CHAR(27) not null, FOREIGN KEY (iban) REFERENCES conti(iban));");
+                                    "iban CHAR(27) unique not null, FOREIGN KEY (iban) REFERENCES conti(iban));");
 
             statement.execute("CREATE TABLE IF NOT EXISTS spaces ("+
                                     "space_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
