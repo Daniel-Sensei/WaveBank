@@ -43,19 +43,6 @@ public class BankApplication extends Application {
         // attualmente è commentata in attesa che il db sia pronto
         initializeDB();
 
-
-        /*
-        try {
-            LocalDate date = LocalDate.of(2002, 1, 1);
-            ContiDAO.insert("IT0000000000000", 23430, LocalDate.now());
-            UtentiDAO.insert(new Utente("Mario", "Rossi", "via dei Mille", date, "12345", "mario@example.com", "password", "IT0000000000000"));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-         */
-
-
         // alla fine della pagina c'è un commento sull'uso del database
 
         //qui viene inizializzata la scena principale con menù bar ed home di default
@@ -66,7 +53,7 @@ public class BankApplication extends Application {
         //SceneHandler.getInstance().showError("Errore", "L'applicazione ha riscontrato un errore durante l'esecuzione", "In realtà no e basta cliccare il pulsante per chiudere questo messaggio");
 
         //per passare alla pagina che volete bisogna aggiungere una seconda chiamata --> SceneHandler.getInstance().nomeMetodo();
-        //successivamente questa funzioone dovrà essere richiamata dal pulsante nella menubar
+        //successivamente questa funzione dovrà essere richiamata dal pulsante nella menu-bar
     }
 
     public static void main(String[] args) {
