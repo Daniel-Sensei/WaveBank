@@ -43,9 +43,10 @@ public class BankApplication extends Application {
         // attualmente è commentata in attesa che il db sia pronto
         initializeDB();
 
-        LocalDate date = LocalDate.of(2002, 1, 1);
+
         /*
         try {
+            LocalDate date = LocalDate.of(2002, 1, 1);
             ContiDAO.insert("IT0000000000000", 23430, LocalDate.now());
             UtentiDAO.insert(new Utente("Mario", "Rossi", "via dei Mille", date, "12345", "mario@example.com", "password", "IT0000000000000"));
         } catch (SQLException e) {

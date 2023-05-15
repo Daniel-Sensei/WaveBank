@@ -51,7 +51,7 @@ public class RegisterFormController implements Initializable {
 
     @FXML
     private TextField surname;
-    private String[] domandeDiSicurezza = {
+    private final String[] domandeDiSicurezza = {
             "Qual è il tuo colore preferito?",
             "Qual è il nome del tuo animale domestico?",
             "Qual è il tuo film preferito?",
@@ -79,9 +79,11 @@ public class RegisterFormController implements Initializable {
             } else {
                 try {
                     UtentiDAO.insert(new Utente(name.getText(), surname.getText(), address.getText(), LocalDate.parse(date.getText()), phone.getText(), email.getText(), password.getText(), questions.getValue(), answer.getText(), ContiDAO.generateNew()));
-                } catch (Exception ignored) {}
-                SceneHandler.getInstance().showInformation("Registrazione", "Registrazione effettuata con successo", "Ora puoi effettuare il login");
-                SceneHandler.getInstance().setPage("login.fxml");
+                    SceneHandler.getInstance().showInformation("Registrazione", "Registrazione effettuata con successo", "Ora puoi effettuare il login");
+                    SceneHandler.getInstance().setPage("login.fxml");
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
     }

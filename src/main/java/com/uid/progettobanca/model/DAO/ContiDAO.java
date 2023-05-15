@@ -137,7 +137,7 @@ public class ContiDAO {
     }
 
 
-    // funzioni di servizio
+    // funzioni di servizio:
 
     public static String generateRandomIban() {
         String countryCode = "IT";
@@ -157,10 +157,14 @@ public class ContiDAO {
     }
 
     public static int calculateMod97(String iban) {
-        String rearrangedIban = iban.substring(4) + iban.substring(0, 4);
-        long numericIban = Long.parseLong(rearrangedIban);
+        // Rimuovi i caratteri non numerici dall'IBAN
+        String digitsOnly = iban.replaceAll("[^0-9]", "");
+
+        // Calcola la cifra di controllo del modulo 97
+        long numericIban = Long.parseLong(digitsOnly);
         int mod97 = (int) (numericIban % 97);
         int checkDigit = 98 - mod97;
+
         return checkDigit;
     }
 

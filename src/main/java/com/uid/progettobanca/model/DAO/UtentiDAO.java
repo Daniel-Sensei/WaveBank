@@ -50,7 +50,7 @@ public class UtentiDAO {
             stmt.setBytes(8, salt);
             stmt.setString(9, utente.getDomanda());
             stmt.setString(10, utente.getRisposta());
-            stmt.setString(9, utente.getIban());
+            stmt.setString(11, utente.getIban());
             stmt.executeUpdate();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
