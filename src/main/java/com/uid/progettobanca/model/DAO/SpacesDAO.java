@@ -3,6 +3,7 @@ package com.uid.progettobanca.model.DAO;
 import com.uid.progettobanca.model.Space;
 
 import java.sql.*;
+import java.util.LinkedList;
 import java.util.Queue;
 
 public class SpacesDAO {
@@ -76,16 +77,16 @@ public class SpacesDAO {
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
             try (ResultSet rs = stmt.executeQuery()) {
-                Queue<Space> spaces = null;
+                Queue<Space> spaces = new LinkedList<>();
                 while (rs.next()) {
-                    spaces.add(new Space(iban,
-                                    rs.getInt("space_id"),
-                                    rs.getDouble("saldo"),
-                                    rs.getDate("dataApertura").toLocalDate(),
-                                    rs.getString("nome"),
-                                    rs.getString("imagePath")
-                            )
-                    );
+                    Space space = (new Space(iban,
+                            rs.getInt("space_id"),
+                            rs.getDouble("saldo"),
+                            rs.getDate("dataApertura").toLocalDate(),
+                            rs.getString("nome"),
+                            rs.getString("imagePath")));
+                    //System.out.println(space.toString());
+                    spaces.add(space);
                 }
                 return spaces;
             }
