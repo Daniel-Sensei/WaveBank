@@ -31,6 +31,10 @@
     -fx-font-family: "Roboto Bold";
 }
 
+.promptLabel{
+    -fx-text-fill: promptTextColor;
+}
+
 /* SCROLL BAR */
 
 .scroll-bar:horizontal .track,

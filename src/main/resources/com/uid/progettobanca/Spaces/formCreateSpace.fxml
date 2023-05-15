@@ -99,12 +99,12 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <HBox alignment="CENTER_LEFT" spacing="20.0">
+                        <HBox alignment="CENTER_LEFT" spacing="10.0" VBox.vgrow="ALWAYS">
                            <VBox.margin>
-                              <Insets right="500.0" />
+                              <Insets />
                            </VBox.margin>
                            <children>
-                              <TextField fx:id="inputSpaceSaldo" prefHeight="40.0" prefWidth="96.0" promptText="0" styleClass="text-field-prova">
+                              <TextField fx:id="inputSpaceSaldo" prefHeight="40.0" promptText="0,00" styleClass="text-field-prova">
                                  <font>
                                     <Font size="18.0" />
                                  </font>

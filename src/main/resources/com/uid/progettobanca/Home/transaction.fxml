@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.BollettinoController">
+   <padding>
+      <Insets left="200.0" right="200.0" />
+   </padding>
+   <children>
+      <VBox fillWidth="false" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="50.0" top="30.0" />
+         </padding>
+         <children>
+            <AnchorPane>
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="70.0">
+                     <children>
+                        <VBox alignment="CENTER_LEFT" spacing="3.0">
+                           <children>
+                              <Label styleClass="titleLabel" text="Transazione X" />
+                              <Label styleClass="titleLabel" text="9,99 $">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Label>
+                              <Label text="giovedì 11 maggio 2023, 20:06" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <VBox spacing="10.0">
+               <children>
+                  <Label styleClass="subtitleLabel" text="Dettagli" />
+                  <VBox alignment="CENTER_LEFT" prefWidth="400.0" styleClass="vbox-with-rounded-border">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                           <children>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../assets/images/menu-bar-light/setting.png" />
+                                 </image>
+                              </ImageView>
+                              <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label styleClass="promptLabel" text="Categoria" />
+                                    <Label text="Shopping" />
+                                 </children>
+                              </VBox>
+                              <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../assets/images/light/right-arrow.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="20.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../../../../css/light.css" />
+      <URL value="@../../../../css/style.css" />
+   </stylesheets>
+</AnchorPane>

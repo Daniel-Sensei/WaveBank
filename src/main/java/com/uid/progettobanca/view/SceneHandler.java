@@ -139,17 +139,6 @@ public class SceneHandler {
         else {
             return false;
         }
-
-        /* STAMPO I VALORI PER VERIFICARE LE PAGINE CREATE (DA ELIMINARE)
-        for (Map.Entry<String, Parent> entry : pages.entrySet()) {
-            String key = entry.getKey();
-            Parent value = entry.getValue();
-
-            // Esempio di utilizzo dei valori
-            System.out.println("Chiave: " + key + ", Valore: " + value);
-        }
-         */
-
     }
 
     public void switchTheme(){
