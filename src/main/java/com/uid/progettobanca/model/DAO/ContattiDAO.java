@@ -38,11 +38,11 @@ public class ContattiDAO {
             stmt.setString(1, contatto.getNome());
             stmt.setString(2, contatto.getCognome());
             stmt.setString(3, contatto.getIBAN());
-            stmt.setString(4, contatto.getCF());
+            stmt.setInt(4, contatto.getUser_id());
             stmt.executeUpdate();
             try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
-                    contatto.setID(rs.getInt(1));
+                    contatto.setContattoID(rs.getInt(1));
                 }
             }
         }
@@ -52,10 +52,10 @@ public class ContattiDAO {
     // getting:
 
     //restituisce tutte le carte associare ad un utente
-    public static List<Contatto> selectAllByCF(String cf) throws SQLException {
-        String query = "SELECT * FROM contatti WHERE cf = ?";
+    public static List<Contatto> selectAllByUserID(int user_id) throws SQLException {
+        String query = "SELECT * FROM contatti WHERE user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, cf);
+            stmt.setInt(1, user_id);
             try (ResultSet rs = stmt.executeQuery()) {
                 List<Contatto> rubrica = new ArrayList<>();
                 while (rs.next()) {
@@ -64,7 +64,7 @@ public class ContattiDAO {
                                     rs.getString("nome"),
                                     rs.getString("cognome"),
                                     rs.getString("iban_to"),
-                                    cf
+                                    user_id
                             )
                     );
                 }
@@ -83,7 +83,7 @@ public class ContattiDAO {
                             rs.getString("nome"),
                             rs.getString("cognome"),
                             rs.getString("iban_to"),
-                            rs.getString("cf")
+                            rs.getInt("user_id")
                     );
                 } else {
                     return null;
@@ -102,7 +102,7 @@ public class ContattiDAO {
             stmt.setString(1, contatto.getNome());
             stmt.setString(2, contatto.getCognome());
             stmt.setString(3, contatto.getIBAN());
-            stmt.setInt(4, contatto.getID());
+            stmt.setInt(4, contatto.getContattoID());
             stmt.executeUpdate();
         }
     }

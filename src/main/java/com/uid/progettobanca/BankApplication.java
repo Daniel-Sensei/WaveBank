@@ -25,6 +25,10 @@ public class BankApplication extends Application {
     public static void setCurrentlyLoggedIban(String iban) {currentlyLoggedIban = iban;}
     public static String getCurrentlyLoggedIban() {return currentlyLoggedIban;}
 
+    private static int currentlyLoggedSpace = 0;
+    public static void setCurrentlyLoggedSpace(int space) {currentlyLoggedSpace = space;}
+    public static int getCurrentlyLoggedSpace() {return currentlyLoggedSpace;}
+
     private void initializeDB(){
         //inizializzazione/creazione DatabaseManager e del relativo db
         try {

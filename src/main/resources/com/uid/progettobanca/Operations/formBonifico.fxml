@@ -52,11 +52,12 @@
                   <Label styleClass="subtitleLabel" text="A chi lo stai inviando?" />
                   <VBox fillWidth="false" spacing="10.0">
                      <children>
-                        <TextField prefHeight="50.0" prefWidth="350.0" promptText="Nome" />
-                        <TextField prefHeight="50.0" prefWidth="350.0" promptText="Cognome" />
-                        <TextField prefHeight="50.0" prefWidth="350.0" promptText="IBAN" />
-                        <TextField prefHeight="50.0" prefWidth="350.0" promptText="Causale" />
-                        <CheckBox mnemonicParsing="false" text="Salva in rubrica">
+                        <TextField fx:id="fieldName" prefHeight="50.0" prefWidth="350.0" promptText="Nome" />
+                        <TextField fx:id="fieldSurname" prefHeight="50.0" prefWidth="350.0" promptText="Cognome" />
+                        <TextField fx:id="fieldIbanTo" prefHeight="50.0" prefWidth="350.0" promptText="IBAN" />
+                        <TextField fx:id="fieldAmount" prefHeight="50.0" prefWidth="350.0" promptText="0,00" />
+                        <TextField fx:id="fieldDescr" prefHeight="50.0" prefWidth="350.0" promptText="Causale" />
+                        <CheckBox fx:id="saveContact" mnemonicParsing="false" text="Salva in rubrica">
                            <VBox.margin>
                               <Insets bottom="20.0" />
                            </VBox.margin>
@@ -64,7 +65,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </CheckBox>
-                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="greenButton" text="Invia">
+                        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#onSendButtonClick" prefHeight="40.0" prefWidth="100.0" styleClass="greenButton" text="Invia">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

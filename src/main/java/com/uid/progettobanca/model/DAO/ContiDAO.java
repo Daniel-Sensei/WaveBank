@@ -121,6 +121,25 @@ public class ContiDAO {
         }
     }
 
+    //trasferimento di denaro tra due conti usando le transazioni di SQLite
+    public static void transazione(String iban_to, String iban_from, double importo) throws SQLException {
+        String query = "UPDATE conti SET saldo = saldo ? ? WHERE iban = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            conn.setAutoCommit(false);
+            stmt.setString(1, "-");
+            stmt.setDouble(2, importo);
+            stmt.setString(3, iban_from);
+            stmt.executeUpdate();
+            //controllare se esiste il secondo conto ed in caso aggiungere
+            stmt.setString(1, "+");
+            stmt.setString(3, iban_to);
+            stmt.executeUpdate();
+            conn.commit();
+            conn.setAutoCommit(true);
+        }
+    }
+
+
     //aggiornamento tramite oggetto di tipo conto
     public static void update(Conto conto) throws SQLException {
         String query = "UPDATE conti SET saldo = ? WHERE iban = ?";

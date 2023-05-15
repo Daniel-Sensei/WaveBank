@@ -1,7 +1,10 @@
 package com.uid.progettobanca.controller.OperationsController;
 
+import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.Contatto;
 import com.uid.progettobanca.model.DAO.ContattiDAO;
+import com.uid.progettobanca.model.DAO.ContiDAO;
+import com.uid.progettobanca.model.Transazione;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,17 +13,18 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 public class BonificoController {
 
     @FXML
-    private CheckBox createContatto;
+    private TextField fieldAmount;
 
     @FXML
-    private TextField fieldCausale;
+    private TextField fieldDescr;
 
     @FXML
-    private TextField fieldIban;
+    private TextField fieldIbanTo;
 
     @FXML
     private TextField fieldName;
@@ -29,19 +33,21 @@ public class BonificoController {
     private TextField fieldSurname;
 
     @FXML
-    private Button send;
+    private CheckBox saveContact;
+
+    @FXML
+    private Button sendButton;
 
     @FXML
     void onSendClick(ActionEvent event) {
-        /**
-        if(createContatto.isSelected()){
-            Contatto c = new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIban.getText(), "aggiungere il cf di chi fa l'operazione");
-            try {
-                ContattiDAO.insert(c);
-            } catch (SQLException e) {
-                SceneHandler.getInstance().showError("Errore", "Errore durante l'inserimento del contatto " + e.getMessage());
+        try {
+            ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), Double.parseDouble(fieldAmount.getText()));
+            Transazione t = new Transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedSpace(), LocalDateTime.now(), Double.parseDouble(fieldAmount.getText()), fieldDescr.getText(), "Altro", "");
+            if(saveContact.isSelected()){
+                ContattiDAO.insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedUser()));
             }
-         }
-         **/
+        } catch (SQLException e) {
+            SceneHandler.getInstance().showError("Errore", "Errore durante l'inserimento del contatto ", e.getMessage());
+        }
     }
 }

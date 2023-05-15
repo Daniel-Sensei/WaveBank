@@ -2,30 +2,30 @@ package com.uid.progettobanca.model;
 
 public class Contatto {
 
-    private int id;
+    private int conatto_id;
     private String nome;
     private String cognome;
     private String iban;
-    private String cf;
+    private int user_id;
 
-    public Contatto(String nome, String cognome, String iban, String cf) {
+    public Contatto(String nome, String cognome, String iban, int user_id) {
         this.nome = nome;
         this.cognome = cognome;
         this.iban = iban;
-        this.cf = cf;
+        this.user_id = user_id;
     }
 
-    public Contatto(int id, String nome, String cognome, String iban, String cf) {
-        this.id = id;
+    public Contatto(int conatto_id, String nome, String cognome, String iban, int user_id) {
+        this.conatto_id = conatto_id;
         this.nome = nome;
         this.cognome = cognome;
         this.iban = iban;
-        this.cf = cf;
+        this.user_id = user_id;
     }
 
-    public int getID() {return id;}
+    public int getContattoID() {return conatto_id;}
 
-    public void setID(int id) {this.id = id;}
+    public void setContattoID(int id) {this.conatto_id = id;}
 
     public String getNome() {return nome;}
 
@@ -39,7 +39,7 @@ public class Contatto {
 
     public void setIBAN(String iban) {this.iban = iban;}
 
-    public String getCF() {return cf;}
+    public int getUser_id() {return user_id;}
 
-    public void setCF(String cf) {this.cf = cf;}
+    public void setUser_id(int user_id) {this.user_id = user_id;}
 }
