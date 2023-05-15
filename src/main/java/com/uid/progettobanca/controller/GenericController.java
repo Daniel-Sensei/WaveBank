@@ -18,7 +18,6 @@ public class GenericController {
     }
 
     public static void setSpaceImage(String name, ImageView imageView){
-        System.out.println(Settings.SPACE_IMAGE_PATH + name);
         imageView.setImage(ImageUtils.loadImageFromResource(Settings.SPACE_IMAGE_PATH + name));
     }
 

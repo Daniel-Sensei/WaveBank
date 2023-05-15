@@ -52,7 +52,6 @@ public class SpacesController implements Initializable {
         SpacesManager.getInstance().fillQueue();
         for (int i = 0; i < SpacesManager.getInstance().getSize(); i++) {
             try {
-                System.out.println("Sto caricando single space");
                 Parent singleSpace = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().SPACES_PATH + "singleSpace.fxml");
                 listOfSpaces.getChildren().add(singleSpace);
             } catch (IOException e) {
