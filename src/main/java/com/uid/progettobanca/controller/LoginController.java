@@ -14,6 +14,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -41,6 +43,13 @@ public class LoginController implements Initializable {
     private PasswordField passwordField;
     @FXML
     private Label resetLabel;
+
+    @FXML
+    void enterPressed(KeyEvent event) {
+        if(event.getCode()== KeyCode.ENTER){
+            onLoginButtonClick(new ActionEvent());
+        }
+    }
 
     @FXML
     void onLoginButtonClick(ActionEvent event) {

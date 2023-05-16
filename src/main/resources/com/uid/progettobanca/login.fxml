@@ -30,7 +30,7 @@
                         <Image url="@../../../assets/images/IconDark/users-alt.png" />
                      </image>
                   </ImageView>
-                  <TextField fx:id="emailField" prefHeight="35.0" promptText="Email" styleClass="text-field-login" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="emailField" onKeyPressed="#enterPressed" prefHeight="35.0" promptText="Email" styleClass="text-field-login" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <HBox alignment="CENTER" spacing="15.0">
@@ -40,7 +40,7 @@
                         <Image url="@../../../assets/images/IconDark/lock.png" />
                      </image>
                   </ImageView>
-                  <PasswordField fx:id="passwordField" prefHeight="35.0" promptText="Password" styleClass="text-field-login" HBox.hgrow="ALWAYS" />
+                  <PasswordField fx:id="passwordField" onKeyPressed="#enterPressed" prefHeight="35.0" promptText="Password" styleClass="text-field-login" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <Button fx:id="login" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="40.0" prefWidth="100.0" styleClass="tertiaryButton" text="Login">

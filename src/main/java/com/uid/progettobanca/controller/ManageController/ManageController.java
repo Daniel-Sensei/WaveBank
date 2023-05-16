@@ -63,13 +63,20 @@ public class ManageController {
         sinistra.setVisible(false);*/
 
 
+        //prendi le transazioni degli ultimi 30 giorni in ordine cronologico
+        //per ogni transazione, prendi il giorno e l'importo
+        //dividi i 30 giorni in 10 blocchi e sommali fra loro
+        //prendi il saldo all'inizio dei 30 giorni
+        //somma volta per volta i blocchi al saldo iniziale
+        //inserisci i valori nel grafico
+
         XYChart.Series data = new XYChart.Series();
 
         data.getData().add(new XYChart.Data("1", 23));
         data.getData().add(new XYChart.Data("4", 14));
         data.getData().add(new XYChart.Data("7", 15));
         data.getData().add(new XYChart.Data("10", 24));
-        data.getData().add(new XYChart.Data("13", 34));
+        data.getData().add(new XYChart.Data("13", -34));
         data.getData().add(new XYChart.Data("16", 36));
         data.getData().add(new XYChart.Data("19", 22));
         data.getData().add(new XYChart.Data("22", 45));
