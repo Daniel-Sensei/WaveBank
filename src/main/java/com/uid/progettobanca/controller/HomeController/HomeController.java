@@ -100,7 +100,6 @@ public class HomeController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Numero di vbox= " + nVBox);
 
         for(int i = 0; i < nVBox; i++){
 

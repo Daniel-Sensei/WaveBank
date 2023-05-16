@@ -25,7 +25,6 @@ public class TransactionManager {
     }
 
     public void fillDates() throws SQLException {
-        //iban prova: "IT60000000000362911414140"
         dates = TransazioniDAO.selectDate(BankApplication.getCurrentlyLoggedIban());
     }
     public void fillNumDate() throws SQLException {
