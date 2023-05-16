@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="224.0" prefWidth="184.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController.SingleSpaceController">
+<VBox alignment="CENTER" prefHeight="224.0" prefWidth="184.0" spacing="10.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController.SingleSpaceController">
    <children>
-      <ImageView fx:id="spaceImage" fitHeight="184.0" fitWidth="184.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="spaceImage" fitHeight="184.0" fitWidth="184.0" onMouseClicked="#openSpacePage" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="spaceName" text="Conto corrente principale">
          <font>
             <Font size="14.0" />

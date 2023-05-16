@@ -1,13 +1,17 @@
 package com.uid.progettobanca.controller.SpacesController;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
-public class SingleSpacePageController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class SingleSpacePageController implements Initializable{
 
     @FXML
     private Label balanceLabel;
@@ -38,4 +42,8 @@ public class SingleSpacePageController {
 
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 }
