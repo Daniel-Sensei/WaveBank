@@ -12,7 +12,7 @@
 .label {
     -fx-background-color: transparent;
     /*-fx-font-weight: bold;*/
-    -fx-font-size: 13px;
+    -fx-font-size: 14px;
 }
 
 
@@ -125,8 +125,16 @@
 
 .text-area {
     -fx-background-color: transparent;
-    -fx-font-size: 13px;
-    -fx-text-fill: textColor;
+        -fx-border-radius: 5px;
+        -fx-border-width: 1px;
+        -fx-font-size: 13px;
+        -fx-text-fill: textColor;
+        -fx-padding: 0px 0px 0px -9px;
+}
+
+.text-area:hover,
+.text-area:focused {
+    -fx-border-color: greenButtonColor;
 }
 
 /* TEXT */

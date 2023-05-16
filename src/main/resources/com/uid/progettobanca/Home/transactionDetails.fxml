@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.HomeController.TransactionDetailsController">
+   <padding>
+      <Insets left="200.0" right="200.0" />
+   </padding>
+   <children>
+      <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="50.0" top="30.0" />
+         </padding>
+         <children>
+            <AnchorPane>
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="70.0">
+                     <children>
+                        <VBox alignment="CENTER_LEFT" spacing="3.0">
+                           <children>
+                              <Label styleClass="titleLabel" text="Transazione X" />
+                              <Label styleClass="subtitleLabel" text="Indietro">
+                                 <graphic>
+                                    <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../assets/images/IconLight/angle-left.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Label styleClass="BankTitleLabel" text="-9,99 $">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Label>
+                              <Label text="giovedì 11 maggio 2023, 20:06" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <HBox fillHeight="false">
+               <children>
+                  <VBox prefWidth="400.0" spacing="10.0">
+                     <children>
+                        <Label styleClass="subtitleLabel" text="Dettagli" />
+                        <VBox alignment="CENTER_LEFT" prefWidth="400.0" styleClass="vbox-with-rounded-border">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0" spacing="15.0" styleClass="vbox-with-rounded-border-hbox">
+                                 <children>
+                                    <Button fx:id="send" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
+                                    <VBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label styleClass="promptLabel" text="Categoria" />
+                                          <Label text="Shopping" />
+                                       </children>
+                                    </VBox>
+                                    <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../../assets/images/IconLight/angle-right.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0" spacing="15.0" styleClass="vbox-with-rounded-border-hbox">
+                                 <children>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../assets/images/spacesImage/wallet.png" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label styleClass="promptLabel" text="Da" />
+                                          <Label text="Conto corrente principale" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0" spacing="25.0" styleClass="vbox-with-rounded-border-hbox">
+                                 <children>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../assets/images/IconLight/bank.png" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label styleClass="promptLabel" text="Tipo di transizione" />
+                                          <Label text="Bonifico" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="21.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0" spacing="25.0" styleClass="vbox-with-rounded-border-hbox-bottom">
+                                 <children>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../assets/images/IconLight/document.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label text="Scarica il PDF della transazione" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="21.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <HBox HBox.hgrow="ALWAYS" />
+                  <VBox prefWidth="400.0" spacing="10.0">
+                     <children>
+                        <Label styleClass="subtitleLabel" text="Informazioni aggiuntive" />
+                        <VBox alignment="CENTER_LEFT" prefWidth="400.0" styleClass="vbox-with-rounded-border">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="25.0">
+                                 <children>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../assets/images/IconLight/info.png" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox alignment="CENTER_LEFT" fillWidth="false" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label styleClass="promptLabel" text="Descrizione" />
+                                          <Label prefWidth="300.0" text="Pagento del bonifico in data xx/xx/xxxx per aver mangiato da mcdonald" wrapText="true" />
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                       <padding>
+                                          <Insets right="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="21.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" spacing="25.0">
+                                 <children>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../assets/images/IconLight/comment.png" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label styleClass="promptLabel" text="Commenti (max. 250 caratteri)" />
+                                          <TextArea fx:id="commentsArea" prefHeight="100.0" wrapText="true" />
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                       <padding>
+                                          <Insets right="30.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="21.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../../../../css/light.css" />
+      <URL value="@../../../../css/style.css" />
+   </stylesheets>
+</AnchorPane>

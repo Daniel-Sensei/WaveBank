@@ -15,7 +15,7 @@
       <Insets left="200.0" right="200.0" />
    </padding>
    <content>
-      <VBox spacing="20.0">
+      <VBox fx:id="homeVbox" spacing="20.0">
          <children>
             <AnchorPane>
                <children>
@@ -82,7 +82,7 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="75.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
+                              <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
                               <Label text="Vivo Market" HBox.hgrow="ALWAYS" />
                               <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                                  <children>
