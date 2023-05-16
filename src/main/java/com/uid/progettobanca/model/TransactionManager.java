@@ -1,5 +1,6 @@
 package com.uid.progettobanca.model;
 
+import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
 
 import java.sql.SQLException;
@@ -24,13 +25,14 @@ public class TransactionManager {
     }
 
     public void fillDates() throws SQLException {
-        dates = TransazioniDAO.selectDate("IT60000000000362911414140");
+        //iban prova: "IT60000000000362911414140"
+        dates = TransazioniDAO.selectDate(BankApplication.getCurrentlyLoggedIban());
     }
     public void fillNumDate() throws SQLException {
-        numDate = TransazioniDAO.selectGroupByDate("IT60000000000362911414140");
+        numDate = TransazioniDAO.selectGroupByDate(BankApplication.getCurrentlyLoggedIban());
     }
     public void fillTransactionsDate(String date) throws SQLException {
-        transactionsDate = TransazioniDAO.selectTransactionsByIbanAndDate("IT60000000000362911414140", date);
+        transactionsDate = TransazioniDAO.selectTransactionsByIbanAndDate(BankApplication.getCurrentlyLoggedIban(), date);
     }
 
     public int getNumDate() {
@@ -42,6 +44,10 @@ public class TransactionManager {
 
     public Stack<Transazione> getTransactionsDate() {
         return transactionsDate;
+    }
+
+    public Transazione getNextTransactionDate() {
+        return transactionsDate.pop();
     }
 
     public int getNumTransactionsDate() {

@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -69,6 +70,10 @@ public class SceneHandler {
             this.stage = stage;
             this.stage.setTitle("Wave Bank");
 
+            // Ottieni le dimensioni dello schermo
+            double screenWidth = Screen.getPrimary().getVisualBounds().getWidth();
+            double screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
+
             borderPane = new BorderPane();
 
             borderPane.getStyleClass().add("root"); /*imposta proprietà root per il font family*/
@@ -84,6 +89,9 @@ public class SceneHandler {
             this.stage.setScene(scene);
             this.stage.getScene().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + "light.css", CSS_PATH + "style.css");
             this.stage.setResizable(false);
+            // Centra la finestra dello stage sulla schermata
+            this.stage.setX((screenWidth - scene.getWidth()) / 2);
+            this.stage.setY((screenHeight - scene.getHeight()) / 2);
             this.stage.show();
 
     }
@@ -163,7 +171,7 @@ public class SceneHandler {
     }
 
      public void createLoginScene(Stage stage) {
-         if (this.stage == null) {
+
              this.stage = stage;
              this.stage.setTitle("Login");
 
@@ -180,7 +188,6 @@ public class SceneHandler {
              this.stage.getScene().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + "light.css", CSS_PATH + "style.css");
              this.stage.setResizable(false);
              this.stage.show();
-         }
      }
 
 
