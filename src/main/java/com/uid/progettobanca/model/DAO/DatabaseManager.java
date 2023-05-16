@@ -108,10 +108,11 @@ public class DatabaseManager {
             statement.execute("CREATE TABLE IF NOT EXISTS transazioni ("+
                                     "transaction_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
                                     "iban_from CHAR(27) not null, iban_to CHAR(27), "+
-                                    "space_from integer, dateTime Timestamp, "+
-                                    "importo integer, descrizione varchar, "+
-                                    "tag varchar, commenti varchar, "+
-                                    "FOREIGN KEY (iban_from) REFERENCES conti(iban));");
+                                    "space_from integer not null, dateTime Timestamp not null, "+
+                                    "importo REAL not null, descrizione varchar not null, "+
+                                    "tag varchar not null, commenti varchar, "+
+                                    "FOREIGN KEY (iban_from) REFERENCES conti(iban), " +
+                                    "FOREIGN KEY (space_from) REFERENCES spaces(space_id));");
 
             //trigger per controllare che lo space da cui stiamo togliendo i soldi effettivamente sia associato al conto corretto/esista
             statement.execute("CREATE TRIGGER check_space_from\n" +
