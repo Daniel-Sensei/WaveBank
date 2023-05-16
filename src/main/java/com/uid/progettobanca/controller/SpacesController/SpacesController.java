@@ -50,7 +50,8 @@ public class SpacesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         SpacesManager.getInstance().fillQueue();
-        for (int i = 0; i < SpacesManager.getInstance().getSize(); i++) {
+        int nSpaces = SpacesManager.getInstance().getSize();
+        for (int i = 0; i < nSpaces ; i++) {
             try {
                 Parent singleSpace = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().SPACES_PATH + "singleSpace.fxml");
                 listOfSpaces.getChildren().add(singleSpace);

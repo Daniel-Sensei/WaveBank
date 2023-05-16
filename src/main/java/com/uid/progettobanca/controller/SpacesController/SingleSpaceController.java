@@ -32,7 +32,6 @@ public class SingleSpaceController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // prendo lo space dalla queue contenente tutti gli spaces di quel account
 
-        SpacesManager.getInstance().fillQueue();
         space = SpacesManager.getInstance().getNextSpace();
         //System.out.println("SONO TROPOO FORTE A CREARE SPACE SINGLE");
 
