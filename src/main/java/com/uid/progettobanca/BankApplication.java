@@ -44,7 +44,8 @@ public class BankApplication extends Application {
         // alla fine della pagina c'è un commento sull'uso del database
 
         //qui viene inizializzata la scena principale con menù bar ed home di default
-        SceneHandler.getInstance().createLoginScene(stage);
+        SceneHandler.getInstance().init(stage);
+        //SceneHandler.getInstance().createPage(SceneHandler.getInstance().HOME_PATH + "transactionDetails.fxml");
 
         //per mostrare un messaggio di errore basta chiamare questa funzione
         // si passano 3 parametri: titolo in alto, intestazione e contenuto
