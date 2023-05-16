@@ -3,12 +3,12 @@ package com.uid.progettobanca.model.DAO;
 import com.uid.progettobanca.model.Utente;
 import com.uid.progettobanca.view.SceneHandler;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.uid.progettobanca.model.PasswordSecurity.*;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 
 public class UtentiDAO {
     private static Connection conn;
@@ -37,23 +37,19 @@ public class UtentiDAO {
 
     //inserimento tramite oggetto di tipo utente
     public static void insert(Utente utente) throws SQLException {
-        String query = "INSERT INTO utenti (nome, cognome, indirizzo, dataNascita, telefono, email, password, salt, domanda, risposta, iban) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO utenti (nome, cognome, indirizzo, dataNascita, telefono, email, password, domanda, risposta, iban) VALUES (?, ?, ?, ?,  ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            byte[] salt = generateSalt();
             stmt.setString(1, utente.getNome());
             stmt.setString(2, utente.getCognome());
             stmt.setString(3, utente.getIndirizzo());
             stmt.setDate(4, Date.valueOf(utente.getDataNascita()));
             stmt.setString(5, utente.getTelefono());
             stmt.setString(6, utente.getEmail());
-            stmt.setString(7, hashPassword(utente.getPassword(), salt));
-            stmt.setBytes(8, salt);
-            stmt.setString(9, utente.getDomanda());
-            stmt.setString(10, utente.getRisposta());
-            stmt.setString(11, utente.getIban());
+            stmt.setString(7, BCrypt.hashpw(utente.getPassword(), BCrypt.gensalt(12)));
+            stmt.setString(8, utente.getDomanda());
+            stmt.setString(9, utente.getRisposta());
+            stmt.setString(10, utente.getIban());
             stmt.executeUpdate();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -74,7 +70,6 @@ public class UtentiDAO {
                             result.getString("telefono"),
                             result.getString("email"),
                             result.getString("password"),
-                            result.getBytes("salt"),
                             result.getString("domanda"),
                             result.getString("risposta"),
                             result.getString("iban")
@@ -101,7 +96,6 @@ public class UtentiDAO {
                             result.getString("telefono"),
                             result.getString("email"),
                             result.getString("password"),
-                            result.getBytes("salt"),
                             result.getString("domanda"),
                             result.getString("risposta"),
                             result.getString("iban")
@@ -115,18 +109,15 @@ public class UtentiDAO {
 
     // restituisce l'id dell'utente se il login va a buon fine, altrimenti null
     public static int login(String email, String password) throws SQLException {
-        // cripta la password inserita dall'utente
-        String hashedPassword = null;
         // cerca l'utente nel database
-        String query = "SELECT password, salt, user_id FROM utenti WHERE email = ?";
+        String query = "SELECT password, user_id FROM utenti WHERE email = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, email);
             try (ResultSet result = stmt.executeQuery()) {
                 if (result.next()) {
-                    String dbPW = result.getString("password");
-                    hashedPassword = hashPassword(password, result.getBytes("salt"));
+                    String storedPassword = result.getString("password");
                     // se la password è corretta, restituisce l'id dell'utente
-                    if (dbPW.equals(hashedPassword)) {
+                    if (BCrypt.checkpw(password, storedPassword)) {
                         return result.getInt("user_id");
                     } else {
                         SceneHandler.getInstance().showError("Errore Login", "Email o Password Errati", "L'email o la password inseriti non sono corretti, per favore riprovare");
@@ -136,8 +127,6 @@ public class UtentiDAO {
                     SceneHandler.getInstance().showError("Errore Login", "Email o Password Errati", "L'email o la password inseriti non sono corretti, per favore riprovare");
                     return 0;
                 }
-            } catch (NoSuchAlgorithmException e) {
-                throw new RuntimeException(e);
             }
         }
     }
@@ -183,15 +172,11 @@ public class UtentiDAO {
     // cambio password
 
     public static void passwordChange(String email, String password) throws SQLException {
-        String query = "UPDATE utenti SET password = ?, salt = ? WHERE email = ?";
+        String query = "UPDATE utenti SET password = ? WHERE email = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            byte[] salt = generateSalt();
-            stmt.setString(1, hashPassword(password, salt));
-            stmt.setBytes(2, salt);
-            stmt.setString(3, email);
+            stmt.setString(1, BCrypt.hashpw(password, BCrypt.gensalt(12)));// da cambiare
+            stmt.setString(2, email);
             stmt.executeUpdate();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
         }
     }
 

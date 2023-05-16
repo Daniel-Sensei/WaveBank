@@ -18,59 +18,43 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.*;
-import org.sqlite.SQLiteConfig;
-import org.sqlite.SQLiteDataSource;
 import static java.io.File.separator;
 
 public class DatabaseManager {
 
-    private static String databaseUrl;
+    private static String dbPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources"+ File.separator + "database.db";
     private static DatabaseManager instance;
-    private final SQLiteDataSource dataSource = new SQLiteDataSource();
     //se non funziona mettere l'assegnazione nel costruttore e togliere final
 
-    private DatabaseManager(String url) {
-        dataSource.setUrl("jdbc:sqlite:" +System.getProperty("user.dir") + separator + "src" + separator + "main" + separator + "resources"+ separator + databaseUrl);
-        SQLiteConfig config = new SQLiteConfig();
-        config.enforceForeignKeys(true);
-        dataSource.setConfig(config);
-    }
-
-    public static synchronized DatabaseManager getInstance(String url) {
-        if (instance == null) {
-            databaseUrl = url;
-            instance = new DatabaseManager(databaseUrl);
-        }
-        return instance;
-    }
+    private DatabaseManager() {}
 
     public static synchronized DatabaseManager getInstance() {
         if (instance == null) {
-            throw new IllegalStateException("DatabaseManager non inizializzato con un URL del database");
+            instance = new DatabaseManager();
         }
         return instance;
     }
 
     public Connection getConnection() throws SQLException {
         //restituisce la connesione al db
-        return dataSource.getConnection();
+        return DriverManager.getConnection("jdbc:sqlite:" + dbPath);
     }
 
     public void checkAndCreateDatabase() throws Exception {
         //controlla se nelle risorse è presente il db ed in caso contrario lo crea
-        Path dbPath = Path.of(System.getProperty("user.dir") + separator + "src" + separator + "main" + separator + "resources"+ separator + databaseUrl);
-        if (!Files.exists(dbPath)) {
-            createDatabase(dbPath);
+        Path path = Path.of(dbPath);
+        if (!Files.exists(path)) {
+            createDatabase(path);
         }
     }
 
-    private void createDatabase(Path dbPath) throws SQLException {
+    private void createDatabase(Path path) throws SQLException {
         Connection connection = null;
         Statement statement = null;
 
         try {
             // Converte il percorso in un oggetto File ando a crearlo qualora non esistesse
-            File dbFile = dbPath.toFile();
+            File dbFile = path.toFile();
             connection = getConnection();
 
             // qui vengono create le tabelle del db
@@ -88,7 +72,7 @@ public class DatabaseManager {
                                     "nome VARCHAR(50) not null, cognome VARCHAR(50) not null, "+
                                     "indirizzo varchar not null, dataNascita Date not null, "+
                                     "telefono char(14) unique not null, email varchar(319) unique not null, "+
-                                    "password varchar not null, salt blob not null, " +
+                                    "password varchar not null, " +
                                     "domanda varchar not null, risposta varchar not null, " +
                                     "iban CHAR(27) unique not null, FOREIGN KEY (iban) REFERENCES conti(iban));");
 
@@ -108,10 +92,13 @@ public class DatabaseManager {
             statement.execute("CREATE TABLE IF NOT EXISTS transazioni ("+
                                     "transaction_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
                                     "iban_from CHAR(27) not null, iban_to CHAR(27), "+
-                                    "space_from integer, dateTime Timestamp, "+
-                                    "importo integer, descrizione varchar, "+
-                                    "tag varchar, commenti varchar, "+
-                                    "FOREIGN KEY (iban_from) REFERENCES conti(iban));");
+                                    "space_from integer not null, space_to integer," +
+                                    "dateTime Timestamp not null, "+
+                                    "importo REAL not null, descrizione varchar not null, "+
+                                    "tag varchar not null, commenti varchar, "+
+                                    "FOREIGN KEY (iban_from) REFERENCES conti(iban), " +
+                                    "FOREIGN KEY (space_from) REFERENCES spaces(space_id));");
+
 
             //trigger per controllare che lo space da cui stiamo togliendo i soldi effettivamente sia associato al conto corretto/esista
             statement.execute("CREATE TRIGGER check_space_from\n" +
@@ -133,13 +120,12 @@ public class DatabaseManager {
             //l'iban dell'azienda non è impostato come chiave esterna in quanto
             //vorrebbe dire che quell'azienda dovrebbe avere un conto aperto da noi
             statement.execute("CREATE TABLE IF NOT EXISTS aziende ("+
-                                    "p_iva CHAR(11) PRIMARY KEY, "+
-                                    "nome VARCHAR(50) not null, indirizzo varchar not null, "+
-                                    "iban  CHAR(27) unique not null);");
+                                    "iban  CHAR(27) PRIMARY KEY, "+
+                                    "nome VARCHAR(50) not null);");
 
             //il campo user_id chiave esterna indica l'utente che ha inserito la voce nella rubrica, così facendo possiamo dividere le voci associate per utente
             statement.execute("CREATE TABLE IF NOT EXISTS contatti ("+
-                                    "contatto_id INTEGET AUTO_INCREMENT PRIMARY KEY, "+
+                                    "contatto_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
                                     "nome VARCHAR(50) not null, cognome VARCHAR(50) not null, "+
                                     "iban_to  CHAR(27) not null, "+
                                     "user_id CHAR(16) NOT NULL, FOREIGN KEY (user_id) REFERENCES utenti(user_id));");
