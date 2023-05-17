@@ -44,12 +44,35 @@ public class BollettinoController implements Initializable {
 
     @FXML
     void onSendButtonClick(ActionEvent event) {
+
+        //controllo che il campo del Conto Corrente non sia vuoto
+        if(fieldCC.getText().isEmpty()){
+            SceneHandler.getInstance().showError("Errore", "Campo vuoto", "Riempire il campo Conto Corrente");
+            return;
+        }
+
+        //controllo che sia stata selezionata una tipologia
+        if(tipologiaComboBox.getSelectionModel().isEmpty()){
+            SceneHandler.getInstance().showError("Errore", "Tipologia non selezionata", "Selezionare una tipologia");
+            return;
+        }
+
+        //controllo che l'importo sia un numero
+        if(!fieldAmount.getText().matches("[0-9]+")) {
+            SceneHandler.getInstance().showError("Errore", "Importo non valido", "L'importo deve essere composto da cifre");
+            return;
+        }
+
         try {
             //salvo il tipo per il controllo
             String tipo = "Bollettino: " + tipologiaComboBox.getSelectionModel().getSelectedItem();
             // se è un bianco aggiungo anche il nome del destinatario
             if(tipo.equals("Bollettino: 123 - Bianco generico")){
                 tipo+=" a " + fieldRecipient.getText();
+                if(fieldDescr.getText().isEmpty()){
+                    SceneHandler.getInstance().showError("Errore", "Campo vuoto", "Riempire il campo causale");
+                    return;
+                }
             } else {
                 if (!fieldCode.getText().matches("[0-9]{40}")) {
                     SceneHandler.getInstance().showError("Errore", "Codice non valido", "Il codice deve essere composto da 40 cifre");

@@ -41,6 +41,25 @@ public class BonificoController {
 
     @FXML
     void onSendButtonClick(ActionEvent event) {
+
+        //controllo validità iban con regex
+        if(!fieldIbanTo.getText().matches("[A-Z]{2}[0-9]{2}[A-Z][0-9]{10}")) {
+            SceneHandler.getInstance().showError("Errore", "IBAN non valido", "L'IBAN deve essere composto da 27 caratteri");
+            return;
+        }
+
+        //controllo che nessuno dei campi sia vuoto
+        if(fieldAmount.getText().isEmpty() || fieldDescr.getText().isEmpty() || fieldIbanTo.getText().isEmpty() || fieldName.getText().isEmpty() || fieldSurname.getText().isEmpty()){
+            SceneHandler.getInstance().showError("Errore", "Campi vuoti", "Riempire tutti i campi");
+            return;
+        }
+
+        //controllo che l'importo sia un numero
+        if(!fieldAmount.getText().matches("[0-9]+")) {
+            SceneHandler.getInstance().showError("Errore", "Importo non valido", "L'importo deve essere composto da cifre");
+            return;
+        }
+
         try {
             ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), Double.parseDouble(fieldAmount.getText()));
             TransazioniDAO.insert(new Transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedMainSpace(), 0,  LocalDateTime.now(), Double.parseDouble(fieldAmount.getText()), fieldDescr.getText(), "Bonifico", "Altro", ""));
