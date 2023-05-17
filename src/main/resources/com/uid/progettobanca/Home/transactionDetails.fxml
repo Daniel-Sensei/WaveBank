@@ -28,7 +28,7 @@
                      <children>
                         <VBox alignment="CENTER_LEFT" spacing="3.0">
                            <children>
-                              <Label styleClass="titleLabel" text="Transazione X" />
+                              <Label fx:id="transactionName" styleClass="titleLabel" text="Transazione X" />
                               <Label styleClass="subtitleLabel" text="Indietro">
                                  <graphic>
                                     <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">

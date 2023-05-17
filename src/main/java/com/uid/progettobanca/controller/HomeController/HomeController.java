@@ -92,6 +92,7 @@ public class HomeController implements Initializable {
 
         int nVBox = 0;
         String[] dates;
+        String[] convertedDate;
         try {
             TransactionManager.getInstance().fillNumDate();
             nVBox = TransactionManager.getInstance().getNumDate();
@@ -101,6 +102,8 @@ public class HomeController implements Initializable {
             throw new RuntimeException(e);
         }
 
+        //NON FUNZIONA
+        //TransactionManager.getInstance().convertToLocalDates();
         for(int i = 0; i < nVBox; i++){
 
             Label labelDate = new Label(dates[i]);

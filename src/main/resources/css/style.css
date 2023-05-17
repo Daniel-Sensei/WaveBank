@@ -35,6 +35,16 @@
     -fx-text-fill: promptTextColor;
 }
 
+.greenMoneyLabel{
+    -fx-background-color: greenButtonColor;
+    -fx-background-radius: 10px
+}
+
+.redMoneyLabel{
+    -fx-background-color: redColor;
+    -fx-background-radius: 10px
+}
+
 /* SCROLL BAR */
 
 .scroll-bar:horizontal .track,

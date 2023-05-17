@@ -40,6 +40,13 @@ public class TransactionDetailsController implements Initializable {
     @FXML
     private Label typeLabel;
 
+    @FXML
+    private Label transactionName;
+
+    private Transazione transaction;
+
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -57,12 +64,24 @@ public class TransactionDetailsController implements Initializable {
         // Applica il TextFormatter alla TextArea
         commentsArea.setTextFormatter(textFormatter);
 
-        Transazione transaction = TransactionManager.getInstance().getNextTransactionDate();
-        amountLabel.setText(transaction.getImporto() + " €");
+        transaction = TransactionManager.getInstance().getNextTransactionDate();
+
+        if(transaction.getImporto() < 0) {
+            amountLabel.setText(transaction.getImporto() + " €");
+        }
+        else {
+            amountLabel.setText("+" + transaction.getImporto() + " €");
+        }
         categoryLabel.setText(transaction.getTag());
         dateLabel.setText(transaction.getDateTime().toString());
+        commentsArea.setText(transaction.getCommenti());
+        descriptionLabel.setText(transaction.getDescrizione());
 
-        //da completare
-        System.out.println(transaction.getDateTime().toString());
+        /*
+        nome transazione (nome e cognome destinatario)
+        tipo transazione (bonifico, bollo auto, ecc...)
+        nome dello space partendo dalla space from
+         */
+
     }
 }
