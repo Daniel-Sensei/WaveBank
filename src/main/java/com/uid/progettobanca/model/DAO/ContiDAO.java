@@ -131,16 +131,6 @@ public class ContiDAO {
 
     //  aggiornamenti:
 
-    //aggiornamento limitato al saldo tramite iban
-    public static void update(String iban, double nuovoSaldo) throws SQLException {
-        String query = "UPDATE conti SET saldo = ? WHERE iban = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setDouble(1, nuovoSaldo);
-            stmt.setString(2, iban);
-            stmt.executeUpdate();
-        }
-    }
-
     //trasferimento di denaro tra due conti usando le transazioni di SQLite
     public static void transazione(String iban_to, String iban_from, double importo) throws SQLException {
         String query = "UPDATE conti SET saldo = saldo - ? WHERE iban = ?";
