@@ -26,8 +26,7 @@ public class BankApplication extends Application {
     private void initializeDB(){
         //inizializzazione/creazione DatabaseManager e del relativo db
         try {
-            // SOLO LA PRIMA VOLTA che si richiama bisogna specificare il nome del database nel getInstance
-            DatabaseManager.getInstance("database.db").checkAndCreateDatabase();
+            DatabaseManager.getInstance().checkAndCreateDatabase();
         } catch (Exception e) {
             System.err.println("Error creating database: " + e.getMessage());
         }

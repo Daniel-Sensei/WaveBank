@@ -115,6 +115,8 @@ public class ManageController {
                 data.getData().add(new XYChart.Data(String.valueOf(i), days.get(i)));
             }
 
+            chart.getData().add(data);
+
 
     } catch (SQLException e) {
         throw new RuntimeException(e);  //dobbiamo vedere come evitare il try catch

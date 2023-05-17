@@ -1,8 +1,5 @@
 package com.uid.progettobanca.model;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.util.Arrays;
 
@@ -15,13 +12,12 @@ public class Utente {
     private String telefono;
     private String email;
     private String password;
-    private byte[] salt;
     private String domanda;
     private String risposta;
     private String iban;
 
 
-    public Utente(int user_id, String nome, String cognome, String indirizzo, LocalDate dataNascita, String telefono, String email, String password, byte[] salt, String domanda, String risposta, String iban) {
+    public Utente(int user_id, String nome, String cognome, String indirizzo, LocalDate dataNascita, String telefono, String email, String password, String domanda, String risposta, String iban) {
         this.user_id = user_id;
         this.nome = nome;
         this.cognome = cognome;
@@ -30,7 +26,6 @@ public class Utente {
         this.telefono = telefono;
         this.email = email;
         this.password = password;
-        this.salt=salt;
         this.domanda = domanda;
         this.risposta = risposta;
         this.iban = iban;
@@ -109,10 +104,6 @@ public class Utente {
 
     public void setPassword(String password) {this.password = password;}
 
-    public byte[] getSalt() {return salt;}
-
-    public void setSalt(byte[] salt) {this.salt = salt;}
-
     public String getDomanda() {return domanda;}
 
     public void setDomanda(String domanda) {this.domanda = domanda;}
@@ -142,7 +133,6 @@ public class Utente {
                 ", telefono='" + telefono + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", salt=" + Arrays.toString(salt) +
                 ", domanda='" + domanda + '\'' +
                 ", risposta='" + risposta + '\'' +
                 ", iban='" + iban + '\'' +
