@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.BolloAutoController">
+<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.BolloAutoController">
    <padding>
       <Insets left="200.0" right="200.0" />
    </padding>
@@ -32,7 +33,7 @@
                                  <graphic>
                                     <ImageView fitHeight="12.0" fitWidth="12.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../assets/images/light/right-arrow.png" />
+                                          <Image url="@../../../../assets/images/IconLight/arrow-small-left.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -51,14 +52,18 @@
                   <Label styleClass="subtitleLabel" text="Compilare i seguenti campi" />
                   <VBox fillWidth="false" spacing="10.0">
                      <children>
-                        <TextField prefHeight="50.0" prefWidth="350.0" promptText="Targa Veicolo" />
-                        <TextField prefHeight="50.0" prefWidth="350.0" promptText="Codice Fiscale o P. IVA" />
-                        <TextField prefHeight="50.0" prefWidth="350.0" promptText="Importo" />
-                        <TextField prefHeight="50.0" prefWidth="350.0" promptText="Anno Scadenza">
+                        <TextField fx:id="fieldPlate" prefHeight="50.0" prefWidth="350.0" promptText="Targa Veicolo" />
+                        <TextField fx:id="fieldCF" prefHeight="50.0" prefWidth="350.0" promptText="Codice Fiscale o P. IVA" />
+                        <TextField fx:id="fieldDue" prefHeight="50.0" prefWidth="350.0" promptText="Scadenza (mm/aaaa)">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin></TextField>
+                        <ComboBox fx:id="typeComboBox" prefHeight="50.0" prefWidth="350.0" promptText="Tipologia">
                            <VBox.margin>
                               <Insets bottom="20.0" />
-                           </VBox.margin></TextField>
-                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="greenButton" text="Invia">
+                           </VBox.margin>
+                        </ComboBox>
+                        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#onSendButtonClick" prefHeight="40.0" prefWidth="100.0" styleClass="greenButton" text="Invia">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.RicaricaTelefonicaController">
+<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.RicaricaTelefonicaController">
    <padding>
       <Insets left="200.0" right="200.0" />
    </padding>
@@ -33,7 +33,7 @@
                                  <graphic>
                                     <ImageView fitHeight="12.0" fitWidth="12.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../assets/images/light/right-arrow.png" />
+                                          <Image url="@../../../../assets/images/IconLight/arrow-small-left.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -52,13 +52,13 @@
                   <Label styleClass="subtitleLabel" text="Quale numero di telefono desideri ricaricare?" />
                   <VBox fillWidth="false" spacing="10.0">
                      <children>
-                        <TextField prefHeight="50.0" prefWidth="350.0" promptText="Numero di telefono" />
-                        <TextField prefHeight="50.0" prefWidth="350.0" promptText="Importo" />
-                        <ComboBox fx:id="operatoreComboBox" prefHeight="50.0" prefWidth="350.0" promptText="Operatore" visibleRowCount="5">
+                        <TextField fx:id="fieldPhone" prefHeight="50.0" prefWidth="350.0" promptText="Numero di telefono" />
+                        <TextField fx:id="fieldAmount" prefHeight="50.0" prefWidth="350.0" promptText="Importo" />
+                        <ComboBox fx:id="providerComboBox" prefHeight="50.0" prefWidth="350.0" promptText="Operatore" visibleRowCount="5">
                            <VBox.margin>
                               <Insets bottom="20.0" />
                            </VBox.margin></ComboBox>
-                        <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="greenButton" text="Invia">
+                        <Button fx:id="onSendButton" mnemonicParsing="false" onAction="#onSendButtonClick" prefHeight="40.0" prefWidth="100.0" styleClass="greenButton" text="Invia">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

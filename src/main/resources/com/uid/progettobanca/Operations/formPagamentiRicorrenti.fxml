@@ -29,7 +29,7 @@
                                  <graphic>
                                     <ImageView fitHeight="12.0" fitWidth="12.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../assets/images/light/right-arrow.png" />
+                                          <Image url="@../../../../assets/images/IconLight/arrow-small-left.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -47,7 +47,7 @@
                <children>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../assets/images/light/plus.png" />
+                        <Image url="@../../../../assets/images/IconLight/add.png" />
                      </image>
                   </ImageView>
                   <Label text="Programma un nuovo bonifico" />

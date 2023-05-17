@@ -52,13 +52,13 @@ public class BollettinoController implements Initializable {
         }
 
         //controllo che sia stata selezionata una tipologia
-        if(tipologiaComboBox.getSelectionModel().isEmpty()){
+        if(tipologiaComboBox.getValue() == null){
             SceneHandler.getInstance().showError("Errore", "Tipologia non selezionata", "Selezionare una tipologia");
             return;
         }
 
         //controllo che l'importo sia un numero
-        if(!fieldAmount.getText().matches("[0-9]+")) {
+        if(!fieldAmount.getText().matches("[0-9]+(\\.[0-9]{1,2})?")) {
             SceneHandler.getInstance().showError("Errore", "Importo non valido", "L'importo deve essere composto da cifre");
             return;
         }

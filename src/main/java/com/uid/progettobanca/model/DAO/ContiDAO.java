@@ -9,6 +9,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class ContiDAO {
@@ -115,10 +116,12 @@ public class ContiDAO {
 
     //trasferimento di denaro tra due conti usando le transazioni di SQLite
     public static void transazione(String iban_from, String iban_to, double importo) throws SQLException {
-        Double check = getSaldoByIban(iban_from);
-        if(check < importo) {
-            SceneHandler.getInstance().showError("Errore", "Saldo insufficiente", "Non hai abbastanza soldi per effettuare questa operazione");
-            return;
+        if(!iban_from.equals("NO")) {
+            double check = getSaldoByIban(iban_from);
+            if (check < importo) {
+                SceneHandler.getInstance().showError("Errore", "Saldo insufficiente", "Non hai abbastanza soldi per effettuare questa operazione");
+                return;
+            }
         }
         String query = "UPDATE conti SET saldo = saldo - ? WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -127,7 +130,7 @@ public class ContiDAO {
             stmt.setString(2, iban_from);
             stmt.executeUpdate();
             //se esiste il conto di destinazione aggiorna il saldo
-            if(selectByIban(iban_to) != null) {
+            if(!iban_to.equals("NO") || selectByIban(iban_to) != null) {
                 stmt.setDouble(1, importo*-1);
                 stmt.setString(2, iban_to);
                 stmt.executeUpdate();

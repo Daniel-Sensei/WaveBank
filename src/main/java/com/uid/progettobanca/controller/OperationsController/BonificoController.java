@@ -54,8 +54,8 @@ public class BonificoController {
             return;
         }
 
-        //controllo che l'importo sia un numero
-        if(!fieldAmount.getText().matches("[0-9]+")) {
+        //controllo che l'importo sia un numero dando la possibilità di inserire 2 decimali con il punto
+        if(!fieldAmount.getText().matches("[0-9]+(\\.[0-9]{1,2})?")) {
             SceneHandler.getInstance().showError("Errore", "Importo non valido", "L'importo deve essere composto da cifre");
             return;
         }

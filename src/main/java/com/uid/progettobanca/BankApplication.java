@@ -33,7 +33,6 @@ public class BankApplication extends Application {
         }
     }
 
-
     @Override
     public void start(Stage stage) {
 
@@ -59,5 +58,3 @@ public class BankApplication extends Application {
     }
 
 }
-
-
