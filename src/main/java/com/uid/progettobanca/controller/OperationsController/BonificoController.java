@@ -42,7 +42,7 @@ public class BonificoController {
     void onSendButtonClick(ActionEvent event) {
         try {
             ContiDAO.transazione(fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedIban(), Double.parseDouble(fieldAmount.getText()));
-            Transazione t = new Transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedMainSpace(), LocalDateTime.now(), Double.parseDouble(fieldAmount.getText()), fieldDescr.getText(), "Altro", "");
+            Transazione t = new Transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedMainSpace(), 0,  LocalDateTime.now(), Double.parseDouble(fieldAmount.getText()), fieldDescr.getText(), "Altro", "");
             if(saveContact.isSelected()){
                 ContattiDAO.insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedUser()));
             }
