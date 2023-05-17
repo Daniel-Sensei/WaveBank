@@ -10,6 +10,7 @@ import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,6 +25,9 @@ public class SpaceFormController {
 
     @FXML
     private Button cancel;
+
+    @FXML
+    private Label backButton;
 
     @FXML
     private ImageView imagePicked;
