@@ -262,6 +262,21 @@ public class TransazioniDAO {
         }
     }
 
+    //restituisce saldo di un iban
+    public static double getSaldo(String iban) throws SQLException {
+        String query = "SELECT saldo FROM conti WHERE iban = ? ";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, iban);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getDouble("saldo");
+                } else {
+                    return 0;
+                }
+            }
+        }
+    }
+
 
     //  aggiornamento:
 

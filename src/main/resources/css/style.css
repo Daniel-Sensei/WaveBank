@@ -137,6 +137,7 @@
     -fx-background-color: transparent;
         -fx-border-radius: 5px;
         -fx-border-width: 1px;
+        -fx-border-color: transparent;
         -fx-font-size: 13px;
         -fx-text-fill: textColor;
         -fx-padding: 0px 0px 0px -9px;
@@ -144,6 +145,7 @@
 
 .text-area:hover,
 .text-area:focused {
+    -fx-border-width: 1px;
     -fx-border-color: greenButtonColor;
 }
 
@@ -360,7 +362,14 @@
 /* ------------------- TEST ------------------- */
 
 
-
+/* GRAFICO FORTU */
+.grafico{
+-fx-background-color: secondaryColor; /* Colore di sfondo della VBox */
+    -fx-background-radius: 4px; /* Raggio dei bordi per rendere la VBox tondeggiante */
+    -fx-border-radius: 4px;
+    -fx-border-color: borderColor;
+    -fx-border-width: 0.4px;
+   }
 
 /* CARD FORTUNATO */
 

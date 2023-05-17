@@ -95,6 +95,26 @@ public class SpacesDAO {
         }
     }
 
+    //return Space by space_id
+    public static Space selectBySpaceId(int space_id) throws SQLException {
+        String query = "SELECT * FROM spaces WHERE space_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, space_id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Space(rs.getString("iban"), space_id,
+                            rs.getDouble("saldo"),
+                            rs.getDate("dataApertura").toLocalDate(),
+                            rs.getString("nome"),
+                            rs.getString("imagePath")
+                    );
+                } else {
+                    return null;
+                }
+            }
+        }
+    }
+
 
     //  aggiornamento:
 

@@ -1,6 +1,8 @@
 package com.uid.progettobanca.controller.HomeController;
 
+import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
+import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.Transazione;
 import com.uid.progettobanca.view.SceneHandler;
@@ -17,6 +19,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -37,12 +40,16 @@ public class HomeController implements Initializable {
     private Button send;
     @FXML
     private VBox homeVbox;
+    @FXML
+    private Label balanceLabel;
 
     @FXML
     private Button statistics;
     private ArrayList<Button> homeButtons = new ArrayList<>();
     private ArrayList<Button> allHomeButtons = new ArrayList<>();
     private ArrayList<ImageView> homeImages = new ArrayList<>();
+
+    DecimalFormat df = new DecimalFormat("#0.00");
 
     public void addFocusRemovalListenerToButtons() {
         for (Button button : allHomeButtons) {
@@ -98,17 +105,20 @@ public class HomeController implements Initializable {
             nVBox = TransactionManager.getInstance().getNumDate();
             TransactionManager.getInstance().fillDates();
             dates = TransactionManager.getInstance().getDates();
+
+            balanceLabel.setText(df.format(TransazioniDAO.getSaldo(BankApplication.getCurrentlyLoggedIban())) + " €");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
         //NON FUNZIONA
-        //TransactionManager.getInstance().convertToLocalDates();
+        convertedDate = TransactionManager.getInstance().convertToLocalDates(dates);
         for(int i = 0; i < nVBox; i++){
 
-            Label labelDate = new Label(dates[i]);
+            Label labelDate = new Label(convertedDate[i]);
             labelDate.setPrefHeight(Label.USE_COMPUTED_SIZE);
             labelDate.setPrefWidth(Label.USE_COMPUTED_SIZE);
+            VBox.setMargin(labelDate, new Insets(0, 0, 2, 0));
             vBox.getChildren().add(labelDate);
 
             VBox transactionBox = new VBox();

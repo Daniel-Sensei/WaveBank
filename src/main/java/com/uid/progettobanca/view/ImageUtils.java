@@ -1,6 +1,7 @@
 package com.uid.progettobanca.view;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.io.File;
 import java.net.StandardSocketOptions;
@@ -39,6 +40,14 @@ public class ImageUtils {
         String estensione = nomeFile.substring(nomeFile.lastIndexOf('.') + 1);
         return estensione.equalsIgnoreCase("jpg") || estensione.equalsIgnoreCase("jpeg") ||
                 estensione.equalsIgnoreCase("png") || estensione.equalsIgnoreCase("gif");
+    }
+
+    public static String getImageViewImageName(ImageView imageView) {
+        Image image = imageView.getImage();
+        String imagePath = image.getUrl();
+        String imageName = new File(imagePath).getName();
+
+        return imageName;
     }
 
 }

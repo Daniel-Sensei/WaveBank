@@ -33,19 +33,16 @@ public class GraphCalculator {
             }
             //somma ogni 3 giorni le transazioni al saldo iniziale
             LocalDateTime now = LocalDateTime.now();
-            for(int i=0; i<transazioni.size(); i++){
-                int iterations=0;
-                for(LocalDateTime j=LocalDateTime.now().minusDays(DaysInterval); j.isBefore(now); j=j.plusDays(SplitInterval)){
-                    if(transazioni.get(i).getDateTime().isAfter(j) && transazioni.get(i).getDateTime().isBefore(j.plusDays(SplitInterval))){
-                        DaysValues.set(iterations, DaysValues.get(iterations)+transazioni.get(i).getImporto());
+            for(int i=0; i<transazioni.size(); i++) {
+                int iterations = 0;
+                for (LocalDateTime j = LocalDateTime.now().minusDays(DaysInterval); j.isBefore(now); j = j.plusDays(SplitInterval)) {
+                    if (transazioni.get(i).getDateTime().isAfter(j) && transazioni.get(i).getDateTime().isBefore(j.plusDays(SplitInterval))) {
+                        DaysValues.set(iterations, DaysValues.get(iterations) + transazioni.get(i).getImporto());
                     }
                     iterations++;
                 }
 
             }
-
-            //ora prende le transazioni in entrata
-            transazioni = TransazioniDAO.selectByIban(BankApplication.getCurrentlyLoggedIban());
 
             for(int i=0; i<DaysValues.size(); i++){
                 if(i==0) {
@@ -67,7 +64,7 @@ public class GraphCalculator {
         try {
             int SplitInterval = DaysInterval/15;
             XYChart.Series data = new XYChart.Series();
-            List<Transazione> transazioni = TransazioniDAO.selectByIban(BankApplication.getCurrentlyLoggedIban());  //select by tag
+            List<Transazione> transazioni = TransazioniDAO.selectByIban(BankApplication.getCurrentlyLoggedIban());
 
             List<Double> DaysValues = new ArrayList<>();
             for(int i =0; i<15; i++){
@@ -78,16 +75,13 @@ public class GraphCalculator {
             for(int i=0; i<transazioni.size(); i++){
                 int iterations=0;
                 for(LocalDateTime j=LocalDateTime.now().minusDays(DaysInterval); j.isBefore(now); j=j.plusDays(SplitInterval)){
-                    if(transazioni.get(i).getDateTime().isAfter(j) && transazioni.get(i).getDateTime().isBefore(j.plusDays(SplitInterval))){
+                    if(transazioni.get(i).getDateTime().isAfter(j) && transazioni.get(i).getDateTime().isBefore(j.plusDays(SplitInterval)) && transazioni.get(i).getTag().equals(tag)){
                         DaysValues.set(iterations, DaysValues.get(iterations)+transazioni.get(i).getImporto());
                     }
                     iterations++;
                 }
 
             }
-
-            //ora prende le transazioni in entrata
-            transazioni = TransazioniDAO.selectByIban(BankApplication.getCurrentlyLoggedIban());
 
             for(int i=0; i<DaysValues.size(); i++){
                 if(i>0) {

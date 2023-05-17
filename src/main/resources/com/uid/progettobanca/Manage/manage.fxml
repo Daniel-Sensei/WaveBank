@@ -34,7 +34,7 @@
                <children>
                   <VBox spacing="25.0">
                      <children>
-                        <LineChart fx:id="chart" createSymbols="false" horizontalZeroLineVisible="false" legendVisible="false" prefHeight="300.0" prefWidth="350.0" styleClass="vbox-with-rounded-border" verticalGridLinesVisible="false">
+                        <LineChart fx:id="chart" createSymbols="false" horizontalZeroLineVisible="false" legendVisible="false" prefHeight="300.0" prefWidth="350.0" styleClass="grafico" verticalGridLinesVisible="false">
                           <xAxis>
                             <CategoryAxis gapStartAndEnd="false" styleClass="chart-horizontal-grid-lines" tickLabelsVisible="false" tickMarkVisible="false" />
                           </xAxis>
