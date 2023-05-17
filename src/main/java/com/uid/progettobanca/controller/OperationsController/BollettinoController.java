@@ -4,6 +4,7 @@ import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.Transazione;
+import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,18 +45,24 @@ public class BollettinoController implements Initializable {
     @FXML
     void onSendButtonClick(ActionEvent event) {
         try {
-            //rimuove i soldi dal conto corrente
-            ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", Double.parseDouble(fieldAmount.getText()));
             //salvo il tipo per il controllo
             String tipo = "Bollettino: " + tipologiaComboBox.getSelectionModel().getSelectedItem();
             // se è un bianco aggiungo anche il nome del destinatario
             if(tipo.equals("Bollettino: 123 - Bianco generico")){
                 tipo+=" a " + fieldRecipient.getText();
             } else {
+                if (!fieldCode.getText().matches("[0-9]{40}")) {
+                    SceneHandler.getInstance().showError("Errore", "Codice non valido", "Il codice deve essere composto da 40 cifre");
+                    return;
+                }
+
                 tipo+="\nCodice: " + fieldCode.getText();
             }
+            //rimuove i soldi dal conto corrente
+            ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", Double.parseDouble(fieldAmount.getText()));
             //inserisco la transazione
             TransazioniDAO.insert(new Transazione(BankApplication.getCurrentlyLoggedIban(), fieldCC.getText(), BankApplication.getCurrentlyLoggedMainSpace(), 0,  LocalDateTime.now(), Double.parseDouble(fieldAmount.getText()), fieldDescr.getText(), tipo, "Altro", ""));
+            SceneHandler.getInstance().showInfo("Operazione effettuata", "Bollettino pagato", "Il bollettino è stato pagato con successo");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

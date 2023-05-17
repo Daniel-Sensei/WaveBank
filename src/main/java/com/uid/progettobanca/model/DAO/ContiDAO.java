@@ -3,6 +3,7 @@ package com.uid.progettobanca.model.DAO;
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.Conto;
 import com.uid.progettobanca.model.Space;
+import com.uid.progettobanca.view.SceneHandler;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -109,30 +110,16 @@ public class ContiDAO {
         }
     }
 
-    //seleziona tutti i conti
-
-    public static List<Conto> selectAll() throws SQLException {
-        String query = "SELECT * FROM conti";
-        try (Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
-            List<Conto> conti = new ArrayList<>();
-            while (rs.next()) {
-                conti.add(new Conto(
-                            rs.getString("iban"),
-                            rs.getDouble("saldo"),
-                            rs.getDate("dataApertura").toLocalDate()
-                            )
-                        );
-            }
-            return conti;
-        }
-    }
-
 
     //  aggiornamenti:
 
     //trasferimento di denaro tra due conti usando le transazioni di SQLite
-    public static void transazione(String iban_to, String iban_from, double importo) throws SQLException {
+    public static void transazione(String iban_from, String iban_to, double importo) throws SQLException {
+        Double check = getSaldoByIban(iban_from);
+        if(check < importo) {
+            SceneHandler.getInstance().showError("Errore", "Saldo insufficiente", "Non hai abbastanza soldi per effettuare questa operazione");
+            return;
+        }
         String query = "UPDATE conti SET saldo = saldo - ? WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             conn.setAutoCommit(false);

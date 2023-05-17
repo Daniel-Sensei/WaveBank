@@ -42,7 +42,7 @@ public class BonificoController {
     @FXML
     void onSendButtonClick(ActionEvent event) {
         try {
-            ContiDAO.transazione(fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedIban(), Double.parseDouble(fieldAmount.getText()));
+            ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), Double.parseDouble(fieldAmount.getText()));
             TransazioniDAO.insert(new Transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedMainSpace(), 0,  LocalDateTime.now(), Double.parseDouble(fieldAmount.getText()), fieldDescr.getText(), "Bonifico", "Altro", ""));
             if(saveContact.isSelected()){
                 ContattiDAO.insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedUser()));
