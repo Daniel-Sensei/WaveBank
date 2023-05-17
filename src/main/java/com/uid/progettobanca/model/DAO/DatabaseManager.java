@@ -22,7 +22,7 @@ import static java.io.File.separator;
 
 public class DatabaseManager {
 
-    private static String dbPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources"+ File.separator + "database.db";
+    private static final String dbPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources"+ File.separator + "database.db";
     private static DatabaseManager instance;
     //se non funziona mettere l'assegnazione nel costruttore e togliere final
 
@@ -93,8 +93,8 @@ public class DatabaseManager {
                                     "transaction_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
                                     "iban_from CHAR(27) not null, iban_to CHAR(27), "+
                                     "space_from integer not null, space_to integer," +
-                                    "dateTime Timestamp not null, "+
-                                    "importo REAL not null, descrizione varchar not null, "+
+                                    "dateTime Timestamp not null, importo REAL not null, "+
+                                    "descrizione varchar not null, tipo varchar not null, "+
                                     "tag varchar not null, commenti varchar, "+
                                     "FOREIGN KEY (iban_from) REFERENCES conti(iban), " +
                                     "FOREIGN KEY (space_from) REFERENCES spaces(space_id));");

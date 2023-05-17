@@ -26,6 +26,7 @@ public class BankApplication extends Application {
     private void initializeDB(){
         //inizializzazione/creazione DatabaseManager e del relativo db
         try {
+            // questo metodo controlla se nella risorse è presente il db ed in caso contrario lo crea
             DatabaseManager.getInstance().checkAndCreateDatabase();
         } catch (Exception e) {
             System.err.println("Error creating database: " + e.getMessage());
@@ -58,25 +59,6 @@ public class BankApplication extends Application {
         launch();
     }
 
-    /**
-
-     //esempio di utilizzo dei DAO per il database, potete fare così ed utilizzarle in qualunque altra classe vogliate
-     //inserimento di un conto e stampa di tutti i conti presenti nel database
-
-     try{
-
-         //inserisco un conto con un iban fittizio, un saldo iniziale di 0 e la data di oggi
-         ContiDAO.insert("IT0000000000000", 0, LocalDate.now());
-
-         //stampo tutti i conti presenti nel database
-         System.out.println(ContiDAO.selectAll());
-
-     } catch (SQLException e) {
-         //in caso di errore lo stampo
-         System.err.println("Error inserting conto: " + e.getMessage());
-     }
-
-     **/
 }
 
 

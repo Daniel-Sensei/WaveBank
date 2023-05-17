@@ -183,7 +183,6 @@ public class SceneHandler {
 
              createPage( "login.fxml");
 
-
              this.stage.setScene(scene);
              this.stage.getScene().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + "light.css", CSS_PATH + "style.css");
              this.stage.setResizable(false);

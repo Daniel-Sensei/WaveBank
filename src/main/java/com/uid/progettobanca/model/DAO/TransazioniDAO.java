@@ -35,7 +35,7 @@ public class TransazioniDAO {
 
     //inserimento tramite oggetto di tipo transazione
     public static void insert(Transazione transazione) throws SQLException {
-        String query = "INSERT INTO transazioni (iban_from, iban_to, space_from, space_to, dateTime, importo, descrizione, tag, commenti) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO transazioni (iban_from, iban_to, space_from, space_to, dateTime, importo, descrizione, tipo, tag, commenti) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, transazione.getIbanFrom());
             stmt.setString(2, transazione.getIbanTo());
@@ -44,22 +44,25 @@ public class TransazioniDAO {
             stmt.setTimestamp(5, Timestamp.valueOf(transazione.getDateTime()));
             stmt.setDouble(6, transazione.getImporto());
             stmt.setString(7, transazione.getDescrizione());
-            stmt.setString(8, transazione.getTag());
-            stmt.setString(9, transazione.getCommenti());
+            stmt.setString(8, transazione.getTipo());
+            stmt.setString(9, transazione.getTag());
+            stmt.setString(10, transazione.getCommenti());
             stmt.executeUpdate();
-            ResultSet rs = stmt.getGeneratedKeys();
-            if (rs.next()) {
-                transazione.setTransactionId(rs.getInt(1));
-            }
-            rs.close();
         }
     }
 
     // spostamento denaro tra 2 spaces
 
     public static void betweenSpaces(String iban, int spaceFrom, int spaceTo, double amount) throws SQLException {
-        insert( new Transazione(iban, iban, spaceFrom, spaceTo, LocalDateTime.now(), amount, "Trasferimento tra spaces", "altro", ""));
-        insert( new Transazione(iban, iban, spaceFrom, spaceTo, LocalDateTime.now(), -amount, "Trasferimento tra spaces", "altro", ""));
+        String nomeFrom = SpacesDAO.selectByIbanSpaceId(iban, spaceFrom).getNome();
+        String nomeTo = SpacesDAO.selectByIbanSpaceId(iban, spaceTo).getNome();
+        // creao la transazione di spostamento
+        Transazione t = new Transazione(iban, iban, spaceFrom, spaceTo, LocalDateTime.now(), amount, "Da "+nomeFrom+" a "+nomeTo, "Trasferimento tra spaces", "altro", "");
+        //inserisco la positiva
+        insert(t);
+        // inverto l'importo e inserisco la negativa
+        t.setImporto(-amount);
+        insert(t);
     }
 
 
@@ -80,6 +83,7 @@ public class TransazioniDAO {
                             rs.getTimestamp("dateTime").toLocalDateTime(),
                             rs.getDouble("importo"),
                             rs.getString("descrizione"),
+                            rs.getString("tipo"),
                             rs.getString("tag"),
                             rs.getString("commenti")
                     );
@@ -115,6 +119,7 @@ public class TransazioniDAO {
                             rs.getTimestamp("dateTime").toLocalDateTime(),
                             amount,
                             rs.getString("descrizione"),
+                            rs.getString("tipo"),
                             rs.getString("tag"),
                             rs.getString("commenti")
                     ));
@@ -167,8 +172,7 @@ public class TransazioniDAO {
     //dove il valore dell' importo è negativo se l'iban passato come parametro appartiene all'iban from, positivo altrimenti
     public static Stack<Transazione> selectTransactionsByIbanAndDate(String iban, String date) throws SQLException {
         Stack<Transazione> transactionStack = new Stack<>();
-
-        String query = "SELECT * FROM transazioni WHERE (iban_from = ? OR iban_to = ?) AND Date(dateTime, 'unixepoch') = ?";
+        String query = "SELECT * FROM transazioni WHERE (iban_from = ? OR iban_to = ?) AND Date(dateTime, 'unixepoch') = ?;";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
             stmt.setString(2, iban);
@@ -192,6 +196,7 @@ public class TransazioniDAO {
                             rs.getTimestamp("dateTime").toLocalDateTime(),
                             amount,
                             rs.getString("descrizione"),
+                            rs.getString("tipo"),
                             rs.getString("tag"),
                             rs.getString("commenti")
                     );
@@ -221,6 +226,7 @@ public class TransazioniDAO {
                             rs.getTimestamp("dateTime").toLocalDateTime(),
                             rs.getDouble("importo"),
                             rs.getString("descrizione"),
+                            rs.getString("tipo"),
                             rs.getString("tag"),
                             rs.getString("commenti")
                     ));
@@ -261,24 +267,11 @@ public class TransazioniDAO {
 
     // aggiornamento limitato a descrizione, tag e commenti tramite oggetto di tipo transazione
     public static void update(Transazione transazione) throws SQLException {
-        String query = "UPDATE transazioni SET descrizione = ?, tag = ?, commenti = ? WHERE transaction_id = ?";
+        String query = "UPDATE transazioni SET tag = ?, commenti = ? WHERE transaction_id = ?;";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, transazione.getDescrizione());
-            stmt.setString(2, transazione.getTag());
-            stmt.setString(3, transazione.getCommenti());
-            stmt.setInt(4, transazione.getTransactionId());
-            stmt.executeUpdate();
-        }
-    }
-
-    // aggiornamento di descrizione, tag e commenti tramite id
-    public static void update(String descrizione, String tag, String commenti, int id) throws SQLException {
-        String query = "UPDATE transazioni SET descrizione = ?, tag = ?, commenti = ? WHERE transaction_id = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, descrizione);
-            stmt.setString(2, tag);
-            stmt.setString(3, commenti);
-            stmt.setInt(4, id);
+            stmt.setString(1, transazione.getTag());
+            stmt.setString(2, transazione.getCommenti());
+            stmt.setInt(3, transazione.getTransactionId());
             stmt.executeUpdate();
         }
     }

@@ -4,6 +4,7 @@ import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.Contatto;
 import com.uid.progettobanca.model.DAO.ContattiDAO;
 import com.uid.progettobanca.model.DAO.ContiDAO;
+import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.Transazione;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
@@ -42,7 +43,7 @@ public class BonificoController {
     void onSendButtonClick(ActionEvent event) {
         try {
             ContiDAO.transazione(fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedIban(), Double.parseDouble(fieldAmount.getText()));
-            Transazione t = new Transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedMainSpace(), 0,  LocalDateTime.now(), Double.parseDouble(fieldAmount.getText()), fieldDescr.getText(), "Altro", "");
+            TransazioniDAO.insert(new Transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedMainSpace(), 0,  LocalDateTime.now(), Double.parseDouble(fieldAmount.getText()), fieldDescr.getText(), "Bonifico", "Altro", ""));
             if(saveContact.isSelected()){
                 ContattiDAO.insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedUser()));
             }

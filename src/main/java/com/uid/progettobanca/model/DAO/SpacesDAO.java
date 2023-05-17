@@ -52,7 +52,8 @@ public class SpacesDAO {
 
     //  getting:
 
-    public static Space selectByIbanSpace_id(String iban, int space_id) throws SQLException {
+    //restituisce uno spazio tramite iban e space_id
+    public static Space selectByIbanSpaceId(String iban, int space_id) throws SQLException {
         String query = "SELECT * FROM spaces WHERE iban = ? AND space_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
@@ -72,6 +73,7 @@ public class SpacesDAO {
         }
     }
 
+    //restituisce tutti gli spazi di un utente
     public static Queue<Space> selectAllByIban(String iban) throws SQLException {
         String query = "SELECT * FROM spaces WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
