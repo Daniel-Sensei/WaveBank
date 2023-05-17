@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -177,8 +176,4 @@
          </content>
       </ScrollPane>
    </children>
-   <stylesheets>
-      <URL value="@../../../../css/dark.css" />
-      <URL value="@../../../../css/style.css" />
-   </stylesheets>
 </AnchorPane>
