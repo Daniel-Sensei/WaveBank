@@ -47,7 +47,7 @@ public class UtentiDAO {
             stmt.setString(6, utente.getEmail());
             stmt.setString(7, BCrypt.hashpw(utente.getPassword(), BCrypt.gensalt(12)));
             stmt.setString(8, utente.getDomanda());
-            stmt.setString(9, BCrypt.hashpw(utente..getRisposta(), BCrypt.gensalt(12));
+            stmt.setString(9, BCrypt.hashpw(utente.getRisposta(), BCrypt.gensalt(12)));
             stmt.setString(10, utente.getIban());
             stmt.executeUpdate();
         }
