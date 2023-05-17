@@ -131,9 +131,9 @@ public class TransazioniDAO {
 
     //raggruppa per date uguali e restituisce in numero di gruppi di un determinato iban
     public static int selectGroupByDate(String iban) throws SQLException {
-        String query = "SELECT COUNT(DISTINCT Date(dateTime, 'unixepoch')) AS date " +
+        String query = "SELECT COUNT(DISTINCT Date(dateTime/1000, 'unixepoch')) AS date " +
                         "FROM transazioni " +
-                        "WHERE iban_from = ? OR iban_to = ?;";
+                        "WHERE iban_from = ? OR iban_to = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
             stmt.setString(2, iban);
@@ -149,9 +149,9 @@ public class TransazioniDAO {
 
     //raggruppa per date uguali e inserisci la data in un array di stringhe di un determinato iban
     public static String[] selectDate(String iban) throws SQLException {
-        String query = "SELECT DISTINCT Date(dateTime, 'unixepoch') AS date " +
+        String query = "SELECT DISTINCT Date(dateTime/1000, 'unixepoch') AS date " +
                         "FROM transazioni " +
-                        "WHERE iban_from = ? OR iban_to = ?;";
+                        "WHERE iban_from = ? OR iban_to = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
             stmt.setString(2, iban);
@@ -172,7 +172,7 @@ public class TransazioniDAO {
     //dove il valore dell' importo è negativo se l'iban passato come parametro appartiene all'iban from, positivo altrimenti
     public static Stack<Transazione> selectTransactionsByIbanAndDate(String iban, String date) throws SQLException {
         Stack<Transazione> transactionStack = new Stack<>();
-        String query = "SELECT * FROM transazioni WHERE (iban_from = ? OR iban_to = ?) AND Date(dateTime, 'unixepoch') = ?;";
+        String query = "SELECT * FROM transazioni WHERE (iban_from = ? OR iban_to = ?) AND Date(dateTime/1000, 'unixepoch') = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
             stmt.setString(2, iban);
