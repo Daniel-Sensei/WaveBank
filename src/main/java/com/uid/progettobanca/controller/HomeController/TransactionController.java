@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller.HomeController;
 
+import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.Transazione;
 import com.uid.progettobanca.view.SceneHandler;
@@ -10,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 public class TransactionController implements Initializable {
@@ -23,18 +25,19 @@ public class TransactionController implements Initializable {
 
     @FXML
     private Label transactionLabel;
+    DecimalFormat df = new DecimalFormat("#0.00");
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         transaction = TransactionManager.getInstance().getNextTransactionDate();
         if(transaction.getImporto() < 0){
             //amountLabel.getStyleClass().add("redMoneyLabel");
-            amountLabel.setText(transaction.getImporto() + " €");
+            amountLabel.setText(df.format(transaction.getImporto()) + " €");
         } else {
             amountLabel.getStyleClass().add("greenMoneyLabel");
-            amountLabel.setText("+" + transaction.getImporto() + " €");
+            amountLabel.setText("+" + df.format(transaction.getImporto()) + " €");
         }
-        transactionLabel.setText(transaction.getDescrizione());
+        transactionLabel.setText(TransazioniDAO.getNomeByIban(transaction.getIbanTo()));
     }
 
     @FXML

@@ -1,16 +1,27 @@
 package com.uid.progettobanca.controller.HomeController;
 
+import com.uid.progettobanca.model.DAO.SpacesDAO;
+import com.uid.progettobanca.model.DAO.TransazioniDAO;
+import com.uid.progettobanca.model.Space;
 import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.Transazione;
+import javafx.animation.PauseTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
+import javafx.scene.layout.Region;
+import javafx.stage.Popup;
+import javafx.stage.PopupWindow;
+import javafx.stage.Window;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 import java.net.URL;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class TransactionDetailsController implements Initializable {
@@ -44,13 +55,19 @@ public class TransactionDetailsController implements Initializable {
     private Label transactionName;
 
     private Transazione transaction;
+    @FXML
+    private Button saveCommentsButton;
+
+    DecimalFormat df = new DecimalFormat("#0.00");
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
+        // limita caratteri nella TextArea
+        //Non funziona benissimo
+        /*
         TextFormatter<String> textFormatter = new TextFormatter<>(change -> {
             if (change.isContentChange()) {
                 int newTextLength = change.getControlNewText().length();
@@ -60,28 +77,48 @@ public class TransactionDetailsController implements Initializable {
             }
             return null; // Bloccare il cambiamento
         });
-
         // Applica il TextFormatter alla TextArea
         commentsArea.setTextFormatter(textFormatter);
 
-        transaction = TransactionManager.getInstance().getNextTransactionDate();
+         */
 
+        transaction = TransactionManager.getInstance().getNextTransactionDate();
         if(transaction.getImporto() < 0) {
-            amountLabel.setText(transaction.getImporto() + " €");
+            amountLabel.setText(df.format(transaction.getImporto()) + " €");
         }
         else {
-            amountLabel.setText("+" + transaction.getImporto() + " €");
+            amountLabel.setText("+" + df.format(transaction.getImporto()) + " €");
         }
         categoryLabel.setText(transaction.getTag());
-        dateLabel.setText(transaction.getDateTime().toString());
+        dateLabel.setText(transaction.getDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm")));
         commentsArea.setText(transaction.getCommenti());
         descriptionLabel.setText(transaction.getDescrizione());
+        typeLabel.setText(transaction.getTipo());
+        transactionName.setText(TransazioniDAO.getNomeByIban(transaction.getIbanTo()));
 
-        /*
-        nome transazione (nome e cognome destinatario)
-        tipo transazione (bonifico, bollo auto, ecc...)
-        nome dello space partendo dalla space from
-         */
+        try {
+            Space space = SpacesDAO.selectBySpaceId(transaction.getSpaceFrom());
+            spaceLabel.setText(space.getNome());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+    @FXML
+    void saveComments(ActionEvent event) throws SQLException {
+        transaction.setCommenti(commentsArea.getText());
+        TransazioniDAO.update(transaction);
+
+        // Creazione della notifica
+        String title = "Notifica";
+        String message = "Cambiamenti salvati con successo!";
+
+        Notifications.create()
+                .title(title)
+                .text(message)
+                .showInformation();
 
     }
 }

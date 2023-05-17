@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
@@ -8,10 +9,10 @@
 <HBox alignment="CENTER_LEFT" onMouseClicked="#openTransactionDetails" prefHeight="75.0" spacing="10.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.HomeController.TransactionController">
    <children>
       <Button fx:id="imageButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
-      <Label fx:id="transactionLabel" text="Vivo Market" HBox.hgrow="ALWAYS" />
+      <Label fx:id="transactionLabel" text="Transazione X" HBox.hgrow="ALWAYS" />
       <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
          <children>
-            <Label fx:id="amountLabel" alignment="CENTER_RIGHT" text="-5,95 $">
+            <Label fx:id="amountLabel" alignment="CENTER_RIGHT" text="0,00 €">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding></Label>
@@ -21,4 +22,7 @@
    <padding>
       <Insets left="15.0" right="15.0" />
    </padding>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
 </HBox>

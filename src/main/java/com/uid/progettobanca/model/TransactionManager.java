@@ -43,12 +43,12 @@ public class TransactionManager {
         transactionsDate.push(transazione);
     }
 
-    public void convertToLocalDates() {
+    public String[] convertToLocalDates(String[] dates) {
         // Creazione del formatter per il formato desiderato
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd", Locale.ITALIAN);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ITALIAN);
 
         // Array per memorizzare i risultati delle conversioni
-        convertedDates = new String[dates.length];
+        String[] convertedDates = new String[dates.length];
 
         // Iterazione sulle date fornite
         for (int i = 0; i < dates.length; i++) {
@@ -59,18 +59,18 @@ public class TransactionManager {
             long daysDifference = ChronoUnit.DAYS.between(date, LocalDate.now());
 
             if (daysDifference == 0) {
-                convertedDates[i] = "Oggi";
+                convertedDates[i] = "Oggi".toUpperCase();
             } else if (daysDifference == 1) {
-                convertedDates[i] = "Ieri";
+                convertedDates[i] = "Ieri".toUpperCase();
             } else if (daysDifference < 7) {
-                convertedDates[i] = date.getDayOfWeek().toString().toLowerCase().substring(0, 1).toUpperCase() + date.getDayOfWeek().toString().toLowerCase().substring(1);
+                convertedDates[i] = date.getDayOfWeek().toString().toLowerCase().substring(0, 1).toUpperCase() + date.getDayOfWeek().toString().toLowerCase().substring(1).toUpperCase();
             } else {
                 // Formattazione della data nel formato desiderato
                 DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("EEEE d MMMM", Locale.ITALIAN);
-                convertedDates[i] = date.format(outputFormatter);
+                convertedDates[i] = date.format(outputFormatter).toUpperCase();
             }
-            System.out.println(convertedDates[i]);
         }
+        return convertedDates;
     }
 
     public int getNumDate() {
@@ -90,5 +90,9 @@ public class TransactionManager {
 
     public int getNumTransactionsDate() {
         return transactionsDate.size();
+    }
+
+    public String[] getConvertedDates() {
+        return convertedDates;
     }
 }

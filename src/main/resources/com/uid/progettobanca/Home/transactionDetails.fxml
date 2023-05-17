@@ -181,7 +181,7 @@
                                     </ImageView>
                                     <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <Label styleClass="promptLabel" text="Commenti (max. 250 caratteri)" />
+                                          <Label styleClass="promptLabel" text="Commenti" />
                                           <TextArea fx:id="commentsArea" prefHeight="100.0" wrapText="true" />
                                        </children>
                                        <HBox.margin>
@@ -198,6 +198,11 @@
                               </HBox>
                            </children>
                         </VBox>
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <Button fx:id="saveCommentsButton" mnemonicParsing="false" onAction="#saveComments" styleClass="greenButton" text="Salva commenti" />
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children>
