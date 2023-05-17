@@ -360,7 +360,14 @@
 /* ------------------- TEST ------------------- */
 
 
-
+/* GRAFICO FORTU */
+.grafico{
+-fx-background-color: secondaryColor; /* Colore di sfondo della VBox */
+    -fx-background-radius: 4px; /* Raggio dei bordi per rendere la VBox tondeggiante */
+    -fx-border-radius: 4px;
+    -fx-border-color: borderColor;
+    -fx-border-width: 0.4px;
+   }
 
 /* CARD FORTUNATO */
 
