@@ -100,6 +100,7 @@ public class Transazione {
                 ", dateTime=" + dateTime +
                 ", importo=" + importo +
                 ", descrizione='" + descrizione + '\'' +
+                ", tipo='" + tipo + '\'' +
                 ", tag='" + tag + '\'' +
                 ", commenti='" + commenti + '\'' +
                 '}';

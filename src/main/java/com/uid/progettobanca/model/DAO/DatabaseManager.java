@@ -18,7 +18,6 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.*;
-import static java.io.File.separator;
 
 public class DatabaseManager {
 
@@ -93,7 +92,7 @@ public class DatabaseManager {
                                     "transaction_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
                                     "iban_from CHAR(27) not null, iban_to CHAR(27), "+
                                     "space_from integer not null, space_to integer," +
-                                    "dateTime Timestamp not null, importo REAL not null, "+
+                                    "dateTime timestamp not null, importo REAL not null, "+
                                     "descrizione varchar not null, tipo varchar not null, "+
                                     "tag varchar not null, commenti varchar, "+
                                     "FOREIGN KEY (iban_from) REFERENCES conti(iban), " +

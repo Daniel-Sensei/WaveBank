@@ -47,7 +47,7 @@ public class UtentiDAO {
             stmt.setString(6, utente.getEmail());
             stmt.setString(7, BCrypt.hashpw(utente.getPassword(), BCrypt.gensalt(12)));
             stmt.setString(8, utente.getDomanda());
-            stmt.setString(9, utente.getRisposta());
+            stmt.setString(9, BCrypt.hashpw(utente..getRisposta(), BCrypt.gensalt(12));
             stmt.setString(10, utente.getIban());
             stmt.executeUpdate();
         }
@@ -150,20 +150,17 @@ public class UtentiDAO {
         }
     }
 
-    // funzione che restituisce una coppia di stringhe formata da domanda e risposta
 
-    public static String[] getDomandaRisposta(String email) throws SQLException {
-        String query = "SELECT domanda, risposta FROM utenti WHERE email = ?";
+    // funzione che controlla la risposta alla domanda segreta
+    public static boolean checkRisposta(String email, String risposta) throws SQLException {
+        String query = "SELECT risposta FROM utenti WHERE email = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, email);
-            try (ResultSet result = stmt.executeQuery()) {
-                if (result.next()) {
-                    String[] domandaRisposta = new String[2];
-                    domandaRisposta[0] = result.getString("domanda");
-                    domandaRisposta[1] = result.getString("risposta");
-                    return domandaRisposta;
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return BCrypt.checkpw(risposta, rs.getString("risposta"));
                 } else {
-                    return null;
+                    return false;
                 }
             }
         }
