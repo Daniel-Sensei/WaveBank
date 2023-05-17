@@ -80,6 +80,7 @@ public class SpaceFormController {
     void openImageList(MouseEvent event) {
 
         try{
+            System.out.println(String.valueOf(SpaceFormController.class.getClassLoader().getResource(Settings.SPACE_IMAGE_PATH)));
             List<Image> images = ImageUtils.getAllImageOfSpecificFolder("src/main/resources/assets/images/spacesImage");
             listOfImage.getChildren().clear();
             ImageView image = new ImageView(imagePicked.getImage());
