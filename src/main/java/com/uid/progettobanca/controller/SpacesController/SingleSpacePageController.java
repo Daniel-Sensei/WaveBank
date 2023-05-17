@@ -38,6 +38,9 @@ public class SingleSpacePageController implements Initializable{
     private Button statButton;
 
     @FXML
+    private Label backButton;
+
+    @FXML
     void hideBalance(MouseEvent event) {
 
     }

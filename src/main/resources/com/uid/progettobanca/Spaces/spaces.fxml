@@ -20,14 +20,14 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="saldo" text="1000.00 $">
+                  <Label fx:id="saldo" styleClass="titleLabel" text="1000.00 $">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
                </children>
             </VBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="71.0" prefWidth="920.0" spacing="10.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="71.0" prefWidth="920.0" spacing="10.0" styleClass="titleLabel" stylesheets="@../../../../css/style.css">
                <children>
                   <VBox alignment="CENTER">
                      <children>
