@@ -69,7 +69,6 @@ public class BackStack extends Stack<String> {
             //stampa elementi dello stack
             this.popTitle(); //rimuove pagina attuale
             String title = this.popTitle(); //preleva pagina precedente
-            System.out.println("Title: " + title);
             SceneHandler.getInstance().setPage(title);
         }
     }

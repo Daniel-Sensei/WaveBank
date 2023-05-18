@@ -81,35 +81,36 @@ public class MenuBarController implements Initializable {
     @FXML
     void loadHome(MouseEvent event) {
         clearLabelAndBackStack();
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().HOME_PATH + "home.fxml");
+        SceneHandler.getInstance().setPage(SceneHandler.getInstance().HOME_PATH + "home.fxml");
         homeLabel.getStyleClass().add("menu-bar-label");
     }
 
     @FXML
     void loadManage(MouseEvent event) {
         clearLabelAndBackStack();
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().MANAGE_PATH + "manage.fxml");
+        SceneHandler.getInstance().setPage(SceneHandler.getInstance().MANAGE_PATH + "manage.fxml");
         manageLabel.getStyleClass().add("menu-bar-label");
     }
 
     @FXML
     void loadMyAccount(MouseEvent event) {
         clearLabelAndBackStack();
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().MY_ACCOUNT_PATH + "myAccount.fxml");
+        SceneHandler.getInstance().setPage(SceneHandler.getInstance().MY_ACCOUNT_PATH + "myAccount.fxml");
+        //SceneHandler.getInstance().createPage(SceneHandler.getInstance().MY_ACCOUNT_PATH + "myAccount.fxml");
         myAccountLabel.getStyleClass().add("menu-bar-label");
     }
 
     @FXML
     void loadOperations(MouseEvent event) {
         clearLabelAndBackStack();
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().OPERATIONS_PATH + "operations.fxml");
+        SceneHandler.getInstance().setPage(SceneHandler.getInstance().OPERATIONS_PATH + "operations.fxml");
         operationsLabel.getStyleClass().add("menu-bar-label");
     }
 
     @FXML
     void loadSpaces(MouseEvent event) {
         clearLabelAndBackStack();
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "spaces.fxml");
+        SceneHandler.getInstance().setPage(SceneHandler.getInstance().SPACES_PATH + "spaces.fxml");
         spacesLabel.getStyleClass().add("menu-bar-label");
     }
 

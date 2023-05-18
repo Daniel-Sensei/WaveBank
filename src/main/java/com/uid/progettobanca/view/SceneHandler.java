@@ -34,7 +34,7 @@ public class SceneHandler {
 
 
     //cambiando il nome della cartella bisogna cambiare anche il riferimento qui dentro
-    private final static String ABSOLUTE_PATH = System.getProperty("user.dir") + separator + "src" + separator + "main" + separator + "resources" + separator + "com" + separator + "uid" + separator + "progettobanca" + separator;
+    public final static String ABSOLUTE_PATH = System.getProperty("user.dir") + separator + "src" + separator + "main" + separator + "resources" + separator + "com" + separator + "uid" + separator + "progettobanca" + separator;
 
     private final static String CSS_PATH = "/css/" ;
 
@@ -65,6 +65,7 @@ public class SceneHandler {
         return stage;
     }
 
+
     public void init(Stage stage) {
         //inizializzazione della parte visiva del programma, da modificare all'aggiunta del login
             this.stage = stage;
@@ -84,6 +85,9 @@ public class SceneHandler {
 
             createMenuBar();
             createPage(HOME_PATH + "home.fxml");
+
+            PageLoaderThread pageLoaderThread = new PageLoaderThread();
+            pageLoaderThread.start();
 
 
             this.stage.setScene(scene);
@@ -165,6 +169,7 @@ public class SceneHandler {
             return true;
         }
         else {
+            createPage(pageName);
             return false;
         }
     }
@@ -212,5 +217,16 @@ public class SceneHandler {
         alert.setHeaderText(headerMassage);
         alert.setContentText(contentText);
         alert.showAndWait();
+    }
+
+    public void addPage(String pageName, Parent page) {
+        pages.put(pageName, page);
+        //stampa valori dell'hash map
+        /*
+        for (Map.Entry<String, Parent> entry : pages.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+
+         */
     }
 }
