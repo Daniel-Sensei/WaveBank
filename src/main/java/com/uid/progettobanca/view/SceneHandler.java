@@ -112,6 +112,20 @@ public class SceneHandler {
         return loadRootFromFXML(pageName);
     }
 
+    public void reloadPageInHashMap(String pageName) {
+        try {
+            Parent page = loadRootFromFXML(pageName);
+            if(pages.containsKey(pageName)) {
+                pages.remove(pageName);
+            }
+            //System.out.println("Replaced page: " + pageName);
+            pages.put(pageName, page);
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void createMenuBar() {
         //creazione menù bar, l'unico che non dovete copiare, la menù bar viene creata una sola volta e in questa vengono inizializzate un paion di altre cose
         try {
@@ -133,6 +147,7 @@ public class SceneHandler {
             //questa parte dovrà essere gestita da in thread
             if(pages.containsKey(pageName)) {
                 pages.remove(pageName);
+                System.out.println("Replaced page: " + pageName);
             }
             pages.put(pageName, page);
             //Ogni volta che viene creata una pagina viene aggiunta nello stack
