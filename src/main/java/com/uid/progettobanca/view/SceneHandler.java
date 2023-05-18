@@ -76,11 +76,8 @@ public class SceneHandler {
             double screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
 
             borderPane = new BorderPane();
-
             borderPane.getStyleClass().add("root"); /*imposta proprietà root per il font family*/
-
             scene = new Scene(borderPane, 1280, 720);
-
             loadFonts();
 
             createMenuBar();
@@ -134,13 +131,19 @@ public class SceneHandler {
         try {
             Parent page = loadRootFromFXML(pageName);
             //questa parte dovrà essere gestita da in thread
+            if(pages.containsKey(pageName)) {
+                pages.remove(pageName);
+            }
             pages.put(pageName, page);
             //Ogni volta che viene creata una pagina viene aggiunta nello stack
             BackStack.getInstance().push(pageName, page);
             //stampa contenuto dello stack
+            /*
             for(int i=0; i<BackStack.getInstance().size(); i++){
                 System.out.println(BackStack.getInstance().get(i));
             }
+
+             */
             borderPane.setCenter(page);
 
 

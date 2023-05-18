@@ -7,9 +7,27 @@ import java.util.List;
 
 public class PageLoaderThread extends Thread {
 
-    //bisogna fare una funzione per caricare tutte le pagine esistenti
-    private String[] pageNames = {SceneHandler.MANAGE_PATH + "manage.fxml",
-                                  SceneHandler.MY_ACCOUNT_PATH + "myAccount.fxml"};
+    /*
+    Viene effettuato un caricamento intelligente delle pagine in background, in modo da velocizzare il caricamento
+    delle pagine quando vengono richieste dall'utente.
+     */
+    private String[] pageNames = {
+            SceneHandler.HOME_PATH + "home.fxml",
+            SceneHandler.MANAGE_PATH + "manage.fxml",
+            SceneHandler.MY_ACCOUNT_PATH + "myAccount.fxml",
+            SceneHandler.MY_ACCOUNT_PATH + "deleteAccount.fxml",
+            SceneHandler.MY_ACCOUNT_PATH + "security.fxml",
+            SceneHandler.MY_ACCOUNT_PATH + "settings.fxml",
+            SceneHandler.OPERATIONS_PATH + "operations.fxml",
+            SceneHandler.OPERATIONS_PATH + "formBollettino.fxml",
+            SceneHandler.OPERATIONS_PATH + "formBolloAuto.fxml",
+            SceneHandler.OPERATIONS_PATH + "formBonifico.fxml",
+            SceneHandler.OPERATIONS_PATH + "formF24.fxml",
+            SceneHandler.OPERATIONS_PATH + "formPagamentiRicorrenti.fxml",
+            SceneHandler.OPERATIONS_PATH + "formRicaricaTelefonica.fxml",
+            SceneHandler.SPACES_PATH + "spaces.fxml",
+            SceneHandler.SPACES_PATH + "formCreateSpace.fxml",
+    };
     @Override
     public void run() {
         //pageNames.addAll(FileManager.getInstance().listFilesInFolder(SceneHandler.ABSOLUTE_PATH, SceneHandler.getInstance().HOME_PATH));
@@ -17,6 +35,7 @@ public class PageLoaderThread extends Thread {
             try {
                 Parent page = SceneHandler.getInstance().loadPage(pageName);
                 SceneHandler.getInstance().addPage(pageName, page);
+                //System.out.println("THREAD --> Creata pagina: " + pageName);
             } catch (IOException ignored) {
                 System.out.println("THREAD --> Errore nella creazione della pagina: " + pageName);
             }
