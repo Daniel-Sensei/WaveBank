@@ -61,7 +61,7 @@ public class GraphCalculator {
         }
     }
 
-    public XYChart.Series TagGraphCalculator(int DaysInterval, String tag){
+    public ReturnChart TagGraphCalculator(int DaysInterval, String tag){
         try {
             int SplitInterval = DaysInterval/15;
             XYChart.Series data = new XYChart.Series<>();
@@ -84,15 +84,20 @@ public class GraphCalculator {
 
             }
 
+            Double max = 0.0;
+
             for(int i=0; i<DaysValues.size(); i++){
                 if(i>0) {
                     DaysValues.set(i, DaysValues.get(i)+DaysValues.get(i-1));
                 }
                 data.getData().add(new XYChart.Data(String.valueOf(i), DaysValues.get(i)));
+                if (i==DaysValues.size()-1){
+                    max = DaysValues.get(i);
+                }
             }
-
-            System.out.println("ultimo valore "+data.getData().get(data.getData().size()-1));
-            return data;
+            ReturnChart doppio = new ReturnChart();
+            doppio.SetReturnChart(max, data);
+            return doppio;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);  //dobbiamo vedere come evitare il try catch

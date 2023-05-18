@@ -3,10 +3,6 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,7 +15,7 @@
          <children>
             <AnchorPane>
                <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <VBox alignment="CENTER_LEFT" spacing="3.0">
                            <children>
@@ -31,131 +27,17 @@
                               </Label>
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: primaryColor;" styleClass="tertiaryButton" text="+ Aggiungi" />
-                           </children>
-                        </VBox>
                      </children>
                   </HBox>
                </children>
             </AnchorPane>
-            <VBox spacing="60.0">
-               <children>
-                  <HBox prefHeight="250.0" spacing="80.0">
-                     <children>
-                        <VBox styleClass="grafico">
-                           <children>
-                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                                 <children>
-                                    <Label text="IMG" />
-                                    <Label text="Altro" />
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets left="10.0" />
-                                 </VBox.margin>
-                              </HBox>
-                              <LineChart fx:id="otherChart" createSymbols="false" horizontalZeroLineVisible="false" legendVisible="false" verticalGridLinesVisible="false">
-                                 <xAxis>
-                                    <CategoryAxis gapStartAndEnd="false" styleClass="chart-horizontal-grid-lines" tickLabelsVisible="false" tickMarkVisible="false" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis animated="false" forceZeroInRange="false" minorTickVisible="false" side="LEFT" styleClass="chart-vertical-grid-lines" tickLabelsVisible="false" tickMarkVisible="false" />
-                                 </yAxis>
-                              </LineChart>
-                           </children>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <padding>
-                              <Insets bottom="2.0" left="2.0" right="2.0" top="10.0" />
-                           </padding>
-                        </VBox>
-                        <VBox styleClass="grafico">
-                           <children>
-                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                                 <children>
-                                    <Label text="IMG" />
-                                    <Label text="TAG" />
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets left="10.0" />
-                                 </VBox.margin>
-                              </HBox>
-                              <LineChart createSymbols="false" horizontalZeroLineVisible="false" legendVisible="false" verticalGridLinesVisible="false">
-                                 <xAxis>
-                                    <CategoryAxis gapStartAndEnd="false" styleClass="chart-horizontal-grid-lines" tickLabelsVisible="false" tickMarkVisible="false" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis animated="false" forceZeroInRange="false" minorTickVisible="false" side="LEFT" styleClass="chart-vertical-grid-lines" tickLabelsVisible="false" tickMarkVisible="false" />
-                                 </yAxis>
-                              </LineChart>
-                           </children>
-                           <padding>
-                              <Insets bottom="2.0" left="2.0" right="2.0" top="10.0" />
-                           </padding>
-                        </VBox>
-                     </children>
-                     <VBox.margin>
-                        <Insets right="1.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox prefHeight="250.0" spacing="80.0">
-                     <children>
-                        <VBox styleClass="grafico">
-                           <children>
-                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                                 <children>
-                                    <Label text="IMG" />
-                                    <Label text="TAG" />
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets left="10.0" />
-                                 </VBox.margin>
-                              </HBox>
-                              <LineChart createSymbols="false" horizontalZeroLineVisible="false" legendVisible="false" verticalGridLinesVisible="false">
-                                 <xAxis>
-                                    <CategoryAxis gapStartAndEnd="false" styleClass="chart-horizontal-grid-lines" tickLabelsVisible="false" tickMarkVisible="false" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis animated="false" forceZeroInRange="false" minorTickVisible="false" side="LEFT" styleClass="chart-vertical-grid-lines" tickLabelsVisible="false" tickMarkVisible="false" />
-                                 </yAxis>
-                              </LineChart>
-                           </children>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <padding>
-                              <Insets bottom="2.0" left="2.0" right="2.0" top="10.0" />
-                           </padding>
-                        </VBox>
-                        <VBox styleClass="grafico">
-                           <children>
-                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                                 <children>
-                                    <Label text="IMG" />
-                                    <Label text="TAG" />
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets left="10.0" />
-                                 </VBox.margin>
-                              </HBox>
-                              <LineChart createSymbols="false" horizontalZeroLineVisible="false" legendVisible="false" verticalGridLinesVisible="false">
-                                 <xAxis>
-                                    <CategoryAxis gapStartAndEnd="false" styleClass="chart-horizontal-grid-lines" tickLabelsVisible="false" tickMarkVisible="false" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis animated="false" forceZeroInRange="false" minorTickVisible="false" side="LEFT" styleClass="chart-vertical-grid-lines" tickLabelsVisible="false" tickMarkVisible="false" />
-                                 </yAxis>
-                              </LineChart>
-                           </children>
-                           <padding>
-                              <Insets bottom="2.0" left="2.0" right="2.0" top="10.0" />
-                           </padding>
-                        </VBox>
-                     </children>
-                  </HBox>
-               </children>
+            <VBox fx:id="chartsList" spacing="60.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets right="1.0" />
+               </padding>
             </VBox>
          </children>
          <padding>
