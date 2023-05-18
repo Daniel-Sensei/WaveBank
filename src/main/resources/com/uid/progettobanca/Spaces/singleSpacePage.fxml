@@ -19,12 +19,12 @@
    <children>
       <HBox alignment="CENTER" layoutX="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <ImageView fx:id="spaceLogoButton" fitHeight="94.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="spaceLogoButton" fitHeight="120.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../assets/images/spacesImage/bags.png" />
                </image>
                <HBox.margin>
-                  <Insets bottom="30.0" top="30.0" />
+                  <Insets bottom="15.0" top="15.0" />
                </HBox.margin>
             </ImageView>
          </children>
@@ -37,23 +37,27 @@
                      <children>
                         <VBox spacing="15.0">
                            <children>
-                              <Label styleClass="titleLabel" text="Conto corrente principale">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label styleClass="subtitleLabel" text="Indietro">
-                                 <graphic>
-                                    <ImageView fitHeight="12.0" fitWidth="12.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../assets/images/IconLight/arrow-small-left.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Label>
+                              <VBox>
+                                 <children>
+                                    <Label styleClass="titleLabel" text="Conto corrente principale">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="backButton" onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="Indietro">
+                                       <graphic>
+                                          <ImageView fitHeight="12.0" fitWidth="12.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../../assets/images/IconLight/arrow-small-left.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                    </Label>
+                                 </children>
+                              </VBox>
                               <Label fx:id="balanceLabel" styleClass="titleLabel" text="10000000">
                                  <font>
                                     <Font size="14.0" />
@@ -73,26 +77,26 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="70.0" prefWidth="80.0">
                            <children>
-                              <Button fx:id="sendButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" textAlignment="CENTER" />
+                              <Button fx:id="sendButton" mnemonicParsing="false" onMouseClicked="#transferMoneyToAnotherSpace" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" textAlignment="CENTER" />
                               <Label text="Invia" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="70.0" prefWidth="80.0">
                            <children>
-                              <Button fx:id="receiveButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" textAlignment="CENTER" />
+                              <Button fx:id="receiveButton" mnemonicParsing="false" onMouseClicked="#transferMoneyToThisSpace" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" textAlignment="CENTER" />
                               <Label text="Ricevi" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="70.0" prefWidth="80.0">
                            <children>
-                              <Button fx:id="statButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" styleClass="tertiaryButton" textAlignment="CENTER" />
+                              <Button fx:id="statButton" mnemonicParsing="false" onMouseClicked="#openStatPage" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" styleClass="tertiaryButton" textAlignment="CENTER" />
                               <Label text="Statistiche" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="70.0" prefWidth="80.0">
                            <children>
-                              <Button fx:id="optionButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" styleClass="tertiaryButton" textAlignment="CENTER" />
-                              <Label prefHeight="19.0" prefWidth="82.0" text="Impostazioni" />
+                              <Button fx:id="deleteButton" mnemonicParsing="false" onMouseClicked="#deleteThisSpace" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" styleClass="tertiaryButton" textAlignment="CENTER" />
+                              <Label text="Elimina" />
                            </children>
                         </VBox>
                      </children>

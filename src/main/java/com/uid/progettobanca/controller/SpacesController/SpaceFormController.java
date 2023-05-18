@@ -5,6 +5,7 @@ import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.model.DAO.SpacesDAO;
 import com.uid.progettobanca.model.Space;
 import com.uid.progettobanca.model.SpacesManager;
+import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.ImageUtils;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
@@ -19,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -80,7 +82,6 @@ public class SpaceFormController {
     void openImageList(MouseEvent event) {
 
         try{
-            System.out.println(String.valueOf(SpaceFormController.class.getClassLoader().getResource(Settings.SPACE_IMAGE_PATH)));
             List<Image> images = ImageUtils.getAllImageOfSpecificFolder("src/main/resources/assets/images/spacesImage");
             listOfImage.getChildren().clear();
             ImageView image = new ImageView(imagePicked.getImage());
@@ -98,8 +99,11 @@ public class SpaceFormController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
 
-
+    @FXML
+    void loadPreviousPage(MouseEvent event) throws IOException {
+        BackStack.getInstance().loadPreviousPage();
     }
 }
 

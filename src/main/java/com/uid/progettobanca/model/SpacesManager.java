@@ -15,11 +15,7 @@ public class SpacesManager {
     public void fillQueue(){
         try {
             spacesQueue = SpacesDAO.selectAllByIban(BankApplication.getCurrentlyLoggedIban());
-            /*
-            for (Space space : spacesQueue) {
-                System.out.println(space.toString());
-            }
-             */
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

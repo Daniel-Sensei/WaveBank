@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -24,22 +22,14 @@
                   <Insets />
                </VBox.margin>
                <children>
-                  <Label text="Crea un nuovo spazio" textAlignment="CENTER">
+                  <Label styleClass="titleLabel" text="Crea un nuovo spazio" textAlignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
-                     <stylesheets>
-                        <URL value="@../../../../css/fonts.css" />
-                        <URL value="@../../../../css/style.css" />
-                     </stylesheets>
-                     <styleClass>
-                        <String fx:value="serialConn" />
-                        <String fx:value="BankTitleLabel" />
-                     </styleClass>
                   </Label>
-                  <Label fx:id="backButton" styleClass="subtitleLabel" text="Indietro">
+                  <Label fx:id="backButton" onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="Indietro">
                      <graphic>
-                        <ImageView fitHeight="12.0" fitWidth="12.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="12.0" fitWidth="12.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../assets/images/IconLight/arrow-small-left.png" />
                            </image>
@@ -65,7 +55,7 @@
                            </children></FlowPane>
                      </children>
                   </HBox>
-                  <Label text="Inserisci il nome del tuo spazio">
+                  <Label styleClass="subtitleLabel" text="Inserisci il nome del tuo spazio (Obbligatorio)">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -78,16 +68,12 @@
                         <Font size="18.0" />
                      </font>
                   </TextField>
+                  <Label styleClass="subtitleLabel" text="Proseguendo, accetti i T&amp;C Wave Spaces" />
                </children>
             </VBox>
             <HBox spacing="60.0">
                <children>
-                  <Button fx:id="spaceCreationConfirm" mnemonicParsing="false" onAction="#createSpace" prefHeight="35.0" prefWidth="202.0" text="Accetta e crea uno spazio">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="cancel" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#cancelSpaceForm" prefHeight="35.0" prefWidth="202.0" styleClass="secondaryButton" text="Annulla">
+                  <Button fx:id="spaceCreationConfirm" mnemonicParsing="false" onAction="#createSpace" prefHeight="30.0" styleClass="greenButton" text="Accetta e crea uno spazio">
                      <font>
                         <Font size="14.0" />
                      </font>
