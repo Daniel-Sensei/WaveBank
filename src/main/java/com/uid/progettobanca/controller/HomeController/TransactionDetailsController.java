@@ -94,16 +94,17 @@ public class TransactionDetailsController implements Initializable {
         transaction = TransactionManager.getInstance().getNextTransactionDate();
         if(transaction.getImporto() < 0) {
             amountLabel.setText(df.format(transaction.getImporto()) + " €");
+            transactionName.setText(TransazioniDAO.getNomeByIban(transaction.getIbanTo()));
         }
         else {
             amountLabel.setText("+" + df.format(transaction.getImporto()) + " €");
+            transactionName.setText(TransazioniDAO.getNomeByIban(transaction.getIbanFrom()));
         }
         categoryLabel.setText(transaction.getTag());
         dateLabel.setText(transaction.getDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm")));
         commentsArea.setText(transaction.getCommenti());
         descriptionLabel.setText(transaction.getDescrizione());
         typeLabel.setText(transaction.getTipo());
-        transactionName.setText(TransazioniDAO.getNomeByIban(transaction.getIbanTo()));
 
         try {
             Space space = SpacesDAO.selectBySpaceId(transaction.getSpaceFrom());

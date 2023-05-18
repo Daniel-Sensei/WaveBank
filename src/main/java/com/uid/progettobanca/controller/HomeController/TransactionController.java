@@ -33,11 +33,13 @@ public class TransactionController implements Initializable {
         if(transaction.getImporto() < 0){
             //amountLabel.getStyleClass().add("redMoneyLabel");
             amountLabel.setText(df.format(transaction.getImporto()) + " €");
+            transactionLabel.setText(TransazioniDAO.getNomeByIban(transaction.getIbanTo()));
         } else {
             amountLabel.getStyleClass().add("greenMoneyLabel");
             amountLabel.setText("+" + df.format(transaction.getImporto()) + " €");
+            transactionLabel.setText(TransazioniDAO.getNomeByIban(transaction.getIbanFrom()));
         }
-        transactionLabel.setText(TransazioniDAO.getNomeByIban(transaction.getIbanTo()));
+
     }
 
     @FXML
