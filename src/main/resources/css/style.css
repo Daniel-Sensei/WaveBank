@@ -432,7 +432,10 @@
     -fx-background-color:transparent;
 }
 
-.default-color0.chart-series-line { -fx-stroke: primaryColor; }
+.chart-series-line {
+    -fx-stroke: primaryColor;
+}
+
 /* TEST PIETRO */
 
 .text-field-prova {

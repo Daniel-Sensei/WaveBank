@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.ManageController.ChartsController">
    <content>
       <VBox alignment="TOP_CENTER" spacing="10.0">
          <children>
@@ -49,13 +49,13 @@
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                                  <children>
                                     <Label text="IMG" />
-                                    <Label text="TAG" />
+                                    <Label text="Altro" />
                                  </children>
                                  <VBox.margin>
                                     <Insets left="10.0" />
                                  </VBox.margin>
                               </HBox>
-                              <LineChart createSymbols="false" horizontalZeroLineVisible="false" legendVisible="false" verticalGridLinesVisible="false">
+                              <LineChart fx:id="otherChart" createSymbols="false" horizontalZeroLineVisible="false" legendVisible="false" verticalGridLinesVisible="false">
                                  <xAxis>
                                     <CategoryAxis gapStartAndEnd="false" styleClass="chart-horizontal-grid-lines" tickLabelsVisible="false" tickMarkVisible="false" />
                                  </xAxis>

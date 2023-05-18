@@ -12,7 +12,8 @@ import java.util.List;
 public class GraphCalculator {
     public XYChart.Series MainGraphCalculator(int DaysInterval){
         try {
-            int SplitInterval = DaysInterval/15;
+            int chartPrecision = 30;
+            int SplitInterval = DaysInterval/chartPrecision;
             XYChart.Series data = new XYChart.Series();
             List<Transazione> transazioni = TransazioniDAO.selectByIban(BankApplication.getCurrentlyLoggedIban());
 
@@ -28,7 +29,7 @@ public class GraphCalculator {
             }
 
             List<Double> DaysValues = new ArrayList<>();
-            for(int i =0; i<15; i++){
+            for(int i =0; i<chartPrecision; i++){
                 DaysValues.add(0.0);
             }
             //somma ogni 3 giorni le transazioni al saldo iniziale
@@ -63,7 +64,7 @@ public class GraphCalculator {
     public XYChart.Series TagGraphCalculator(int DaysInterval, String tag){
         try {
             int SplitInterval = DaysInterval/15;
-            XYChart.Series data = new XYChart.Series();
+            XYChart.Series data = new XYChart.Series<>();
             List<Transazione> transazioni = TransazioniDAO.selectByIban(BankApplication.getCurrentlyLoggedIban());
 
             List<Double> DaysValues = new ArrayList<>();
@@ -89,6 +90,8 @@ public class GraphCalculator {
                 }
                 data.getData().add(new XYChart.Data(String.valueOf(i), DaysValues.get(i)));
             }
+
+            System.out.println("ultimo valore "+data.getData().get(data.getData().size()-1));
             return data;
 
         } catch (SQLException e) {

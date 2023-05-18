@@ -29,6 +29,7 @@ package com.uid.progettobanca.controller.ManageController;
 public class ManageController {
     int numcarte=0;
     float scrollPerPress=0;
+    GraphCalculator graphCalculator = new GraphCalculator();
 
     @FXML
     void addPressed(ActionEvent event) {
@@ -68,8 +69,31 @@ public class ManageController {
         }
     } */
 
+    @FXML
+    void addCardPressed(ActionEvent event) {
+        SceneHandler.getInstance().createPage(SceneHandler.getInstance().MANAGE_PATH + "FormCreateCard.fxml");
+    }
+
+    @FXML
+    void statsPressed(ActionEvent event) {
+        SceneHandler.getInstance().createPage(SceneHandler.getInstance().MANAGE_PATH + "charts.fxml");
+    }
+
+    @FXML
+    void monthlyPressed(ActionEvent event) {
+        chart.getData().set(0,graphCalculator.MainGraphCalculator(30));
+    }
+
+    @FXML
+    void trimestralPressed(ActionEvent event) {
+        chart.getData().set(0, graphCalculator.MainGraphCalculator(90));
+    }
+
+    @FXML
+    void annualPressed(ActionEvent event) {
+        chart.getData().set(0,graphCalculator.MainGraphCalculator(360));
+    }
     public void initialize() {
-        GraphCalculator graphCalculator = new GraphCalculator();
         chart.getData().add(graphCalculator.MainGraphCalculator(30));  //passare quanti giorni da calcolare nel grafico
     }
 
