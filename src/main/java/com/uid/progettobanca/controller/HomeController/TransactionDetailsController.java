@@ -6,11 +6,13 @@ import com.uid.progettobanca.model.Space;
 import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.Transazione;
+import com.uid.progettobanca.view.BackStack;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.stage.Popup;
 import javafx.stage.PopupWindow;
@@ -18,6 +20,7 @@ import javafx.stage.Window;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -57,10 +60,16 @@ public class TransactionDetailsController implements Initializable {
     private Transazione transaction;
     @FXML
     private Button saveCommentsButton;
+    @FXML
+    private Label backLabel;
 
     DecimalFormat df = new DecimalFormat("#0.00");
 
 
+    @FXML
+    void loadPreviousPage(MouseEvent event) throws IOException {
+        BackStack.getInstance().loadPreviousPage();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

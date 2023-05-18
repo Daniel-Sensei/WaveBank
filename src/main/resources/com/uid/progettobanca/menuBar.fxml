@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
@@ -55,7 +56,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <Label onMouseClicked="#loadMyAccount" text="Il mio conto">
+            <Label fx:id="myAccountLabel" onMouseClicked="#loadMyAccount" text="Il mio conto">
                <graphic>
                   <ImageView fx:id="myAccount" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
@@ -72,4 +73,8 @@
          </padding>
       </HBox>
    </children>
+   <stylesheets>
+      <URL value="@../../../css/style.css" />
+      <URL value="@../../../css/light.css" />
+   </stylesheets>
 </AnchorPane>

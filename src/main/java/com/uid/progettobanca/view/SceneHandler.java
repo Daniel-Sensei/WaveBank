@@ -129,7 +129,14 @@ public class SceneHandler {
     public void createPage(String pageName) {
         try {
             Parent page = loadRootFromFXML(pageName);
+            //questa parte dovrà essere gestita da in thread
             pages.put(pageName, page);
+            //Ogni volta che viene creata una pagina viene aggiunta nello stack
+            BackStack.getInstance().push(pageName, page);
+            //stampa contenuto dello stack
+            for(int i=0; i<BackStack.getInstance().size(); i++){
+                System.out.println(BackStack.getInstance().get(i));
+            }
             borderPane.setCenter(page);
 
 
@@ -153,6 +160,7 @@ public class SceneHandler {
      */
     public boolean setPage(String pageName){
         if(pages.containsKey(pageName)){
+            BackStack.getInstance().push(pageName, pages.get(pageName));
             borderPane.setCenter(pages.get(pageName));
             return true;
         }
