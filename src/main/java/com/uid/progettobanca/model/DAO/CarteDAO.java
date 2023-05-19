@@ -35,7 +35,7 @@ public class CarteDAO {
 
     //inserimento tramite oggetto di tipo carta
     public static void insert(Carta carta) throws SQLException {
-        String query = "INSERT INTO carte (num, cvv, scadenza, pin, bloccata, tipo, cf) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO carte (num, cvv, scadenza, pin, bloccata, tipo, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, carta.getNumCarta());
             stmt.setString(2, carta.getCvv());
@@ -43,14 +43,14 @@ public class CarteDAO {
             stmt.setString(4, carta.getPin());
             stmt.setBoolean(5, carta.isBloccata());
             stmt.setString(6, carta.getTipo());
-            stmt.setString(7, carta.getCf());
+            stmt.setString(7, carta.getUserId());
             stmt.executeUpdate();
         }
     }
 
     //inserimento specificando tutti i parametri
-    public static void insert(String num, String cvv, LocalDate scadenza, String pin, boolean bloccata, String tipo, String cf) throws SQLException {
-        String query = "INSERT INTO carte (num, cvv, scadenza, pin, bloccata, tipo, cf) VALUES (?, ?, ?, ?, ?, ?)";
+    public static void insert(String num, String cvv, LocalDate scadenza, String pin, boolean bloccata, String tipo, String user_id) throws SQLException {
+        String query = "INSERT INTO carte (num, cvv, scadenza, pin, bloccata, tipo, user_id) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, num);
             stmt.setString(2, cvv);
@@ -58,7 +58,7 @@ public class CarteDAO {
             stmt.setString(4, pin);
             stmt.setBoolean(5, bloccata);
             stmt.setString(6, tipo);
-            stmt.setString(7, cf);
+            stmt.setString(7, user_id);
             stmt.executeUpdate();
         }
     }
@@ -67,10 +67,10 @@ public class CarteDAO {
     //  getting:
 
     //restiuisce tutte le carte di un cliente
-    public static List<Carta> selectAllByCf(String cf) throws SQLException {
-        String query = "SELECT * FROM carte WHERE cf = ?";
+    public static List<Carta> selectAllByUserId(String user_id) throws SQLException {
+        String query = "SELECT * FROM carte WHERE user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, cf);
+            stmt.setString(1, user_id);
             try (ResultSet rs = stmt.executeQuery()) {
                 List<Carta> carte = new ArrayList<>();
                 while (rs.next()) {
@@ -81,7 +81,7 @@ public class CarteDAO {
                                     rs.getString("pin"),
                                     rs.getBoolean("bloccata"),
                                     rs.getString("tipo"),
-                                    cf)
+                                    user_id)
                     );
                 }
                 return carte;
@@ -102,7 +102,7 @@ public class CarteDAO {
                             rs.getString("pin"),
                             rs.getBoolean("bloccata"),
                             rs.getString("tipo"),
-                            rs.getString("cf")
+                            rs.getString("user_id")
                     );
                 } else {
                     return null;
