@@ -6,10 +6,6 @@ import com.uid.progettobanca.view.SceneHandler;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
-
-import static com.uid.progettobanca.model.DAO.TransazioniDAO.selectDate;
-
 
 public class BankApplication extends Application {
 

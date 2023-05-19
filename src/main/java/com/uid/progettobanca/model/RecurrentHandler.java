@@ -30,17 +30,19 @@ public class RecurrentHandler {
             List<Ricorrente> payments = RicorrentiDAO.selectAllByUserId(BankApplication.getCurrentlyLoggedUser());
             //controllo che la lista non sia vuota
             if (payments.isEmpty()) return;
+            int space = BankApplication.getCurrentlyLoggedMainSpace();
+            String from = BankApplication.getCurrentlyLoggedIban();
             // controllo la data di scadenza dei pagamenti
             for(var p : payments){
                 LocalDate due = p.getDate();
                 if (due.isBefore(LocalDate.now())){
-                    String from = BankApplication.getCurrentlyLoggedIban();
                     String to = p.getIbanTo();
                     double amount = p.getAmount();
-                    ContiDAO.transazione(from, to, amount);
-                    TransazioniDAO.insert(new Transazione(from, to, 1, 0, due.atStartOfDay(), amount, p.getCausale(), "Pagamento ricorrente", "Altro", ""));
-                    p.setDate(due.plusDays(p.getNGiorni()));
-                    RicorrentiDAO.update(p);
+                    if(ContiDAO.transazione(from, to, space, amount)) {
+                        TransazioniDAO.insert(new Transazione(from, to, space, 0, due.atStartOfDay(), amount, p.getCausale(), "Pagamento ricorrente", "Altro", ""));
+                        p.setDate(due.plusDays(p.getNGiorni()));
+                        RicorrentiDAO.update(p);
+                    }else break;
                 }
             }
         } catch (SQLException e) {

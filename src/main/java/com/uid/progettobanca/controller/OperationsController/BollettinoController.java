@@ -81,12 +81,14 @@ public class BollettinoController implements Initializable {
 
                 tipo+="\nCodice: " + fieldCode.getText();
             }
+            int space = BankApplication.getCurrentlyLoggedMainSpace();
             //rimuove i soldi dal conto corrente
-            ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", Double.parseDouble(fieldAmount.getText()));
-            //inserisco la transazione
-            TransazioniDAO.insert(new Transazione(BankApplication.getCurrentlyLoggedIban(), fieldCC.getText(), BankApplication.getCurrentlyLoggedMainSpace(), 0,  LocalDateTime.now(), Double.parseDouble(fieldAmount.getText()), fieldDescr.getText(), tipo, "Altro", ""));
-            SceneHandler.getInstance().showInfo("Operazione effettuata", "Bollettino pagato", "Il bollettino è stato pagato con successo");
-        } catch (SQLException e) {
+            if(ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, Double.parseDouble(fieldAmount.getText()))){
+                //inserisco la transazione
+                TransazioniDAO.insert(new Transazione(BankApplication.getCurrentlyLoggedIban(), fieldCC.getText(), space, 0,  LocalDateTime.now(), Double.parseDouble(fieldAmount.getText()), fieldDescr.getText(), tipo, "Altro", ""));
+                SceneHandler.getInstance().showInfo("Operazione effettuata", "Bollettino pagato", "Il bollettino è stato pagato con successo");
+            }
+        }catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

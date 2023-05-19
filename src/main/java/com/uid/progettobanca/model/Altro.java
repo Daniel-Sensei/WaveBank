@@ -1,11 +1,11 @@
 package com.uid.progettobanca.model;
 
-public class Azienda {
+public class Altro {
 
     private String nome;
     private String iban;
 
-    public Azienda(String nome, String iban) {
+    public Altro(String nome, String iban) {
         this.nome = nome;
         this.iban = iban;
     }

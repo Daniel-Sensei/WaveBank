@@ -106,6 +106,32 @@ public class UtentiDAO {
         }
     }
 
+    //inserire selectByIban
+    public static Utente selectByIban(String iban) throws SQLException {
+        String query = "SELECT * FROM utenti WHERE iban = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, iban);
+            try (ResultSet result = stmt.executeQuery()) {
+                if (result.next()) {
+                    return new Utente (result.getInt("user_id"),
+                            result.getString("nome"),
+                            result.getString("cognome"),
+                            result.getString("indirizzo"),
+                            result.getDate("dataNascita").toLocalDate(),
+                            result.getString("telefono"),
+                            result.getString("email"),
+                            result.getString("password"),
+                            result.getString("domanda"),
+                            result.getString("risposta"),
+                            result.getString("iban")
+                    );
+                } else {
+                    return null;
+                }
+            }
+        }
+    }
+
     // restituisce il nome del proprietario di un iban
     public static String getNameByIban(String iban) {
         String query = "SELECT nome, cognome FROM utenti WHERE iban = ?";

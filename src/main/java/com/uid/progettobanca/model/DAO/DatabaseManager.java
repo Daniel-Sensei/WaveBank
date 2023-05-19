@@ -118,7 +118,7 @@ public class DatabaseManager {
 
             //l'iban dell'azienda non è impostato come chiave esterna in quanto
             //vorrebbe dire che quell'azienda dovrebbe avere un conto aperto da noi
-            statement.execute("CREATE TABLE IF NOT EXISTS aziende ("+
+            statement.execute("CREATE TABLE IF NOT EXISTS altro ("+
                                     "iban  CHAR(27) PRIMARY KEY, "+
                                     "nome VARCHAR(50) not null);");
 
@@ -135,7 +135,8 @@ public class DatabaseManager {
                                     "date DATE not null, nGiorni int not null, " +
                                     "user_id CHAR(16) NOT NULL, FOREIGN KEY (user_id) REFERENCES utenti(user_id));");
 
-            AziendeDAO.insert("Pirata con Radio", "IT0000000000000000000000000");
+
+            AltroDAO.insert("Pirata con Radio", "IT0000000000000000000000000");
 
         } catch (SQLException e) {
             System.err.println("Error creating database: " + e.getMessage());

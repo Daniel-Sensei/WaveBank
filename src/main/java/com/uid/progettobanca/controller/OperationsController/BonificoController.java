@@ -1,10 +1,9 @@
 package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.model.Altro;
 import com.uid.progettobanca.model.Contatto;
-import com.uid.progettobanca.model.DAO.ContattiDAO;
-import com.uid.progettobanca.model.DAO.ContiDAO;
-import com.uid.progettobanca.model.DAO.TransazioniDAO;
+import com.uid.progettobanca.model.DAO.*;
 import com.uid.progettobanca.model.Transazione;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
@@ -43,7 +42,7 @@ public class BonificoController {
     void onSendButtonClick(ActionEvent event) {
 
         //controllo validità iban con regex
-        if(!fieldIbanTo.getText().matches("[A-Z]{2}[0-9]{2}[A-Z0-9][0-9]{10}[A-Z0-9]{2}[0-9]{9}")) {
+        if(!fieldIbanTo.getText().matches("[A-Z]{2}[0-9]{2}[A-Z0-9][0-9]{22}")) {
             SceneHandler.getInstance().showError("Errore", "IBAN non valido", "L'IBAN deve essere composto da 27 caratteri");
             return;
         }
@@ -60,19 +59,26 @@ public class BonificoController {
             return;
         }
 
-        //controllo che il nome e il cognome siano composti solo da lettere
-        if(!fieldName.getText().matches("[a-zA-Z]+") || !fieldSurname.getText().matches("[a-zA-Z]+")) {
+        //controllo che il nome e il cognome siano composti solo da lettere e spazi
+        if(!fieldName.getText().matches("[a-zA-Z ]+") || !fieldSurname.getText().matches("[a-zA-Z ]+")) {
             SceneHandler.getInstance().showError("Errore", "Nome o Cognome non validi", "Il nome e il cognome devono essere composti solo da lettere");
             return;
         }
 
         try {
-            ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), Double.parseDouble(fieldAmount.getText()));
-            TransazioniDAO.insert(new Transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedMainSpace(), 0,  LocalDateTime.now(), Double.parseDouble(fieldAmount.getText()), fieldDescr.getText(), "Bonifico", "Altro", ""));
-            if(saveContact.isSelected()){
-                ContattiDAO.insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedUser()));
+            int space = BankApplication.getCurrentlyLoggedMainSpace();
+            if (ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, Double.parseDouble(fieldAmount.getText()))) {
+                TransazioniDAO.insert(new Transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, 0, LocalDateTime.now(), Double.parseDouble(fieldAmount.getText()), fieldDescr.getText(), "Bonifico", "Altro", ""));
+
+                if (saveContact.isSelected()) {
+                    ContattiDAO.insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedUser()));
+                } else {
+                    if (UtentiDAO.selectByIban(fieldIbanTo.getText()) == null)
+                        if (AltroDAO.selectByIban(fieldIbanTo.getText()) == null)
+                            AltroDAO.insert(new Altro(fieldName + " " + fieldSurname, fieldIbanTo.getText()));
+                }
+                SceneHandler.getInstance().showInfo("Bonifico", "Bonifico effettuato con successo", "Il bonifico è andato a buon fine.");
             }
-            SceneHandler.getInstance().showInfo("Bonifico", "Bonifico effettuato con successo", "Il bonifico è andato a buon fine.");
         } catch (SQLException e) {
             SceneHandler.getInstance().showError("Errore", "Errore durante l'inserimento del contatto ", e.getMessage());
         }

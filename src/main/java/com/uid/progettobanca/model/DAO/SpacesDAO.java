@@ -143,6 +143,17 @@ public class SpacesDAO {
         }
     }
 
+    //aggiornamento limitato a saldo tramite space_id
+    public static void updateSaldo(int space_id, double saldo) throws SQLException {
+        String query = "UPDATE spaces SET saldo = ? WHERE space_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setDouble(1, saldo);
+            stmt.setInt(2, space_id);
+            stmt.executeUpdate();
+        }
+    }
+
+
     //  rimozione:
 
     public static void delete(String iban, int space_id) throws SQLException {

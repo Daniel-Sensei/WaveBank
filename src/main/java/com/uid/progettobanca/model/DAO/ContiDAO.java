@@ -113,13 +113,18 @@ public class ContiDAO {
     //  aggiornamenti:
 
     //trasferimento di denaro tra due conti usando le transazioni di SQLite
-    public static void transazione(String iban_from, String iban_to, double importo) throws SQLException {
-        if(!iban_from.equals("NO")) {
+    public static boolean transazione(String iban_from, String iban_to, int space_from, double importo) throws SQLException {
+        if(iban_from.equals(BankApplication.getCurrentlyLoggedIban())) {
             double check = getSaldoByIban(iban_from);
             if (check < importo) {
                 SceneHandler.getInstance().showError("Errore", "Saldo insufficiente", "Non hai abbastanza soldi per effettuare questa operazione");
-                return;
+                return false;
             }
+            if(SpacesDAO.selectBySpaceId(space_from).getSaldo()<importo){
+                SceneHandler.getInstance().showError("Errore", "Saldo insufficiente nello space", "Non hai abbastanza soldi nello space selezionato per effettuare questa operazione");
+                return false;
+            }
+            SpacesDAO.updateSaldo(space_from, importo*-1);
         }
         String query = "UPDATE conti SET saldo = saldo - ? WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -136,6 +141,7 @@ public class ContiDAO {
             conn.commit();
             conn.setAutoCommit(true);
         }
+        return true;
     }
 
 

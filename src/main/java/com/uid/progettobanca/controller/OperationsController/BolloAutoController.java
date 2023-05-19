@@ -62,8 +62,8 @@ public class BolloAutoController implements Initializable {
             //apre una pagina che riproduce il video con audio "PirataConRadio.mp4"
             openVideoPlayer();
             try {
-                ContiDAO.transazione("IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 50);
-                TransazioniDAO.insert(new Transazione("IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, 0,  LocalDateTime.now(), 50, "Il pirata ha apprezzato il tuo gesto e ti dona 50 dobloni", "Regalo del Pirata", "Intrattenimento", ""));
+                ContiDAO.transazione("IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, 50);
+                TransazioniDAO.insert(new Transazione("IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, BankApplication.getCurrentlyLoggedMainSpace(), LocalDateTime.now(), 50, "Il pirata ha apprezzato il tuo gesto e ti dona 50 dobloni", "Regalo del Pirata", "Intrattenimento", ""));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -89,16 +89,18 @@ public class BolloAutoController implements Initializable {
         }
 
         //effettuo il pagamento
-        try{
+        try {
             double amount;
             String tipo = typeComboBox.getValue();
-            if(tipo.equals("Autoveicolo")) amount = 200.0;
-            else if(tipo.equals("Motoveicolo")) amount = 150.0;
+            if (tipo.equals("Autoveicolo")) amount = 200.0;
+            else if (tipo.equals("Motoveicolo")) amount = 150.0;
             else amount = 100.0;
-            ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", amount);
-            //inserisco la transazione
-            TransazioniDAO.insert(new Transazione(BankApplication.getCurrentlyLoggedIban(), "NO", BankApplication.getCurrentlyLoggedMainSpace(), 0,  LocalDateTime.now(), amount, "Bollo "+tipo, "Bollo", "Altro", ""));
-            SceneHandler.getInstance().showInfo("Operazione effettuata", "Bollo pagato", "Il bollo è stato pagato con successo");
+            int space = BankApplication.getCurrentlyLoggedMainSpace();
+            if (ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)) {
+                //inserisco la transazione
+                TransazioniDAO.insert(new Transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, "Bollo " + tipo, "Bollo", "Altro", ""));
+                SceneHandler.getInstance().showInfo("Operazione effettuata", "Bollo pagato", "Il bollo è stato pagato con successo");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
