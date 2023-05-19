@@ -1,41 +1,48 @@
 package com.uid.progettobanca.controller.ManageController;
 
-        import javafx.event.ActionEvent;
-        import javafx.fxml.FXML;
-        import javafx.scene.control.Button;
-        import javafx.scene.image.Image;
-        import javafx.scene.image.ImageView;
+import com.uid.progettobanca.controller.GenericController;
+import com.uid.progettobanca.model.CardsManager;
+import com.uid.progettobanca.model.Carta;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 
 public class CardController {
 
     @FXML
-    private Button bloccaButton;
+    private Button blockButton;
 
     @FXML
-    private Button eliminaButton;
+    private ImageView cardImage;
 
     @FXML
-    private ImageView immagineCarta;
+    private Button deleteButton;
 
     @FXML
     private Button infoButton;
 
     @FXML
-    void bloccaPremuto(ActionEvent event) {
+    void blockPressed(ActionEvent event) {
 
     }
 
     @FXML
-    void eliminaPremuto(ActionEvent event) {
+    void deletePressed(ActionEvent event) {
 
     }
 
     @FXML
-    void infoPremuto(ActionEvent event) {
+    void infoPressed(ActionEvent event) {
 
     }
-    public void initialize(){
-        immagineCarta.setImage(new Image("assets/images/carta.png"));
-    }
 
+    public void initialize() {
+        Carta carta = CardsManager.getInstance().getCard();
+        if(carta.getTipo().equals("Debito")){
+            GenericController.setCardImage("card", cardImage);
+        } else if (carta.getTipo().equals("Virtuale")) {
+            GenericController.setCardImage("virtualcard", cardImage);
+        }
+    }
 }

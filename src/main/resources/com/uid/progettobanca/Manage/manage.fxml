@@ -38,12 +38,12 @@
                         <VBox styleClass="grafico">
                            <children>
                               <LineChart fx:id="chart" createSymbols="false" horizontalZeroLineVisible="false" legendVisible="false" prefHeight="300.0" prefWidth="350.0" verticalGridLinesVisible="false">
-                                <xAxis>
-                                  <CategoryAxis gapStartAndEnd="false" styleClass="chart-horizontal-grid-lines" tickLabelsVisible="false" tickMarkVisible="false" />
-                                </xAxis>
-                                <yAxis>
-                                  <NumberAxis animated="false" forceZeroInRange="false" minorTickVisible="false" side="LEFT" styleClass="chart-vertical-grid-lines" tickMarkVisible="false" />
-                                </yAxis>
+                                 <xAxis>
+                                    <CategoryAxis gapStartAndEnd="false" styleClass="chart-horizontal-grid-lines" tickLabelsVisible="false" tickMarkVisible="false" />
+                                 </xAxis>
+                                 <yAxis>
+                                    <NumberAxis animated="false" forceZeroInRange="false" minorTickVisible="false" side="LEFT" styleClass="chart-vertical-grid-lines" tickMarkVisible="false" />
+                                 </yAxis>
                                  <padding>
                                     <Insets right="10.0" top="10.0" />
                                  </padding>
@@ -73,52 +73,65 @@
                   </VBox>
                   <HBox HBox.hgrow="ALWAYS" />
                   <VBox alignment="CENTER" spacing="20.0" styleClass="vbox-with-rounded-border">
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
                      <children>
+                        <Label fx:id="cardNumber" text="numcarta" />
                         <HBox alignment="CENTER" spacing="20.0">
                            <children>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#leftCardClicked" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../../assets/images/IconLight/angle-left.png" />
                                  </image>
+                                 <HBox.margin>
+                                    <Insets bottom="95.0" />
+                                 </HBox.margin>
                               </ImageView>
-                              <ImageView fitHeight="320.0" fitWidth="340.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../assets/images/card.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                              <VBox fx:id="cardBox" spacing="20.0">
+                                 <children>
+                                    <ImageView fitHeight="320.0" fitWidth="340.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../assets/images/CardsImages/card.png" />
+                                       </image></ImageView>
+                                    <HBox alignment="CENTER" spacing="15.0">
+                                       <children>
+                                          <VBox alignment="CENTER" prefWidth="80.0" spacing="5.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
+                                                <Label styleClass="button-label" text="Info" />
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" prefWidth="80.0" spacing="5.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
+                                                <Label styleClass="button-label" text="Blocca" />
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" prefWidth="80.0" spacing="5.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
+                                                <Label styleClass="button-label" text="Elimina" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#rightCardClicked" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../../assets/images/IconLight/angle-right.png" />
                                  </image>
+                                 <HBox.margin>
+                                    <Insets bottom="95.0" />
+                                 </HBox.margin>
                               </ImageView>
                            </children>
-                        </HBox>
-                        <HBox alignment="CENTER" spacing="15.0">
-                           <children>
-                              <VBox alignment="CENTER" prefWidth="80.0" spacing="5.0">
-                                 <children>
-                                    <Button fx:id="send" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
-                                    <Label styleClass="button-label" text="Info" />
-                                 </children>
-                              </VBox>
-                              <VBox alignment="CENTER" prefWidth="80.0" spacing="5.0">
-                                 <children>
-                                    <Button fx:id="receive" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
-                                    <Label styleClass="button-label" text="Blocca" />
-                                 </children>
-                              </VBox>
-                              <VBox alignment="CENTER" prefWidth="80.0" spacing="5.0">
-                                 <children>
-                                    <Button fx:id="statistics" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
-                                    <Label styleClass="button-label" text="Elimina" />
-                                 </children>
-                              </VBox>
-                           </children>
+                           <padding>
+                              <Insets right="3.0" />
+                           </padding>
                         </HBox>
                      </children>
-                     <padding>
-                        <Insets left="20.0" right="20.0" />
-                     </padding>
                   </VBox>
                </children>
             </HBox>
