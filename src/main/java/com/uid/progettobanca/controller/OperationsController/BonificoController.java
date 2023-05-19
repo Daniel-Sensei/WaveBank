@@ -43,7 +43,7 @@ public class BonificoController {
     void onSendButtonClick(ActionEvent event) {
 
         //controllo validità iban con regex
-        if(!fieldIbanTo.getText().matches("[A-Z]{2}[0-9]{2}[A-Z][0-9]{11}[A-Z0-9]{2}[0-9]{9}")) {
+        if(!fieldIbanTo.getText().matches("[A-Z]{2}[0-9]{2}[A-Z0-9][0-9]{10}[A-Z0-9]{2}[0-9]{9}")) {
             SceneHandler.getInstance().showError("Errore", "IBAN non valido", "L'IBAN deve essere composto da 27 caratteri");
             return;
         }

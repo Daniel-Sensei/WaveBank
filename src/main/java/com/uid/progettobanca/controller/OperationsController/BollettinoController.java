@@ -46,7 +46,7 @@ public class BollettinoController implements Initializable {
     void onSendButtonClick(ActionEvent event) {
 
         //controllo che il campo del Conto Corrente non sia vuoto
-        if(fieldCC.getText().isEmpty()){
+        if(fieldCC.getText().isEmpty() || !fieldCC.getText().matches("[0-9]{18}")){
             SceneHandler.getInstance().showError("Errore", "Campo vuoto", "Riempire il campo Conto Corrente");
             return;
         }

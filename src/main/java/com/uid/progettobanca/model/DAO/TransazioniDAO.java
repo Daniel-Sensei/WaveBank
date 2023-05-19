@@ -53,11 +53,11 @@ public class TransazioniDAO {
 
     // spostamento denaro tra 2 spaces
 
-    public static void betweenSpaces(String iban, int spaceFrom, int spaceTo, double amount) throws SQLException {
+    public static void betweenSpaces(String iban, int spaceFrom, int spaceTo, double amount, String commenti) throws SQLException {
         String nomeFrom = SpacesDAO.selectByIbanSpaceId(iban, spaceFrom).getNome();
         String nomeTo = SpacesDAO.selectByIbanSpaceId(iban, spaceTo).getNome();
         // creao la transazione di spostamento
-        Transazione t = new Transazione(iban, iban, spaceFrom, spaceTo, LocalDateTime.now(), amount, "Da "+nomeFrom+" a "+nomeTo, "Trasferimento tra spaces", "altro", "");
+        Transazione t = new Transazione(iban, iban, spaceFrom, spaceTo, LocalDateTime.now(), amount, "Da "+nomeFrom+" a "+nomeTo, "Trasferimento tra spaces", "altro", commenti);
         //inserisco la positiva
         insert(t);
         // inverto l'importo e inserisco la negativa
@@ -233,32 +233,6 @@ public class TransazioniDAO {
                 }
                 return transazioni;
             }
-        }
-    }
-
-    // restituisce il nome del proprietario di un iban
-    public static String getNomeByIban(String iban) {
-        String query = "SELECT nome, cognome FROM utenti WHERE iban = ? " +
-                        "UNION " +
-                        "SELECT nome, null as cognome FROM aziende WHERE iban = ?;";
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, iban);
-            stmt.setString(2, iban);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    String nome = rs.getString("nome");
-                    String cognome = rs.getString("cognome");
-                    if (cognome.isEmpty()) {
-                        return nome;
-                    } else {
-                        return nome + " " + cognome;
-                    }
-                } else {
-                    return null;
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 

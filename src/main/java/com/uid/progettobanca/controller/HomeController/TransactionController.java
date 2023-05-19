@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.HomeController;
 
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
+import com.uid.progettobanca.model.DAO.UtentiDAO;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.Transazione;
 import com.uid.progettobanca.view.SceneHandler;
@@ -33,11 +34,11 @@ public class TransactionController implements Initializable {
         if(transaction.getImporto() < 0){
             //amountLabel.getStyleClass().add("redMoneyLabel");
             amountLabel.setText(df.format(transaction.getImporto()) + " €");
-            transactionLabel.setText(TransazioniDAO.getNomeByIban(transaction.getIbanTo()));
+            transactionLabel.setText(UtentiDAO.getNameByIban(transaction.getIbanTo()));
         } else {
             amountLabel.getStyleClass().add("greenMoneyLabel");
             amountLabel.setText("+" + df.format(transaction.getImporto()) + " €");
-            transactionLabel.setText(TransazioniDAO.getNomeByIban(transaction.getIbanFrom()));
+            transactionLabel.setText(UtentiDAO.getNameByIban(transaction.getIbanFrom()));
         }
 
     }

@@ -2,22 +2,16 @@ package com.uid.progettobanca.controller.HomeController;
 
 import com.uid.progettobanca.model.DAO.SpacesDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
+import com.uid.progettobanca.model.DAO.UtentiDAO;
 import com.uid.progettobanca.model.Space;
-import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.Transazione;
 import com.uid.progettobanca.view.BackStack;
-import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Region;
-import javafx.stage.Popup;
-import javafx.stage.PopupWindow;
-import javafx.stage.Window;
-import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
@@ -94,11 +88,11 @@ public class TransactionDetailsController implements Initializable {
         transaction = TransactionManager.getInstance().getNextTransactionDate();
         if(transaction.getImporto() < 0) {
             amountLabel.setText(df.format(transaction.getImporto()) + " €");
-            transactionName.setText(TransazioniDAO.getNomeByIban(transaction.getIbanTo()));
+            transactionName.setText(UtentiDAO.getNameByIban(transaction.getIbanTo()));
         }
         else {
             amountLabel.setText("+" + df.format(transaction.getImporto()) + " €");
-            transactionName.setText(TransazioniDAO.getNomeByIban(transaction.getIbanFrom()));
+            transactionName.setText(UtentiDAO.getNameByIban(transaction.getIbanFrom()));
         }
         categoryLabel.setText(transaction.getTag());
         dateLabel.setText(transaction.getDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm")));

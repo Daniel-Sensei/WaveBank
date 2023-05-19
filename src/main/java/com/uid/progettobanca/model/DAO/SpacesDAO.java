@@ -115,6 +115,20 @@ public class SpacesDAO {
         }
     }
 
+    public static String selectNameBySpaceId(int space_id) throws SQLException {
+        String query = "SELECT none FROM spaces WHERE space_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, space_id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("nome");
+                } else {
+                    return null;
+                }
+            }
+        }
+    }
+
 
     //  aggiornamento:
 

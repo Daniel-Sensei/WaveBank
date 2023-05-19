@@ -41,15 +41,15 @@ public class RicaricaTelefonicaController implements Initializable {
             return;
         }
 
-        //controllo che il numero di telefono sia valido
-        if (fieldPhone.getText().length() != 10 || !fieldPhone.getText().matches("[0-9]+")) {
-            SceneHandler.getInstance().showError("Errore", "Numero di telefono non valido", "Il numero di telefono deve essere composto da 10 cifre");
+        //controllo che il numero di telefono sia valido ovvero composto da un possibile prefisso + seguito da 2 o 3 cifre, uno spazio e poi 10 cifre
+        if(!fieldPhone.getText().matches("(\\+\\d{2,3})? ?\\d{10}")){
+            SceneHandler.getInstance().showError("Errore", "Numero di telefono non valido", "Il numero di telefono deve essere composto da un possibile prefisso + seguito da 2 o 3 cifre, uno spazio e poi 10 cifre");
             return;
         }
 
-        //controllo che l'importo sia un double
-        if(!fieldAmount.getText().matches("[0-9]+(\\.[0-9]{1,2})?")){
-            SceneHandler.getInstance().showError("Errore", "Importo non valido", "L'importo deve essere un numero");
+        //controllo tramite che l'importo sia un intero positivo maggiore di 5
+        if (!fieldAmount.getText().matches("[0-9]+") && Integer.parseInt(fieldAmount.getText()) < 5) {
+            SceneHandler.getInstance().showError("Errore", "Importo non valido", "L'importo deve essere un intero positivo maggiore di 5");
             return;
         }
 

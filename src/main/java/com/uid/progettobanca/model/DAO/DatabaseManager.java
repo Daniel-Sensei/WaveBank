@@ -129,6 +129,8 @@ public class DatabaseManager {
                                     "iban_to  CHAR(27) not null, "+
                                     "user_id CHAR(16) NOT NULL, FOREIGN KEY (user_id) REFERENCES utenti(user_id));");
 
+            AziendeDAO.insert("Pirata con Radio", "IT0000000000000000000000000");
+
         } catch (SQLException e) {
             System.err.println("Error creating database: " + e.getMessage());
             e.printStackTrace();

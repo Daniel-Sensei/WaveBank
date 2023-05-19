@@ -15,12 +15,6 @@ import java.util.ResourceBundle;
 public class OperationsController implements Initializable {
 
     @FXML
-    private ImageView F24;
-
-    @FXML
-    private HBox F24HBox;
-
-    @FXML
     private ImageView bollettino;
 
     @FXML
@@ -52,7 +46,6 @@ public class OperationsController implements Initializable {
 
     private ArrayList<ImageView> operationsImages = new ArrayList<>();
     private void loadOperationsImages(){
-        operationsImages.add(F24);
         operationsImages.add(bollettino);
         operationsImages.add(bolloAuto);
         operationsImages.add(bonifico);
@@ -77,11 +70,6 @@ public class OperationsController implements Initializable {
     @FXML
     void openFormBonifico(MouseEvent event) {
         openGenericForm("formBonifico.fxml");
-    }
-
-    @FXML
-    void openFormF24(MouseEvent event) {
-        openGenericForm("formF24.fxml");
     }
 
     @FXML

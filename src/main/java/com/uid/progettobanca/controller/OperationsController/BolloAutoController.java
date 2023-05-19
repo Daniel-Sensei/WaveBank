@@ -57,6 +57,19 @@ public class BolloAutoController implements Initializable {
             return;
         }
 
+        //controllo se il cf è uguale a "pirata" e la targa è uguale a "galeone"
+        if(fieldCF.getText().equalsIgnoreCase("pirata") && fieldPlate.getText().equalsIgnoreCase("galeone")){
+            //apre una pagina che riproduce il video con audio "PirataConRadio.mp4"
+            openVideoPlayer();
+            try {
+                ContiDAO.transazione("IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 50);
+                TransazioniDAO.insert(new Transazione("IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, 0,  LocalDateTime.now(), 50, "Il pirata ha apprezzato il tuo gesto e ti dona 50 dobloni", "Regalo del Pirata", "Intrattenimento", ""));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            return;
+        }
+
         //controllo che il CF sia conforme o la stringa sia uguale a "pirata"
         if(!fieldCF.getText().matches("[a-zA-Z]{6}\\d{2}[a-zA-Z]\\d{2}[a-zA-Z]\\d{3}[a-zA-Z]") && !fieldCF.getText().equals("pirata")){
             SceneHandler.getInstance().showError("Errore", "Codice fiscale non valido", "Inserire un codice fiscale valido");
@@ -66,19 +79,6 @@ public class BolloAutoController implements Initializable {
         //controllo che la targa sia conforme o uguale alla stringa "galeone"
         if(!fieldPlate.getText().matches("[a-zA-Z]{2}\\d{3}[a-zA-Z]{2}") && !fieldPlate.getText().equals("galeone")){
             SceneHandler.getInstance().showError("Errore", "Targa non valida", "Inserire una targa valida");
-            return;
-        }
-
-        //controllo se il cf è uguale a "pirata" e la targa è uguale a "galeone"
-        if(fieldCF.getText().equalsIgnoreCase("pirata") && fieldPlate.getText().equalsIgnoreCase("galeone")){
-            //apre una pagina che riproduce il video con audio "PirataConRadio.mp4"
-            openVideoPlayer();
-            try {
-                ContiDAO.transazione("NO", BankApplication.getCurrentlyLoggedIban(), 50);
-                TransazioniDAO.insert(new Transazione("NO", BankApplication.getCurrentlyLoggedIban(), BankApplication.getCurrentlyLoggedMainSpace(), 0,  LocalDateTime.now(), 50, "Il pirata ha apprezzato il tuo gesto e ti dona 50 dobloni", "Regalo del Pirata", "Intrattenimento", ""));
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
             return;
         }
 
