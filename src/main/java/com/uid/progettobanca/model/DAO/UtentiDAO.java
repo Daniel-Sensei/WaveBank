@@ -147,7 +147,7 @@ public class UtentiDAO {
                         try (ResultSet result = pstmt.executeQuery()) {
                             if (result.next()) {
                                 return result.getString("nome");
-                            } else return null;
+                            } else return "";
                         }
                     } catch (SQLException e) {
                         throw new RuntimeException(e);

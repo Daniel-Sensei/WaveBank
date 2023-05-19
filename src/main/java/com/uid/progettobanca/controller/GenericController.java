@@ -21,8 +21,8 @@ public class GenericController {
         imageView.setImage(ImageUtils.loadImageFromResource(Settings.SPACE_IMAGE_PATH + name));
     }
 
-    public static void setChartImage(String name, ImageView imageView){
-        imageView.setImage(ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + name + ".png"));
+    public static void loadImage(ImageView imageView){
+        imageView.setImage(ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + imageView.getId() + ".png"));
     }
 
 

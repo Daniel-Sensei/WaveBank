@@ -40,7 +40,10 @@ public class TransactionController implements Initializable {
             amountLabel.setText("+" + df.format(transaction.getImporto()) + " €");
             transactionLabel.setText(UtentiDAO.getNameByIban(transaction.getIbanFrom()));
         }
-
+        if(transactionLabel.getText() == "" && transaction.getImporto() < 0)
+            transactionLabel.setText(transaction.getIbanTo());
+        else if(transactionLabel.getText() == "" && transaction.getImporto() > 0)
+            transactionLabel.setText(transaction.getIbanFrom());
     }
 
     @FXML

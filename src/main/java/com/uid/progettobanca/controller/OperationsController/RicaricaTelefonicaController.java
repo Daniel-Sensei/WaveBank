@@ -55,11 +55,9 @@ public class RicaricaTelefonicaController implements Initializable {
 
         //effetuo la transazione
         try {
-            int space = BankApplication.getCurrentlyLoggedMainSpace();
-            if (ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, Double.parseDouble(fieldAmount.getText()))) {
-                TransazioniDAO.insert(new Transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), Double.parseDouble(fieldAmount.getText()), fieldPhone.getText(), "Ricarica Telefonica", "Altro", ""));
-                SceneHandler.getInstance().showInfo("Operazione effettuata", "Ricarica telefonica effettuata", "L'importo è stato accreditato sul numero: " + fieldPhone.getText());
-            }
+            ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", BankApplication.getCurrentlyLoggedMainSpace(), Double.parseDouble(fieldAmount.getText()));
+            TransazioniDAO.insert(new Transazione(BankApplication.getCurrentlyLoggedIban(), "NO", BankApplication.getCurrentlyLoggedMainSpace(), 0, LocalDateTime.now(), Double.parseDouble(fieldAmount.getText()), fieldPhone.getText(),"Ricarica Telefonica","Altro","" ));
+            SceneHandler.getInstance().showInfo("Operazione effettuata", "Ricarica telefonica effettuata", "L'importo è stato accreditato sul numero: " + fieldPhone.getText());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
