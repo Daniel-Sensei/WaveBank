@@ -60,6 +60,12 @@ public class BonificoController {
             return;
         }
 
+        //controllo che il nome e il cognome siano composti solo da lettere
+        if(!fieldName.getText().matches("[a-zA-Z]+") || !fieldSurname.getText().matches("[a-zA-Z]+")) {
+            SceneHandler.getInstance().showError("Errore", "Nome o Cognome non validi", "Il nome e il cognome devono essere composti solo da lettere");
+            return;
+        }
+
         try {
             ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), Double.parseDouble(fieldAmount.getText()));
             TransazioniDAO.insert(new Transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedMainSpace(), 0,  LocalDateTime.now(), Double.parseDouble(fieldAmount.getText()), fieldDescr.getText(), "Bonifico", "Altro", ""));

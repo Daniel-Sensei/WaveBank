@@ -5,11 +5,9 @@ import com.uid.progettobanca.model.Conto;
 import com.uid.progettobanca.model.Space;
 import com.uid.progettobanca.view.SceneHandler;
 
+import java.math.BigInteger;
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 public class ContiDAO {
@@ -64,7 +62,7 @@ public class ContiDAO {
     //inserimento tramite inizializzazione randomica
 
     public static String generateNew() throws SQLException {
-        String iban = generateRandomIban();
+        String iban = generateItalianIban();
         int saldo = 500;
         LocalDate data = LocalDate.now();
         insert(iban, saldo, data);
@@ -163,35 +161,26 @@ public class ContiDAO {
     }
 
 
-    // funzioni di servizio:
+    // funzioni di servizio per generare un iban realistico:
 
-    public static String generateRandomIban() {
+    public static String generateItalianIban() {
         String countryCode = "IT";
-        String bankCode = "00000"; // Esempio di codice banca
-        String branchCode = "00000"; // Esempio di codice filiale
-        String accountNumber = generateRandomDigits(12); // Numero di conto casuale
+        String bankCode = generateRandomDigits(5);
+        String branchCode = generateRandomDigits(5);
+        String accountNumber = generateRandomDigits(12);
 
-        String iban = countryCode + bankCode + branchCode + accountNumber;
+        String partialIban = bankCode + branchCode + accountNumber + countryCode + "00";
+        int checkDigit = calculateMod97(partialIban);
+        String formattedCheckDigit = String.format("%02d", checkDigit);
 
-        // Calcola la cifra di controllo del modulo 97
-        int checkDigit = calculateMod97(iban);
-
-        // Costruisci l'IBAN completo con la cifra di controllo
-        iban = countryCode + checkDigit + bankCode + branchCode + accountNumber;
-
-        return iban;
+        return countryCode + formattedCheckDigit + bankCode + branchCode + accountNumber;
     }
 
     public static int calculateMod97(String iban) {
-        // Rimuovi i caratteri non numerici dall'IBAN
         String digitsOnly = iban.replaceAll("[^0-9]", "");
-
-        // Calcola la cifra di controllo del modulo 97
-        long numericIban = Long.parseLong(digitsOnly);
-        int mod97 = (int) (numericIban % 97);
-        int checkDigit = 98 - mod97;
-
-        return checkDigit;
+        BigInteger numericIban = new BigInteger(digitsOnly);
+        BigInteger mod97 = numericIban.mod(BigInteger.valueOf(97));
+        return 98 - mod97.intValue();
     }
 
     public static String generateRandomDigits(int length) {

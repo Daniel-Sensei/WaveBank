@@ -81,14 +81,12 @@ public class SpacesDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 Queue<Space> spaces = new LinkedList<>();
                 while (rs.next()) {
-                    Space space = (new Space(iban,
+                    spaces.add(new Space(iban,
                             rs.getInt("space_id"),
                             rs.getDouble("saldo"),
                             rs.getDate("dataApertura").toLocalDate(),
                             rs.getString("nome"),
                             rs.getString("imagePath")));
-                    //System.out.println(space.toString());
-                    spaces.add(space);
                 }
                 return spaces;
             }

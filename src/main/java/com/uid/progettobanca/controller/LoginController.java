@@ -4,6 +4,7 @@ import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.model.DAO.SpacesDAO;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
+import com.uid.progettobanca.model.RecurrentHandler;
 import com.uid.progettobanca.model.Utente;
 import com.uid.progettobanca.view.ImageUtils;
 import com.uid.progettobanca.view.SceneHandler;
@@ -68,6 +69,8 @@ public class LoginController implements Initializable {
                 BankApplication.setCurrentlyLoggedMainSpace(mainSpace);
 
                 SceneHandler.getInstance().init(SceneHandler.getInstance().getStage());
+
+                RecurrentHandler.check(user);
             }
         } catch (Exception ignored) {}
     }

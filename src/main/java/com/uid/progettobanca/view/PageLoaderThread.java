@@ -22,7 +22,6 @@ public class PageLoaderThread extends Thread {
             SceneHandler.OPERATIONS_PATH + "formBollettino.fxml",
             SceneHandler.OPERATIONS_PATH + "formBolloAuto.fxml",
             SceneHandler.OPERATIONS_PATH + "formBonifico.fxml",
-            SceneHandler.OPERATIONS_PATH + "formF24.fxml",
             SceneHandler.OPERATIONS_PATH + "formPagamentiRicorrenti.fxml",
             SceneHandler.OPERATIONS_PATH + "formRicaricaTelefonica.fxml",
             SceneHandler.SPACES_PATH + "spaces.fxml",

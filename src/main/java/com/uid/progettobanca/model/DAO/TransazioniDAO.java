@@ -151,7 +151,8 @@ public class TransazioniDAO {
     public static String[] selectDate(String iban) throws SQLException {
         String query = "SELECT DISTINCT Date(dateTime/1000, 'unixepoch') AS date " +
                         "FROM transazioni " +
-                        "WHERE iban_from = ? OR iban_to = ?";
+                        "WHERE iban_from = ? OR iban_to = ?" +
+                        "ORDER BY dateTime desc";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
             stmt.setString(2, iban);
@@ -172,7 +173,7 @@ public class TransazioniDAO {
     //dove il valore dell' importo è negativo se l'iban passato come parametro appartiene all'iban from, positivo altrimenti
     public static Stack<Transazione> selectTransactionsByIbanAndDate(String iban, String date) throws SQLException {
         Stack<Transazione> transactionStack = new Stack<>();
-        String query = "SELECT * FROM transazioni WHERE (iban_from = ? OR iban_to = ?) AND Date(dateTime/1000, 'unixepoch') = ?";
+        String query = "SELECT * FROM transazioni WHERE (iban_from = ? OR iban_to = ?) AND Date(dateTime/1000, 'unixepoch') = ? ORDER BY dateTime asc";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
             stmt.setString(2, iban);
