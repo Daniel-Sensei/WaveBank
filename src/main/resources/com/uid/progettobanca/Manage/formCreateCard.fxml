@@ -5,8 +5,8 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -38,11 +38,11 @@
                <children>
                   <VBox alignment="CENTER">
                      <children>
-                        <Spinner />
-                        <Label text="Durata Carta" />
+                        <TextField fx:id="dateValue" />
+                        <Label text="Durata Carta (max 12 mesi)" />
                      </children>
                   </VBox>
-                  <Button mnemonicParsing="false" style="-fx-background-color: primaryColor;" styleClass="tertiaryButton" text="Crea Carta" />
+                  <Button mnemonicParsing="false" onAction="#createPressed" style="-fx-background-color: primaryColor;" styleClass="tertiaryButton" text="Crea Carta" />
                </children>
                <padding>
                   <Insets top="5.0" />

@@ -3,3 +3,8 @@
     -fx-font-family: 'Roboto';
     -fx-font-size: 13px;
 }
+
+.OcrB {
+    -fx-font-family: 'OcrB';
+    -fx-font-size: 13px;
+}

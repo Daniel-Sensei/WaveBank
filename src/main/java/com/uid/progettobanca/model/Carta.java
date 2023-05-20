@@ -22,6 +22,9 @@ public class Carta {
         this.user_id = user_id;
     }
 
+    public Carta(){
+    }
+
     public String getNumCarta() {
         return numCarta;
     }
