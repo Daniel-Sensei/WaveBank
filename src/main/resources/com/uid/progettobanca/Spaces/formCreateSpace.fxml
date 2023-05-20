@@ -55,7 +55,7 @@
                            </children></FlowPane>
                      </children>
                   </HBox>
-                  <Label styleClass="subtitleLabel" text="Inserisci il nome del tuo spazio (Obbligatorio)">
+                  <Label text="Inserisci il nome del tuo spazio (Obbligatorio)">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -68,7 +68,7 @@
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <Label styleClass="subtitleLabel" text="Proseguendo, accetti i T&amp;C Wave Spaces" />
+                  <Label text="Proseguendo, accetti i T&amp;C Wave Spaces" />
                </children>
             </VBox>
             <HBox spacing="60.0">

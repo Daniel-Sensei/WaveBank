@@ -36,4 +36,8 @@ public class SpacesManager {
     public int getSize() {
         return spacesQueue.size();
     }
+
+    public void setSpaceIntoQueue(Space space){
+        spacesQueue.add(space);
+    }
 }

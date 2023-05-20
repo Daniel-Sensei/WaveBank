@@ -39,7 +39,7 @@
                            <children>
                               <VBox>
                                  <children>
-                                    <Label styleClass="titleLabel" text="Conto corrente principale">
+                                    <Label fx:id="spacePageName" styleClass="titleLabel" text="Conto corrente principale">
                                        <font>
                                           <Font size="18.0" />
                                        </font>

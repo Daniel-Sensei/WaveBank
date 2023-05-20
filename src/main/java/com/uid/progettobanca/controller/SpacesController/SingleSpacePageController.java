@@ -1,7 +1,11 @@
 package com.uid.progettobanca.controller.SpacesController;
 
+import com.uid.progettobanca.controller.GenericController;
+import com.uid.progettobanca.model.Space;
+import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.view.BackStack;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -9,11 +13,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class SingleSpacePageController {
+public class SingleSpacePageController implements Initializable {
 
     @FXML
     private Label backButton;
+
+    @FXML
+    private Label spacePageName;
 
     @FXML
     private Label balanceLabel;
@@ -69,4 +78,12 @@ public class SingleSpacePageController {
 
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Space space = SpacesManager.getInstance().getNextSpace();
+        balanceLabel.setText(space.getSaldo() + " €");
+        GenericController.setSpaceImage(space.getImage(), spaceLogoButton);
+        spacePageName.setText(space.getNome());
+
+    }
 }
