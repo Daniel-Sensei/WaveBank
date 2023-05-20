@@ -4,7 +4,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
-import java.net.StandardSocketOptions;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class ImageUtils {
         if (elementi != null) {
             int numeroElementi = elementi.length;
             for (File file : elementi) {
-                if (file.isFile() && isImmagine(file.getName())) {
+                if (file.isFile() && isImage(file.getName())) {
                     Image image = new Image(file.toURI().toString());
                     images.add(image);
                 }
@@ -36,10 +35,10 @@ public class ImageUtils {
         return images;
     }
 
-    private static boolean isImmagine(String nomeFile) {
-        String estensione = nomeFile.substring(nomeFile.lastIndexOf('.') + 1);
-        return estensione.equalsIgnoreCase("jpg") || estensione.equalsIgnoreCase("jpeg") ||
-                estensione.equalsIgnoreCase("png") || estensione.equalsIgnoreCase("gif");
+    private static boolean isImage(String fileName) {
+        String extension = fileName.substring(fileName.lastIndexOf('.') + 1);
+        return extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("jpeg") ||
+                extension.equalsIgnoreCase("png") || extension.equalsIgnoreCase("gif");
     }
 
     public static String getImageViewImageName(ImageView imageView) {
