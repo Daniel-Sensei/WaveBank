@@ -120,11 +120,12 @@ public class ContiDAO {
                 SceneHandler.getInstance().showError("Errore", "Saldo insufficiente", "Non hai abbastanza soldi per effettuare questa operazione");
                 return false;
             }
-            if(SpacesDAO.selectBySpaceId(space_from).getSaldo()<importo){
+            double saldo=SpacesDAO.selectBySpaceId(space_from).getSaldo();
+            if(saldo<importo){
                 SceneHandler.getInstance().showError("Errore", "Saldo insufficiente nello space", "Non hai abbastanza soldi nello space selezionato per effettuare questa operazione");
                 return false;
             }
-            SpacesDAO.updateSaldo(space_from, importo*-1);
+            SpacesDAO.updateSaldo(space_from, saldo - importo);
         }
         String query = "UPDATE conti SET saldo = saldo - ? WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
