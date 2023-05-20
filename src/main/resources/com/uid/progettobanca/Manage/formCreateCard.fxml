@@ -13,7 +13,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.ManageController.FormCreateCardController">
    <children>
-      <VBox layoutX="375.0" layoutY="210.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="30.0">
+      <VBox alignment="TOP_CENTER" layoutX="375.0" layoutY="210.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="30.0">
          <children>
             <AnchorPane>
                <children>
@@ -48,6 +48,7 @@
                   <Insets top="5.0" />
                </padding>
             </HBox>
+            <Label fx:id="dateError" style="-fx-text-fill: redColor;" text="Durata non valida: inserire numero di mesi" />
          </children>
       </VBox>
    </children>

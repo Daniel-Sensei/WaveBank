@@ -61,6 +61,7 @@ public class CardController {
             Utente utente = UtentiDAO.selectByUserId(BankApplication.getCurrentlyLoggedUser());
             ownerName.setText(utente.getNome() + " " + utente.getCognome());
         } catch (SQLException e) {
+            System.out.println("Errore nella creazione interna della card");
             throw new RuntimeException(e);
         }
 
