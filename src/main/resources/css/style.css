@@ -99,6 +99,7 @@
 
 /* COMBO BOX */
 
+
 .combo-box {
     -fx-background-color: secondaryColor;
     -fx-border-radius: 5px;
@@ -108,6 +109,56 @@
     -fx-text-fill: textColor;
 }
 
+.spaces-combo-box {
+    -fx-background-color: backgroundColor;
+    -fx-border-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-border-color: primaryColor;
+}
+
+.spaces-combo-box .list-cell {
+    -fx-font-family: "Roboto Bold";
+    -fx-background-color: backgroundColor;
+    -fx-border-color: backgroundColor;
+}
+
+.spaces-combo-box .list-cell .text{
+    -fx-fill: primaryColor;
+}
+
+.spaces-combo-box .arrow {
+    -fx-background-color: primaryColor;
+}
+
+.spaces-combo-box .arrow-button{
+    -fx-background-color: backgroundColor;
+}
+
+
+/* SLIDER */
+
+.slider{
+    -fx-font-size: 15px;
+}
+
+.slider .thumb {
+    -fx-background-color: primaryColor;
+    -fx-background-radius: 10;
+}
+
+.slider .thumb:hover {
+    -fx-background-color: shade1;
+}
+
+.slider .thumb:pressed {
+    -fx-background-color: derive(shade1, 15%);
+}
+
+.slider .track {
+    -fx-border-radius: 10;
+    -fx-background-color: secondaryColor;
+    -fx-border-color: borderColor;
+}
 
 /* TEXT FIELDS FORM */
 

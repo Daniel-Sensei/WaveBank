@@ -7,6 +7,7 @@ import com.uid.progettobanca.model.Space;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.Transazione;
 import com.uid.progettobanca.view.BackStack;
+import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -68,31 +69,12 @@ public class TransactionDetailsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        // limita caratteri nella TextArea
-        //Non funziona benissimo
-        /*
-        TextFormatter<String> textFormatter = new TextFormatter<>(change -> {
-            if (change.isContentChange()) {
-                int newTextLength = change.getControlNewText().length();
-                if (newTextLength <= MAX_CHARACTERS) {
-                    return change; // Consentire il cambiamento
-                }
-            }
-            return null; // Bloccare il cambiamento
-        });
-        // Applica il TextFormatter alla TextArea
-        commentsArea.setTextFormatter(textFormatter);
-
-         */
-
         transaction = TransactionManager.getInstance().getNextTransactionDate();
         if(transaction.getImporto() < 0) {
             amountLabel.setText(df.format(transaction.getImporto()) + " €");
-            transactionName.setText(UtentiDAO.getNameByIban(transaction.getIbanTo()));
         }
         else {
             amountLabel.setText("+" + df.format(transaction.getImporto()) + " €");
-            transactionName.setText(UtentiDAO.getNameByIban(transaction.getIbanFrom()));
         }
         categoryLabel.setText(transaction.getTag());
         dateLabel.setText(transaction.getDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm")));
@@ -101,12 +83,12 @@ public class TransactionDetailsController implements Initializable {
         typeLabel.setText(transaction.getTipo());
 
         try {
+            TransactionManager.getInstance().setTransactionName(transactionName, transaction);
             Space space = SpacesDAO.selectBySpaceId(transaction.getSpaceFrom());
             spaceLabel.setText(space.getNome());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
 
     }
 
@@ -124,5 +106,6 @@ public class TransactionDetailsController implements Initializable {
                 .text(message)
                 .showInformation();
 
+        SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.HOME_PATH + "home.fxml");
     }
 }

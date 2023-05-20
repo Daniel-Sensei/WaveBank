@@ -1,7 +1,10 @@
 package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.model.DAO.ContattiDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
+import com.uid.progettobanca.model.DAO.UtentiDAO;
+import javafx.scene.control.Label;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -95,4 +98,21 @@ public class TransactionManager {
     public String[] getConvertedDates() {
         return convertedDates;
     }
+    public static void setTransactionName(Label transactionName, Transazione transaction) throws SQLException {
+        //di default assegno come nome il tipo di transazione
+        transactionName.setText(transaction.getTipo());
+
+        Contatto from = ContattiDAO.selectByIBAN(transaction.getIbanFrom());
+        Contatto to = ContattiDAO.selectByIBAN(transaction.getIbanTo());
+        if (from != null) {
+            transactionName.setText(from.getNome() + " " + from.getCognome());
+        } else if (to != null) {
+            transactionName.setText(to.getNome() + " " + to.getCognome());
+        } else if (transaction.getImporto() < 0 && UtentiDAO.getNameByIban(transaction.getIbanTo()) != "") {
+            transactionName.setText(UtentiDAO.getNameByIban(transaction.getIbanTo()));
+        } else if (transaction.getImporto() > 0 && UtentiDAO.getNameByIban(transaction.getIbanFrom()) != "") {
+            transactionName.setText(UtentiDAO.getNameByIban(transaction.getIbanFrom()));
+        }
+    }
+
 }

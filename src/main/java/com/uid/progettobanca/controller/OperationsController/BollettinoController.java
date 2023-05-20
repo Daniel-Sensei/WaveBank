@@ -4,14 +4,21 @@ import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.Transazione;
+import com.uid.progettobanca.view.BackStack;
+import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -40,52 +47,99 @@ public class BollettinoController implements Initializable {
     private Button sendButton;
 
     @FXML
+    private ComboBox<String> spacesComboBox;
+
+
+    @FXML
     private ComboBox<String> tipologiaComboBox;
+
+    @FXML
+    private Label warningAmount;
+
+    @FXML
+    private Label warningCC;
+
+    @FXML
+    private Label warningCode;
+
+    @FXML
+    private Label warningDescr;
+
+    @FXML
+    private Label warningRecipient;
+
+    @FXML
+    private Label warningTipologia;
+
+    private BooleanBinding formValid;
+    public void initialize(URL location, ResourceBundle resources) {
+
+        tipologiaComboBox.getItems().addAll(tipologia);
+        try {
+            FormUtils.getInstance().fillSpacesComboBox(spacesComboBox);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        fieldCC.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue){
+                FormUtils.getInstance().validateTextField(fieldCC, FormUtils.getInstance().validateCC(fieldCC.getText()), warningCC);
+            }
+        });
+
+        fieldCode.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue){
+                FormUtils.getInstance().validateTextField(fieldCode, FormUtils.getInstance().validateCodeBollettino(fieldCode.getText()), warningCode);
+            }
+        });
+
+        fieldAmount.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue){
+                FormUtils.getInstance().validateTextField(fieldAmount, FormUtils.getInstance().validateAmount(fieldAmount.getText()), warningAmount);
+            }
+        });
+
+        fieldRecipient.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue){
+                FormUtils.getInstance().validateTextField(fieldRecipient, FormUtils.getInstance().validateNameSurname(fieldRecipient.getText()), warningRecipient);
+            }
+        });
+
+        fieldDescr.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue){
+                FormUtils.getInstance().validateTextField(fieldDescr, !fieldDescr.getText().isEmpty(), warningDescr);
+            }
+        });
+
+
+        fieldCode.setDisable(true);
+        fieldRecipient.setDisable(true);
+        fieldDescr.setDisable(true);
+        sendButton.setDisable(true);
+
+    }
 
     @FXML
     void onSendButtonClick(ActionEvent event) {
 
-        //controllo che il campo del Conto Corrente non sia vuoto
-        if(fieldCC.getText().isEmpty() || !fieldCC.getText().matches("[0-9]{18}")){
-            SceneHandler.getInstance().showError("Errore", "Campo vuoto", "Riempire il campo Conto Corrente");
-            return;
-        }
-
-        //controllo che sia stata selezionata una tipologia
-        if(tipologiaComboBox.getValue() == null){
-            SceneHandler.getInstance().showError("Errore", "Tipologia non selezionata", "Selezionare una tipologia");
-            return;
-        }
-
-        //controllo che l'importo sia un numero
-        if(!fieldAmount.getText().matches("[0-9]+(\\.[0-9]{1,2})?")) {
-            SceneHandler.getInstance().showError("Errore", "Importo non valido", "L'importo deve essere composto da cifre");
-            return;
-        }
-
         try {
+            double amount = FormUtils.getInstance().formatAmount(fieldAmount.getText());
             //salvo il tipo per il controllo
             String tipo = "Bollettino: " + tipologiaComboBox.getSelectionModel().getSelectedItem();
+            String descr = "";
             // se è un bianco aggiungo anche il nome del destinatario
             if(tipo.equals("Bollettino: 123 - Bianco generico")){
-                tipo+=" a " + fieldRecipient.getText();
-                if(fieldDescr.getText().isEmpty()){
-                    SceneHandler.getInstance().showError("Errore", "Campo vuoto", "Riempire il campo causale");
-                    return;
-                }
+                descr += "Intestatario: " + fieldRecipient.getText().trim() + "\n\n";
             } else {
-                if (!fieldCode.getText().matches("[0-9]{40}")) {
-                    SceneHandler.getInstance().showError("Errore", "Codice non valido", "Il codice deve essere composto da 40 cifre");
-                    return;
-                }
-
-                tipo+="\nCodice: " + fieldCode.getText();
+                descr += "Codice: " + fieldCode.getText().trim() + "\n\n";
             }
-            int space = BankApplication.getCurrentlyLoggedMainSpace();
+            int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
             //rimuove i soldi dal conto corrente
-            if(ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, Double.parseDouble(fieldAmount.getText()))){
+            if(ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)){
                 //inserisco la transazione
-                TransazioniDAO.insert(new Transazione(BankApplication.getCurrentlyLoggedIban(), fieldCC.getText(), space, 0,  LocalDateTime.now(), Double.parseDouble(fieldAmount.getText()), fieldDescr.getText(), tipo, "Altro", ""));
+                TransazioniDAO.insert(new Transazione(BankApplication.getCurrentlyLoggedIban(), fieldCC.getText(), space, 0,  LocalDateTime.now(), amount, descr + fieldDescr.getText(), tipo, "Altro", ""));
+                SceneHandler.getInstance().reloadDynamicPageInHashMap();
+                SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
                 SceneHandler.getInstance().showInfo("Operazione effettuata", "Bollettino pagato", "Il bollettino è stato pagato con successo");
             }
         }catch (SQLException e) {
@@ -94,28 +148,46 @@ public class BollettinoController implements Initializable {
     }
 
     @FXML
-    void onTypeChoice(ActionEvent event) {
+    private void onTypeChoice(ActionEvent event) {
         //se la scelta NON è 123 - Bianco generico svuota ed imposta i campi fieldRecipient e fieldDescr a non editabili, altrimenti il fieldCode
         String scelta = tipologiaComboBox.getSelectionModel().getSelectedItem();
         if(!scelta.equals("123 - Bianco generico")) {
             fieldRecipient.setText("");
-            fieldRecipient.setEditable(false);
+            fieldRecipient.setDisable(true);
             fieldDescr.setText("");
-            fieldDescr.setEditable(false);
-            fieldCode.setEditable(true);
+            fieldDescr.setDisable(true);
+            fieldCode.setDisable(false);
+
+            formValid = Bindings.createBooleanBinding(() ->
+                                            FormUtils.getInstance().validateCC(fieldCC.getText()) &&
+                                            FormUtils.getInstance().validateCodeBollettino(fieldCode.getText()) &&
+                                            FormUtils.getInstance().validateAmount(fieldAmount.getText()),
+                                            fieldCC.textProperty(),
+                                            fieldCode.textProperty(),
+                                            fieldAmount.textProperty());
         } else {
             fieldCode.setText("");
-            fieldCode.setEditable(false);
-            fieldRecipient.setEditable(true);
-            fieldDescr.setEditable(true);
+            fieldCode.setDisable(true);
+            fieldRecipient.setDisable(false);
+            fieldDescr.setDisable(false);
+
+            formValid = Bindings.createBooleanBinding(() ->
+                                            FormUtils.getInstance().validateCC(fieldCC.getText()) &&
+                                            FormUtils.getInstance().validateAmount(fieldAmount.getText()) &&
+                                            FormUtils.getInstance().validateNameSurname(fieldRecipient.getText()) &&
+                                            !fieldDescr.getText().isEmpty(),
+                                            fieldCC.textProperty(),
+                                            fieldAmount.textProperty(),
+                                            fieldRecipient.textProperty(),
+                                            fieldDescr.textProperty());
         }
+        sendButton.disableProperty().bind(formValid.not());
     }
 
-    public void initialize(URL location, ResourceBundle resources) {
-        tipologiaComboBox.getItems().addAll(tipologia);
-        fieldCode.setEditable(false);
-        fieldRecipient.setEditable(false);
-        fieldDescr.setEditable(false);
+    @FXML
+    void loadPreviousPage(MouseEvent event) throws IOException {
+        BackStack.getInstance().loadPreviousPage();
     }
+
 
 }

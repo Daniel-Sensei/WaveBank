@@ -52,7 +52,7 @@ public class OperationsController implements Initializable {
     }
 
     void openGenericForm(String formName){
-        SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + formName);
+        SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + formName);
     }
 
     @FXML

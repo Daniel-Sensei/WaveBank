@@ -94,6 +94,25 @@ public class ContattiDAO {
         }
     }
 
+    public static Contatto selectByIBAN(String iban) throws SQLException {
+        String query = "SELECT * FROM contatti WHERE iban_to = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, iban);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Contatto(rs.getInt("contatto_id"),
+                            rs.getString("nome"),
+                            rs.getString("cognome"),
+                            iban,
+                            rs.getInt("user_id")
+                    );
+                } else {
+                    return null;
+                }
+            }
+        }
+    }
+
 
     //  aggiornamento:
 

@@ -141,7 +141,7 @@ public class UtentiDAO {
                 if (rs.next()) {
                     return rs.getString("nome") + " " + rs.getString("cognome");
                 } else {
-                    query = "SELECT nome FROM aziende WHERE iban = ?";
+                    query = "SELECT nome FROM altro WHERE iban = ?";
                     try (PreparedStatement pstmt = conn.prepareStatement(query)) {
                         pstmt.setString(1, iban);
                         try (ResultSet result = pstmt.executeQuery()) {

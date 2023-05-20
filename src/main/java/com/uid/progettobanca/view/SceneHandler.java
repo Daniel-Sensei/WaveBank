@@ -50,6 +50,8 @@ public class SceneHandler {
     public final static String SPACES_PATH = "/Spaces/";
     public final static String MY_ACCOUNT_PATH = "/MyAccount/";
 
+    String[] dynamicPages = {HOME_PATH + "home.fxml", MANAGE_PATH + "manage.fxml", SPACES_PATH + "spaces.fxml"};
+
     private BorderPane borderPane = new BorderPane();
 
     Map<String, Parent> pages = new HashMap<>();
@@ -110,6 +112,13 @@ public class SceneHandler {
 
     public Parent loadPage(String pageName) throws IOException {
         return loadRootFromFXML(pageName);
+    }
+
+
+    public void reloadDynamicPageInHashMap() {
+        for(String pageName : dynamicPages) {
+            reloadPageInHashMap(pageName);
+        }
     }
 
     public void reloadPageInHashMap(String pageName) {
@@ -184,6 +193,12 @@ public class SceneHandler {
         if(pages.containsKey(pageName)){
             BackStack.getInstance().push(pageName, pages.get(pageName));
             borderPane.setCenter(pages.get(pageName));
+
+            pages.get(pageName).requestFocus();
+            pages.get(pageName).setOnMouseClicked(event -> {
+                // Rimuovi il focus da qualsiasi elemento attualmente in focus
+                pages.get(pageName).requestFocus();
+            });
             return true;
         }
         else {

@@ -4,14 +4,18 @@ import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.Transazione;
+import com.uid.progettobanca.view.BackStack;
+import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -19,55 +23,81 @@ import java.util.ResourceBundle;
 
 public class RicaricaTelefonicaController implements Initializable {
 
-
-    @FXML
-    private TextField fieldAmount;
-
     @FXML
     private TextField fieldPhone;
+    @FXML
+    private Label warningPhone;
 
     @FXML
-    private Button onSendButton;
+    private Button sendButton;
 
     @FXML
     private ComboBox<String> providerComboBox;
-
     @FXML
-    void onSendButtonClick(ActionEvent event) {
-
-        //controllo che i campi non siano vuoti
-        if (fieldAmount.getText().isEmpty() || fieldPhone.getText().isEmpty() || providerComboBox.getValue() == null) {
-            SceneHandler.getInstance().showError("Errore", "Campi vuoti", "Riempire tutti i campi");
-            return;
-        }
-
-        //controllo che il numero di telefono sia valido ovvero composto da un possibile prefisso + seguito da 2 o 3 cifre, uno spazio e poi 10 cifre
-        if(!fieldPhone.getText().matches("(\\+\\d{2,3})? ?\\d{10}")){
-            SceneHandler.getInstance().showError("Errore", "Numero di telefono non valido", "Il numero di telefono deve essere composto da un possibile prefisso + seguito da 2 o 3 cifre, uno spazio e poi 10 cifre");
-            return;
-        }
-
-        //controllo tramite che l'importo sia un intero positivo maggiore di 5
-        if (!fieldAmount.getText().matches("[0-9]+") && Integer.parseInt(fieldAmount.getText()) < 5) {
-            SceneHandler.getInstance().showError("Errore", "Importo non valido", "L'importo deve essere un intero positivo maggiore di 5");
-            return;
-        }
-
-        //effetuo la transazione
-        try {
-            ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", BankApplication.getCurrentlyLoggedMainSpace(), Double.parseDouble(fieldAmount.getText()));
-            TransazioniDAO.insert(new Transazione(BankApplication.getCurrentlyLoggedIban(), "NO", BankApplication.getCurrentlyLoggedMainSpace(), 0, LocalDateTime.now(), Double.parseDouble(fieldAmount.getText()), fieldPhone.getText(),"Ricarica Telefonica","Altro","" ));
-            SceneHandler.getInstance().showInfo("Operazione effettuata", "Ricarica telefonica effettuata", "L'importo è stato accreditato sul numero: " + fieldPhone.getText());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private ComboBox<String> spacesComboBox;
+    @FXML
+    private Slider amountSlider;
+    @FXML
+    private Label amountLabel;
+    private BooleanBinding formValid;
 
     @FXML
     private String[] providers = {"TIM", "Vodafone", "Wind Tre", "Iliad", "Fastweb", "PosteMobile", "CoopVoce"};
 
     public void initialize(URL location, ResourceBundle resources) {
         providerComboBox.getItems().addAll(providers);
+        try {
+            FormUtils.getInstance().fillSpacesComboBox(spacesComboBox);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        amountSlider.valueProperty().addListener((obs, oldValue, newValue) -> {
+            double snappedValue = Math.round(newValue.doubleValue() / 5) * 5;
+            amountSlider.setValue(snappedValue);
+            amountLabel.setText("");
+            int value = (int) amountSlider.getValue();
+            amountLabel.setText(value + ",00 €");
+        });
+
+        fieldPhone.focusedProperty().addListener((obs, oldValue, newValue) -> {
+            if(!newValue){
+                FormUtils.getInstance().validateTextField(fieldPhone, FormUtils.getInstance().validatePhone(fieldPhone.getText()), warningPhone);
+            }
+        });
+
+        sendButton.setDisable(true);
     }
+    @FXML
+    void onTypeChoice(ActionEvent event) {
+        formValid = Bindings.createBooleanBinding(() ->
+                        FormUtils.getInstance().validatePhone(fieldPhone.getText()),
+                        fieldPhone.textProperty());
+        sendButton.disableProperty().bind(formValid.not());
+    }
+
+
+    @FXML
+    void onSendButtonClick(ActionEvent event) {
+        //effetuo la transazione
+        try {
+            double amount = FormUtils.getInstance().formatAmount(amountLabel.getText());
+            int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
+            if (ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)) {
+                TransazioniDAO.insert(new Transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, fieldPhone.getText().trim(), "Ricarica Telefonica", "Altro", ""));
+                SceneHandler.getInstance().reloadDynamicPageInHashMap();
+                SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+                SceneHandler.getInstance().showInfo("Operazione effettuata", "Ricarica telefonica effettuata", "L'importo è stato accreditato sul numero: " + fieldPhone.getText());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void loadPreviousPage(MouseEvent event) throws IOException {
+        BackStack.getInstance().loadPreviousPage();
+    }
+
 
 }
