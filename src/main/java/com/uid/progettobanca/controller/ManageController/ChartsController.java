@@ -31,14 +31,9 @@ public class ChartsController {
         SpentBalance.setText("€"+valueOf(returnChart.getValue())); */
         ChartsManager.getInstance().fillQueue();
         int nCharts = ChartsManager.getInstance().getSize();
-        System.out.println("ci sono "+nCharts+" grafici");
         HBox hBox = new HBox();
-        System.out.println("check 1");
         for (int i= 0; i < nCharts; i++) {
-            System.out.println("check 2");
-            //se i è pari crea hbox e aggiungi a vbox
             if(i%2==0){
-                System.out.println("creo hbox");
                 chartsList.getChildren().add(hBox);
                 hBox = new HBox();
                 hBox.setSpacing(80);
@@ -46,7 +41,6 @@ public class ChartsController {
                 hBox.setPrefWidth(Region.USE_COMPUTED_SIZE);
             }
             try {
-                System.out.println("check 3");
                 Parent singleChart = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().MANAGE_PATH + "singleChart.fxml");
                 hBox.getChildren().add(singleChart);
             } catch (IOException e) {

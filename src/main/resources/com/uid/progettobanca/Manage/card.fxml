@@ -21,19 +21,19 @@
                <children>
                   <VBox alignment="CENTER" prefWidth="80.0" spacing="5.0">
                      <children>
-                        <Button fx:id="infoButton" mnemonicParsing="false" onAction="#infoPressed" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
+                        <Button mnemonicParsing="false" onAction="#infoPressed" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
                         <Label styleClass="button-label" text="Info" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefWidth="80.0" spacing="5.0">
                      <children>
-                        <Button fx:id="blockButton" mnemonicParsing="false" onAction="#blockPressed" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
+                        <Button mnemonicParsing="false" onAction="#blockPressed" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
                         <Label styleClass="button-label" text="Blocca" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefWidth="80.0" spacing="5.0">
                      <children>
-                        <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deletePressed" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
+                        <Button mnemonicParsing="false" onAction="#deletePressed" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
                         <Label styleClass="button-label" text="Elimina" />
                      </children>
                   </VBox>
