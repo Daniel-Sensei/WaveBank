@@ -1,41 +1,43 @@
 package com.uid.progettobanca.controller.ManageController;
 
-        import javafx.event.ActionEvent;
-        import javafx.fxml.FXML;
-        import javafx.scene.control.Button;
-        import javafx.scene.image.Image;
-        import javafx.scene.image.ImageView;
+import com.uid.progettobanca.controller.GenericController;
+import com.uid.progettobanca.model.CardsManager;
+import com.uid.progettobanca.model.Carta;
+import com.uid.progettobanca.view.SceneHandler;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+
+import java.io.IOException;
 
 public class CardController {
 
-    @FXML
-    private Button bloccaButton;
 
     @FXML
-    private Button eliminaButton;
+    private ImageView cardImage;
 
     @FXML
-    private ImageView immagineCarta;
-
-    @FXML
-    private Button infoButton;
-
-    @FXML
-    void bloccaPremuto(ActionEvent event) {
-
+    void blockPressed(ActionEvent event) {
+        SceneHandler.getInstance().createPage(SceneHandler.MANAGE_PATH + "blockCard.fxml");
     }
 
     @FXML
-    void eliminaPremuto(ActionEvent event) {
-
+    void deletePressed(ActionEvent event) {
+        SceneHandler.getInstance().createPage(SceneHandler.MANAGE_PATH + "deleteCard.fxml");
     }
 
     @FXML
-    void infoPremuto(ActionEvent event) {
-
-    }
-    public void initialize(){
-        immagineCarta.setImage(new Image("assets/images/carta.png"));
+    void infoPressed(ActionEvent event) {
+        SceneHandler.getInstance().createPage(SceneHandler.MANAGE_PATH + "infoCard.fxml");
     }
 
+    public void initialize() {
+        Carta carta = CardsManager.getInstance().getCard();
+        if(carta.getTipo().equals("Debito")){
+            GenericController.setCardImage("card", cardImage);
+        } else if (carta.getTipo().equals("Virtuale")) {
+            GenericController.setCardImage("virtualcard", cardImage);
+        }
+    }
 }

@@ -4,7 +4,9 @@ import com.uid.progettobanca.model.Contatto;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class ContattiDAO {
     private static Connection conn;
@@ -52,12 +54,12 @@ public class ContattiDAO {
     // getting:
 
     //restituisce tutte le carte associare ad un utente
-    public static List<Contatto> selectAllByUserID(int user_id) throws SQLException {
+    public static Queue<Contatto> selectAllByUserID(int user_id) throws SQLException {
         String query = "SELECT * FROM contatti WHERE user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, user_id);
             try (ResultSet rs = stmt.executeQuery()) {
-                List<Contatto> rubrica = new ArrayList<>();
+                Queue<Contatto> rubrica = new LinkedList<>();
                 while (rs.next()) {
                     rubrica.add(new Contatto(
                                     rs.getInt("contatto_id"),

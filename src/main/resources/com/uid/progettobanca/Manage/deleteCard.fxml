@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -28,7 +27,7 @@
                         <VBox alignment="CENTER_LEFT" spacing="3.0">
                            <children>
                               <Label styleClass="titleLabel" text="Elimina Carta" />
-                              <Label styleClass="subtitleLabel" text="Indietro">
+                              <Label onMouseClicked="#backPressed" styleClass="subtitleLabel" text="Indietro">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -39,12 +38,12 @@
                   </HBox>
                </children>
             </AnchorPane>
-            <TextArea prefHeight="200.0" prefWidth="880.0" styleClass="card" text="Avviso:&#10;Questa operazione eliminerà in modo permanente la carta virtuale selezionata. Assicurati di non averne più bisogno prima di procedere con l'eliminazione.&#10;&#10;Disclaimer:&#10;Con la rimozione della carta virtuale, l'accesso ai fondi associati a essa verrà revocato. Non saremo responsabili per eventuali perdite di fondi o transazioni non autorizzate che potrebbero verificarsi a seguito dell'eliminazione della carta virtuale. Inoltre, non saremo in grado di ripristinare la carta virtuale o i fondi associati ad essa una volta che saranno eliminati. Accettando di procedere con l'eliminazione, confermi di comprendere e accettare queste condizioni e accetti di sollevare la nostra banca da qualsiasi responsabilità in caso di perdite di fondi o transazioni non autorizzate a seguito dell'eliminazione della carta virtuale." wrapText="true" />
+            <TextArea editable="false" prefHeight="200.0" prefWidth="880.0" text="Avviso:&#10;Questa operazione eliminerà in modo permanente la carta virtuale selezionata. Assicurati di non averne più bisogno prima di procedere con l'eliminazione.&#10;&#10;Disclaimer:&#10;Con la rimozione della carta virtuale, l'accesso ai fondi associati a essa verrà revocato. Non saremo responsabili per eventuali perdite di fondi o transazioni non autorizzate che potrebbero verificarsi a seguito dell'eliminazione della carta virtuale. Inoltre, non saremo in grado di ripristinare la carta virtuale o i fondi associati ad essa una volta che saranno eliminati. Accettando di procedere con l'eliminazione, confermi di comprendere e accettare queste condizioni e accetti di sollevare la nostra banca da qualsiasi responsabilità in caso di perdite di fondi o transazioni non autorizzate a seguito dell'eliminazione della carta virtuale." wrapText="true" />
             <HBox alignment="CENTER_LEFT">
                <children>
-                  <CheckBox mnemonicParsing="false" text="Accetto le responsabilità dell' eliminazione della carta e sono consapevole delle conseguenze" />
+                  <CheckBox fx:id="agreeCheck" mnemonicParsing="false" text="Accetto le responsabilità dell' eliminazione della carta e sono consapevole delle conseguenze" />
                   <VBox HBox.hgrow="ALWAYS" />
-                  <Button mnemonicParsing="false" style="-fx-background-color: primaryColor;" styleClass="tertiaryButton" text="Blocca" />
+                  <Button mnemonicParsing="false" onAction="#deletePressed" style="-fx-background-color: primaryColor;" styleClass="tertiaryButton" text="Elimina" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -53,9 +52,4 @@
          </children>
       </VBox>
    </children>
-   <stylesheets>
-      <URL value="@../../../../css/fonts.css" />
-      <URL value="@../../../../css/light.css" />
-      <URL value="@../../../../css/style.css" />
-   </stylesheets>
 </AnchorPane>

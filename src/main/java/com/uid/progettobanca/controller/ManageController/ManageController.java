@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.ManageController;
 
         import com.uid.progettobanca.BankApplication;
+        import com.uid.progettobanca.model.CardsManager;
         import com.uid.progettobanca.model.DAO.TransazioniDAO;
         import com.uid.progettobanca.model.GraphCalculator;
         import com.uid.progettobanca.model.Transazione;
@@ -12,32 +13,49 @@ package com.uid.progettobanca.controller.ManageController;
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
         import javafx.geometry.Side;
+        import javafx.scene.Parent;
         import javafx.scene.chart.LineChart;
         import javafx.scene.chart.NumberAxis;
         import javafx.scene.chart.XYChart;
         import javafx.scene.control.Button;
+        import javafx.scene.control.Label;
         import javafx.scene.control.ScrollPane;
         import javafx.scene.image.ImageView;
+        import javafx.scene.input.MouseEvent;
         import javafx.scene.layout.HBox;
+        import javafx.scene.layout.VBox;
         import javafx.util.Duration;
 
+        import java.io.IOException;
         import java.sql.SQLException;
         import java.time.LocalDateTime;
         import java.util.ArrayList;
         import java.util.List;
 
 public class ManageController {
-    int numcarte=0;
+    int numcarte=4;
     float scrollPerPress=0;
     GraphCalculator graphCalculator = new GraphCalculator();
 
     @FXML
-    void addPressed(ActionEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().MANAGE_PATH + "formCreateCard.fxml");
-    }
+    private VBox cardBox;
 
     @FXML
     private LineChart<?, ?> chart;
+    @FXML
+    private Label cardNumber;
+
+    @FXML
+    void leftCardClicked(MouseEvent event) {
+        CardsManager.getInstance().setPos(-1);
+        loadCard();
+    }
+
+    @FXML
+    void rightCardClicked(MouseEvent event) {
+        CardsManager.getInstance().setPos(1);
+        loadCard();
+    }
 
 
 /*
@@ -95,6 +113,23 @@ public class ManageController {
     }
     public void initialize() {
         chart.getData().add(graphCalculator.MainGraphCalculator(30));  //passare quanti giorni da calcolare nel grafico
+        CardsManager.getInstance().fillQueue();
+        numcarte=CardsManager.getInstance().getSize();
+
+        loadCard();
+    }
+
+    private void loadCard(){
+        cardNumber.setText(String.valueOf(CardsManager.getInstance().getPos()+1) + "/" + numcarte);
+        cardBox.getChildren().clear();
+        Parent card = null;
+        try {
+            card = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().MANAGE_PATH + "card.fxml");
+        } catch (IOException e) {
+            System.out.println("Errore caricamento card");
+            throw new RuntimeException(e);
+        }
+        cardBox.getChildren().add(card);
     }
 
 

@@ -5,13 +5,12 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.OperationsController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.OperationsController">
    <padding>
       <Insets left="200.0" right="200.0" />
    </padding>
@@ -38,118 +37,7 @@
                         <Label styleClass="subtitleLabel" text="Contatti" />
                         <ScrollPane hbarPolicy="NEVER" prefHeight="240.0" prefWidth="400.0" styleClass="vbox-with-rounded-border">
                            <content>
-                              <VBox alignment="TOP_CENTER" prefWidth="400.0">
-                                 <children>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
-                                       <children>
-                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../assets/images/IconLight/users.png" />
-                                             </image>
-                                          </ImageView>
-                                          <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <Label text="Nome Cognome" />
-                                                <Label text="IT12 1234 1234 1234 5678 6789" />
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="10.0" left="20.0" top="10.0" />
-                                       </padding>
-                                    </HBox>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
-                                       <children>
-                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../assets/images/IconLight/users.png" />
-                                             </image>
-                                          </ImageView>
-                                          <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <Label text="Nome Cognome" />
-                                                <Label text="IT12 1234 1234 1234 5678 6789" />
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="10.0" left="20.0" top="10.0" />
-                                       </padding>
-                                    </HBox>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
-                                       <children>
-                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../assets/images/IconLight/users.png" />
-                                             </image>
-                                          </ImageView>
-                                          <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <Label text="Nome Cognome" />
-                                                <Label text="IT12 1234 1234 1234 5678 6789" />
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="10.0" left="20.0" top="10.0" />
-                                       </padding>
-                                    </HBox>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="400.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
-                                       <children>
-                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../assets/images/IconLight/users.png" />
-                                             </image>
-                                          </ImageView>
-                                          <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <Label text="Nome Cognome" />
-                                                <Label text="IT12 1234 1234 1234 5678 6789" />
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="10.0" left="20.0" top="10.0" />
-                                       </padding>
-                                    </HBox>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
-                                       <children>
-                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../assets/images/IconLight/users.png" />
-                                             </image>
-                                          </ImageView>
-                                          <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <Label text="Nome Cognome" />
-                                                <Label text="IT12 1234 1234 1234 5678 6789" />
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="10.0" left="20.0" top="10.0" />
-                                       </padding>
-                                    </HBox>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox-bottom">
-                                       <children>
-                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../assets/images/IconLight/users.png" />
-                                             </image>
-                                          </ImageView>
-                                          <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <Label text="Nome Cognome" />
-                                                <Label text="IT12 1234 1234 1234 5678 6789" />
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="10.0" left="20.0" top="10.0" />
-                                       </padding>
-                                    </HBox>
-                                 </children>
-                              </VBox>
+                              <VBox fx:id="contactsVBox" alignment="TOP_CENTER" prefWidth="400.0" />
                            </content>
                         </ScrollPane>
                         <HBox alignment="CENTER" spacing="20.0">
