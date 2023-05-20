@@ -1,16 +1,19 @@
 package com.uid.progettobanca.controller.SpacesController;
 
+import com.uid.progettobanca.view.BackStack;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class SpaceTransactionController {
+import java.io.IOException;
+
+public class SpaceTransactionReceiveController {
 
     @FXML
     private ImageView SenderImage;
@@ -31,22 +34,10 @@ public class SpaceTransactionController {
     private Label receiverName;
 
     @FXML
-    private Label receiverSelector;
-
-    @FXML
-    private Label senderName;
-
-    @FXML
-    private Label senderSelector;
-
-    @FXML
-    private HBox spacceReceiver;
-
-    @FXML
     private VBox spaceReciever;
 
     @FXML
-    private HBox spaceSender;
+    private ComboBox<?> spaceSelector;
 
     @FXML
     private Button spaceTransactionConfirm;
@@ -57,8 +48,10 @@ public class SpaceTransactionController {
     }
 
     @FXML
-    void loadPreviousPage(MouseEvent event) {
-
+    void loadPreviousPage(MouseEvent event) throws IOException {
+        BackStack.getInstance().loadPreviousPage();
     }
 
 }
+
+

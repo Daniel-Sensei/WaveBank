@@ -4,6 +4,7 @@ import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.Space;
 import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.view.BackStack;
+import com.uid.progettobanca.view.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -70,12 +71,12 @@ public class SingleSpacePageController implements Initializable {
 
     @FXML
     void transferMoneyToAnotherSpace(MouseEvent event) {
-
+        SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "spaceTransactionSend.fxml");
     }
 
     @FXML
     void transferMoneyToThisSpace(MouseEvent event) {
-
+        SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "spaceTransactionReceive.fxml");
     }
 
     @Override
