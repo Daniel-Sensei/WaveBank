@@ -3,6 +3,7 @@ package com.uid.progettobanca.view;
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.model.DAO.ContiDAO;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,7 +12,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
@@ -55,6 +58,9 @@ public class SceneHandler {
     private BorderPane borderPane = new BorderPane();
 
     Map<String, Parent> pages = new HashMap<>();
+
+    // Imposta la velocità di scrolling
+    public final static double scrollSpeed = 0.1; // Regola questo valore per cambiare la velocità
 
     public static SceneHandler getInstance() {
         return instance;
@@ -261,5 +267,20 @@ public class SceneHandler {
         }
 
          */
+    }
+
+    public void setScrollSpeed(ScrollPane scrollPane) {
+        scrollPane.addEventFilter(ScrollEvent.SCROLL, new EventHandler<ScrollEvent>() {
+            @Override
+            public void handle(ScrollEvent event) {
+                // Regola il valore di vvalue (o hvalue se necessario) in base alla direzione dello scrolling
+                if (event.getDeltaY() > 0) {
+                    scrollPane.setVvalue(scrollPane.getVvalue() - scrollSpeed);
+                } else {
+                    scrollPane.setVvalue(scrollPane.getVvalue() + scrollSpeed);
+                }
+                event.consume(); // Per evitare che l'evento di scrolling venga propagato ad altri nodi
+            }
+        });
     }
 }

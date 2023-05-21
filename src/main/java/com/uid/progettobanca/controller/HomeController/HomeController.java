@@ -6,14 +6,18 @@ import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.Transazione;
 import com.uid.progettobanca.view.SceneHandler;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -50,6 +54,8 @@ public class HomeController implements Initializable {
     private ArrayList<ImageView> homeImages = new ArrayList<>();
 
     DecimalFormat df = new DecimalFormat("#0.00");
+    @FXML
+    private ScrollPane scrollPane;
 
     public void addFocusRemovalListenerToButtons() {
         for (Button button : allHomeButtons) {
@@ -81,6 +87,8 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        SceneHandler.getInstance().setScrollSpeed(scrollPane);
+
         if(homeButtons.isEmpty() || allHomeButtons.isEmpty()){
             loadHomeButtons();
             loadAllHomeButtons();

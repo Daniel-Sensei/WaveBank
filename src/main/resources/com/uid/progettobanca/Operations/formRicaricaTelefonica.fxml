@@ -69,7 +69,7 @@
                   </VBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="50.0" spacing="5.0">
                      <children>
-                        <Label styleClass="subtitleLabel" text="Importo selezionato" />
+                        <Label styleClass="subtitleLabel" text="Importo selezionato: " />
                         <Label fx:id="amountLabel" styleClass="titleLabel" text="10,00 €" />
                      </children>
                      <VBox.margin>
