@@ -78,6 +78,7 @@ public class BolloAutoController implements Initializable {
                 int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
                 ContiDAO.transazione("IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, 50);
                 TransazioniDAO.insert(new Transazione("IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, space, LocalDateTime.now(), 50, "Il pirata ha apprezzato il tuo gesto e ti dona 50 dobloni", "Regalo del Pirata", "Intrattenimento", ""));
+                SceneHandler.getInstance().reloadDynamicPageInHashMap();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

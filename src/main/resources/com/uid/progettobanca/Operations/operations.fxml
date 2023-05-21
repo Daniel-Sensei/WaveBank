@@ -92,10 +92,10 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </HBox>
-                              <HBox fx:id="pagamentiRicorrentiHBox" alignment="CENTER_LEFT" onMouseClicked="#openFormPagamentiRicorrenti" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                              <HBox fx:id="bolloAutoHBox" alignment="CENTER_LEFT" onMouseClicked="#openFormBolloAuto" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                                  <children>
-                                    <ImageView fx:id="pagamentiRicorrenti" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label text="Pagamenti ricorrenti" />
+                                    <ImageView fx:id="bolloAuto" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Label text="Bollo auto" />
                                  </children>
                                  <padding>
                                     <Insets bottom="10.0" left="20.0" top="10.0" />
@@ -104,10 +104,10 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </HBox>
-                              <HBox fx:id="bolloAutoHBox" alignment="CENTER_LEFT" onMouseClicked="#openFormBolloAuto" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                              <HBox fx:id="pagamentiRicorrentiHBox" alignment="CENTER_LEFT" onMouseClicked="#openFormPagamentiRicorrenti" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                                  <children>
-                                    <ImageView fx:id="bolloAuto" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label text="Bollo auto" />
+                                    <ImageView fx:id="pagamentiRicorrenti" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Label text="Pagamenti ricorrenti" />
                                  </children>
                                  <padding>
                                     <Insets bottom="10.0" left="20.0" top="10.0" />

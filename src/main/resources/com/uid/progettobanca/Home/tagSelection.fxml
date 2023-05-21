@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="com.uid.progettobanca.controller.HomeController.TagSelectionController">
+   <content>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#setShopping" prefHeight="75.0" spacing="15.0" styleClass="vbox-with-rounded-border-hbox">
+               <children>
+                  <ImageView fx:id="shopping" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label text="Shopping" />
+               </children>
+               <padding>
+                  <Insets left="25.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#setCibo" prefHeight="75.0" spacing="15.0" styleClass="vbox-with-rounded-border-hbox">
+               <children>
+                  <ImageView fx:id="cibo" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label text="Cibo &amp; Spesa" />
+               </children>
+               <padding>
+                  <Insets left="25.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#setBenessere" prefHeight="75.0" spacing="15.0" styleClass="vbox-with-rounded-border-hbox">
+               <children>
+                  <ImageView fx:id="benessere" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label text="Benessere" />
+               </children>
+               <padding>
+                  <Insets left="25.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#setViaggi" prefHeight="75.0" spacing="15.0" styleClass="vbox-with-rounded-border-hbox">
+               <children>
+                  <ImageView fx:id="viaggi" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label text="Viaggi" />
+               </children>
+               <padding>
+                  <Insets left="25.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#setFinanza" prefHeight="75.0" spacing="15.0" styleClass="vbox-with-rounded-border-hbox">
+               <children>
+                  <ImageView fx:id="finanza" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label text="Assicurazione &amp; Finanza" />
+               </children>
+               <padding>
+                  <Insets left="25.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#setIstruzione" prefHeight="75.0" spacing="15.0" styleClass="vbox-with-rounded-border-hbox">
+               <children>
+                  <ImageView fx:id="istruzione" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label text="Istruzione" />
+               </children>
+               <padding>
+                  <Insets left="25.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#setIntrattenimento" prefHeight="75.0" spacing="15.0" styleClass="vbox-with-rounded-border-hbox">
+               <children>
+                  <ImageView fx:id="intrattenimento" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label text="Intrattenimento" />
+               </children>
+               <padding>
+                  <Insets left="25.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#setStipendio" prefHeight="75.0" spacing="15.0" styleClass="vbox-with-rounded-border-hbox">
+               <children>
+                  <ImageView fx:id="stipendio" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label text="Stipendio" />
+               </children>
+               <padding>
+                  <Insets left="25.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#setMultimedia" prefHeight="75.0" spacing="15.0" styleClass="vbox-with-rounded-border-hbox">
+               <children>
+                  <ImageView fx:id="multimedia" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label text="Multimedia &amp; Elettronica" />
+               </children>
+               <padding>
+                  <Insets left="25.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#setSalute" prefHeight="75.0" spacing="15.0" styleClass="vbox-with-rounded-border-hbox">
+               <children>
+                  <ImageView fx:id="salute" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label text="Salute" />
+               </children>
+               <padding>
+                  <Insets left="25.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#setAmiciFamiglia" prefHeight="75.0" spacing="15.0" styleClass="vbox-with-rounded-border-hbox">
+               <children>
+                  <ImageView fx:id="amiciFamiglia" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label text="Amici &amp; Famiglia" />
+               </children>
+               <padding>
+                  <Insets left="25.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" onMouseClicked="#setAltro" prefHeight="75.0" spacing="15.0" styleClass="vbox-with-rounded-border-hbox-bottom">
+               <children>
+                  <ImageView fx:id="altro" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label text="Altro" />
+               </children>
+               <padding>
+                  <Insets left="25.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </content>
+   <styleClass>
+      <String fx:value="background" />
+      <String fx:value="vbox-with-rounded-border" />
+   </styleClass>
+</ScrollPane>

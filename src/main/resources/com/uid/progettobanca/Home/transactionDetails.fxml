@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -28,7 +27,7 @@
                      <children>
                         <VBox alignment="CENTER_LEFT" spacing="3.0">
                            <children>
-                              <Label fx:id="transactionName" styleClass="titleLabel" text="Transazione X" />
+                              <Label fx:id="transactionName" styleClass="titleLabel" text="Titolo Transazione" />
                               <Label fx:id="backLabel" onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="Indietro">
                                  <graphic>
                                     <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
@@ -44,12 +43,12 @@
                                     <Insets bottom="10.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label fx:id="amountLabel" styleClass="BankTitleLabel" text="-9,99 $">
+                              <Label fx:id="amountLabel" styleClass="BankTitleLabel" text="0,00 $">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Label>
-                              <Label fx:id="dateLabel" text="giovedì 11 maggio 2023, 20:06" />
+                              <Label fx:id="dateLabel" text="data" />
                            </children>
                         </VBox>
                      </children>
@@ -63,13 +62,13 @@
                         <Label styleClass="subtitleLabel" text="Dettagli" />
                         <VBox alignment="CENTER_LEFT" prefWidth="400.0" styleClass="vbox-with-rounded-border">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0" spacing="15.0" styleClass="vbox-with-rounded-border-hbox">
+                              <HBox fx:id="tagHBox" alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0" spacing="24.0" styleClass="vbox-with-rounded-border-hbox">
                                  <children>
-                                    <Button fx:id="send" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
+                                    <ImageView fx:id="tagImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                                     <VBox alignment="CENTER_LEFT">
                                        <children>
                                           <Label styleClass="promptLabel" text="Categoria" />
-                                          <Label fx:id="categoryLabel" text="Shopping" />
+                                          <Label fx:id="categoryLabel" />
                                        </children>
                                     </VBox>
                                     <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
@@ -86,20 +85,16 @@
                                     </HBox>
                                  </children>
                                  <padding>
-                                    <Insets bottom="10.0" left="10.0" top="10.0" />
+                                    <Insets bottom="10.0" left="21.0" top="10.0" />
                                  </padding>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0" spacing="15.0" styleClass="vbox-with-rounded-border-hbox">
                                  <children>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../assets/images/spacesImage/wallet.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="spaceImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                                     <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label styleClass="promptLabel" text="Da" />
-                                          <Label fx:id="spaceLabel" text="Conto corrente principale" />
+                                          <Label fx:id="spaceLabel" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -109,15 +104,11 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0" spacing="25.0" styleClass="vbox-with-rounded-border-hbox">
                                  <children>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../assets/images/IconLight/bank.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="typeImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                                     <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label styleClass="promptLabel" text="Tipo di transizione" />
-                                          <Label fx:id="typeLabel" text="Bonifico" />
+                                          <Label fx:id="typeLabel" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -127,11 +118,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="200.0" spacing="25.0" styleClass="vbox-with-rounded-border-hbox-bottom">
                                  <children>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../assets/images/IconLight/document.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="document" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                                     <Label text="Scarica il PDF della transazione" />
                                  </children>
                                  <padding>
@@ -150,15 +137,11 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" spacing="25.0">
                                  <children>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../assets/images/IconLight/info.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="info" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                                     <VBox alignment="CENTER_LEFT" fillWidth="false" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label styleClass="promptLabel" text="Descrizione" />
-                                          <Label fx:id="descriptionLabel" prefWidth="300.0" text="Pagento del bonifico in data xx/xx/xxxx per aver mangiato da mcdonald" wrapText="true" />
+                                          <Label fx:id="descriptionLabel" prefWidth="300.0" wrapText="true" />
                                        </children>
                                        <HBox.margin>
                                           <Insets />
@@ -174,11 +157,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" spacing="25.0">
                                  <children>
-                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../assets/images/IconLight/comment.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="comment" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                                     <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label styleClass="promptLabel" text="Commenti" />
@@ -210,8 +189,4 @@
          </children>
       </VBox>
    </children>
-   <stylesheets>
-      <URL value="@../../../../css/light.css" />
-      <URL value="@../../../../css/style.css" />
-   </stylesheets>
 </AnchorPane>

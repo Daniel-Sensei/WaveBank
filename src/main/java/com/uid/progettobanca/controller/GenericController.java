@@ -16,6 +16,12 @@ public class GenericController {
             imageView.setImage(ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + imageView.getId() + ".png"));
         }
     }
+    public static void loadImages(String[] names, ArrayList<ImageView> images) {
+        for (int i= 0; i < names.length; i++) {
+            images.get(i).setImage(ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + names[i] + ".png"));
+        }
+    }
+
 
     public static void setSpaceImage(String name, ImageView imageView){
         imageView.setImage(ImageUtils.loadImageFromResource(Settings.SPACE_IMAGE_PATH + name));
@@ -23,6 +29,10 @@ public class GenericController {
 
     public static void loadImage(ImageView imageView){
         imageView.setImage(ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + imageView.getId() + ".png"));
+    }
+
+    public static void loadImage(String name, ImageView imageView){
+        imageView.setImage(ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + name + ".png"));
     }
 
     public static void setCardImage(String name, ImageView imageView){

@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller.HomeController;
 
+import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.Contatto;
 import com.uid.progettobanca.model.DAO.ContattiDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
@@ -12,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
@@ -23,7 +25,7 @@ public class TransactionController implements Initializable {
 
     private Transazione transaction;
     @FXML
-    private Button imageButton;
+    private ImageView tagImage;
 
     @FXML
     private Label amountLabel;
@@ -31,6 +33,12 @@ public class TransactionController implements Initializable {
     @FXML
     private Label transactionLabel;
     DecimalFormat df = new DecimalFormat("#0.00");
+
+    private void setTagImage(String tag){
+        //rimuovi spazi da tag
+        tag = tag.replaceAll("\\s+","");
+        GenericController.loadImage(tag, tagImage);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -44,6 +52,7 @@ public class TransactionController implements Initializable {
 
         try {
             TransactionManager.getInstance().setTransactionName(transactionLabel, transaction);
+            setTagImage(transaction.getTag());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
