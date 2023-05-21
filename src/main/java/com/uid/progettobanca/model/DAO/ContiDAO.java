@@ -174,7 +174,7 @@ public class ContiDAO {
         String countryCode = "IT";
         String bankCode = generateRandomDigits(5);
         String branchCode = generateRandomDigits(5);
-        String accountNumber = generateRandomDigits(12);
+        String accountNumber = generateRandomDigits(13);
 
         String partialIban = bankCode + branchCode + accountNumber + countryCode + "00";
         int checkDigit = calculateMod97(partialIban);
