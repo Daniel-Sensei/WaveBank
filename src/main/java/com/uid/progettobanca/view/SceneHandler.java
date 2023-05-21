@@ -55,7 +55,7 @@ public class SceneHandler {
 
     String[] dynamicPages = {HOME_PATH + "home.fxml", MANAGE_PATH + "manage.fxml", SPACES_PATH + "spaces.fxml"};
 
-    private BorderPane borderPane = new BorderPane();
+    public static BorderPane borderPane = new BorderPane();
 
     Map<String, Parent> pages = new HashMap<>();
 
@@ -73,6 +73,31 @@ public class SceneHandler {
         return stage;
     }
 
+    public void createLoginScene(Stage stage) {
+
+        this.stage = stage;
+        this.stage.setTitle("Login");
+
+        // Ottieni le dimensioni dello schermo
+        double screenWidth = Screen.getPrimary().getVisualBounds().getWidth();
+        double screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
+
+
+        borderPane = new BorderPane();
+        borderPane.getStyleClass().add("root"); /*imposta proprietà root per il font family*/
+        scene = new Scene(borderPane, 470, 720);
+        loadFonts();
+
+        createPage( "login.fxml");
+
+        this.stage.setScene(scene);
+        this.stage.getScene().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + Settings.CSS_THEME, CSS_PATH + "style.css");
+        this.stage.setResizable(false);
+        // Centra la finestra dello stage sulla schermata
+        this.stage.setX((screenWidth - scene.getWidth()) / 2);
+        this.stage.setY((screenHeight - scene.getHeight()) / 2);
+        this.stage.show();
+    }
 
     public void init(Stage stage) {
         //inizializzazione della parte visiva del programma, da modificare all'aggiunta del login
@@ -96,7 +121,7 @@ public class SceneHandler {
 
 
             this.stage.setScene(scene);
-            this.stage.getScene().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + "light.css", CSS_PATH + "style.css");
+            this.stage.getScene().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + Settings.CSS_THEME, CSS_PATH + "style.css");
             this.stage.setResizable(false);
             // Centra la finestra dello stage sulla schermata
             this.stage.setX((screenWidth - scene.getWidth()) / 2);
@@ -213,33 +238,6 @@ public class SceneHandler {
         }
     }
 
-    public void switchTheme(){
-        Settings.switchTheme();
-        this.stage.getScene().getStylesheets().clear();
-        this.stage.getScene().getStylesheets().addAll("/css/fonts.css", "/css/" + Settings.CSS_THEME, "/css/style.css");
-        createMenuBar();
-        //Bisogna caricare la pagina delle impostazioni
-        //createPage(SceneHandler.getInstance().HOME_PATH + "home.fxml");
-    }
-
-     public void createLoginScene(Stage stage) {
-
-             this.stage = stage;
-             this.stage.setTitle("Login");
-
-             borderPane.getStyleClass().add("root"); /*imposta proprietà root per il font family*/
-
-             scene = new Scene(borderPane, 470, 720);
-
-             loadFonts();
-
-             createPage( "login.fxml");
-
-             this.stage.setScene(scene);
-             this.stage.getScene().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + "light.css", CSS_PATH + "style.css");
-             this.stage.setResizable(false);
-             this.stage.show();
-     }
 
 
     public void showError(String pageTitle, String headerMassage, String contentText) {
@@ -267,6 +265,15 @@ public class SceneHandler {
         }
 
          */
+    }
+
+    public void changeTheme() {
+        pages.clear();
+        this.stage.getScene().getStylesheets().clear();
+        this.stage.getScene().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + Settings.CSS_THEME, CSS_PATH + "style.css");
+        createMenuBar();
+        PageLoaderThread pageLoaderThread = new PageLoaderThread();
+        pageLoaderThread.start();
     }
 
     public void setScrollSpeed(ScrollPane scrollPane) {

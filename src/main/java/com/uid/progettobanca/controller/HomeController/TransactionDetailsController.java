@@ -75,6 +75,8 @@ public class TransactionDetailsController implements Initializable {
 
     @FXML
     private ImageView tagImage;
+    @FXML
+    private ImageView back;
 
     @FXML
     private Label transactionName;
@@ -97,6 +99,7 @@ public class TransactionDetailsController implements Initializable {
         transactionDetailsImages.add(comment);
         transactionDetailsImages.add(document);
         transactionDetailsImages.add(info);
+        transactionDetailsImages.add(back);
     }
     private void setTagImage(String tag){
         //rimuovi spazi da tag
