@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -29,13 +31,6 @@
                            <children>
                               <Label styleClass="titleLabel" text="Sicurezza" />
                               <Label styleClass="subtitleLabel" text="Indietro">
-                                 <graphic>
-                                    <ImageView fitHeight="12.0" fitWidth="12.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../assets/images/light/right-arrow.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -53,36 +48,21 @@
                         <Label styleClass="subtitleLabel" text="Modifica password" />
                         <VBox alignment="CENTER_RIGHT" fillWidth="false" spacing="10.0" styleClass="card">
                            <children>
-                              <TextField prefHeight="50.0" prefWidth="350.0" promptText="Password attuale" />
-                              <HBox>
+                              <TextField fx:id="emailField" prefHeight="54.0" prefWidth="350.0" promptText="Email" />
+                              <PasswordField fx:id="oldPsw" prefHeight="54.0" prefWidth="350.0" promptText="Vecchia password" />
+                              <HBox prefWidth="349.0">
                                  <children>
-                                    <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../assets/images/aggiungi.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Label text="Mostra password attuale">
+                                    <Label text="Nuova Password">
                                        <HBox.margin>
                                           <Insets bottom="20.0" />
-                                       </HBox.margin></Label>
+                                       </HBox.margin>
+                                    </Label>
+                                    <VBox prefWidth="261.0" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
-                              <TextField prefHeight="50.0" prefWidth="350.0" promptText="Nuova password" />
-                              <TextField prefHeight="50.0" prefWidth="350.0" promptText="Conferma nuova password" />
-                              <HBox>
-                                 <children>
-                                    <ImageView fitHeight="21.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../assets/images/aggiungi.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Label text="Mostra nuova password">
-                                       <HBox.margin>
-                                          <Insets bottom="20.0" />
-                                       </HBox.margin></Label>
-                                 </children>
-                              </HBox>
-                              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="greenButton" text="Invia">
+                              <PasswordField fx:id="newPsw" prefHeight="54.0" prefWidth="350.0" promptText="Nuova password" />
+                              <PasswordField fx:id="confirmPsw" prefHeight="54.0" prefWidth="350.0" promptText="Conferma password" />
+                              <Button mnemonicParsing="false" onAction="#sendButtonPressed" prefHeight="40.0" prefWidth="100.0" styleClass="greenButton" text="Invia">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -99,7 +79,7 @@
                         <Label styleClass="subtitleLabel" text="Altro" />
                         <VBox alignment="CENTER_LEFT" fillWidth="false" spacing="5.0" styleClass="card">
                            <children>
-                              <HBox spacing="10.0">
+                              <HBox onMouseClicked="#pswGuide" spacing="10.0">
                                  <children>
                                     <ImageView fitHeight="50.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -126,4 +106,9 @@
          </children>
       </VBox>
    </children>
+   <stylesheets>
+      <URL value="@../../../../css/fonts.css" />
+      <URL value="@../../../../css/style.css" />
+      <URL value="@../../../../css/light.css" />
+   </stylesheets>
 </AnchorPane>
