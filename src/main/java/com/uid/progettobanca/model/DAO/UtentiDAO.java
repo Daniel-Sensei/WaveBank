@@ -159,6 +159,36 @@ public class UtentiDAO {
         }
     }
 
+    // restituisce l'id utente dall'email
+    public static int getUserIdByEmail(String email) throws SQLException {
+        String query = "SELECT user_id FROM utenti WHERE email = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, email);
+            try (ResultSet result = stmt.executeQuery()) {
+                if (result.next()) {
+                    return result.getInt("user_id");
+                } else {
+                    return 0;
+                }
+            }
+        }
+    }
+
+    // restituisce l'email dall'id utente
+    public static String getEmailByUserId(int user_id) throws SQLException {
+        String query = "SELECT email FROM utenti WHERE user_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, user_id);
+            try (ResultSet result = stmt.executeQuery()) {
+                if (result.next()) {
+                    return result.getString("email");
+                } else {
+                    return "";
+                }
+            }
+        }
+    }
+
 
     // restituisce l'id dell'utente se il login va a buon fine, altrimenti null
     public static int login(String email, String password) throws SQLException {
