@@ -29,7 +29,8 @@ public class SingleChartController {
     public void initialize() {
         chart = ChartsManager.getInstance().getNextChart();
         chartName.setText(chart);
-        //GenericController.setChartImage(chart, chartImage);
+        loadChartImg load = new loadChartImg();
+        load.load(chart, chartImage);
         GraphCalculator graphCalculator = new GraphCalculator();
         ReturnChart returnChart = graphCalculator.TagGraphCalculator(30, chart);
         lineChart.getData().add(returnChart.getSeries());

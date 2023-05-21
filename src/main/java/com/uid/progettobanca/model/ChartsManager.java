@@ -17,7 +17,7 @@ public class ChartsManager {
 
     public void fillQueue(){
         System.out.println("sono in fill queue");
-        Collections.addAll(chartsQueue,"Altro","Shopping", "Cibo", "Benessere" , "Viaggi", "Assicurazione e Finanza","Educazione", "Famiglia e Amici", "Multimedia ed Elettronica", "Stipendio", "Intrattenimento", "Salute");
+        Collections.addAll(chartsQueue,"Altro", "Amici & Famiglia", "Benessere", "Cibo & Spesa", "Assicurazione & Finanza", "Intrattenimento", "Istruzione", "Multimedia & Elettronica", "Salute", "Shopping", "Stipendio", "Viaggi");
         System.out.println("esco fill queue");
     }
 
