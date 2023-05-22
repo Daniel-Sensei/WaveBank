@@ -36,7 +36,7 @@ public class SecurityController {
     @FXML
     void sendButtonPressed (ActionEvent event) {
         try {
-            if(UtentiDAO.login(UtentiDAO.getEmailByUserId(BankApplication.getCurrentlyLoggedUser()), oldPsw.getText()) != 0){
+            if(UtentiDAO.checkPassword(BankApplication.getCurrentlyLoggedUser(), oldPsw.getText())){
                 if(newPsw.getText().equals(confirmPsw.getText())){
                     UtentiDAO.updatePassword(UtentiDAO.getEmailByUserId(BankApplication.getCurrentlyLoggedUser()), newPsw.getText());
                     SceneHandler.getInstance().showInfo("Cambio password", "Cambio password effettuato", "Hai cambiato password!");
@@ -47,8 +47,6 @@ public class SecurityController {
                 }
             }
             else {
-                System.out.println("nuova psww: " + oldPsw.getText());
-                System.out.println("vecchia psww: " + UtentiDAO.selectByUserId(BankApplication.getCurrentlyLoggedUser()).getPassword());
                 SceneHandler.getInstance().showError("Errore", "Password errata", "Le vecchia password è errata");
             }
         } catch (SQLException e) {
