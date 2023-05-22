@@ -10,9 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GraphCalculator {
-    public XYChart.Series MainGraphCalculator(int DaysInterval, int chartPrecision){
+    public XYChart.Series MainGraphCalculator(int DaysInterval){
         try {
-            int SplitInterval = DaysInterval/chartPrecision;
             XYChart.Series data = new XYChart.Series();
             List<Transazione> transazioni = TransazioniDAO.selectByIban(BankApplication.getCurrentlyLoggedIban());
 
@@ -29,15 +28,15 @@ public class GraphCalculator {
 
             List<Double> DaysValues = new ArrayList<>();
             List<LocalDateTime> Days = new ArrayList<>();
-            for(int i =0; i<chartPrecision; i++){
+            for(int i =0; i<DaysInterval; i++){
                 DaysValues.add(0.0);
             }
             //somma ogni 3 giorni le transazioni al saldo iniziale
             LocalDateTime now = LocalDateTime.now();
             for(int i=0; i<transazioni.size(); i++) {
                 int iterations = 0;
-                for (LocalDateTime j = LocalDateTime.now().minusDays(DaysInterval); j.isBefore(now); j = j.plusDays(SplitInterval)) {
-                    if (transazioni.get(i).getDateTime().isAfter(j) && transazioni.get(i).getDateTime().isBefore(j.plusDays(SplitInterval))) {
+                for (LocalDateTime j = LocalDateTime.now().minusDays(DaysInterval); j.isBefore(now); j = j.plusDays(1)) {
+                    if (transazioni.get(i).getDateTime().isAfter(j) && transazioni.get(i).getDateTime().isBefore(j.plusDays(1))) {
                         DaysValues.set(iterations, DaysValues.get(iterations) + transazioni.get(i).getImporto());
                     }
                     iterations++;
@@ -76,7 +75,7 @@ public class GraphCalculator {
             List<Transazione> transazioni = TransazioniDAO.selectByIban(BankApplication.getCurrentlyLoggedIban());
 
             List<Double> DaysValues = new ArrayList<>();
-            for(int i =0; i<15; i++){
+            for(int i =0; i<DaysInterval; i++){
                 DaysValues.add(0.0);
             }
 
