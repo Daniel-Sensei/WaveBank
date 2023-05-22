@@ -1,6 +1,5 @@
 package com.uid.progettobanca.controller.ManageController;
 
-import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.ChartsManager;
 import com.uid.progettobanca.model.GraphCalculator;
 import com.uid.progettobanca.model.ReturnChart;
@@ -29,7 +28,7 @@ public class SingleChartController {
     public void initialize() {
         chart = ChartsManager.getInstance().getNextChart();
         chartName.setText(chart);
-        loadChartImg load = new loadChartImg();
+        LoadChartImg load = new LoadChartImg();
         load.load(chart, chartImage);
         GraphCalculator graphCalculator = new GraphCalculator();
         ReturnChart returnChart = graphCalculator.TagGraphCalculator(30, chart);

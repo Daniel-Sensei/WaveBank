@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -47,11 +46,7 @@
                               <Label fx:id="nameLabel" text="Nome Cognome" HBox.hgrow="ALWAYS" />
                               <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../assets/images/menu-bar-light/spaces.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </HBox>
                            </children>
@@ -90,11 +85,7 @@
                               <Label text="Benvenuto in Wave!" HBox.hgrow="ALWAYS" />
                               <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../assets/images/menu-bar-light/spaces.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </HBox>
                            </children>
@@ -190,7 +181,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </HBox>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                                    <HBox alignment="CENTER_LEFT" onMouseClicked="#openSafety" prefHeight="75.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                                        <children>
                                           <ImageView fx:id="security" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                                           <Label text="Sicurezza" HBox.hgrow="ALWAYS" />
@@ -207,7 +198,7 @@
                                           <Insets bottom="10.0" left="20.0" top="10.0" />
                                        </padding>
                                     </HBox>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox-bottom">
+                                    <HBox alignment="CENTER_LEFT" onMouseClicked="#openDeleteAccount" prefHeight="75.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox-bottom">
                                        <children>
                                           <ImageView fx:id="cross" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                                           <Label text="Chiudi conto" HBox.hgrow="ALWAYS" />

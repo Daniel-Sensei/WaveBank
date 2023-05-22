@@ -2,6 +2,8 @@ package com.uid.progettobanca.controller.MyAccountController;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
+import com.uid.progettobanca.model.DAO.UtentiDAO;
+import com.uid.progettobanca.model.Utente;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +18,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -81,15 +84,6 @@ public class MyAccountController implements Initializable {
         myAccountImages.add(myAccount);
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        if (myAccountImages.isEmpty()){
-            loadMyAccountImages();
-        }
-        GenericController.loadImages(myAccountImages);
-        GenericController.loadImageButton(logout);
-    }
-
     @FXML
     void userLogout(ActionEvent event) {
         //Completare il logout
@@ -102,7 +96,34 @@ public class MyAccountController implements Initializable {
     }
 
     @FXML
+    void openDeleteAccount(MouseEvent event) {
+        openGenericPage("deleteAccount.fxml");
+    }
+
+    @FXML
+    void openSafety(MouseEvent event) {
+        openGenericPage("safety.fxml");
+    }
+
+    @FXML
     void openSettings(MouseEvent event) {
         openGenericPage("settings.fxml");
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (myAccountImages.isEmpty()){
+            loadMyAccountImages();
+        }
+        GenericController.loadImages(myAccountImages);
+        GenericController.loadImageButton(logout);
+        try {
+            Utente user = UtentiDAO.selectByUserId(BankApplication.getCurrentlyLoggedUser());
+            nameLabel.setText(user.getNome()+ " " + user.getCognome());
+            ibanLabel.setText(BankApplication.getCurrentlyLoggedIban());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

@@ -16,7 +16,7 @@ public class PageLoaderThread extends Thread {
             SceneHandler.MANAGE_PATH + "manage.fxml",
             SceneHandler.MY_ACCOUNT_PATH + "myAccount.fxml",
             SceneHandler.MY_ACCOUNT_PATH + "deleteAccount.fxml",
-            SceneHandler.MY_ACCOUNT_PATH + "security.fxml",
+            SceneHandler.MY_ACCOUNT_PATH + "safety.fxml",
             SceneHandler.MY_ACCOUNT_PATH + "settings.fxml",
             SceneHandler.OPERATIONS_PATH + "operations.fxml",
             SceneHandler.OPERATIONS_PATH + "formBollettino.fxml",

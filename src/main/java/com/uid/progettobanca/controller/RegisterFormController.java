@@ -3,12 +3,11 @@ package com.uid.progettobanca.controller;
 import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
 import com.uid.progettobanca.model.Utente;
-import com.uid.progettobanca.model.createCard;
+import com.uid.progettobanca.model.CreateCard;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
@@ -134,7 +133,7 @@ public class RegisterFormController implements Initializable {
             } else {
                 try {
                     UtentiDAO.insert(new Utente(name.getText(), surname.getText(), address.getText(), LocalDate.parse(convertDate(getDate())), phone.getText(), email.getText(), password.getText(), questions.getValue(), answer.getText(), ContiDAO.generateNew()));
-                    createCard.createDebitcard(UtentiDAO.getUserIdByEmail(email.getText()));
+                    CreateCard.createDebitcard(UtentiDAO.getUserIdByEmail(email.getText()));
                     SceneHandler.getInstance().showInfo("Registrazione", "Registrazione effettuata con successo", "Ora puoi effettuare il login");
                     SceneHandler.getInstance().setPage("login.fxml");
                 } catch (SQLException e) {

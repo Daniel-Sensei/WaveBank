@@ -3,7 +3,7 @@ package com.uid.progettobanca.controller.ManageController;
 import com.uid.progettobanca.controller.GenericController;
 import javafx.scene.image.ImageView;
 
-public class loadChartImg {
+public class LoadChartImg {
     //nomi tags "Altro", "Amici & Famiglia", "Benessere", "Cibo & Spesa", "Assicurazione & Finanza", "Intrattenimento", "Istruzione", "Multimedia & Elettronica", "Salute", "Shopping", "Stipendio", "Viaggi"
     //nomi img "altro", "Amici&Famiglia", "benessere", "Cibo&Spesa", "Assicurazione&Finanza", "intrattenimento", "istruzione", "Multimedia&Elettronica", "salute", "shopping", "stipendio", "viaggi
     public void load(String tag, ImageView chartImage){

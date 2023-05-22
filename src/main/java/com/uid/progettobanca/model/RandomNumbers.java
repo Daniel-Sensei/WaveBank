@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class randomNumbers {
+public class RandomNumbers {
 
     public static String generateRandomNumbers(int count) {
         List<Integer> randomNumbers = new ArrayList<>();

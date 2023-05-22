@@ -13,7 +13,7 @@ import java.net.URI;
 import java.sql.SQLException;
 
 
-public class SecurityController {
+public class SafetyController {
 
     @FXML
     private PasswordField confirmPsw;
