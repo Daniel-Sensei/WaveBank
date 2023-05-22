@@ -208,15 +208,15 @@ public class UtentiDAO {
     // restituisce l'id dell'utente se il login va a buon fine, altrimenti null
     public static int login(String email, String password) throws SQLException {
         // cerca l'utente nel database
-        String query = "SELECT password, user_id FROM utenti WHERE email = ?";
+        String query = "SELECT user_id FROM utenti WHERE email = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, email);
             try (ResultSet result = stmt.executeQuery()) {
                 if (result.next()) {
-                    String storedPassword = result.getString("password");
+                    int user = result.getInt("user_id");
                     // se la password è corretta, restituisce l'id dell'utente
-                    if (BCrypt.checkpw(password, storedPassword)) {
-                        return result.getInt("user_id");
+                    if (checkPassword(user, password)) {
+                        return user;
                     } else {
                         SceneHandler.getInstance().showError("Errore Login", "Email o Password Errati", "L'email o la password inseriti non sono corretti, per favore riprovare");
                         return 0;
@@ -224,6 +224,24 @@ public class UtentiDAO {
                 } else {
                     SceneHandler.getInstance().showError("Errore Login", "Email o Password Errati", "L'email o la password inseriti non sono corretti, per favore riprovare");
                     return 0;
+                }
+            }
+        }
+    }
+
+
+    // checkPassword
+    public static boolean checkPassword(int user_id, String password) throws SQLException {
+        // cerca l'utente nel database
+        String query = "SELECT password FROM utenti WHERE user_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, user_id);
+            try (ResultSet result = stmt.executeQuery()) {
+                if (result.next()) {
+                    String storedPassword = result.getString("password");
+                   return BCrypt.checkpw(password, storedPassword);
+                } else {
+                    return false;
                 }
             }
         }
