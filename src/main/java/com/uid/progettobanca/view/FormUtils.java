@@ -160,4 +160,13 @@ public class FormUtils {
         }
         return null;
     }
+
+    public double getSpaceBalance(String spaceName){
+        for (Space space : spaces){
+            if (space.getNome().equals(spaceName)){
+                return space.getSaldo();
+            }
+        }
+        return Double.parseDouble(null);
+    }
 }

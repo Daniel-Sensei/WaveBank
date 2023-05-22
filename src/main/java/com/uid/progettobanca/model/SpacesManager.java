@@ -7,8 +7,20 @@ import java.util.Queue;
 
 public class SpacesManager {
     private static SpacesManager instance;  // Istanza singleton
+
     private Queue<Space> spacesQueue;
 
+    private Space currentSpace;
+
+    private String transactionDirection;
+
+    public String getTransactionDirection() {
+        return transactionDirection;
+    }
+
+    public void setTransactionDirection(String transactionDirection) {
+        this.transactionDirection = transactionDirection;
+    }
 
     private SpacesManager() {
     }
@@ -30,6 +42,14 @@ public class SpacesManager {
         return instance;
     }
 
+    public Space getCurrentSpace() {
+        return currentSpace;
+    }
+
+    public void setCurrentSpace(Space currentSpace) {
+        this.currentSpace = currentSpace;
+    }
+
     public Space getNextSpace() {
         return spacesQueue.poll();
     }
@@ -41,4 +61,6 @@ public class SpacesManager {
     public void setSpaceIntoQueue(Space space){
         spacesQueue.add(space);
     }
+
+
 }

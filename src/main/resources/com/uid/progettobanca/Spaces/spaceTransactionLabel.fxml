@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="360.0" spacing="10.0" styleClass="vbox-with-rounded-border" stylesheets="@../../../../css/style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController.SpaceTransactionLabelController">
+   <children>
+      <ImageView fx:id="receiverImage" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../assets/images/spacesImage/computer.png" />
+         </image>
+      </ImageView>
+      <VBox fx:id="spaceReciever" alignment="CENTER_LEFT" spacing="5.0">
+         <children>
+            <Label fx:id="receiverName" styleClass="spaceTransactionNameLabel" text="This space">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Label>
+            <Label fx:id="Balance" styleClass="spaceTransactionBalanceLabel" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+   </padding>
+</HBox>

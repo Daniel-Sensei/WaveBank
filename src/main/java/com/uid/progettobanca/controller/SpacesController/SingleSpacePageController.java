@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 public class SingleSpacePageController implements Initializable {
@@ -73,21 +74,22 @@ public class SingleSpacePageController implements Initializable {
 
     @FXML
     void transferMoneyToAnotherSpace(MouseEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "spaceTransactionSend.fxml");
-        SpacesManager.getInstance().setSpaceIntoQueue(actualSpace);
+        SpacesManager.getInstance().setTransactionDirection("Dx");
+        SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "spaceTransaction.fxml");
     }
 
     @FXML
     void transferMoneyToThisSpace(MouseEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "spaceTransactionReceive.fxml");
-        SpacesManager.getInstance().setSpaceIntoQueue(actualSpace);
+        SpacesManager.getInstance().setTransactionDirection("Sx");
+        SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "spaceTransaction.fxml");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
         Space space = SpacesManager.getInstance().getNextSpace();
-        actualSpace = space;
-        balanceLabel.setText(space.getSaldo() + " €");
+        SpacesManager.getInstance().setCurrentSpace(space);
+        balanceLabel.setText(decimalFormat.format(space.getSaldo())+ " €");
         GenericController.setSpaceImage(space.getImage(), spaceLogoButton);
         spacePageName.setText(space.getNome());
     }
