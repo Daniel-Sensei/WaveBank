@@ -60,7 +60,7 @@ public class SceneHandler {
     Map<String, Parent> pages = new HashMap<>();
 
     // Imposta la velocità di scrolling
-    public final static double scrollSpeed = 0.1; // Regola questo valore per cambiare la velocità
+    public final static double scrollSpeed = 0.05; // Regola questo valore per cambiare la velocità
 
     public static SceneHandler getInstance() {
         return instance;

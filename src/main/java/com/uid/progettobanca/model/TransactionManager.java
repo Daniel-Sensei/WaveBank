@@ -9,10 +9,9 @@ import javafx.scene.control.Label;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
-import java.util.Locale;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 public class TransactionManager {
     private static TransactionManager instance;  // Istanza singleton
@@ -46,31 +45,32 @@ public class TransactionManager {
         transactionsDate.push(transazione);
     }
 
-    public String[] convertToLocalDates(String[] dates) {
+    public List<String> convertToLocalDates(List<String> dates) {
         // Creazione del formatter per il formato desiderato
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ITALIAN);
 
-        // Array per memorizzare i risultati delle conversioni
-        String[] convertedDates = new String[dates.length];
+        // Lista per memorizzare i risultati delle conversioni
+        List<String> convertedDates = new ArrayList<>();
 
         // Iterazione sulle date fornite
-        for (int i = 0; i < dates.length; i++) {
+        for (String dateStr : dates) {
             // Parsing della data fornita
-            LocalDate date = LocalDate.parse(dates[i], formatter);
+            LocalDate date = LocalDate.parse(dateStr, formatter);
 
             // Calcolo delle differenze di giorni rispetto alla data odierna
             long daysDifference = ChronoUnit.DAYS.between(date, LocalDate.now());
 
             if (daysDifference == 0) {
-                convertedDates[i] = "Oggi".toUpperCase();
+                convertedDates.add("Oggi".toUpperCase());
             } else if (daysDifference == 1) {
-                convertedDates[i] = "Ieri".toUpperCase();
+                convertedDates.add("Ieri".toUpperCase());
             } else if (daysDifference < 7) {
-                convertedDates[i] = date.getDayOfWeek().toString().toLowerCase().substring(0, 1).toUpperCase() + date.getDayOfWeek().toString().toLowerCase().substring(1).toUpperCase();
+                String dayOfWeek = date.getDayOfWeek().getDisplayName(TextStyle.FULL_STANDALONE, Locale.ITALIAN);
+                convertedDates.add(dayOfWeek.toUpperCase());
             } else {
                 // Formattazione della data nel formato desiderato
                 DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("EEEE d MMMM", Locale.ITALIAN);
-                convertedDates[i] = date.format(outputFormatter).toUpperCase();
+                convertedDates.add(date.format(outputFormatter).toUpperCase());
             }
         }
         return convertedDates;
