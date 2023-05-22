@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.ManageController;
 
         import com.uid.progettobanca.BankApplication;
+        import com.uid.progettobanca.controller.GenericController;
         import com.uid.progettobanca.model.CardsManager;
         import com.uid.progettobanca.model.DAO.TransazioniDAO;
         import com.uid.progettobanca.model.GraphCalculator;
@@ -88,6 +89,13 @@ public class ManageController {
     } */
 
     @FXML
+    private ImageView back;
+
+    @FXML
+    private ImageView forward;
+
+
+    @FXML
     void addCardPressed(ActionEvent event) {
         SceneHandler.getInstance().createPage(SceneHandler.getInstance().MANAGE_PATH + "FormCreateCard.fxml");
     }
@@ -104,17 +112,19 @@ public class ManageController {
 
     @FXML
     void trimestralPressed(ActionEvent event) {
-        chart.getData().set(0, graphCalculator.MainGraphCalculator(90, 45));
+        chart.getData().set(0, graphCalculator.MainGraphCalculator(90, 90));
     }
 
     @FXML
     void annualPressed(ActionEvent event) {
-        chart.getData().set(0,graphCalculator.MainGraphCalculator(360, 60));
+        chart.getData().set(0,graphCalculator.MainGraphCalculator(365, 365));
     }
     public void initialize() {
         chart.getData().add(graphCalculator.MainGraphCalculator(30, 30));  //passare quanti giorni da calcolare nel grafico
         CardsManager.getInstance().fillQueue();
         numcarte=CardsManager.getInstance().getSize();
+        GenericController.loadImage(back);
+        GenericController.loadImage(forward);
 
         loadCard();
     }

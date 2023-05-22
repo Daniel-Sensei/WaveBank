@@ -21,13 +21,14 @@ public class GraphCalculator {
             //trova il saldo iniziale
             for(int i=0; i<transazioni.size(); i++){
                 LocalDateTime now = LocalDateTime.now();
-                LocalDateTime thirtyDaysAgo = now.minusDays(DaysInterval);
-                if (transazioni.get(i).getDateTime().isBefore(thirtyDaysAgo)) {
+                LocalDateTime xDaysAgo = now.minusDays(DaysInterval);
+                if (transazioni.get(i).getDateTime().isBefore(xDaysAgo)) {
                     baseline += transazioni.get(i).getImporto();
                 }
             }
 
             List<Double> DaysValues = new ArrayList<>();
+            List<LocalDateTime> Days = new ArrayList<>();
             for(int i =0; i<chartPrecision; i++){
                 DaysValues.add(0.0);
             }
@@ -51,6 +52,14 @@ public class GraphCalculator {
                 else{
                     DaysValues.set(i, DaysValues.get(i)+DaysValues.get(i-1));
                 }
+              /*  if(LocalDateTime.now().minusDays(DaysValues.size()-i).getDayOfMonth()==1){
+                    data.getData().add(new XYChart.Data(String.valueOf(LocalDateTime.now().minusDays(DaysValues.size()-i).getMonth()), DaysValues.get(i)));
+                }
+                else{                           //si vede uno schifo
+                    data.getData().add(new XYChart.Data(String.valueOf(i), DaysValues.get(i)));
+                } */
+
+                //data.getData().add(new XYChart.Data("", DaysValues.get(i)));  //l'ho usato per mettere solo i nomi dei mesi e i giorni lasciarli bianchi ma sovrascrive ogni volta
                 data.getData().add(new XYChart.Data(String.valueOf(i), DaysValues.get(i)));
             }
             return data;
@@ -95,6 +104,8 @@ public class GraphCalculator {
                 }
             }
             ReturnChart doppio = new ReturnChart();
+            //max deve avere massimo 2 cifre dopo la virgola
+            max = Math.round(max*100.0)/100.0;
             doppio.SetReturnChart(max, data);
             return doppio;
 
