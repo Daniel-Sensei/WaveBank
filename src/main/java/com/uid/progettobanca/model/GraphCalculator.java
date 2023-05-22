@@ -10,9 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GraphCalculator {
-    public XYChart.Series MainGraphCalculator(int DaysInterval){
+    public XYChart.Series MainGraphCalculator(int DaysInterval, int chartPrecision){
         try {
-            int chartPrecision = 30;
             int SplitInterval = DaysInterval/chartPrecision;
             XYChart.Series data = new XYChart.Series();
             List<Transazione> transazioni = TransazioniDAO.selectByIban(BankApplication.getCurrentlyLoggedIban());

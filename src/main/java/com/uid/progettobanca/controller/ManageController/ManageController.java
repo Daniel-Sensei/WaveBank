@@ -99,20 +99,20 @@ public class ManageController {
 
     @FXML
     void monthlyPressed(ActionEvent event) {
-        chart.getData().set(0,graphCalculator.MainGraphCalculator(30));
+        chart.getData().set(0,graphCalculator.MainGraphCalculator(30, 30));
     }
 
     @FXML
     void trimestralPressed(ActionEvent event) {
-        chart.getData().set(0, graphCalculator.MainGraphCalculator(90));
+        chart.getData().set(0, graphCalculator.MainGraphCalculator(90, 45));
     }
 
     @FXML
     void annualPressed(ActionEvent event) {
-        chart.getData().set(0,graphCalculator.MainGraphCalculator(360));
+        chart.getData().set(0,graphCalculator.MainGraphCalculator(360, 60));
     }
     public void initialize() {
-        chart.getData().add(graphCalculator.MainGraphCalculator(30));  //passare quanti giorni da calcolare nel grafico
+        chart.getData().add(graphCalculator.MainGraphCalculator(30, 30));  //passare quanti giorni da calcolare nel grafico
         CardsManager.getInstance().fillQueue();
         numcarte=CardsManager.getInstance().getSize();
 

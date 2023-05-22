@@ -19,6 +19,8 @@ import java.util.ResourceBundle;
 
 public class SingleSpacePageController implements Initializable {
 
+    private Space actualSpace;
+
     @FXML
     private Label backButton;
 
@@ -72,19 +74,21 @@ public class SingleSpacePageController implements Initializable {
     @FXML
     void transferMoneyToAnotherSpace(MouseEvent event) {
         SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "spaceTransactionSend.fxml");
+        SpacesManager.getInstance().setSpaceIntoQueue(actualSpace);
     }
 
     @FXML
     void transferMoneyToThisSpace(MouseEvent event) {
         SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "spaceTransactionReceive.fxml");
+        SpacesManager.getInstance().setSpaceIntoQueue(actualSpace);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Space space = SpacesManager.getInstance().getNextSpace();
+        actualSpace = space;
         balanceLabel.setText(space.getSaldo() + " €");
         GenericController.setSpaceImage(space.getImage(), spaceLogoButton);
         spacePageName.setText(space.getNome());
-
     }
 }

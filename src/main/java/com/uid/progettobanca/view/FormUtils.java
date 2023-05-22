@@ -151,4 +151,13 @@ public class FormUtils {
         amountText = amountText.replaceAll("€", "");
         return Double.parseDouble(amountText);
     }
+
+    public String getSpaceImage(String spaceName) {
+        for(Space space : spaces) {
+            if(space.getNome().equals(spaceName)) {
+                return space.getImage();
+            }
+        }
+        return null;
+    }
 }

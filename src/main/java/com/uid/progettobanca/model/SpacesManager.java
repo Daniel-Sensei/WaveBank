@@ -9,6 +9,7 @@ public class SpacesManager {
     private static SpacesManager instance;  // Istanza singleton
     private Queue<Space> spacesQueue;
 
+
     private SpacesManager() {
     }
 

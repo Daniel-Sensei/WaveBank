@@ -1,8 +1,13 @@
 package com.uid.progettobanca.controller.SpacesController;
 
+import com.uid.progettobanca.controller.GenericController;
+import com.uid.progettobanca.model.Space;
+import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.view.BackStack;
+import com.uid.progettobanca.view.FormUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -12,11 +17,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Queue;
+import java.util.ResourceBundle;
 
-public class SpaceTransactionSendController {
+public class SpaceTransactionSendController implements Initializable {
 
     @FXML
-    private ImageView SenderImage;
+    private ImageView senderImage;
 
     @FXML
     private Label backButton;
@@ -31,7 +41,7 @@ public class SpaceTransactionSendController {
     private ImageView receiverImage;
 
     @FXML
-    private ComboBox<?> spaceChooser;
+    private ComboBox<String> spaceChooser;
 
     @FXML
     private VBox spaceReciever;
@@ -52,6 +62,25 @@ public class SpaceTransactionSendController {
         BackStack.getInstance().loadPreviousPage();
     }
 
+    private void setReceiverImage(ImageView image){
+        GenericController.setSpaceImage(FormUtils.getInstance().getSpaceImage(spaceChooser.getValue()),image);
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            FormUtils.getInstance().fillSpacesComboBox(spaceChooser);
+            setReceiverImage(receiverImage);
+            spaceChooser.getValue();
+
+            spaceChooser.setOnAction(e -> {
+                setReceiverImage(receiverImage);
+            });
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 
 
