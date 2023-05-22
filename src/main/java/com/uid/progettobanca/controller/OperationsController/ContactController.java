@@ -31,9 +31,10 @@ public class ContactController implements Initializable {
         GenericController.loadImage(users);
         contact = ContactsManager.getInstance().getNextContact();
 
-        ibanLabel.setText(contact.getIBAN());
+        ibanLabel.setText(contact.getIban());
         nameLabel.setText(contact.getNome() + " " + contact.getCognome());
     }
+
     @FXML
     void openQuickSend(MouseEvent event) {
         //in questo metodo devi fare il push nella coda di ContactManager e dovrai riprendere quel contatto pushato nella pagina

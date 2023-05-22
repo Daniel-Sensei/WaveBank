@@ -2,18 +2,15 @@ package com.uid.progettobanca.controller.MyAccountController;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
-import com.uid.progettobanca.model.Utente;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 import java.awt.*;
 import java.net.URI;
 import java.sql.SQLException;
-import java.util.List;
 
 
 public class SecurityController {
@@ -41,7 +38,7 @@ public class SecurityController {
         try {
             if(UtentiDAO.login(UtentiDAO.getEmailByUserId(BankApplication.getCurrentlyLoggedUser()), oldPsw.getText()) != 0){
                 if(newPsw.getText().equals(confirmPsw.getText())){
-                    UtentiDAO.passwordChange(UtentiDAO.getEmailByUserId(BankApplication.getCurrentlyLoggedUser()), newPsw.getText());
+                    UtentiDAO.updatePassword(UtentiDAO.getEmailByUserId(BankApplication.getCurrentlyLoggedUser()), newPsw.getText());
                     SceneHandler.getInstance().showInfo("Cambio password", "Cambio password effettuato", "Hai cambiato password!");
                     SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "myAccount.fxml");
                 }

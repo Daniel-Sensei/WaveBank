@@ -2,12 +2,9 @@ package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.ContattiDAO;
-import com.uid.progettobanca.model.DAO.TransazioniDAO;
 
 import java.sql.SQLException;
-import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Stack;
 
 public class ContactsManager {
     private static ContactsManager instance = null;
@@ -23,8 +20,9 @@ public class ContactsManager {
 
     private Queue<Contatto> contacts;
 
-    public void fillContacts() throws SQLException {
+    public Queue<Contatto> fillContacts() throws SQLException {
         contacts = ContattiDAO.selectAllByUserID(BankApplication.getCurrentlyLoggedUser());
+        return contacts;
     }
 
     public void putContact(Contatto contatto) {

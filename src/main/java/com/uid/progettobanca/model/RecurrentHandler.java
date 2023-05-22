@@ -8,8 +8,7 @@ import com.uid.progettobanca.model.DAO.TransazioniDAO;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Queue;
 
 public class RecurrentHandler {
 
@@ -27,7 +26,7 @@ public class RecurrentHandler {
     public static void check(int user_id){
         try {
             // prendo tutti i pagamenti
-            List<Ricorrente> payments = RicorrentiDAO.selectAllByUserId(BankApplication.getCurrentlyLoggedUser());
+            Queue<Ricorrente> payments = RicorrentiDAO.selectAllByUserId(BankApplication.getCurrentlyLoggedUser());
             //controllo che la lista non sia vuota
             if (payments.isEmpty()) return;
             int space = BankApplication.getCurrentlyLoggedMainSpace();

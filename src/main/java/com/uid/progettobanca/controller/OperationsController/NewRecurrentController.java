@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class AddNewController implements Initializable {
+public class NewRecurrentController implements Initializable {
 
     private final String[] ricorrenza = {"Settimanale", "Mensile", "Bimestrale", "Trimestrale", "Semestrale", "Annuale", "Altro"};
 
@@ -72,7 +72,7 @@ public class AddNewController implements Initializable {
     void onSendButtonClick(ActionEvent event) {
 
         //controllo validità iban con regex
-        if(!fieldIbanTo.getText().matches("[A-Z]{2}[0-9]{2}[A-Z0-9][0-9]{10}[A-Z0-9]{2}[0-9]{9}")) {
+        if(!fieldIbanTo.getText().matches("[A-Z]{2}[0-9]{2}[A-Z0-9][0-9]{22}")) {
             SceneHandler.getInstance().showError("Errore", "IBAN non valido", "L'IBAN deve essere composto da 27 caratteri");
             return;
         }
@@ -90,7 +90,7 @@ public class AddNewController implements Initializable {
         }
 
         //controllo che la data sia valida
-        if(date.getValue().isAfter(LocalDate.now())) {
+        if(date.getValue().isBefore(LocalDate.now())) {
             SceneHandler.getInstance().showError("Errore", "Data non valida", "La data deve essere successiva ad oggi");
             return;
         }

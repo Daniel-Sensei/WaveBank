@@ -174,6 +174,21 @@ public class UtentiDAO {
         }
     }
 
+    //restituisce la domanda di sicurezza associata ad un determinato indirizzo email
+    public static String getDomandaByEmail(String email) throws SQLException {
+        String query = "SELECT domanda FROM utenti WHERE email = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, email);
+            try (ResultSet result = stmt.executeQuery()) {
+                if (result.next()) {
+                    return result.getString("domanda");
+                } else {
+                    return "";
+                }
+            }
+        }
+    }
+
     // restituisce l'email dall'id utente
     public static String getEmailByUserId(int user_id) throws SQLException {
         String query = "SELECT email FROM utenti WHERE user_id = ?";
@@ -251,7 +266,7 @@ public class UtentiDAO {
 
     // cambio password
 
-    public static void passwordChange(String email, String password) throws SQLException {
+    public static void updatePassword(String email, String password) throws SQLException {
         String query = "UPDATE utenti SET password = ? WHERE email = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, BCrypt.hashpw(password, BCrypt.gensalt(12)));// da cambiare

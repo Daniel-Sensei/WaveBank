@@ -72,7 +72,7 @@ public class BolloAutoController implements Initializable {
     private Label amountLabel;
 
     private void playPirataConRadio(){
-        if(fieldPlate.getText().trim().equals("galeone") && fieldCF.getText().trim().equals("pirata")){
+        if(fieldPlate.getText().trim().equalsIgnoreCase("galeone") && fieldCF.getText().trim().equalsIgnoreCase("pirata")){
             openVideoPlayer();
             try {
                 int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());

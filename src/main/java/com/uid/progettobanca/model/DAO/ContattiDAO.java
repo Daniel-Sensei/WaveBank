@@ -3,9 +3,7 @@ package com.uid.progettobanca.model.DAO;
 import com.uid.progettobanca.model.Contatto;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 public class ContattiDAO {
@@ -39,7 +37,7 @@ public class ContattiDAO {
         try (PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, contatto.getNome());
             stmt.setString(2, contatto.getCognome());
-            stmt.setString(3, contatto.getIBAN());
+            stmt.setString(3, contatto.getIban());
             stmt.setInt(4, contatto.getUser_id());
             stmt.executeUpdate();
             try (ResultSet rs = stmt.getGeneratedKeys()) {
@@ -122,7 +120,7 @@ public class ContattiDAO {
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, contatto.getNome());
             stmt.setString(2, contatto.getCognome());
-            stmt.setString(3, contatto.getIBAN());
+            stmt.setString(3, contatto.getIban());
             stmt.setInt(4, contatto.getContattoID());
             stmt.executeUpdate();
         }

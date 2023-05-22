@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox alignment="CENTER_LEFT" prefHeight="75.0" spacing="10.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.PaymentController">
+   <padding>
+      <Insets left="15.0" right="15.0" />
+   </padding>
+   <children>
+      <ImageView fx:id="tag" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="labelName" text="Label" HBox.hgrow="ALWAYS" />
+      <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+         <children>
+            <Label fx:id="labelNextRenewal" layoutX="10.0" layoutY="39.0" text="Prossimo Rinnovo" />
+         </children>
+      </HBox>
+   </children>
+</HBox>

@@ -4,7 +4,6 @@ import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.Altro;
 import com.uid.progettobanca.model.Contatto;
 import com.uid.progettobanca.model.DAO.*;
-import com.uid.progettobanca.model.Space;
 import com.uid.progettobanca.model.Transazione;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.FormUtils;
@@ -60,9 +59,9 @@ public class BonificoController implements Initializable {
 
     @FXML
     private Label warningDescr;
+
     @FXML
     private ComboBox<String> spacesComboBox;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -150,10 +149,10 @@ public class BonificoController implements Initializable {
             SceneHandler.getInstance().showError("Errore", "Errore durante l'inserimento del contatto ", e.getMessage());
         }
     }
+
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {
         BackStack.getInstance().loadPreviousPage();
     }
-
 
 }

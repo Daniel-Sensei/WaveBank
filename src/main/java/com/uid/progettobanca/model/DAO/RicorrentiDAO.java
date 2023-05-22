@@ -3,6 +3,7 @@ package com.uid.progettobanca.model.DAO;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class RicorrentiDAO {
 
@@ -74,16 +75,16 @@ public class RicorrentiDAO {
         }
     }
 
-    public static List<Ricorrente> selectAllByUserId(int user_id) throws SQLException {
+    public static Queue<Ricorrente> selectAllByUserId(int user_id) throws SQLException {
         String query = "SELECT * FROM ricorrenti WHERE user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, user_id);
             try (ResultSet rs = stmt.executeQuery()) {
-                List<Ricorrente> pagamenti = new LinkedList<>();
+                Queue<Ricorrente> pagamenti = new LinkedList<>();
                 while (rs.next()) {
                     pagamenti.add(new Ricorrente(user_id,
                             rs.getString("nome"),
-                            rs.getDouble("saldo"),
+                            rs.getDouble("importo"),
                             rs.getString("iban_to"),
                             rs.getDate("date").toLocalDate(),
                             rs.getInt("nGiorni"),

@@ -131,10 +131,9 @@ public class DatabaseManager {
 
             statement.execute("CREATE TABLE IF NOT EXISTS ricorrenti ("+
                                     "payment_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                                    "nome VARCHAR(50) not null, iban_to  CHAR(27) not null, "+
-                                    "date DATE not null, nGiorni int not null, " +
+                                    "nome VARCHAR(50) not null, importo REAL not null, iban_to CHAR(27) not null, "+
+                                    "date DATE not null, nGiorni int not null, causale VARCHAR not null, " +
                                     "user_id CHAR(16) NOT NULL, FOREIGN KEY (user_id) REFERENCES utenti(user_id));");
-
 
             AltroDAO.insert("Pirata con Radio", "IT0000000000000000000000000");
 

@@ -518,13 +518,9 @@
     -fx-border-color: #36a18b;
 }
 
-/*
-.rubrica{
-   -fx-border-width: 0.4px 0 0.4px 0;
-   -fx-border-color: borderColor;
-   -fx-border-radius: 10px;
+.contact{
+    -fx-background-color: shade2;
 }
-*/
 
 /* DATE PICKER */
 
