@@ -41,6 +41,8 @@ public class TransactionManager {
         transactionsDate = TransazioniDAO.selectTransactionsByIbanAndDate(BankApplication.getCurrentlyLoggedIban(), date);
     }
 
+
+
     public void putTransactionDate(Transazione transazione) {
         transactionsDate.push(transazione);
     }

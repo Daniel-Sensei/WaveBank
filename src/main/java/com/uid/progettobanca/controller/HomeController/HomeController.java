@@ -174,7 +174,9 @@ public class HomeController implements Initializable {
                 VBox transactionBox = createTransactionBox();
 
                 try {
+                    //prende tutte le transazioni associate a questa data
                     TransactionManager.getInstance().fillTransactionsDate(dates.get(i));
+                    //bisogna fare intersect con altra funzione
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
