@@ -4,7 +4,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -14,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController.SpaceTransactionSendController">
+<AnchorPane prefHeight="640.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController.SpaceTransactionController">
    <children>
       <VBox layoutX="200.0" layoutY="30.0" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
          <children>
@@ -46,61 +45,15 @@
                <children>
                   <HBox alignment="CENTER">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="344.0" spacing="10.0" styleClass="vbox-with-rounded-border">
-                           <children>
-                              <ImageView fx:id="senderImage" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../assets/images/spacesImage/computer.png" />
-                                 </image>
-                              </ImageView>
-                              <VBox>
-                                 <children>
-                                    <Label text="Da:" textAlignment="CENTER">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="thisSpace" text="This space">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Label>
-                                 </children>
-                              </VBox>
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" left="15.0" right="150.0" top="10.0" />
-                           </padding>
-                        </HBox>
+                        <HBox fx:id="firstElement" layoutX="10.0" layoutY="10.0" />
                         <HBox HBox.hgrow="ALWAYS" />
                         <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../assets/images/IconLight/refresh.png" />
                            </image>
                         </ImageView>
-                        <HBox HBox.hgrow="ALWAYS" />
-                        <HBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="344.0" spacing="10.0" styleClass="vbox-with-rounded-border">
-                           <children>
-                              <ImageView fx:id="receiverImage" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../assets/images/spacesImage/computer.png" />
-                                 </image>
-                              </ImageView>
-                              <VBox fx:id="spaceReciever">
-                                 <children>
-                                    <Label text="A:" textAlignment="CENTER">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Label>
-                                    <ComboBox fx:id="spaceChooser" promptText="Seleziona uno space" />
-                                 </children>
-                              </VBox>
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" left="15.0" right="100.0" top="10.0" />
-                           </padding>
-                        </HBox>
+                        <HBox fx:id="spaceTransactionBar" HBox.hgrow="ALWAYS" />
+                        <HBox fx:id="lastElement" layoutX="10.0" layoutY="10.0" />
                      </children>
                      <VBox.margin>
                         <Insets />
@@ -145,7 +98,7 @@
                   </VBox>
                </children>
             </VBox>
-            <Button fx:id="spaceTransactionConfirm" mnemonicParsing="false" onAction="#createSpace" styleClass="greenButton" text="Conferma">
+            <Button fx:id="spaceTransactionConfirm" mnemonicParsing="false" onAction="#confirmTransaction" styleClass="greenButton" text="Conferma">
                <font>
                   <Font size="14.0" />
                </font>

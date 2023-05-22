@@ -27,12 +27,12 @@
                   </Label>
                </children>
             </VBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="71.0" prefWidth="920.0" spacing="10.0" styleClass="titleLabel" stylesheets="@../../../../css/style.css">
+            <HBox alignment="CENTER_LEFT" prefHeight="71.0" prefWidth="920.0" spacing="10.0">
                <children>
                   <VBox alignment="CENTER">
                      <children>
                         <Button fx:id="newSpace" mnemonicParsing="false" onAction="#createSpaceForm" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" />
-                        <Label text="Nuovo spazio" />
+                        <Label text="Nuovo Spazio" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER">

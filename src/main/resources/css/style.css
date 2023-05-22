@@ -31,6 +31,14 @@
     -fx-font-family: "Roboto Bold";
 }
 
+.spaceTransactionNameLabel {
+    -fx-font-size: 15px;
+}
+
+.spaceTransactionBalanceLabel {
+    -fx-font-size: 16px;
+}
+
 .promptLabel{
     -fx-text-fill: promptTextColor;
 }

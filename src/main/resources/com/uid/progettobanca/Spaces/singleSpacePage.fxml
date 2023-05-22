@@ -66,7 +66,6 @@
                               <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="203.0" spacing="10.0">
                                  <children>
                                     <ImageView fx:id="eyeBalance" fitHeight="10.0" fitWidth="10.0" onMouseClicked="#hideBalance" pickOnBounds="true" preserveRatio="true" />
-                                    <Label text="saldo attuale" />
                                  </children>
                               </HBox>
                            </children>
@@ -85,12 +84,6 @@
                            <children>
                               <Button fx:id="receiveButton" mnemonicParsing="false" onMouseClicked="#transferMoneyToThisSpace" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" textAlignment="CENTER" />
                               <Label text="Ricevi" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="70.0" prefWidth="80.0">
-                           <children>
-                              <Button fx:id="statButton" mnemonicParsing="false" onMouseClicked="#openStatPage" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" styleClass="tertiaryButton" textAlignment="CENTER" />
-                              <Label text="Statistiche" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="70.0" prefWidth="80.0">

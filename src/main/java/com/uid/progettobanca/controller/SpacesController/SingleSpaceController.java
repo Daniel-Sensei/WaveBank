@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -39,10 +40,10 @@ public class SingleSpaceController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
         space = SpacesManager.getInstance().getNextSpace();
         GenericController.setSpaceImage(space.getImage(), spaceImage);
         spaceName.setText(space.getNome());
-        spaceBalance.setText(space.getSaldo() + " €");
-
+        spaceBalance.setText(decimalFormat.format(space.getSaldo()) + " €");
     }
 }

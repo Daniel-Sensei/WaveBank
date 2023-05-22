@@ -2,6 +2,7 @@ package com.uid.progettobanca.controller.SpacesController;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.SpacesDAO;
+import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.Space;
 import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.view.SceneHandler;
@@ -17,6 +18,7 @@ import javafx.scene.layout.FlowPane;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -49,18 +51,20 @@ public class SpacesController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        SpacesManager.getInstance().fillQueue();
-        int nSpaces = SpacesManager.getInstance().getSize();
-        for (int i = 0; i < nSpaces ; i++) {
-            try {
+        try {
+            DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+            saldo.setText(decimalFormat.format(TransazioniDAO.getSaldo(BankApplication.getCurrentlyLoggedIban())) + " €");
+            SpacesManager.getInstance().fillQueue();
+            int nSpaces = SpacesManager.getInstance().getSize();
+            for (int i = 0; i < nSpaces; i++) {
+
                 Parent singleSpace = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().SPACES_PATH + "singleSpace.fxml");
                 listOfSpaces.getChildren().add(singleSpace);
-            } catch (IOException e) {
+            }
+        } catch (IOException | SQLException e) {
                 System.out.println("Initialize spaces failed");
                 throw new RuntimeException(e);
             }
-
-        }
     }
 }
 
