@@ -1,13 +1,17 @@
 package com.uid.progettobanca.controller.ManageController;
 
+import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.CardsManager;
 import com.uid.progettobanca.model.DAO.CarteDAO;
+import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class BlockCardController {
@@ -16,10 +20,16 @@ public class BlockCardController {
     private CheckBox agreeCheck;
 
     @FXML
-    void backPressed(MouseEvent event) {
+    private ImageView back;
 
+    @FXML
+    void loadPreviousPage(MouseEvent event) {
+        try {
+            BackStack.getInstance().loadPreviousPage();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
-
     @FXML
     void blockPressed(ActionEvent event) {
         if (agreeCheck.isSelected()) {
@@ -34,4 +44,7 @@ public class BlockCardController {
         }
     }
 
+    public void initialize() {
+        GenericController.loadImage(back);
+    }
 }

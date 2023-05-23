@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -21,7 +22,10 @@
                         <VBox alignment="CENTER_LEFT" spacing="3.0">
                            <children>
                               <Label styleClass="titleLabel" text="Creazione Carta virtuale" />
-                              <Label styleClass="subtitleLabel" text="Indietro">
+                              <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="Indietro">
+                                 <graphic>
+                                    <ImageView fx:id="back" fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
@@ -37,17 +41,16 @@
                <children>
                   <VBox alignment="CENTER">
                      <children>
-                        <TextField fx:id="dateValue" />
-                        <Label text="Durata Carta (max 12 mesi)" />
+                        <TextField fx:id="dateValue" promptText="Durata Carta (max 12 mesi)" />
+                        <Label fx:id="errorDate" style="-fx-text-fill: red;" text="Inserisci una durata valida*" visible="false" />
                      </children>
                   </VBox>
-                  <Button mnemonicParsing="false" onAction="#createPressed" style="-fx-background-color: primaryColor;" styleClass="tertiaryButton" text="Crea Carta" />
+                  <Button fx:id="createButton" disable="true" mnemonicParsing="false" onAction="#createPressed" style="-fx-background-color: primaryColor;" styleClass="tertiaryButton" text="Crea Carta" />
                </children>
                <padding>
                   <Insets top="5.0" />
                </padding>
             </HBox>
-            <Label fx:id="dateError" style="-fx-text-fill: redColor;" text="Durata non valida: inserire numero di mesi" />
          </children>
       </VBox>
    </children>

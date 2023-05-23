@@ -56,7 +56,12 @@
                               <VBox alignment="CENTER_LEFT" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label styleClass="subtitleLabel" text="IBAN:" />
-                                    <Label fx:id="ibanLabel" text="IT12 3456 1234 1234 4567 1234" />
+                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                       <children>
+                                          <Label fx:id="ibanLabel" onMouseClicked="#copyIban" text="IT12 3456 1234 1234 4567 1234" />
+                                          <ImageView fx:id="copy" fitHeight="20.0" fitWidth="20.0" onMouseClicked="#copyIban" pickOnBounds="true" preserveRatio="true" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </VBox>
                            </children>
@@ -130,27 +135,10 @@
                                           <Insets />
                                        </VBox.margin>
                                     </HBox>
-                                    <HBox alignment="CENTER_LEFT" onMouseClicked="#openSubscriptions" prefHeight="75.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
-                                       <children>
-                                          <ImageView fx:id="star" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-                                          <Label text="Abbonamenti" HBox.hgrow="ALWAYS" />
-                                          <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-                                             <children>
-                                                <ImageView fx:id="forward1" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />
-                                             </children>
-                                             <padding>
-                                                <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
-                                             </padding>
-                                          </HBox>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="10.0" left="20.0" top="10.0" />
-                                       </padding>
-                                    </HBox>
                                     <HBox alignment="CENTER_LEFT" onMouseClicked="#openContacs" prefHeight="75.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox-bottom">
                                        <children>
                                           <ImageView fx:id="receipt" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-                                          <Label text="Assistenza" HBox.hgrow="ALWAYS" />
+                                          <Label text="Contattaci" HBox.hgrow="ALWAYS" />
                                           <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                                              <children>
                                                 <ImageView fx:id="forward5" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />

@@ -1,6 +1,5 @@
 package com.uid.progettobanca.controller.MyAccountController;
 
-
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.view.BackStack;
 import javafx.fxml.FXML;
@@ -9,7 +8,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
-public class DeleteAccountController {
+public class ContactUsController {
 
     @FXML
     private ImageView back;
@@ -26,5 +25,4 @@ public class DeleteAccountController {
     public void initialize() {
         GenericController.loadImage(back);
     }
-
 }

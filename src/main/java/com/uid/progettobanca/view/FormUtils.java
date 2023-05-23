@@ -6,6 +6,7 @@ import com.uid.progettobanca.model.Space;
 import javafx.animation.TranslateTransition;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
@@ -65,6 +66,16 @@ public class FormUtils {
 
         return isValid;
     }
+
+    public boolean validatePasswordField(PasswordField textField, Boolean validateFunction, Label warningLabel) {
+
+        String text = textField.getText().trim();
+        boolean isValid = validateFunction;
+        warningLabel.setVisible(!isValid);
+        setTextFieldStyle(textField, isValid);
+
+        return isValid;
+    }
     public boolean validateIban(String iban) {
         // Rimuovi spazi e caratteri speciali dall'IBAN
         String sanitizedIban = iban.replaceAll("\\s+", "").toUpperCase();
@@ -115,6 +126,7 @@ public class FormUtils {
     public boolean validatePhone(String phone) {
         return phone.matches("(\\+\\d{2,3})? ?\\d{10}");
     }
+    public boolean validateDuration(String duration) {return duration.matches("[1-9]|1[0-2]");}
 
     private List<Space> spaces = new LinkedList<>();
     public void getSpaces() throws SQLException {

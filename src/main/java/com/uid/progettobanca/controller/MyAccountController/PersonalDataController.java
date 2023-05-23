@@ -4,11 +4,13 @@ import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
 import com.uid.progettobanca.model.Utente;
+import com.uid.progettobanca.view.BackStack;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class PersonalDataController {
@@ -36,7 +38,11 @@ public class PersonalDataController {
 
     @FXML
     void loadPreviousPage(MouseEvent event) {
-
+        try {
+            BackStack.getInstance().loadPreviousPage();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void initialize() {
