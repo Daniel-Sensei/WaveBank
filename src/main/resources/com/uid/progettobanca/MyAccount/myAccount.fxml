@@ -110,7 +110,7 @@
                            <children>
                               <VBox alignment="CENTER" layoutX="14.0" styleClass="vbox-with-rounded-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                                    <HBox alignment="CENTER_LEFT" onMouseClicked="#openPersonalData" prefHeight="75.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                                        <children>
                                           <ImageView fx:id="data" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                                           <Label text="Dati personali" HBox.hgrow="ALWAYS" />
@@ -130,13 +130,30 @@
                                           <Insets />
                                        </VBox.margin>
                                     </HBox>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="75.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox-bottom">
+                                    <HBox alignment="CENTER_LEFT" onMouseClicked="#openSubscriptions" prefHeight="75.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                                        <children>
                                           <ImageView fx:id="star" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                                           <Label text="Abbonamenti" HBox.hgrow="ALWAYS" />
                                           <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                                              <children>
                                                 <ImageView fx:id="forward1" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                                             </padding>
+                                          </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="20.0" top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" onMouseClicked="#openContacs" prefHeight="75.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox-bottom">
+                                       <children>
+                                          <ImageView fx:id="receipt" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Label text="Assistenza" HBox.hgrow="ALWAYS" />
+                                          <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <ImageView fx:id="forward5" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />
                                              </children>
                                              <padding>
                                                 <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />

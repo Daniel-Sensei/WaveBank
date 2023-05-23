@@ -45,8 +45,12 @@ public class MyAccountController implements Initializable {
     @FXML
     private ImageView forward3;
 
+
     @FXML
     private ImageView forward4;
+
+    @FXML
+    private ImageView forward5;
 
     @FXML
     private Label ibanLabel;
@@ -66,6 +70,10 @@ public class MyAccountController implements Initializable {
     @FXML
     private ImageView settings;
 
+
+    @FXML
+    private ImageView receipt;
+
     @FXML
     private ImageView star;
     private ArrayList<ImageView> myAccountImages = new ArrayList<>();
@@ -78,10 +86,12 @@ public class MyAccountController implements Initializable {
         myAccountImages.add(forward2);
         myAccountImages.add(forward3);
         myAccountImages.add(forward4);
+        myAccountImages.add(forward5);
         myAccountImages.add(security);
         myAccountImages.add(settings);
         myAccountImages.add(star);
         myAccountImages.add(myAccount);
+        myAccountImages.add(receipt);
     }
 
     @FXML
@@ -102,12 +112,27 @@ public class MyAccountController implements Initializable {
 
     @FXML
     void openSafety(MouseEvent event) {
-        openGenericPage("safety.fxml");
+        openGenericPage("safety.fxml");}
+
+
+    @FXML
+    void openContacs(MouseEvent event) {
+
     }
 
     @FXML
     void openSettings(MouseEvent event) {
         openGenericPage("settings.fxml");
+    }
+
+    @FXML
+    void openPersonalData(MouseEvent event) {
+        openGenericPage("personalData.fxml");
+    }
+
+    @FXML
+    void openSubscriptions(MouseEvent event) {
+        //openGenericPage("subscriptions.fxml");
     }
 
     @Override
