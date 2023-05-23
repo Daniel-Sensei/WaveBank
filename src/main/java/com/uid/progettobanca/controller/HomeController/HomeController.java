@@ -12,9 +12,13 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Popup;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
@@ -53,6 +57,8 @@ public class HomeController implements Initializable {
     private ArrayList<ImageView> homeImages = new ArrayList<>();
 
     DecimalFormat df = new DecimalFormat("#0.00");
+
+    public static String functionName = "filterAllTransaction";
     @FXML
     private ScrollPane scrollPane;
 
@@ -130,6 +136,49 @@ public class HomeController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        createFilterPopUp();
+    }
+
+    private void createFilterPopUp(){
+        filter.setOnMouseClicked(mouseEvent -> {
+            Parent popupContent = null;
+            try {
+                popupContent = SceneHandler.getInstance().loadPage(SceneHandler.HOME_PATH + "filterSelection.fxml");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            Popup popup = new Popup();
+            popup.getContent().add(popupContent);
+            popup.setAutoHide(true);
+
+            Window parentWindow = filter.getScene().getWindow();
+            double parentX = parentWindow.getX();
+            double parentY = parentWindow.getY();
+            double parentWidth = parentWindow.getWidth();
+            double parentHeight = parentWindow.getHeight();
+
+            double centerX = parentX + parentWidth / 2;
+            double centerY = parentY + parentHeight / 2;
+
+            popup.setX(centerX - 980 / 2);
+            popup.setY(centerY - 595 / 2);
+
+            BoxBlur blur = new BoxBlur(10, 10, 10); //ultimo parametro imposta intensità sfocatura
+
+            // Imposta l'effetto sfocatura sulla scena
+            filter.getScene().setFill(Color.TRANSPARENT);
+            filter.getScene().getRoot().setEffect(blur);
+
+            popup.setOnHidden(event -> {
+                filter.getScene().getRoot().setEffect(null);
+                SceneHandler.getInstance().createPage(SceneHandler.HOME_PATH + "home.fxml");
+            });
+
+            popup.show(filter.getScene().getWindow());
+
+        });
+
     }
 
     private void filterAllTransaction(AtomicInteger nVBox, List<String> dates, List<String> convertedDates) {
@@ -149,6 +198,7 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //in loadHomeAssets() viene anche aggiunto popUp sul filter
         loadHomeAssets();
 
         VBox vBox = new VBox();
@@ -160,7 +210,18 @@ public class HomeController implements Initializable {
         List<String> dates = new ArrayList<>();
         List<String> convertedDates = new ArrayList<>();
 
-        filterAllTransaction(nVBox, dates, convertedDates);
+        // Richiama la funzione specificata
+        switch (functionName) {
+            case "filterAllTransaction":
+                filterAllTransaction(nVBox, dates, convertedDates);
+                break;
+            case "otherFunction":
+                // Richiama la funzione desiderata
+                // ...
+                break;
+            default:
+                throw new IllegalArgumentException("Function name not recognized");
+        }
 
         if(nVBox.get() != 0) {
             for (int i = 0; i < nVBox.get(); i++) {

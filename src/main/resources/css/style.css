@@ -301,6 +301,22 @@
     -fx-background-color: shade2;
 }
 
+/* RADIO BUTTON */
+
+.radio-button .radio {
+    -fx-background-color: secondaryColor;
+    -fx-border-color: borderColor;
+    -fx-border-radius: 100px;
+}
+
+.radio-button:selected .radio {
+    -fx-background-color: primaryColor;
+}
+
+.radio-button .radio:hover {
+    -fx-background-color: derive(shade1, 50%);
+}
+
 /* COMBO-BOX*/
 
 .combo-box {
@@ -403,6 +419,16 @@
     -fx-border-width: 0 0 0 4px; /* Imposta la larghezza del bordo solo per il lato sinistro */
     -fx-border-color: #36a18b;
     -fx-transition: -fx-border-color 0.6s;
+}
+
+.border-bottom{
+    -fx-border-color: borderColor;
+    -fx-border-width: 0 0 0.4px 0;
+}
+
+.border-right{
+    -fx-border-color: borderColor;
+    -fx-border-width: 0 0.4px 0 0;
 }
 
 /* HBOX CARD */

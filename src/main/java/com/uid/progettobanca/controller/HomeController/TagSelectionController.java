@@ -87,6 +87,7 @@ public class TagSelectionController implements Initializable {
         // Ottieni e chiudi poup
         Popup popup = (Popup) altro.getScene().getWindow();
         popup.hide();
+
     }
     @FXML
     void setAltro(MouseEvent event) throws SQLException {

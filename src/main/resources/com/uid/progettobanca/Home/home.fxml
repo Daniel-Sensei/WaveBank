@@ -67,8 +67,8 @@
                                     <Insets />
                                  </HBox.margin>
                               </HBox>
-                              <Button fx:id="filter" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" styleClass="tertiaryButton" />
                               <Button fx:id="searchButton" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="tertiaryButton" text="Cerca" />
+                              <Button fx:id="filter" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" styleClass="tertiaryButton" />
                            </children>
                         </HBox>
                      </children>
