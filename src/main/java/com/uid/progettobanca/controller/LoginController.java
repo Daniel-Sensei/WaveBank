@@ -5,7 +5,6 @@ import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.model.DAO.SpacesDAO;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
 import com.uid.progettobanca.model.RecurrentHandler;
-import com.uid.progettobanca.model.Utente;
 import com.uid.progettobanca.view.ImageUtils;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.animation.PauseTransition;
@@ -23,13 +22,11 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.effect.ColorAdjust;
 import javafx.util.Duration;
-
 import java.net.URL;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.scene.control.Label;
+
+
 public class LoginController implements Initializable {
 
     @FXML

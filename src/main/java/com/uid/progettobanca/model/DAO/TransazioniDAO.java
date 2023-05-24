@@ -172,17 +172,18 @@ public class TransazioniDAO {
     }
 
     //METODO PER TAG E (IN,OUT)
-    public static List<Transazione> selectFilteredTransaction(String iban, List<String> tags, String ibanSelection) throws SQLException {
+    public static List<Transazione> selectFilteredTransactions(String iban, List<String> tags, String nome, String ibanSelection) throws SQLException {
+        boolean both = ibanSelection == null || ibanSelection.isEmpty() || ibanSelection.equals("both");
         List<Transazione> transactions = new ArrayList<>();
         StringBuilder queryBuilder = new StringBuilder();
         queryBuilder.append("SELECT * FROM transazioni WHERE ");
 
-        if (ibanSelection.equals("iban_from")) {
+        if (both){
+            queryBuilder.append("(iban_from = ? OR iban_to = ?)");
+        }else if (ibanSelection.equals("iban_from")) {
             queryBuilder.append("iban_from = ?");
         } else if (ibanSelection.equals("iban_to")) {
             queryBuilder.append("iban_to = ?");
-        } else {
-            queryBuilder.append("(iban_from = ? OR iban_to = ?)");
         }
 
         if (tags != null && !tags.isEmpty()) {
@@ -196,6 +197,10 @@ public class TransazioniDAO {
             queryBuilder.append(")");
         }
 
+        if (nome != null && !nome.isEmpty()) {
+            queryBuilder.append(" AND nome LIKE '%' || ? || '%'");
+        }
+
         queryBuilder.append(" ORDER BY dateTime asc");
 
         String query = queryBuilder.toString();
@@ -205,7 +210,7 @@ public class TransazioniDAO {
             stmt.setString(parameterIndex, iban);
             parameterIndex++;
 
-            if (ibanSelection.equals("both")) {
+            if (both) {
                 stmt.setString(parameterIndex, iban);
                 parameterIndex++;
             }
@@ -215,6 +220,10 @@ public class TransazioniDAO {
                     stmt.setString(parameterIndex, tag);
                     parameterIndex++;
                 }
+            }
+
+            if (nome != null && !nome.isEmpty()) {
+                stmt.setString(parameterIndex, nome);
             }
 
             try (ResultSet rs = stmt.executeQuery()) {
@@ -248,8 +257,6 @@ public class TransazioniDAO {
 
         return transactions;
     }
-
-    //String query = "SELECT * FROM table_name WHERE name LIKE '%' || ? || '%'";
 
     //seleziona solo trasferimenti tra spaces
     public static List<Transazione> selectBetweenSpaces(String iban) throws SQLException {
