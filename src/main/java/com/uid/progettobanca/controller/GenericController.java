@@ -60,4 +60,14 @@ public class GenericController {
         button.setContentDisplay(ContentDisplay.CENTER);
         button.setGraphic(imageView);
     }
+
+    public static void loadImageButton(String imageName, Button button) {
+        //System.out.println(Settings.IMAGE_PATH + button.getId() + ".png");
+        Image image = ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + imageName + ".png");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(25);
+        imageView.setFitWidth(25);
+        button.setContentDisplay(ContentDisplay.CENTER);
+        button.setGraphic(imageView);
+    }
 }
