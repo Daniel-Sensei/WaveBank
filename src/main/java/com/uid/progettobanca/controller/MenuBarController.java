@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller;
 
 import com.uid.progettobanca.Settings;
+import com.uid.progettobanca.controller.HomeController.FilterSelectionController;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.ImageUtils;
 import com.uid.progettobanca.view.SceneHandler;
@@ -81,7 +82,8 @@ public class MenuBarController implements Initializable {
     @FXML
     void loadHome(MouseEvent event) {
         clearLabelAndBackStack();
-        SceneHandler.getInstance().setPage(SceneHandler.getInstance().HOME_PATH + "home.fxml");
+        FilterSelectionController.clearMemory();
+        SceneHandler.getInstance().createPage(SceneHandler.getInstance().HOME_PATH + "home.fxml");
         homeLabel.getStyleClass().add("menu-bar-label");
     }
 

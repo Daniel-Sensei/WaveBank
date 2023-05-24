@@ -7,6 +7,7 @@ import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.Transazione;
 import com.uid.progettobanca.view.SceneHandler;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -14,8 +15,11 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -63,6 +67,13 @@ public class HomeController implements Initializable {
     private ScrollPane scrollPane;
     private List<Transazione> transactions = new ArrayList<>();
     private List<String> distinctDates = new ArrayList<>();
+
+    public static List<String> selectedFilters = new ArrayList<>();
+    public static String selectedInOut = "both";
+    @FXML
+    private TextField searchTextField;
+    public static String searchQuery = "";
+
 
     public void addFocusRemovalListenerToButtons() {
         for (Button button : allHomeButtons) {
@@ -174,7 +185,7 @@ public class HomeController implements Initializable {
 
             popup.setOnHidden(event -> {
                 filter.getScene().getRoot().setEffect(null);
-                SceneHandler.getInstance().createPage(SceneHandler.HOME_PATH + "home.fxml");
+                //SceneHandler.getInstance().createPage(SceneHandler.HOME_PATH + "home.fxml");
             });
 
             popup.show(filter.getScene().getWindow());
@@ -225,6 +236,11 @@ public class HomeController implements Initializable {
             distinctDates.clear();
         }
 
+        searchTextField.setText(searchQuery);
+        if (!FilterSelectionController.memoryFilters.isEmpty() || !FilterSelectionController.memoryRadioButton.equals("both")){
+            GenericController.loadImageButton("filterSelected", filter);
+        }
+
         VBox vBox = new VBox();
         vBox.setPrefHeight(VBox.USE_COMPUTED_SIZE);
         vBox.setPrefWidth(VBox.USE_COMPUTED_SIZE);
@@ -238,7 +254,8 @@ public class HomeController implements Initializable {
                     break;
                 case "filterSelectedTransaction":
                     // Richiama la funzione desiderata
-                    // ...
+                    System.out.println("TEXT FIELD: " + searchQuery);
+                    transactions = TransazioniDAO.selectFilteredTransactions(BankApplication.getCurrentlyLoggedIban(), selectedFilters, searchQuery, selectedInOut);
                     break;
                 default:
                     throw new IllegalArgumentException("Function name not recognized");
@@ -278,6 +295,21 @@ public class HomeController implements Initializable {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    @FXML
+    void enterPressed(KeyEvent event) {
+        if(event.getCode()== KeyCode.ENTER){
+            searchTransactionName(new ActionEvent());
+        }
+    }
+
+    @FXML
+    void searchTransactionName(ActionEvent event) {
+        HomeController.functionName = "filterSelectedTransaction";
+        searchQuery = searchTextField.getText();
+        SceneHandler.getInstance().createPage(SceneHandler.HOME_PATH + "home.fxml");
+        HomeController.functionName = "filterAllTransaction";
     }
 
 

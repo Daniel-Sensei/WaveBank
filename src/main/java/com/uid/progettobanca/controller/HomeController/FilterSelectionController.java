@@ -4,14 +4,11 @@ import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.stage.Popup;
 
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class FilterSelectionController implements Initializable {
 
@@ -64,6 +61,11 @@ public class FilterSelectionController implements Initializable {
     private CheckBox viaggi;
     @FXML
     private ToggleGroup toggleGroup;
+    @FXML
+    private TextField nameTextField;
+
+    public static Set<String> memoryFilters = new HashSet<>();
+    public static String memoryRadioButton = "both";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -72,17 +74,170 @@ public class FilterSelectionController implements Initializable {
         inOut.setToggleGroup(toggleGroup);
         inOnly.setToggleGroup(toggleGroup);
         outOnly.setToggleGroup(toggleGroup);
+
+        nameTextField.setText(HomeController.searchQuery);
+        restoreSelections();
+
     }
 
     @FXML
     void filterSelectedItems(ActionEvent event) {
         //bisogna modificare la funzione filter in HomeController
         //affinchè la home venga modificata in base ai filtri selezionati
-        //HomeController.functionName = "filter";
+        HomeController.functionName = "filterSelectedTransaction";
+
+        HomeController.searchQuery = nameTextField.getText();
+
+        // Create a list to store the selected checkboxes
+        List<String> selectedFilters = new ArrayList<>();
+
+        // Check which checkboxes are selected and add them to the list
+        if (shopping.isSelected()) {
+            selectedFilters.add("Shopping");
+            memoryFilters.add("Shopping");
+        }
+        else {
+            memoryFilters.remove("Shopping");
+        }
+        if (ciboSpesa.isSelected()) {
+            selectedFilters.add("Cibo & Spesa");
+            memoryFilters.add("Cibo & Spesa");
+        }
+        else {
+            memoryFilters.remove("Cibo & Spesa");
+        }
+        if (benessere.isSelected()) {
+            selectedFilters.add("Benessere");
+            memoryFilters.add("Benessere");
+        }
+        else {
+            memoryFilters.remove("Benessere");
+        }
+        if (viaggi.isSelected()) {
+            selectedFilters.add("Viaggi");
+            memoryFilters.add("Viaggi");
+        }
+        else {
+            memoryFilters.remove("Viaggi");
+        }
+        if (assicurazioneFinanza.isSelected()) {
+            selectedFilters.add("Assicurazione & Finanza");
+            memoryFilters.add("Assicurazione & Finanza");
+        }
+        else {
+            memoryFilters.remove("Assicurazione & Finanza");
+        }
+        if (istruzione.isSelected()) {
+            selectedFilters.add("Istruzione");
+            memoryFilters.add("Istruzione");
+        }
+        else {
+            memoryFilters.remove("Istruzione");
+        }
+        if (intrattenimento.isSelected()) {
+            selectedFilters.add("Intrattenimento");
+            memoryFilters.add("Intrattenimento");
+        }
+        else {
+            memoryFilters.remove("Intrattenimento");
+        }
+        if (stipendio.isSelected()) {
+            selectedFilters.add("Stipendio");
+            memoryFilters.add("Stipendio");
+        }
+        else {
+            memoryFilters.remove("Stipendio");
+        }
+        if (multimediaElettronica.isSelected()) {
+            selectedFilters.add("Multimedia & Elettronica");
+            memoryFilters.add("Multimedia & Elettronica");
+        }
+        else {
+            memoryFilters.remove("Multimedia & Elettronica");
+        }
+        if (salute.isSelected()) {
+            selectedFilters.add("Salute");
+            memoryFilters.add("Salute");
+        }
+        else {
+            memoryFilters.remove("Salute");
+        }
+        if (amiciFamiglia.isSelected()) {
+            selectedFilters.add("Amici & Famiglia");
+            memoryFilters.add("Amici & Famiglia");
+        }
+        else {
+            memoryFilters.remove("Amici & Famiglia");
+        }
+        if (altro.isSelected()) {
+            selectedFilters.add("Altro");
+            memoryFilters.add("Altro");
+        }
+        else {
+            memoryFilters.remove("Altro");
+        }
+
+        // Get the selected radio button's value
+        String radioButtonValue = "";
+        if (inOnly.isSelected()) {
+            radioButtonValue = "iban_to";
+            memoryRadioButton = "iban_to";
+        } else if (inOut.isSelected()) {
+            radioButtonValue = "both";
+            memoryRadioButton = "both";
+        } else if (outOnly.isSelected()) {
+            radioButtonValue = "iban_from";
+            memoryRadioButton = "iban_from";
+        }
+
+        // Pass the selected filters and radio button value to HomeController
+        HomeController.selectedFilters = selectedFilters;
+        HomeController.selectedInOut = radioButtonValue;
 
         // Ottieni e chiudi poup
         Popup popup = (Popup) filterSelected.getScene().getWindow();
         popup.hide();
 
+        //Bisogna reimpostare filtro di partenza
+        SceneHandler.getInstance().createPage(SceneHandler.HOME_PATH + "home.fxml");
+        HomeController.functionName = "filterAllTransaction";
+
+    }
+
+    private void restoreSelections() {
+        // Ripristina lo stato delle selezioni dalle variabili
+        setSelectedFilters();
+        setSelectedRadioValue(memoryRadioButton);
+    }
+
+    private void setSelectedFilters() {
+        shopping.setSelected(memoryFilters.contains("Shopping"));
+        ciboSpesa.setSelected(memoryFilters.contains("Cibo & Spesa"));
+        benessere.setSelected(memoryFilters.contains("Benessere"));
+        viaggi.setSelected(memoryFilters.contains("Viaggi"));
+        assicurazioneFinanza.setSelected(memoryFilters.contains("Assicurazione & Finanza"));
+        istruzione.setSelected(memoryFilters.contains("Istruzione"));
+        intrattenimento.setSelected(memoryFilters.contains("Intrattenimento"));
+        stipendio.setSelected(memoryFilters.contains("Stipendio"));
+        multimediaElettronica.setSelected(memoryFilters.contains("Multimedia & Elettronica"));
+        salute.setSelected(memoryFilters.contains("Salute"));
+        amiciFamiglia.setSelected(memoryFilters.contains("Amici & Famiglia"));
+        altro.setSelected(memoryFilters.contains("Altro"));
+    }
+
+    private void setSelectedRadioValue(String value) {
+        if (value.equals("iban_to")) {
+            inOnly.setSelected(true);
+        } else if (value.equals("both")) {
+            inOut.setSelected(true);
+        } else if (value.equals("iban_from")) {
+            outOnly.setSelected(true);
+        }
+    }
+
+    public static void clearMemory(){
+        memoryFilters.clear();
+        memoryRadioButton = "both";
+        HomeController.searchQuery = "";
     }
 }

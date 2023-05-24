@@ -57,7 +57,7 @@
                                        <HBox.margin>
                                           <Insets left="15.0" />
                                        </HBox.margin></ImageView>
-                                    <TextField prefHeight="40.0" promptText="Cerca sul conto principale" styleClass="search-bar" HBox.hgrow="ALWAYS">
+                                    <TextField fx:id="searchTextField" onKeyPressed="#enterPressed" prefHeight="40.0" promptText="Cerca sul conto principale" styleClass="search-bar" HBox.hgrow="ALWAYS">
                                        <padding>
                                           <Insets left="10.0" />
                                        </padding>
@@ -67,7 +67,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </HBox>
-                              <Button fx:id="searchButton" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="tertiaryButton" text="Cerca" />
+                              <Button fx:id="searchButton" alignment="CENTER" mnemonicParsing="false" onAction="#searchTransactionName" prefHeight="40.0" prefWidth="110.0" styleClass="tertiaryButton" text="Cerca" />
                               <Button fx:id="filter" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" styleClass="tertiaryButton" />
                            </children>
                         </HBox>

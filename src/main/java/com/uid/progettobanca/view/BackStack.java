@@ -37,15 +37,6 @@ public class BackStack extends Stack<String> {
         return null;
     }
 
-    public Parent popParent() {
-        if (!stack.isEmpty()) {
-            BackStackItem item = stack.pop();
-            super.pop();
-            return item.getParent();
-        }
-        return null;
-    }
-
     private class BackStackItem {
         private String title;
         private Parent parent;
