@@ -78,11 +78,10 @@ public class TagSelectionController implements Initializable {
 
     private void setGenericTag(String tag) throws SQLException {
         transaction.setTag(tag);
-        System.out.println(transaction);
         TransazioniDAO.update(transaction);
 
         SceneHandler.getInstance().reloadDynamicPageInHashMap();
-        TransactionManager.getInstance().putTransactionDate(transaction);
+        TransactionManager.getInstance().putTransaction(transaction);
 
         // Ottieni e chiudi poup
         Popup popup = (Popup) altro.getScene().getWindow();
@@ -157,6 +156,6 @@ public class TagSelectionController implements Initializable {
 
         GenericController.loadImages(tagNames, tagImages);
 
-        transaction = TransactionManager.getInstance().getNextTransactionDate();
+        transaction = TransactionManager.getInstance().getNextTransaction();
     }
 }

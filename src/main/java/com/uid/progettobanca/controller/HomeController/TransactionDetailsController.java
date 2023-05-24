@@ -107,54 +107,6 @@ public class TransactionDetailsController implements Initializable {
         GenericController.loadImage(tag, tagImage);
     }
 
-    @FXML
-    private void loadPreviousPage(MouseEvent event) throws IOException {
-        SceneHandler.getInstance().setPage(SceneHandler.HOME_PATH + "home.fxml");
-    }
-
-    private void changeTag() {
-        tagHBox.setOnMouseClicked(mouseEvent -> {
-            TransactionManager.getInstance().putTransactionDate(transaction);
-            Parent popupContent = null;
-            try {
-                popupContent = SceneHandler.getInstance().loadPage(SceneHandler.HOME_PATH + "tagSelection.fxml");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-            Popup popup = new Popup();
-            popup.getContent().add(popupContent);
-            popup.setAutoHide(true);
-
-            Window parentWindow = tagHBox.getScene().getWindow();
-            double parentX = parentWindow.getX();
-            double parentY = parentWindow.getY();
-            double parentWidth = parentWindow.getWidth();
-            double parentHeight = parentWindow.getHeight();
-
-            double centerX = parentX + parentWidth / 2;
-            double centerY = parentY + parentHeight / 2;
-
-            popup.setX(centerX - 400 / 2);
-            popup.setY(centerY - 600 / 2);
-
-            BoxBlur blur = new BoxBlur(10, 10, 2); //ultimo parametro imposta intensità sfocatura
-
-            // Imposta l'effetto sfocatura sulla scena
-            tagHBox.getScene().setFill(Color.TRANSPARENT);
-            tagHBox.getScene().getRoot().setEffect(blur);
-
-            popup.setOnHidden(event -> {
-                tagHBox.getScene().getRoot().setEffect(null);
-                SceneHandler.getInstance().createPage(SceneHandler.HOME_PATH + "transactionDetails.fxml");
-            });
-
-            popup.show(tagHBox.getScene().getWindow());
-
-        });
-
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(transactionDetailsImages.isEmpty()){
@@ -162,7 +114,7 @@ public class TransactionDetailsController implements Initializable {
         }
         GenericController.loadImages(transactionDetailsImages);
 
-        transaction = TransactionManager.getInstance().getNextTransactionDate();
+        transaction = TransactionManager.getInstance().getNextTransaction();
         if(transaction.getImporto() < 0) {
             amountLabel.setText(df.format(transaction.getImporto()) + " €");
         }
@@ -204,6 +156,49 @@ public class TransactionDetailsController implements Initializable {
 
     }
 
+    private void changeTag() {
+        tagHBox.setOnMouseClicked(mouseEvent -> {
+            TransactionManager.getInstance().putTransaction(transaction);
+            Parent popupContent = null;
+            try {
+                popupContent = SceneHandler.getInstance().loadPage(SceneHandler.HOME_PATH + "tagSelection.fxml");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            Popup popup = new Popup();
+            popup.getContent().add(popupContent);
+            popup.setAutoHide(true);
+
+            Window parentWindow = tagHBox.getScene().getWindow();
+            double parentX = parentWindow.getX();
+            double parentY = parentWindow.getY();
+            double parentWidth = parentWindow.getWidth();
+            double parentHeight = parentWindow.getHeight();
+
+            double centerX = parentX + parentWidth / 2;
+            double centerY = parentY + parentHeight / 2;
+
+            popup.setX(centerX - 400 / 2);
+            popup.setY(centerY - 600 / 2);
+
+            BoxBlur blur = new BoxBlur(10, 10, 2); //ultimo parametro imposta intensità sfocatura
+
+            // Imposta l'effetto sfocatura sulla scena
+            tagHBox.getScene().setFill(Color.TRANSPARENT);
+            tagHBox.getScene().getRoot().setEffect(blur);
+
+            popup.setOnHidden(event -> {
+                tagHBox.getScene().getRoot().setEffect(null);
+                SceneHandler.getInstance().createPage(SceneHandler.HOME_PATH + "transactionDetails.fxml");
+            });
+
+            popup.show(tagHBox.getScene().getWindow());
+
+        });
+
+    }
+
     @FXML
     void saveComments(ActionEvent event) throws SQLException {
         transaction.setCommenti(commentsArea.getText());
@@ -219,5 +214,9 @@ public class TransactionDetailsController implements Initializable {
                 .showInformation();
 
         SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.HOME_PATH + "home.fxml");
+    }
+    @FXML
+    private void loadPreviousPage(MouseEvent event) throws IOException {
+        SceneHandler.getInstance().setPage(SceneHandler.HOME_PATH + "home.fxml");
     }
 }

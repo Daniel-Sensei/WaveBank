@@ -1,8 +1,6 @@
 package com.uid.progettobanca.model;
 
-import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.ContattiDAO;
-import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
 import javafx.scene.control.Label;
 
@@ -15,11 +13,7 @@ import java.util.*;
 
 public class TransactionManager {
     private static TransactionManager instance;  // Istanza singleton
-
-    private int numDate;
-    private String[] dates;
-    private String[] convertedDates;
-    private Stack<Transazione> transactionsDate;
+    private static Stack<Transazione> transactionsStack = new Stack<>();
 
     private TransactionManager() {
     }
@@ -31,22 +25,36 @@ public class TransactionManager {
         return instance;
     }
 
-    public void fillDates() throws SQLException {
-        dates = TransazioniDAO.selectDate(BankApplication.getCurrentlyLoggedIban());
-    }
-    public void fillNumDate() throws SQLException {
-        numDate = TransazioniDAO.selectGroupByDate(BankApplication.getCurrentlyLoggedIban());
-    }
-    public void fillTransactionsDate(String date) throws SQLException {
-        transactionsDate = TransazioniDAO.selectTransactionsByIbanAndDate(BankApplication.getCurrentlyLoggedIban(), date);
+    public void fillTransactionStack(List<Transazione> transactions){
+        for(Transazione t : transactions){
+            transactionsStack.push(t);
+        }
     }
 
-
-
-    public void putTransactionDate(Transazione transazione) {
-        transactionsDate.push(transazione);
+    public Transazione getNextTransaction(){
+        return transactionsStack.pop();
     }
 
+    public void putTransaction(Transazione transazione){
+        transactionsStack.push(transazione);
+    }
+
+    public static void setTransactionName(Label transactionName, Transazione transaction) throws SQLException {
+        //di default assegno come nome il tipo di transazione
+        transactionName.setText(transaction.getTipo());
+
+        Contatto from = ContattiDAO.selectByIBAN(transaction.getIbanFrom());
+        Contatto to = ContattiDAO.selectByIBAN(transaction.getIbanTo());
+        if (from != null) {
+            transactionName.setText(from.getNome() + " " + from.getCognome());
+        } else if (to != null) {
+            transactionName.setText(to.getNome() + " " + to.getCognome());
+        } else if (transaction.getImporto() < 0 && UtentiDAO.getNameByIban(transaction.getIbanTo()) != "") {
+            transactionName.setText(UtentiDAO.getNameByIban(transaction.getIbanTo()));
+        } else if (transaction.getImporto() > 0 && UtentiDAO.getNameByIban(transaction.getIbanFrom()) != "") {
+            transactionName.setText(UtentiDAO.getNameByIban(transaction.getIbanFrom()));
+        }
+    }
     public List<String> convertToLocalDates(List<String> dates) {
         // Creazione del formatter per il formato desiderato
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ITALIAN);
@@ -76,45 +84,6 @@ public class TransactionManager {
             }
         }
         return convertedDates;
-    }
-
-    public int getNumDate() {
-        return numDate;
-    }
-    public String[] getDates() {
-        return dates;
-    }
-
-    public Stack<Transazione> getTransactionsDate() {
-        return transactionsDate;
-    }
-
-    public Transazione getNextTransactionDate() {
-        return transactionsDate.pop();
-    }
-
-    public int getNumTransactionsDate() {
-        return transactionsDate.size();
-    }
-
-    public String[] getConvertedDates() {
-        return convertedDates;
-    }
-    public static void setTransactionName(Label transactionName, Transazione transaction) throws SQLException {
-        //di default assegno come nome il tipo di transazione
-        transactionName.setText(transaction.getTipo());
-
-        Contatto from = ContattiDAO.selectByIBAN(transaction.getIbanFrom());
-        Contatto to = ContattiDAO.selectByIBAN(transaction.getIbanTo());
-        if (from != null) {
-            transactionName.setText(from.getNome() + " " + from.getCognome());
-        } else if (to != null) {
-            transactionName.setText(to.getNome() + " " + to.getCognome());
-        } else if (transaction.getImporto() < 0 && UtentiDAO.getNameByIban(transaction.getIbanTo()) != "") {
-            transactionName.setText(UtentiDAO.getNameByIban(transaction.getIbanTo()));
-        } else if (transaction.getImporto() > 0 && UtentiDAO.getNameByIban(transaction.getIbanFrom()) != "") {
-            transactionName.setText(UtentiDAO.getNameByIban(transaction.getIbanFrom()));
-        }
     }
 
 }

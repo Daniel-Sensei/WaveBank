@@ -1,17 +1,11 @@
 package com.uid.progettobanca.controller.HomeController;
 
 import com.uid.progettobanca.controller.GenericController;
-import com.uid.progettobanca.model.Contatto;
-import com.uid.progettobanca.model.DAO.ContattiDAO;
-import com.uid.progettobanca.model.DAO.TransazioniDAO;
-import com.uid.progettobanca.model.DAO.UtentiDAO;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.Transazione;
-import com.uid.progettobanca.model.Utente;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -42,7 +36,7 @@ public class TransactionController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        transaction = TransactionManager.getInstance().getNextTransactionDate();
+        transaction = TransactionManager.getInstance().getNextTransaction();
         if(transaction.getImporto() < 0){
             amountLabel.setText(df.format(transaction.getImporto()) + " €");
         } else {
@@ -61,11 +55,8 @@ public class TransactionController implements Initializable {
     @FXML
     void openTransactionDetails(MouseEvent event) {
         //new TransactionDetailsController(transaction);
-        TransactionManager.getInstance().putTransactionDate(transaction);
+        TransactionManager.getInstance().putTransaction(transaction);
         SceneHandler.getInstance().createPage(SceneHandler.HOME_PATH + "transactionDetails.fxml");
     }
 
-    public Transazione getTransaction() {
-        return transaction;
-    }
 }

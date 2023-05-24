@@ -129,55 +129,13 @@ public class TransazioniDAO {
         }
     }
 
-    //raggruppa per date uguali e restituisce in numero di gruppi di un determinato iban
-    public static int selectGroupByDate(String iban) throws SQLException {
-        String query = "SELECT COUNT(DISTINCT Date(dateTime/1000, 'unixepoch')) AS date " +
-                        "FROM transazioni " +
-                        "WHERE iban_from = ? OR iban_to = ?";
+    //METODO PER TUTTE LE TRANSAZIONI
+    public static List<Transazione> selectAllTransaction(String iban) throws SQLException {
+        List<Transazione> transactions = new Stack<>();
+        String query = "SELECT * FROM transazioni WHERE (iban_from = ? OR iban_to = ?) ORDER BY dateTime asc";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
             stmt.setString(2, iban);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt("date");
-                } else {
-                    return 0;
-                }
-            }
-        }
-    }
-
-    //raggruppa per date uguali e inserisci la data in un array di stringhe di un determinato iban
-    public static String[] selectDate(String iban) throws SQLException {
-        String query = "SELECT DISTINCT Date(dateTime/1000, 'unixepoch') AS date " +
-                        "FROM transazioni " +
-                        "WHERE iban_from = ? OR iban_to = ?" +
-                        "ORDER BY dateTime desc";
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, iban);
-            stmt.setString(2, iban);
-            try (ResultSet rs = stmt.executeQuery()) {
-                String[] date = new String[selectGroupByDate(iban)];
-                int i = 0;
-                while (rs.next()) {
-                    date[i] = rs.getString("date");
-                    i++;
-                }
-                return date;
-            }
-        }
-    }
-
-
-    //restituisci una pila di transazioni di un determinato iban from o to di una determinata data,
-    //dove il valore dell' importo è negativo se l'iban passato come parametro appartiene all'iban from, positivo altrimenti
-    public static Stack<Transazione> selectTransactionsByIbanAndDate(String iban, String date) throws SQLException {
-        Stack<Transazione> transactionStack = new Stack<>();
-        String query = "SELECT * FROM transazioni WHERE (iban_from = ? OR iban_to = ?) AND Date(dateTime/1000, 'unixepoch') = ? ORDER BY dateTime asc";
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, iban);
-            stmt.setString(2, iban);
-            stmt.setString(3, date);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     String fromIban = rs.getString("iban_from");
@@ -201,13 +159,16 @@ public class TransazioniDAO {
                             rs.getString("tag"),
                             rs.getString("commenti")
                     );
-                    transactionStack.push(transaction);
+                    transactions.add(transaction);
                 }
             }
         }
 
-        return transactionStack;
+        return transactions;
     }
+
+    //METODO PER TAG E (IN,OUT)
+
 
     //seleziona solo trasferimenti tra spaces
     public static List<Transazione> selectBetweenSpaces(String iban) throws SQLException {

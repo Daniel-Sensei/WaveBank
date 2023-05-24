@@ -12,7 +12,7 @@ public class PageLoaderThread extends Thread {
     delle pagine quando vengono richieste dall'utente.
      */
     private String[] pageNames = {
-            SceneHandler.HOME_PATH + "home.fxml",
+            //SceneHandler.HOME_PATH + "home.fxml",
             SceneHandler.MANAGE_PATH + "manage.fxml",
             SceneHandler.MY_ACCOUNT_PATH + "myAccount.fxml",
             SceneHandler.MY_ACCOUNT_PATH + "deleteAccount.fxml",

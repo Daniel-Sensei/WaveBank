@@ -4,6 +4,7 @@ import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.TransactionManager;
+import com.uid.progettobanca.model.Transazione;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,11 +25,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class HomeController implements Initializable {
 
@@ -61,6 +60,8 @@ public class HomeController implements Initializable {
     public static String functionName = "filterAllTransaction";
     @FXML
     private ScrollPane scrollPane;
+    private List<Transazione> transactions = new ArrayList<>();
+    private List<String> distinctDates = new ArrayList<>();
 
     public void addFocusRemovalListenerToButtons() {
         for (Button button : allHomeButtons) {
@@ -99,8 +100,8 @@ public class HomeController implements Initializable {
         return transactionBox;
     }
 
-    private void addTransactions(VBox transactionBox){
-        int nTransaction = TransactionManager.getInstance().getNumTransactionsDate();
+    private void addTransactions(VBox transactionBox, int nTransaction){
+
         for(int j=0; j<nTransaction; j++){
             try {
                 Parent transaction = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().HOME_PATH + "transaction.fxml");
@@ -181,50 +182,77 @@ public class HomeController implements Initializable {
 
     }
 
-    private void filterAllTransaction(AtomicInteger nVBox, List<String> dates, List<String> convertedDates) {
-        try {
-            TransactionManager.getInstance().fillNumDate();
-            nVBox.set(TransactionManager.getInstance().getNumDate());
-            TransactionManager.getInstance().fillDates();
-            dates.clear();
-            dates.addAll(Arrays.asList(TransactionManager.getInstance().getDates()));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+
+    private List<String> countDistinctDates(List<Transazione> transazioni) {
+        Set<LocalDateTime> dateSet = new HashSet<>();
+        Set<String> uniqueDates = new HashSet<>();
+
+        for (Transazione transazione : transazioni) {
+            LocalDateTime dateTime = transazione.getDateTime();
+            String dateString = dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+            if (!dateSet.contains(dateTime) && !uniqueDates.contains(dateString)) {
+                dateSet.add(dateTime);
+                uniqueDates.add(dateString);
+            }
         }
-        convertedDates.clear();
-        convertedDates.addAll(TransactionManager.getInstance().convertToLocalDates(dates));
+
+        return new ArrayList<>(uniqueDates);
     }
 
+    private int countNumTransactionBox(List<Transazione> transazioni, String data) {
+        int count = 0;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        for (Transazione transazione : transazioni) {
+            LocalDateTime transactionDate = transazione.getDateTime();
+            String transactionDateString = transactionDate.format(formatter);
+            if (transactionDateString.equals(data)) {
+                count++;
+            }
+        }
+
+        return count;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //in loadHomeAssets() viene anche aggiunto popUp sul filter
         loadHomeAssets();
+        if(!transactions.isEmpty() && !distinctDates.isEmpty()){
+            transactions.clear();
+            distinctDates.clear();
+        }
 
         VBox vBox = new VBox();
         vBox.setPrefHeight(VBox.USE_COMPUTED_SIZE);
         vBox.setPrefWidth(VBox.USE_COMPUTED_SIZE);
         vBox.setPadding(new Insets(20, 0, 0, 0));
 
-        AtomicInteger nVBox = new AtomicInteger(0);
-        List<String> dates = new ArrayList<>();
-        List<String> convertedDates = new ArrayList<>();
-
-        // Richiama la funzione specificata
-        switch (functionName) {
-            case "filterAllTransaction":
-                filterAllTransaction(nVBox, dates, convertedDates);
-                break;
-            case "otherFunction":
-                // Richiama la funzione desiderata
-                // ...
-                break;
-            default:
-                throw new IllegalArgumentException("Function name not recognized");
+        try {
+            // Richiama la funzione specificata
+            switch (functionName) {
+                case "filterAllTransaction":
+                    transactions = TransazioniDAO.selectAllTransaction(BankApplication.getCurrentlyLoggedIban());
+                    break;
+                case "filterSelectedTransaction":
+                    // Richiama la funzione desiderata
+                    // ...
+                    break;
+                default:
+                    throw new IllegalArgumentException("Function name not recognized");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
-        if(nVBox.get() != 0) {
-            for (int i = 0; i < nVBox.get(); i++) {
+        //fill dello Stack per gestire dettagli delle transazioni
+        TransactionManager.getInstance().fillTransactionStack(transactions);
+        distinctDates = countDistinctDates(transactions);
+        int nVBox = distinctDates.size();
+        List<String> convertedDates = TransactionManager.getInstance().convertToLocalDates(distinctDates);
+        if (nVBox != 0) {
+            for (int i = 0; i < nVBox; i++) {
 
                 Label labelDate = new Label(convertedDates.get(i));
                 labelDate.setPrefHeight(Label.USE_COMPUTED_SIZE);
@@ -234,32 +262,21 @@ public class HomeController implements Initializable {
 
                 VBox transactionBox = createTransactionBox();
 
-                try {
-                    //prende tutte le transazioni associate a questa data
-                    TransactionManager.getInstance().fillTransactionsDate(dates.get(i));
-                    //bisogna fare intersect con altra funzione
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-
                 //cicla nel for per aggiungere le transazioni
-                addTransactions(transactionBox);
+                addTransactions(transactionBox, countNumTransactionBox(transactions, distinctDates.get(i)));
 
                 vBox.getChildren().add(transactionBox);
             }
 
             homeVbox.getChildren().add(vBox);
-        }
-        else {
+        } else {
             try {
                 Parent parent = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().HOME_PATH + "noTransaction.fxml");
                 homeVbox.getChildren().add(parent);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
         }
-
     }
 
 
