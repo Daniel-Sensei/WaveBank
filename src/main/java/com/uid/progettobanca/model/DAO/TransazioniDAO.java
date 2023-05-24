@@ -168,7 +168,83 @@ public class TransazioniDAO {
     }
 
     //METODO PER TAG E (IN,OUT)
+    public static List<Transazione> selectFilteredTransaction(String iban, List<String> tags, String ibanSelection) throws SQLException {
+        List<Transazione> transactions = new ArrayList<>();
+        StringBuilder queryBuilder = new StringBuilder();
+        queryBuilder.append("SELECT * FROM transazioni WHERE ");
 
+        if (ibanSelection.equals("iban_from")) {
+            queryBuilder.append("iban_from = ?");
+        } else if (ibanSelection.equals("iban_to")) {
+            queryBuilder.append("iban_to = ?");
+        } else {
+            queryBuilder.append("(iban_from = ? OR iban_to = ?)");
+        }
+
+        if (tags != null && !tags.isEmpty()) {
+            queryBuilder.append(" AND tag IN (");
+            for (int i = 0; i < tags.size(); i++) {
+                queryBuilder.append("?");
+                if (i < tags.size() - 1) {
+                    queryBuilder.append(",");
+                }
+            }
+            queryBuilder.append(")");
+        }
+
+        queryBuilder.append(" ORDER BY dateTime asc");
+
+        String query = queryBuilder.toString();
+
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            int parameterIndex = 1;
+            stmt.setString(parameterIndex, iban);
+            parameterIndex++;
+
+            if (ibanSelection.equals("both")) {
+                stmt.setString(parameterIndex, iban);
+                parameterIndex++;
+            }
+
+            if (tags != null && !tags.isEmpty()) {
+                for (String tag : tags) {
+                    stmt.setString(parameterIndex, tag);
+                    parameterIndex++;
+                }
+            }
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String fromIban = rs.getString("iban_from");
+                    String toIban = rs.getString("iban_to");
+                    double amount = rs.getDouble("importo");
+
+                    if (fromIban.equals(iban) && !toIban.equals(iban)) {
+                        amount *= -1; // Importo negativo se l'IBAN corrisponde a iban_from
+                    }
+
+                    Transazione transaction = new Transazione(
+                            rs.getInt("transaction_id"),
+                            fromIban,
+                            toIban,
+                            rs.getInt("space_from"),
+                            rs.getInt("space_to"),
+                            rs.getTimestamp("dateTime").toLocalDateTime(),
+                            amount,
+                            rs.getString("descrizione"),
+                            rs.getString("tipo"),
+                            rs.getString("tag"),
+                            rs.getString("commenti")
+                    );
+                    transactions.add(transaction);
+                }
+            }
+        }
+
+        return transactions;
+    }
+
+    //String query = "SELECT * FROM table_name WHERE name LIKE '%' || ? || '%'";
 
     //seleziona solo trasferimenti tra spaces
     public static List<Transazione> selectBetweenSpaces(String iban) throws SQLException {
