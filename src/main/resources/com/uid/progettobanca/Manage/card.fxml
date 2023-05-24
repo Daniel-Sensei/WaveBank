@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -14,30 +13,26 @@
          <children>
             <VBox fx:id="cardVbox">
                <children>
-                  <ImageView fx:id="cardImage" fitHeight="320.0" fitWidth="340.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../assets/images/CardsImages/virtualcard.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fx:id="cardImage" fitHeight="320.0" fitWidth="340.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </VBox>
             <HBox alignment="CENTER" spacing="15.0">
                <children>
                   <VBox alignment="CENTER" prefWidth="80.0" spacing="5.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#infoPressed" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
+                        <Button fx:id="info" mnemonicParsing="false" onAction="#infoPressed" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
                         <Label styleClass="button-label" text="Info" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefWidth="80.0" spacing="5.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#blockPressed" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
-                        <Label styleClass="button-label" text="Blocca" />
+                        <Button fx:id="security" mnemonicParsing="false" onAction="#blockPressed" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
+                        <Label fx:id="blockLabel" styleClass="button-label" text="Blocca" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefWidth="80.0" spacing="5.0">
                      <children>
-                        <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deletePressed" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
+                        <Button fx:id="trash" mnemonicParsing="false" onAction="#deletePressed" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
                         <Label styleClass="button-label" text="Elimina" />
                      </children>
                   </VBox>

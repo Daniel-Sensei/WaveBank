@@ -49,7 +49,7 @@ public class DeleteCardController {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            CardsManager.getInstance().setPos(-1);
+            CardsManager.getInstance().setPos(0);
             SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.MANAGE_PATH + "manage.fxml");
             SceneHandler.getInstance().setPage(SceneHandler.MANAGE_PATH + "manage.fxml");
         }

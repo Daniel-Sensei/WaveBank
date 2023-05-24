@@ -2,10 +2,9 @@ package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.CarteDAO;
-import com.uid.progettobanca.model.DAO.SpacesDAO;
+
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Queue;
 
 public class CardsManager {
     private static CardsManager instance;  // Istanza singleton
@@ -37,13 +36,17 @@ public class CardsManager {
         return cardsQueue.get(pos);
     }
 
-    public void setPos (int pos){
+    public void changePos(int pos){
         if (this.pos == 0 && pos < 0)
             this.pos = cardsQueue.size() - 1;
         else if (this.pos == cardsQueue.size() - 1 && pos > 0)
             this.pos = 0;
         else if (this.pos + pos >= 0 && this.pos + pos < cardsQueue.size())
             this.pos += pos;
+    }
+
+    public void setPos(int pos){
+        this.pos=pos;
     }
 
     public int getPos(){
