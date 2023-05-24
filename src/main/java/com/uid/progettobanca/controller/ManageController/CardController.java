@@ -4,6 +4,7 @@ import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.CardsManager;
 import com.uid.progettobanca.model.Carta;
+import com.uid.progettobanca.model.DAO.CarteDAO;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
 import com.uid.progettobanca.model.Utente;
 import com.uid.progettobanca.view.SceneHandler;
@@ -16,6 +17,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class CardController {
 
@@ -26,14 +28,46 @@ public class CardController {
     private ImageView cardImage;
 
     @FXML
-    private Button deleteButton;
+    private Button trash;
+
+    @FXML
+    private Button security;
+
+    @FXML
+    private Label blockLabel;
+
+    @FXML
+    private Button info;
+
+    private ArrayList<Button> cardButtons = new ArrayList<>();
+
+    private void loadCardButtons(){
+        cardButtons.add(trash);
+        cardButtons.add(security);
+        cardButtons.add(info);
+    }
+
 
     @FXML
     private VBox cardVbox;
 
     @FXML
     void blockPressed(ActionEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.MANAGE_PATH + "blockCard.fxml");
+        try {
+            CardsManager.getInstance().getCard().setBloccata(!CardsManager.getInstance().getCard().isBloccata());
+            CarteDAO.update(CardsManager.getInstance().getCard());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        if(CardsManager.getInstance().getCard().isBloccata()){
+            GenericController.loadImageButton("unlock", security);
+            blockLabel.setText("Sblocca");
+        }
+        else{
+            GenericController.loadImageButton(security);
+            blockLabel.setText("Blocca");
+        }
     }
 
     @FXML
@@ -47,11 +81,19 @@ public class CardController {
     }
 
     public void initialize() {
+        if(cardButtons.isEmpty()){
+            loadCardButtons();
+        }
+        GenericController.loadImagesButton(cardButtons);
         if(CardsManager.getInstance().getCard().getTipo().equals("Debito")){
-            deleteButton.setDisable(true);
+            trash.setDisable(true);
         }
         cardVbox.getStyleClass().add("OcrB");
         Carta carta = CardsManager.getInstance().getCard();
+        if(carta.isBloccata()){
+            GenericController.loadImageButton("unlock", security);
+            blockLabel.setText("Sblocca");
+        }
         if(carta.getTipo().equals("Debito")){
             GenericController.setCardImage("card", cardImage);
         } else if (carta.getTipo().equals("Virtuale")) {
@@ -59,11 +101,12 @@ public class CardController {
         }
         try {
             Utente utente = UtentiDAO.selectByUserId(BankApplication.getCurrentlyLoggedUser());
-            ownerName.setText(utente.getNome() + " " + utente.getCognome());
+            ownerName.setText(utente.getNome().toUpperCase() + " " + utente.getCognome().toUpperCase());
         } catch (SQLException e) {
             System.out.println("Errore nella creazione interna della card");
             throw new RuntimeException(e);
         }
 
     }
+
 }

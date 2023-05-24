@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -40,31 +40,105 @@
                   </HBox>
                </children>
             </AnchorPane>
-            <HBox>
+            <HBox alignment="CENTER_LEFT" spacing="100.0">
                <children>
-                  <VBox spacing="5.0" styleClass="card">
+                  <VBox prefWidth="400.0" spacing="3.0">
                      <children>
-                        <Label text="Codice" />
-                        <Label fx:id="cardCode" styleClass="subtitleLabel" text="1234 5678 1234 6543" />
-                        <Label text="CVV" />
-                        <Label fx:id="cardCVV" styleClass="subtitleLabel" text="123" />
-                        <Label text="Scadenza" />
-                        <Label fx:id="cardExpiry" styleClass="subtitleLabel" text="05/23" />
-                        <Label text="PIN" />
-                        <Label fx:id="cardPin" styleClass="subtitleLabel" text="123456" />
-                        <Label text="Stato" />
-                        <Label fx:id="cardBlocked" styleClass="subtitleLabel" text="123456" />
-                        <Label text="Tipo" />
-                        <Label fx:id="cardType" styleClass="subtitleLabel" text="123456" />
+                        <Label styleClass="subtitleLabel" text="I tuoi dati" />
+                        <VBox styleClass="vbox-with-rounded-border">
+                           <children>
+                              <HBox prefHeight="60.0" styleClass="border-bottom">
+                                 <children>
+                                    <VBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label text="Codice" />
+                                          <Label fx:id="cardCode" styleClass="subtitleLabel" text="1234 5678 1234 6543" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="10.0" right="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox prefHeight="60.0" styleClass="border-bottom">
+                                 <children>
+                                    <VBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label text="CVV" />
+                                          <Label fx:id="cardCVV" styleClass="subtitleLabel" text="123" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="10.0" right="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox prefHeight="60.0" styleClass="border-bottom">
+                                 <children>
+                                    <VBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label text="Scadenza" />
+                                          <Label fx:id="cardExpiry" styleClass="subtitleLabel" text="05/23" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="10.0" right="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox prefHeight="60.0" styleClass="border-bottom">
+                                 <children>
+                                    <VBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label text="PIN" />
+                                          <Label fx:id="cardPin" styleClass="subtitleLabel" text="123456" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="10.0" right="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox prefHeight="60.0" styleClass="border-bottom">
+                                 <children>
+                                    <VBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label text="Stato" />
+                                          <Label fx:id="cardBlocked" styleClass="subtitleLabel" text="123456" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="10.0" right="10.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox prefHeight="60.0">
+                                 <children>
+                                    <VBox alignment="CENTER_LEFT">
+                                       <children>
+                                          <Label text="Tipo" />
+                                          <Label fx:id="cardType" styleClass="subtitleLabel" text="Virtuale" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="10.0" right="10.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </VBox>
                      </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
                   </VBox>
+                  <ImageView fx:id="cardImage" fitHeight="222.0" fitWidth="435.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
-            <TextArea editable="false" prefHeight="69.0" prefWidth="870.0" text="Attenzione: Questa sezione contiene informazioni e dati sensibili relativi alla tua carta di credito. Ti consigliamo di non condividere queste informazioni con nessuno e di utilizzare questa pagina solo in un ambiente sicuro. La Wave Bank non si assume alcuna responsabilità per eventuali perdite o danni causati dall'utilizzo improprio di queste informazioni." wrapText="true" />
+            <Label styleClass="promptLabel" text="Attenzione: Questa sezione contiene informazioni e dati sensibili relativi alla tua carta di credito. Ti consigliamo di non condividere queste informazioni con nessuno e di utilizzare questa pagina solo in un ambiente sicuro. La Wave Bank non si assume alcuna responsabilità per eventuali perdite o danni causati dall'utilizzo improprio di queste informazioni." textAlignment="CENTER" wrapText="true" />
          </children>
       </VBox>
    </children>
+   <stylesheets>
+      <URL value="@../../../../css/fonts.css" />
+      <URL value="@../../../../css/style.css" />
+      <URL value="@../../../../css/light.css" />
+   </stylesheets>
 </AnchorPane>

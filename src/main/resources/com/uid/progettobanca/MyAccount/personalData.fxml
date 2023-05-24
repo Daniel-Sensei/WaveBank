@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
@@ -44,9 +45,9 @@
                   <VBox prefWidth="400.0" spacing="3.0">
                      <children>
                         <Label styleClass="subtitleLabel" text="I tuoi dati" />
-                        <VBox styleClass="card">
+                        <VBox styleClass="vbox-with-rounded-border">
                            <children>
-                              <HBox prefHeight="60.0" styleClass="vbox-with-rounded-border-hbox">
+                              <HBox prefHeight="60.0" styleClass="border-bottom">
                                  <children>
                                     <VBox alignment="CENTER_LEFT">
                                        <children>
@@ -59,7 +60,7 @@
                                     <Insets left="10.0" right="10.0" />
                                  </padding>
                               </HBox>
-                              <HBox prefHeight="60.0" styleClass="vbox-with-rounded-border-hbox">
+                              <HBox prefHeight="60.0" styleClass="border-bottom">
                                  <children>
                                     <VBox alignment="CENTER_LEFT">
                                        <children>
@@ -72,7 +73,7 @@
                                     <Insets left="10.0" right="10.0" />
                                  </padding>
                               </HBox>
-                              <HBox prefHeight="60.0" styleClass="vbox-with-rounded-border-hbox">
+                              <HBox prefHeight="60.0" styleClass="border-bottom">
                                  <children>
                                     <VBox alignment="CENTER_LEFT">
                                        <children>
@@ -85,7 +86,7 @@
                                     <Insets left="10.0" right="10.0" />
                                  </padding>
                               </HBox>
-                              <HBox prefHeight="60.0" styleClass="vbox-with-rounded-border-hbox">
+                              <HBox prefHeight="60.0" styleClass="border-bottom">
                                  <children>
                                     <VBox alignment="CENTER_LEFT">
                                        <children>
@@ -98,7 +99,7 @@
                                     <Insets left="10.0" right="10.0" />
                                  </padding>
                               </HBox>
-                              <HBox prefHeight="60.0" styleClass="vbox-with-rounded-border-hbox">
+                              <HBox prefHeight="60.0" styleClass="border-bottom">
                                  <children>
                                     <VBox alignment="CENTER_LEFT">
                                        <children>
@@ -111,7 +112,7 @@
                                     <Insets left="10.0" right="10.0" />
                                  </padding>
                               </HBox>
-                              <HBox prefHeight="60.0" styleClass="vbox-with-rounded-border-hbox">
+                              <HBox prefHeight="60.0">
                                  <children>
                                     <VBox alignment="CENTER_LEFT">
                                        <children>
@@ -148,4 +149,9 @@
          </children>
       </VBox>
    </children>
+   <stylesheets>
+      <URL value="@../../../../css/fonts.css" />
+      <URL value="@../../../../css/style.css" />
+      <URL value="@../../../../css/light.css" />
+   </stylesheets>
 </AnchorPane>

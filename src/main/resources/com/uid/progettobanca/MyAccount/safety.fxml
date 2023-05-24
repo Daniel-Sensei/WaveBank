@@ -102,7 +102,7 @@
                            <children>
                               <HBox onMouseClicked="#pswGuide" spacing="10.0">
                                  <children>
-                                    <VBox>
+                                    <VBox prefWidth="350.0">
                                        <children>
                                           <Label styleClass="subtitleLabel" text="Consigli su come avere una password sicura" />
                                           <Label text="Leggili un pò!" />

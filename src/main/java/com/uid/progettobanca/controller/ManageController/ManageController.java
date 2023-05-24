@@ -1,37 +1,19 @@
 package com.uid.progettobanca.controller.ManageController;
 
-        import com.uid.progettobanca.BankApplication;
         import com.uid.progettobanca.controller.GenericController;
         import com.uid.progettobanca.model.CardsManager;
-        import com.uid.progettobanca.model.DAO.TransazioniDAO;
         import com.uid.progettobanca.model.GraphCalculator;
-        import com.uid.progettobanca.model.Transazione;
         import com.uid.progettobanca.view.SceneHandler;
-        import javafx.animation.Interpolator;
-        import javafx.animation.KeyFrame;
-        import javafx.animation.KeyValue;
-        import javafx.animation.Timeline;
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
-        import javafx.geometry.Side;
         import javafx.scene.Parent;
         import javafx.scene.chart.LineChart;
-        import javafx.scene.chart.NumberAxis;
-        import javafx.scene.chart.XYChart;
-        import javafx.scene.control.Button;
         import javafx.scene.control.Label;
-        import javafx.scene.control.ScrollPane;
         import javafx.scene.image.ImageView;
         import javafx.scene.input.MouseEvent;
-        import javafx.scene.layout.HBox;
         import javafx.scene.layout.VBox;
-        import javafx.util.Duration;
 
         import java.io.IOException;
-        import java.sql.SQLException;
-        import java.time.LocalDateTime;
-        import java.util.ArrayList;
-        import java.util.List;
 
 public class ManageController {
     int numcarte=4;
@@ -48,13 +30,13 @@ public class ManageController {
 
     @FXML
     void leftCardClicked(MouseEvent event) {
-        CardsManager.getInstance().setPos(-1);
+        CardsManager.getInstance().changePos(-1);
         loadCard();
     }
 
     @FXML
     void rightCardClicked(MouseEvent event) {
-        CardsManager.getInstance().setPos(1);
+        CardsManager.getInstance().changePos(1);
         loadCard();
     }
 
