@@ -1,10 +1,7 @@
 package com.uid.progettobanca.controller.ManageController;
 
         import com.uid.progettobanca.controller.GenericController;
-        import com.uid.progettobanca.model.CardsManager;
-        import com.uid.progettobanca.model.GraphCalculator;
-        import com.uid.progettobanca.model.GraphCalculatorService;
-        import com.uid.progettobanca.model.ReturnChart;
+        import com.uid.progettobanca.model.*;
         import com.uid.progettobanca.view.SceneHandler;
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
@@ -42,36 +39,6 @@ public class ManageController {
         loadCard();
     }
 
-
-/*
-    @FXML
-    void destraPressed(ActionEvent event) {
-        double hvalue = scrollPane.getHvalue();
-        hvalue += scrollPerPress;
-      //  scrollPane.setHvalue(hvalue < 0 ? 0 : hvalue);
-        animateHBarValue(scrollPane, hvalue);
-        if(hvalue >= 1){
-            destra.setDisable(true);
-        }
-        if (hvalue > 0){
-            sinistra.setDisable(false);
-        }
-    }
-
-    @FXML
-    void sinistraPressed(ActionEvent event) {
-        double hvalue = scrollPane.getHvalue();
-        hvalue -= scrollPerPress;
-       // scrollPane.setHvalue(hvalue > 1 ? 1 : hvalue);
-        animateHBarValue(scrollPane, hvalue);
-        if(hvalue <= 0){
-            sinistra.setDisable(true);
-        }
-        if(hvalue < 1){
-            destra.setDisable(false);
-        }
-    } */
-
     @FXML
     private ImageView back;
 
@@ -107,6 +74,8 @@ public class ManageController {
         graphService.restart();
     }
 
+
+    private final CardService cardService = new CardService();
     private final GraphCalculatorService graphService = new GraphCalculatorService();
     public void initialize() {
 
@@ -124,12 +93,21 @@ public class ManageController {
             System.out.println("errore nel caricamento del grafico principale");
         });
 
-        CardsManager.getInstance().fillQueue();
-        numcarte=CardsManager.getInstance().getSize();
         GenericController.loadImage(back);
         GenericController.loadImage(forward);
 
-        loadCard();
+       // cardService.setParam();
+        cardService.start();
+
+        cardService.setOnSucceeded(event -> {
+            if(event.getSource().getValue() instanceof Boolean){
+                numcarte=CardsManager.getInstance().getSize();
+                loadCard();
+            }
+        });
+        cardService.setOnFailed(event -> {
+            System.out.println("errore nel caricamento delle carte");
+        });
     }
 
     private void loadCard(){

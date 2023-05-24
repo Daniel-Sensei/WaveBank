@@ -37,7 +37,6 @@ public class SingleChartController {
         graphService.setParam(chart, 30, false);
         graphService.start();
 
-
         graphService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof ReturnChart result){
                 lineChart.getData().add(result.getSeries());

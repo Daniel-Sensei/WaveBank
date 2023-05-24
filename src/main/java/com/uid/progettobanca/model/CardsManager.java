@@ -15,7 +15,7 @@ public class CardsManager {
     private CardsManager() {
     }
 
-    public void fillQueue(){
+    public Boolean fillQueue(){
         try {
             cardsQueue = CarteDAO.selectAllByUserId(String.valueOf(BankApplication.getCurrentlyLoggedUser()));
             cardsQueue.forEach(c -> System.out.println(c.toString()));
@@ -23,6 +23,7 @@ public class CardsManager {
             System.out.println("Errore nel riempire la coda delle carte");
             throw new RuntimeException(e);
         }
+        return true;
     }
 
     public static CardsManager getInstance() {

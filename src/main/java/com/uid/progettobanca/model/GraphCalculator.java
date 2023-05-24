@@ -27,11 +27,9 @@ public class GraphCalculator {
             }
 
             List<Double> DaysValues = new ArrayList<>();
-            List<LocalDateTime> Days = new ArrayList<>();
             for(int i =0; i<DaysInterval; i++){
                 DaysValues.add(0.0);
             }
-            //somma ogni 3 giorni le transazioni al saldo iniziale
             LocalDateTime now = LocalDateTime.now();
             for(int i=0; i<transazioni.size(); i++) {
                 int iterations = 0;
