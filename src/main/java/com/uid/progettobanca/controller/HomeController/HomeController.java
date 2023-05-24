@@ -2,6 +2,7 @@ package com.uid.progettobanca.controller.HomeController;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
+import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.Transazione;
@@ -133,7 +134,7 @@ public class HomeController implements Initializable {
         GenericController.loadImagesButton(homeButtons);
         addFocusRemovalListenerToButtons();
         try {
-            balanceLabel.setText(df.format(TransazioniDAO.getSaldo(BankApplication.getCurrentlyLoggedIban())) + " €");
+            balanceLabel.setText(df.format(ContiDAO.getSaldoByIban(BankApplication.getCurrentlyLoggedIban())) + " €");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

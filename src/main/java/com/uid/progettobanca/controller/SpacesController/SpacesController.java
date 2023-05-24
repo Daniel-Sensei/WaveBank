@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.SpacesController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.DAO.SpacesDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.Space;
@@ -53,7 +54,7 @@ public class SpacesController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-            saldo.setText(decimalFormat.format(TransazioniDAO.getSaldo(BankApplication.getCurrentlyLoggedIban())) + " €");
+            saldo.setText(decimalFormat.format(ContiDAO.getSaldoByIban(BankApplication.getCurrentlyLoggedIban())) + " €");
             SpacesManager.getInstance().fillQueue();
             int nSpaces = SpacesManager.getInstance().getSize();
             for (int i = 0; i < nSpaces; i++) {

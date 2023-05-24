@@ -173,11 +173,7 @@ public class SceneHandler {
             borderPane.setTop(menuBar);
             BorderPane.setAlignment(menuBar, Pos.CENTER_RIGHT);
             String iban = BankApplication.getCurrentlyLoggedIban();
-            System.out.println(ContiDAO.getSaldoByIban(iban));
-            System.out.println(BankApplication.getCurrentlyLoggedIban());
         } catch (IOException ignored) {
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 

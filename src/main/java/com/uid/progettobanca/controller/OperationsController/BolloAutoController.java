@@ -77,7 +77,7 @@ public class BolloAutoController implements Initializable {
             try {
                 int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
                 ContiDAO.transazione("IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, 50);
-                TransazioniDAO.insert(new Transazione("IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, space, LocalDateTime.now(), 50, "Il pirata ha apprezzato il tuo gesto e ti dona 50 dobloni", "Regalo del Pirata", "Intrattenimento", ""));
+                TransazioniDAO.insert(new Transazione("Pirata con Radio", "IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, space, LocalDateTime.now(), 50, "Il pirata ha apprezzato il tuo gesto e ti dona 50 dobloni", "Regalo del Pirata", "Intrattenimento", ""));
                 SceneHandler.getInstance().reloadDynamicPageInHashMap();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -123,7 +123,7 @@ public class BolloAutoController implements Initializable {
             int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
             if (ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)) {
                 //inserisco la transazione
-                TransazioniDAO.insert(new Transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, "Bollo " + typeComboBox.getValue(), "Bollo", "Altro", ""));
+                TransazioniDAO.insert(new Transazione("Bollo: "+ fieldPlate.getText(), BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, "Bollo " + typeComboBox.getValue(), "Bollo", "Altro", ""));
                 SceneHandler.getInstance().reloadDynamicPageInHashMap();
                 SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
                 SceneHandler.getInstance().showInfo("Operazione effettuata", "Bollo pagato", "Il bollo è stato pagato con successo");

@@ -89,7 +89,7 @@ public class DatabaseManager {
                                     "user_id CHAR(16) not null, FOREIGN KEY (user_id) REFERENCES utenti(user_id));");
 
             statement.execute("CREATE TABLE IF NOT EXISTS transazioni ("+
-                                    "transaction_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                                    "transaction_id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR not null, "+
                                     "iban_from CHAR(27) not null, iban_to CHAR(27), "+
                                     "space_from integer not null, space_to integer," +
                                     "dateTime timestamp not null, importo REAL not null, "+
@@ -125,7 +125,7 @@ public class DatabaseManager {
             //il campo user_id chiave esterna indica l'utente che ha inserito la voce nella rubrica, così facendo possiamo dividere le voci associate per utente
             statement.execute("CREATE TABLE IF NOT EXISTS contatti ("+
                                     "contatto_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
-                                    "nome VARCHAR(50) not null, cognome VARCHAR(50) not null, "+
+                                    "nome VARCHAR not null, cognome VARCHAR(50) not null, "+
                                     "iban_to  CHAR(27) not null, user_id CHAR(16) NOT NULL, " +
                                     "FOREIGN KEY (user_id) REFERENCES utenti(user_id));");
 

@@ -1,6 +1,7 @@
 package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.model.DAO.ContattiDAO;
+import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
 import javafx.scene.control.Label;
 
@@ -49,10 +50,10 @@ public class TransactionManager {
             transactionName.setText(from.getNome() + " " + from.getCognome());
         } else if (to != null) {
             transactionName.setText(to.getNome() + " " + to.getCognome());
-        } else if (transaction.getImporto() < 0 && UtentiDAO.getNameByIban(transaction.getIbanTo()) != "") {
-            transactionName.setText(UtentiDAO.getNameByIban(transaction.getIbanTo()));
-        } else if (transaction.getImporto() > 0 && UtentiDAO.getNameByIban(transaction.getIbanFrom()) != "") {
-            transactionName.setText(UtentiDAO.getNameByIban(transaction.getIbanFrom()));
+        } else if (transaction.getImporto() < 0 && TransazioniDAO.getNameById(transaction.getId()) != "") {
+            transactionName.setText(TransazioniDAO.getNameById(transaction.getId()));
+        } else if (transaction.getImporto() > 0 && TransazioniDAO.getNameById(transaction.getId()) != "") {
+            transactionName.setText(TransazioniDAO.getNameById(transaction.getId()));
         }
     }
     public List<String> convertToLocalDates(List<String> dates) {
