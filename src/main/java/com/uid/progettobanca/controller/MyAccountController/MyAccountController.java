@@ -4,25 +4,22 @@ import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
 import com.uid.progettobanca.model.Utente;
+import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class MyAccountController implements Initializable {
@@ -154,19 +151,9 @@ public class MyAccountController implements Initializable {
         try {
             Utente user = UtentiDAO.selectByUserId(BankApplication.getCurrentlyLoggedUser());
 
-            String originalString = BankApplication.getCurrentlyLoggedIban(); // iban senza spazi
-            StringBuilder stringBuilder = new StringBuilder();
-
-            // Aggiungi uno spazio ogni 4 caratteri
-            for (int i = 0; i < originalString.length(); i++) {
-                if (i > 0 && i % 4 == 0) {
-                    stringBuilder.append(" "); // Aggiungi uno spazio
-                }
-                stringBuilder.append(originalString.charAt(i));
-            }
+            ibanLabel.setText(FormUtils.separateIban(user.getIban()));
 
             nameLabel.setText(user.getNome()+ " " + user.getCognome());
-            ibanLabel.setText(stringBuilder.toString());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
