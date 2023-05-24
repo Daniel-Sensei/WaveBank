@@ -132,33 +132,6 @@ public class UtentiDAO {
         }
     }
 
-    // restituisce il nome del proprietario di un iban
-    public static String getNameByIban(String iban) {
-        String query = "SELECT nome, cognome FROM utenti WHERE iban = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, iban);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getString("nome") + " " + rs.getString("cognome");
-                } else {
-                    query = "SELECT nome FROM altro WHERE iban = ?";
-                    try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-                        pstmt.setString(1, iban);
-                        try (ResultSet result = pstmt.executeQuery()) {
-                            if (result.next()) {
-                                return result.getString("nome");
-                            } else return "";
-                        }
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     // restituisce l'id utente dall'email
     public static int getUserIdByEmail(String email) throws SQLException {
         String query = "SELECT user_id FROM utenti WHERE email = ?";

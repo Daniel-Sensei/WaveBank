@@ -4,9 +4,11 @@ import java.time.LocalDateTime;
 
 public class Transazione {
 
+
     //  Attributi:
 
     private int transactionId;
+    private String nome;
     private String ibanFrom;
     private String ibanTo;
     private int spaceFrom;
@@ -22,7 +24,8 @@ public class Transazione {
     //  Costruttori:
 
     //questo costruttore serve quando si crea una transazione da inserire nel database
-    public Transazione(String ibanFrom, String ibanTo, int spaceFrom, int spaceTo, LocalDateTime dateTime, double importo, String descrizione, String tipo, String tag, String commenti) {
+    public Transazione(String nome, String ibanFrom, String ibanTo, int spaceFrom, int spaceTo, LocalDateTime dateTime, double importo, String descrizione, String tipo, String tag, String commenti) {
+        this.nome = nome;
         this.ibanFrom = ibanFrom;
         this.ibanTo = ibanTo;
         this.spaceFrom = spaceFrom;
@@ -36,8 +39,9 @@ public class Transazione {
     }
 
     //questo costruttore serve quando si crea una transazione da estrarre dal database
-    public Transazione(int transactionId, String ibanFrom, String ibanTo, int spaceFrom, int spaceTo, LocalDateTime dateTime, double importo, String descrizione, String tipo, String tag, String commenti) {
+    public Transazione(int transactionId, String nome, String ibanFrom, String ibanTo, int spaceFrom, int spaceTo, LocalDateTime dateTime, double importo, String descrizione, String tipo, String tag, String commenti) {
         this.transactionId = transactionId;
+        this.nome = nome;
         this.ibanFrom = ibanFrom;
         this.ibanTo = ibanTo;
         this.spaceFrom = spaceFrom;
@@ -53,8 +57,11 @@ public class Transazione {
 
     // getters & setters:
 
-    public int getTransactionId() {return transactionId;}
-    public void setTransactionId(int transactionId) {this.transactionId = transactionId;}
+    public int getId() {return transactionId;}
+    public void setId(int transactionId) {this.transactionId = transactionId;}
+
+    public String getNome() {return nome;}
+    public void setNome(String nome) {this.nome = nome;}
 
     public String getIbanFrom() {return ibanFrom;}
     public void setIbanFrom(String ibanFrom) {this.ibanFrom = ibanFrom;}
@@ -93,6 +100,7 @@ public class Transazione {
     public String toString() {
         return "Transazione{" +
                 "transactionId=" + transactionId +
+                ", nome='" + nome + '\'' +
                 ", ibanFrom='" + ibanFrom + '\'' +
                 ", ibanTo='" + ibanTo + '\'' +
                 ", spaceFrom=" + spaceFrom +

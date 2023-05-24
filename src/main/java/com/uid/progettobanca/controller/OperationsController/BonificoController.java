@@ -131,16 +131,14 @@ public class BonificoController implements Initializable {
             //bisogna mettere ContiDao.transazione in un if per bloccare operazione in caso di fondi insufficienti
             int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
             if (ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, amount)) {
-                TransazioniDAO.insert(new Transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, 0, LocalDateTime.now(), amount, fieldDescr.getText(), "Bonifico", "Altro", ""));
+                String nome = fieldName.getText() + " " + fieldSurname.getText();
+                TransazioniDAO.insert(new Transazione(nome, BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, 0, LocalDateTime.now(), amount, fieldDescr.getText(), "Bonifico", "Altro", ""));
 
                 if (saveContact.isSelected()) {
                     ContattiDAO.insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedUser()));
                     SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.OPERATIONS_PATH + "operations.fxml");
-                } else {
-                    if (UtentiDAO.selectByIban(fieldIbanTo.getText()) == null)
-                        if (AltroDAO.selectByIban(fieldIbanTo.getText()) == null)
-                            AltroDAO.insert(new Altro(fieldName.getText().trim() + " " + fieldSurname.getText().trim(), fieldIbanTo.getText()));
                 }
+
                 SceneHandler.getInstance().reloadDynamicPageInHashMap();
                 SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
                 SceneHandler.getInstance().showInfo("Bonifico", "Bonifico effettuato con successo", "Il bonifico è andato a buon fine.");

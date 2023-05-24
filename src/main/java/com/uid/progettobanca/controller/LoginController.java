@@ -58,8 +58,6 @@ public class LoginController implements Initializable {
             //in questa funzione viene effettuato il login e se va a buon fine viene settato il currentlyLoggedUser
             int user = UtentiDAO.login(emailField.getText(), passwordField.getText());
             if (user!=0) {
-                System.out.println("Login effettuato con successo");
-
                 BankApplication.setCurrentlyLoggedUser(user);
 
                 String iban = UtentiDAO.selectByUserId(user).getIban();

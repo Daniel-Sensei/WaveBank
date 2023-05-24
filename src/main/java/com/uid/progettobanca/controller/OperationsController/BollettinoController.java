@@ -129,15 +129,15 @@ public class BollettinoController implements Initializable {
             String descr = "";
             // se è un bianco aggiungo anche il nome del destinatario
             if(tipo.equals("Bollettino: 123 - Bianco generico")){
-                descr += "Intestatario: " + fieldRecipient.getText().trim() + "\n\n";
+                descr += "Intestatario: " + fieldRecipient.getText().trim();
             } else {
-                descr += "Codice: " + fieldCode.getText().trim() + "\n\n";
+                descr += "Codice: " + fieldCode.getText().trim();
             }
             int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
             //rimuove i soldi dal conto corrente
             if(ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)){
                 //inserisco la transazione
-                TransazioniDAO.insert(new Transazione(BankApplication.getCurrentlyLoggedIban(), fieldCC.getText(), space, 0,  LocalDateTime.now(), amount, descr + fieldDescr.getText(), tipo, "Altro", ""));
+                TransazioniDAO.insert(new Transazione("Bollettino Postale", BankApplication.getCurrentlyLoggedIban(), fieldCC.getText(), space, 0,  LocalDateTime.now(), amount, descr + fieldDescr.getText(), tipo, "Altro", ""));
                 SceneHandler.getInstance().reloadDynamicPageInHashMap();
                 SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
                 SceneHandler.getInstance().showInfo("Operazione effettuata", "Bollettino pagato", "Il bollettino è stato pagato con successo");
