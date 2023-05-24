@@ -8,8 +8,8 @@ public class ReturnChart {
     private XYChart.Series series;
 
     public void SetReturnChart(double value, XYChart.Series series) {
-        this.value = value;
         this.series = series;
+        this.value = Math.round(value*100.0)/100.0; //round to 2 decimal places
     }
 
     public double getValue() {

@@ -181,4 +181,15 @@ public class FormUtils {
         }
         return Double.parseDouble(null);
     }
+
+    public static String separateIban(String iban) {
+        String ibanSeparated = "";
+        for (int i = 0; i < iban.length(); i++) {
+            if (i % 4 == 0 && i != 0) {
+                ibanSeparated += " ";
+            }
+            ibanSeparated += iban.charAt(i);
+        }
+        return ibanSeparated;
+    }
 }

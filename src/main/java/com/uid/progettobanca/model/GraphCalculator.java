@@ -103,8 +103,6 @@ public class GraphCalculator {
                 }
             }
             ReturnChart doppio = new ReturnChart();
-            //max deve avere massimo 2 cifre dopo la virgola
-            max = Math.round(max*100.0)/100.0;
             doppio.SetReturnChart(max, data);
             return doppio;
 
