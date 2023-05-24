@@ -3,6 +3,8 @@ package com.uid.progettobanca.controller.ManageController;
         import com.uid.progettobanca.controller.GenericController;
         import com.uid.progettobanca.model.CardsManager;
         import com.uid.progettobanca.model.GraphCalculator;
+        import com.uid.progettobanca.model.GraphCalculatorService;
+        import com.uid.progettobanca.model.ReturnChart;
         import com.uid.progettobanca.view.SceneHandler;
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
@@ -89,20 +91,39 @@ public class ManageController {
 
     @FXML
     void monthlyPressed(ActionEvent event) {
-        chart.getData().set(0,graphCalculator.MainGraphCalculator(30));
+        graphService.setParam("", 30, true);
+        graphService.restart();
     }
 
     @FXML
     void trimestralPressed(ActionEvent event) {
-        chart.getData().set(0, graphCalculator.MainGraphCalculator(90));
+        graphService.setParam("", 90, true);
+        graphService.restart();
     }
 
     @FXML
     void annualPressed(ActionEvent event) {
-        chart.getData().set(0,graphCalculator.MainGraphCalculator(365));
+        graphService.setParam("", 365, true);
+        graphService.restart();
     }
+
+    private final GraphCalculatorService graphService = new GraphCalculatorService();
     public void initialize() {
-        chart.getData().add(graphCalculator.MainGraphCalculator(30));  //passare quanti giorni da calcolare nel grafico
+
+        graphService.setParam("", 30, true);
+        graphService.start();
+
+
+        graphService.setOnSucceeded(event -> {
+            if(event.getSource().getValue() instanceof ReturnChart result){
+                chart.getData().clear();
+                chart.getData().add(result.getSeries());
+            }
+        });
+        graphService.setOnFailed(event -> {
+            System.out.println("errore nel caricamento del grafico principale");
+        });
+
         CardsManager.getInstance().fillQueue();
         numcarte=CardsManager.getInstance().getSize();
         GenericController.loadImage(back);
