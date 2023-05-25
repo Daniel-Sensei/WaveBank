@@ -5,7 +5,6 @@ import javafx.concurrent.Task;
 
 public class CardService extends Service<Boolean> {
 
-    private String operation;
     @Override
     protected Task<Boolean> createTask() {
         return new Task<>() {

@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.ManageController;
 
 import com.uid.progettobanca.controller.GenericController;
+import com.uid.progettobanca.model.CardWorkerThread;
 import com.uid.progettobanca.model.CardsManager;
 import com.uid.progettobanca.model.DAO.CarteDAO;
 import com.uid.progettobanca.view.BackStack;
@@ -44,11 +45,12 @@ public class DeleteCardController {
     @FXML
     void deletePressed(ActionEvent event) {
         if (agreeCheck.isSelected()) {
-            try {
-                CarteDAO.delete(CardsManager.getInstance().getCard().getNumCarta());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+
+            CardWorkerThread cardWorkerThread = new CardWorkerThread("Elimina", CardsManager.getInstance().getCard());
+            cardWorkerThread.start();
+
+            CardsManager.getInstance().removeCard(CardsManager.getInstance().getCard());
+
             CardsManager.getInstance().setPos(0);
             SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.MANAGE_PATH + "manage.fxml");
             SceneHandler.getInstance().setPage(SceneHandler.MANAGE_PATH + "manage.fxml");

@@ -15,9 +15,7 @@ package com.uid.progettobanca.controller.ManageController;
         import java.io.IOException;
 
 public class ManageController {
-    int numcarte=4;
-    float scrollPerPress=0;
-    GraphCalculator graphCalculator = new GraphCalculator();
+    int numcarte=0;
 
     @FXML
     private VBox cardBox;

@@ -11,22 +11,17 @@ public class CreateCard {
         try {
             //crea carta
             Carta carta = new Carta();
-            boolean approved = false;
-            while (approved == false) {
-                String cardNumber= RandomNumbers.generateRandomNumbers(16);
-                if(CarteDAO.selectByNumCarta(cardNumber) == null){
-                    carta.setNumCarta(cardNumber);
-                    approved = true;
-                }
-
-            }
             carta.setBloccata(false);
             carta.setCvv(RandomNumbers.generateRandomNumbers(3)); //random
             carta.setPin(RandomNumbers.generateRandomNumbers(5)); //random
             carta.setTipo("Virtuale");
             carta.setUserId(String.valueOf(BankApplication.getCurrentlyLoggedUser()));
             carta.setScadenza(LocalDate.now().plusMonths(lasting));
-            CarteDAO.insert(carta);
+            carta.setNumCarta(RandomNumbers.generateRandomNumbers(16));
+            while (!CarteDAO.insert(carta)){
+                carta.setNumCarta(RandomNumbers.generateRandomNumbers(16));
+            }
+            CardsManager.getInstance().addCard(carta);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

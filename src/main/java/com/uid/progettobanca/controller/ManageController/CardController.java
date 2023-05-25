@@ -2,6 +2,7 @@ package com.uid.progettobanca.controller.ManageController;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
+import com.uid.progettobanca.model.CardWorkerThread;
 import com.uid.progettobanca.model.CardsManager;
 import com.uid.progettobanca.model.Carta;
 import com.uid.progettobanca.model.DAO.CarteDAO;
@@ -53,12 +54,11 @@ public class CardController {
 
     @FXML
     void blockPressed(ActionEvent event) {
-        try {
-            CardsManager.getInstance().getCard().setBloccata(!CardsManager.getInstance().getCard().isBloccata());
-            CarteDAO.update(CardsManager.getInstance().getCard());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
+        CardWorkerThread cardWorkerThread = new CardWorkerThread("Blocca", CardsManager.getInstance().getCard());
+        cardWorkerThread.start();
+
+        CardsManager.getInstance().getCard().setBloccata(!CardsManager.getInstance().getCard().isBloccata());
 
         if(CardsManager.getInstance().getCard().isBloccata()){
             GenericController.loadImageButton("unlock", security);

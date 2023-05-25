@@ -34,7 +34,7 @@ public class CarteDAO {
     //  Inserimenti:
 
     //inserimento tramite oggetto di tipo carta
-    public static void insert(Carta carta) throws SQLException {
+    public static Boolean insert(Carta carta) throws SQLException {
         String query = "INSERT INTO carte (num, cvv, scadenza, pin, bloccata, tipo, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, carta.getNumCarta());
@@ -45,11 +45,15 @@ public class CarteDAO {
             stmt.setString(6, carta.getTipo());
             stmt.setString(7, carta.getUserId());
             stmt.executeUpdate();
+            return true;
+        }
+        catch (SQLException e){
+            return false;
         }
     }
 
     //inserimento specificando tutti i parametri
-    public static void insert(String num, String cvv, LocalDate scadenza, String pin, boolean bloccata, String tipo, String user_id) throws SQLException {
+    public static Boolean insert(String num, String cvv, LocalDate scadenza, String pin, boolean bloccata, String tipo, String user_id) throws SQLException {
         String query = "INSERT INTO carte (num, cvv, scadenza, pin, bloccata, tipo, user_id) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, num);
@@ -60,6 +64,10 @@ public class CarteDAO {
             stmt.setString(6, tipo);
             stmt.setString(7, user_id);
             stmt.executeUpdate();
+            return true;
+        }
+        catch (SQLException e){
+            return false;
         }
     }
 

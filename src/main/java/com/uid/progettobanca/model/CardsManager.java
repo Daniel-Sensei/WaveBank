@@ -16,14 +16,23 @@ public class CardsManager {
     }
 
     public Boolean fillQueue(){
-        try {
-            cardsQueue = CarteDAO.selectAllByUserId(String.valueOf(BankApplication.getCurrentlyLoggedUser()));
-            cardsQueue.forEach(c -> System.out.println(c.toString()));
-        } catch (SQLException e) {
-            System.out.println("Errore nel riempire la coda delle carte");
-            throw new RuntimeException(e);
+        if(cardsQueue == null) {
+            try {
+                cardsQueue = CarteDAO.selectAllByUserId(String.valueOf(BankApplication.getCurrentlyLoggedUser()));
+            } catch (SQLException e) {
+                System.out.println("Errore nel riempire la coda delle carte");
+                throw new RuntimeException(e);
+            }
         }
         return true;
+    }
+
+    public void addCard(Carta carta){
+        cardsQueue.add(carta);
+    }
+
+    public void removeCard(Carta carta){
+        cardsQueue.remove(carta);
     }
 
     public static CardsManager getInstance() {

@@ -2,6 +2,8 @@ package com.uid.progettobanca.controller.ManageController;
 
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.CreateCard;
+import com.uid.progettobanca.model.CreateCardService;
+import com.uid.progettobanca.model.ReturnChart;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
@@ -30,11 +32,11 @@ public class FormCreateCardController {
     private Button createButton;
 
 
+    private CreateCardService createCardService = new CreateCardService();
     @FXML
     void createPressed(ActionEvent event) {
-        CreateCard.createVirtualcard(Integer.parseInt(dateValue.getText()));
-        SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.MANAGE_PATH + "manage.fxml");
-        SceneHandler.getInstance().setPage(SceneHandler.MANAGE_PATH + "manage.fxml");
+        createCardService.setLasting(Integer.parseInt(dateValue.getText()));
+        createCardService.restart();
     }
 
 
@@ -57,6 +59,16 @@ public class FormCreateCardController {
                 FormUtils.getInstance().validateTextField(dateValue, FormUtils.getInstance().validateDuration(dateValue.getText()), errorDate);
                 createButton.setDisable(!FormUtils.getInstance().validateDuration(dateValue.getText()));
             }
+        });
+
+        createCardService.setOnSucceeded(event -> {
+            if(event.getSource().getValue() instanceof Boolean result){
+                SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.MANAGE_PATH + "manage.fxml");
+                SceneHandler.getInstance().setPage(SceneHandler.MANAGE_PATH + "manage.fxml");
+            }
+        });
+        createCardService.setOnFailed(event -> {
+            System.out.println("errore nella creazione della carta");
         });
     }
 
