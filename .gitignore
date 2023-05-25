@@ -11,6 +11,8 @@ target/
 *.iws
 *.iml
 *.ipr
+#ignoring database files
+*.db
 
 ### Eclipse ###
 .apt_generated
