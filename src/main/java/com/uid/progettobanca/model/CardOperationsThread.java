@@ -4,11 +4,11 @@ import com.uid.progettobanca.model.DAO.CarteDAO;
 
 import java.sql.SQLException;
 
-public class CardWorkerThread extends Thread{
+public class CardOperationsThread extends Thread{
     private String operation;
     private Carta carta;
 
-    public CardWorkerThread(String operation, Carta carta){
+    public CardOperationsThread(String operation, Carta carta){
         this.operation = operation;
         this.carta = carta;
     }

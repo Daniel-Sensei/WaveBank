@@ -2,6 +2,8 @@ package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.CarteDAO;
+import com.uid.progettobanca.model.DAO.UtentiDAO;
+import com.uid.progettobanca.view.SceneHandler;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -15,16 +17,11 @@ public class CardsManager {
     private CardsManager() {
     }
 
-    public Boolean fillQueue(){
-        if(cardsQueue == null) {
-            try {
-                cardsQueue = CarteDAO.selectAllByUserId(String.valueOf(BankApplication.getCurrentlyLoggedUser()));
-            } catch (SQLException e) {
-                System.out.println("Errore nel riempire la coda delle carte");
-                throw new RuntimeException(e);
-            }
-        }
-        return true;
+
+    public void fillQueue(List<Carta> carte) {
+        System.out.println("fillo carte in cardsmanager");
+        cardsQueue = carte;
+        cardsQueue.forEach(c -> System.out.println(c.toString()));
     }
 
     public void addCard(Carta carta){

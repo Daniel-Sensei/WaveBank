@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller.ManageController;
 
+        import com.uid.progettobanca.BankApplication;
         import com.uid.progettobanca.controller.GenericController;
         import com.uid.progettobanca.model.*;
         import com.uid.progettobanca.view.SceneHandler;
@@ -13,6 +14,7 @@ package com.uid.progettobanca.controller.ManageController;
         import javafx.scene.layout.VBox;
 
         import java.io.IOException;
+        import java.util.List;
 
 public class ManageController {
     int numcarte=0;
@@ -56,56 +58,61 @@ public class ManageController {
 
     @FXML
     void monthlyPressed(ActionEvent event) {
-        graphService.setParam("", 30, true);
-        graphService.restart();
+        daysInterval=30;
+        getTransactionsService.restart();
     }
 
     @FXML
     void trimestralPressed(ActionEvent event) {
-        graphService.setParam("", 90, true);
-        graphService.restart();
+        daysInterval=90;
+        getTransactionsService.restart();
     }
 
     @FXML
     void annualPressed(ActionEvent event) {
-        graphService.setParam("", 365, true);
-        graphService.restart();
+        daysInterval=365;
+        getTransactionsService.restart();
     }
 
-
-    private final CardService cardService = new CardService();
-    private final GraphCalculatorService graphService = new GraphCalculatorService();
+    private int daysInterval;
+    private GraphCalculator graphCalculator=new GraphCalculator();
+    private CardService cardService= new CardService();
+    private final GetTransactionsService getTransactionsService = new GetTransactionsService();
     public void initialize() {
 
-        graphService.setParam("", 30, true);
-        graphService.start();
+        daysInterval=30;
 
+        getTransactionsService.setIban(BankApplication.getCurrentlyLoggedIban());
+        getTransactionsService.start();
 
-        graphService.setOnSucceeded(event -> {
-            if(event.getSource().getValue() instanceof ReturnChart result){
+        getTransactionsService.setOnSucceeded(event -> {
+            if(event.getSource().getValue() instanceof List<?> result){
                 chart.getData().clear();
-                chart.getData().add(result.getSeries());
+                chart.getData().add(graphCalculator.MainGraphCalculator(daysInterval, (List<Transazione>) result).getSeries());
             }
         });
-        graphService.setOnFailed(event -> {
+        getTransactionsService.setOnFailed(event -> {
             System.out.println("errore nel caricamento del grafico principale");
         });
 
         GenericController.loadImage(back);
         GenericController.loadImage(forward);
 
-       // cardService.setParam();
-        cardService.start();
+        cardService.setOperazione("getByUser");
+        cardService.restart();
 
         cardService.setOnSucceeded(event -> {
-            if(event.getSource().getValue() instanceof Boolean){
+            if(event.getSource().getValue() instanceof List<?> result){
+                System.out.println("in managecontroller cardService ha restituito la lista di carte");
+                CardsManager.getInstance().fillQueue((List<Carta>) result);
                 numcarte=CardsManager.getInstance().getSize();
                 loadCard();
             }
         });
         cardService.setOnFailed(event -> {
-            System.out.println("errore nel caricamento delle carte");
+            System.out.println("errore nell'ottenimento delle carte");
         });
+
     }
 
     private void loadCard(){

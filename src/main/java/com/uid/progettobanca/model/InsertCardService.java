@@ -5,22 +5,24 @@ import com.uid.progettobanca.model.DAO.CarteDAO;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
-import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
-public class CreateCardService extends Service<Boolean> {
+public class InsertCardService extends Service<Boolean> {
 
-    private int lasting;
-
-    public void setLasting(int lasting){
-        this.lasting = lasting;
+    private String operazione;
+    private Carta carta;
+    public void setCarta(Carta carta){
+        this.carta=carta;
     }
+
     @Override
     protected Task<Boolean> createTask() {
         return new Task<>() {
             @Override
             protected Boolean call() throws Exception {
-                CreateCard.createVirtualcard(lasting);
-                return true;
+                return CarteDAO.insert(carta);
             }
         };
     }

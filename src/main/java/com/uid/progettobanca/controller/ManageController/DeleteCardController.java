@@ -1,9 +1,8 @@
 package com.uid.progettobanca.controller.ManageController;
 
 import com.uid.progettobanca.controller.GenericController;
-import com.uid.progettobanca.model.CardWorkerThread;
+import com.uid.progettobanca.model.CardOperationsThread;
 import com.uid.progettobanca.model.CardsManager;
-import com.uid.progettobanca.model.DAO.CarteDAO;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
@@ -13,7 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class DeleteCardController {
 
@@ -46,8 +44,8 @@ public class DeleteCardController {
     void deletePressed(ActionEvent event) {
         if (agreeCheck.isSelected()) {
 
-            CardWorkerThread cardWorkerThread = new CardWorkerThread("Elimina", CardsManager.getInstance().getCard());
-            cardWorkerThread.start();
+            CardOperationsThread cardOperationsThread = new CardOperationsThread("Elimina", CardsManager.getInstance().getCard());
+            cardOperationsThread.start();
 
             CardsManager.getInstance().removeCard(CardsManager.getInstance().getCard());
 

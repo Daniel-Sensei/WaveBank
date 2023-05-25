@@ -1,15 +1,13 @@
 package com.uid.progettobanca.controller.ManageController;
 
-import com.uid.progettobanca.model.ChartsManager;
-import com.uid.progettobanca.model.GraphCalculator;
-import com.uid.progettobanca.model.GraphCalculatorService;
-import com.uid.progettobanca.model.ReturnChart;
+import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.model.*;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
-import static java.lang.String.valueOf;
+import java.util.List;
 
 public class SingleChartController {
 
@@ -23,9 +21,14 @@ public class SingleChartController {
     @FXML
     private LineChart<?, ?> lineChart;
 
-    private final GraphCalculatorService graphService = new GraphCalculatorService();
+    private final GetTransactionsService ibanService = new GetTransactionsService();
     @FXML
     private Label spentBalance;
+
+    private GraphCalculator graphCalculator = new GraphCalculator();
+    private int daysInterval = 30;
+
+    private ReturnChart ritorno = new ReturnChart();
 
     @FXML
     void initialize() {
@@ -34,23 +37,19 @@ public class SingleChartController {
         LoadChartImg load = new LoadChartImg();
         load.load(chart, chartImage);
 
-        graphService.setParam(chart, 30, false);
-        graphService.start();
+        ibanService.setIban(BankApplication.getCurrentlyLoggedIban());
+        ibanService.start();
 
-        graphService.setOnSucceeded(event -> {
-            if(event.getSource().getValue() instanceof ReturnChart result){
-                lineChart.getData().add(result.getSeries());
-                spentBalance.setText("€"+result.getValue());
+        ibanService.setOnSucceeded(event -> {
+            if(event.getSource().getValue() instanceof List<?>  result){
+                ritorno = graphCalculator.TagGraphCalculator(daysInterval, chart, (List<Transazione>) result);
+                lineChart.getData().add(ritorno.getSeries());
+                spentBalance.setText(String.valueOf(ritorno.getValue()));
             }
         });
-        graphService.setOnFailed(event -> {
+        ibanService.setOnFailed(event -> {
             System.out.println("errore nel caricamento del grafico per tag");
         });
-
-    //    GraphCalculator graphCalculator = new GraphCalculator();
-    //    ReturnChart returnChart = graphCalculator.TagGraphCalculator(30, chart);
-    //    lineChart.getData().add(results.getSeries());
-    //    spentBalance.setText("€"+results.getValue());
     }
 
 }

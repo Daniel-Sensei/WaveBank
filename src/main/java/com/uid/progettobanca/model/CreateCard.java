@@ -7,24 +7,17 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class CreateCard {
-    public static void createVirtualcard(int lasting){
-        try {
+    public static Carta createVirtualcard(int lasting){
             //crea carta
-            Carta carta = new Carta();
-            carta.setBloccata(false);
-            carta.setCvv(RandomNumbers.generateRandomNumbers(3)); //random
-            carta.setPin(RandomNumbers.generateRandomNumbers(5)); //random
-            carta.setTipo("Virtuale");
-            carta.setUserId(String.valueOf(BankApplication.getCurrentlyLoggedUser()));
-            carta.setScadenza(LocalDate.now().plusMonths(lasting));
-            carta.setNumCarta(RandomNumbers.generateRandomNumbers(16));
-            while (!CarteDAO.insert(carta)){
-                carta.setNumCarta(RandomNumbers.generateRandomNumbers(16));
-            }
-            CardsManager.getInstance().addCard(carta);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        Carta carta = new Carta();
+        carta.setBloccata(false);
+        carta.setCvv(RandomNumbers.generateRandomNumbers(3)); //random
+        carta.setPin(RandomNumbers.generateRandomNumbers(5)); //random
+        carta.setTipo("Virtuale");
+        carta.setUserId(String.valueOf(BankApplication.getCurrentlyLoggedUser()));
+        carta.setScadenza(LocalDate.now().plusMonths(lasting));
+        carta.setNumCarta(RandomNumbers.generateRandomNumbers(16));
+        return carta;
     }
 
     public static void createDebitcard(int utente){
