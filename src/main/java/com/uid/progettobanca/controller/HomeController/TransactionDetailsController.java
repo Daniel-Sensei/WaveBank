@@ -4,6 +4,7 @@ import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.DAO.SpacesDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
+import com.uid.progettobanca.model.FormCompilationThread;
 import com.uid.progettobanca.model.Space;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.Transazione;
@@ -20,12 +21,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
-import javafx.stage.Popup;
-import javafx.stage.Stage;
-import javafx.stage.Window;
+import javafx.stage.*;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
+import org.apache.pdfbox.pdmodel.interactive.form.PDTextField;
 import org.controlsfx.control.Notifications;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -218,5 +220,48 @@ public class TransactionDetailsController implements Initializable {
     @FXML
     private void loadPreviousPage(MouseEvent event) throws IOException {
         SceneHandler.getInstance().setPage(SceneHandler.HOME_PATH + "home.fxml");
+    }
+
+    @FXML
+    void saveTransactionPDF(MouseEvent event) throws IOException {
+        //Transazione transaction = TransactionManager.getInstance().getNextTransaction();
+
+        System.out.println("Inizio creazione PDF");
+        FormCompilationThread formThread = new FormCompilationThread(transaction);
+        formThread.setOnSucceeded(event1 -> {
+            if(event1.getSource().getValue() instanceof PDDocument document){
+                System.out.println("Documento modificato");
+                saveDocumentWithFileChooser(document);
+                closeDocument(document);
+            }
+        });
+        formThread.start(); // Avvia il FormCompilationThread
+
+    }
+
+    private void saveDocumentWithFileChooser(PDDocument document) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Salva documento PDF");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+
+        File file = fileChooser.showSaveDialog(null);
+        if (file != null) {
+            try {
+                document.save(file);
+                document.close();
+                // Aggiungi ulteriori azioni post-salvataggio se necessario
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Gestisci eventuali errori durante il salvataggio
+            }
+        }
+    }
+
+    private void closeDocument(PDDocument document) {
+        try {
+            document.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
