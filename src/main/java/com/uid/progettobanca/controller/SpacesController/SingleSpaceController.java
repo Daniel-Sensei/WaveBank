@@ -34,7 +34,7 @@ public class SingleSpaceController implements Initializable {
 
     @FXML
     void openSpacePage(MouseEvent event) throws IOException {
-        SpacesManager.getInstance().setSpaceIntoQueue(space);
+        SpacesManager.getInstance().setCurrentSpace(space);
         SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "singleSpacePage.fxml");
     }
 

@@ -3,12 +3,14 @@ package com.uid.progettobanca.model;
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.SpacesDAO;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.Queue;
 
 public class SpacesManager {
+
     private static SpacesManager instance;  // Istanza singleton
 
-    private Queue<Space> spacesQueue;
+    private Queue<Space> spacesQueue = new LinkedList<>();
 
     private Space currentSpace;
 
@@ -25,14 +27,8 @@ public class SpacesManager {
     private SpacesManager() {
     }
 
-    public void fillQueue(){
-        try {
-            spacesQueue = SpacesDAO.selectAllByIban(BankApplication.getCurrentlyLoggedIban());
-
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public void fillQueue(Queue<Space> a) {
+        spacesQueue = a;
     }
 
     public static SpacesManager getInstance() {
@@ -58,9 +54,5 @@ public class SpacesManager {
         return spacesQueue.size();
     }
 
-    public void setSpaceIntoQueue(Space space){
-        spacesQueue.add(space);
-    }
-
-
 }
+

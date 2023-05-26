@@ -58,7 +58,6 @@ public class SpaceFormController {
     void createSpace(ActionEvent event) throws SQLException {
         String nome = inputSpaceName.getText();
         int saldo = 0;
-        System.out.println(ImageUtils.getImageViewImageName(imagePicked));
         String image = ImageUtils.getImageViewImageName(imagePicked);
         String iban = BankApplication.getCurrentlyLoggedIban();
         LocalDate data = LocalDate.now();

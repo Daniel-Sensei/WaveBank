@@ -5,6 +5,7 @@ import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.DAO.SpacesDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.Space;
+import com.uid.progettobanca.model.SpaceService;
 import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
@@ -24,6 +25,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class SpacesController implements Initializable {
+
+    private SpaceService spaceService = new SpaceService();
 
     @FXML
     private Button Stats;
@@ -52,22 +55,24 @@ public class SpacesController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-            saldo.setText(decimalFormat.format(ContiDAO.getSaldoByIban(BankApplication.getCurrentlyLoggedIban())) + " €");
-            SpacesManager.getInstance().fillQueue();
-            int nSpaces = SpacesManager.getInstance().getSize();
-            for (int i = 0; i < nSpaces; i++) {
+        spaceService.restart();
 
-                Parent singleSpace = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().SPACES_PATH + "singleSpace.fxml");
-                listOfSpaces.getChildren().add(singleSpace);
-            }
-        } catch (IOException | SQLException e) {
+        spaceService.setOnSucceeded(e -> {
+            try {
+                DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+                saldo.setText(decimalFormat.format(ContiDAO.getSaldoByIban(BankApplication.getCurrentlyLoggedIban())) + " €");
+                SpacesManager.getInstance().fillQueue(spaceService.getValue());
+                int nSpaces = SpacesManager.getInstance().getSize();
+                for (int i = 0; i < nSpaces; i++) {
+
+                    Parent singleSpace = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().SPACES_PATH + "singleSpace.fxml");
+                    listOfSpaces.getChildren().add(singleSpace);
+                }
+            } catch (IOException | SQLException e1) {
                 System.out.println("Initialize spaces failed");
-                throw new RuntimeException(e);
+                throw new RuntimeException(e1);
             }
+        });
+
     }
 }
-
-
-

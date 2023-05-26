@@ -87,8 +87,9 @@ public class SingleSpacePageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-        Space space = SpacesManager.getInstance().getNextSpace();
-        SpacesManager.getInstance().setCurrentSpace(space);
+        Space space = SpacesManager.getInstance().getCurrentSpace();
+
+
         balanceLabel.setText(decimalFormat.format(space.getSaldo())+ " €");
         GenericController.setSpaceImage(space.getImage(), spaceLogoButton);
         spacePageName.setText(space.getNome());
