@@ -77,12 +77,11 @@ public class ManageController {
     private int daysInterval;
     private GraphCalculator graphCalculator=new GraphCalculator();
     private CardService cardService= new CardService();
-    private final GetTransactionsService getTransactionsService = new GetTransactionsService();
+    private final GetTransactionsService getTransactionsService = new GetTransactionsService(BankApplication.getCurrentlyLoggedIban());
     public void initialize() {
 
         daysInterval=30;
 
-        getTransactionsService.setIban(BankApplication.getCurrentlyLoggedIban());
         getTransactionsService.start();
 
         getTransactionsService.setOnSucceeded(event -> {

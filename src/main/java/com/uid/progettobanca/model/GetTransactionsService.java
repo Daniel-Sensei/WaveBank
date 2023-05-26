@@ -10,8 +10,8 @@ public class GetTransactionsService extends Service<List<Transazione>> {
 
     protected String IBAN;
 
-    public void setIban(String IBAN){
-        this.IBAN=IBAN;
+    public GetTransactionsService(String IBAN) {
+        this.IBAN = IBAN;
     }
     @Override
     protected Task<List<Transazione>> createTask() {

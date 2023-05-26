@@ -21,7 +21,7 @@ public class SingleChartController {
     @FXML
     private LineChart<?, ?> lineChart;
 
-    private final GetTransactionsService ibanService = new GetTransactionsService();
+    private final GetTransactionsService ibanService = new GetTransactionsService(BankApplication.getCurrentlyLoggedIban());
     @FXML
     private Label spentBalance;
 
@@ -37,7 +37,6 @@ public class SingleChartController {
         LoadChartImg load = new LoadChartImg();
         load.load(chart, chartImage);
 
-        ibanService.setIban(BankApplication.getCurrentlyLoggedIban());
         ibanService.start();
 
         ibanService.setOnSucceeded(event -> {
