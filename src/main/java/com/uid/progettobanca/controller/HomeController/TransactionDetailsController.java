@@ -226,11 +226,9 @@ public class TransactionDetailsController implements Initializable {
     void saveTransactionPDF(MouseEvent event) throws IOException {
         //Transazione transaction = TransactionManager.getInstance().getNextTransaction();
 
-        System.out.println("Inizio creazione PDF");
         FormCompilationThread formThread = new FormCompilationThread(transaction);
         formThread.setOnSucceeded(event1 -> {
             if(event1.getSource().getValue() instanceof PDDocument document){
-                System.out.println("Documento modificato");
                 saveDocumentWithFileChooser(document);
                 closeDocument(document);
             }
