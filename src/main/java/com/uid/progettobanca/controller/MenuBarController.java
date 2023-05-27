@@ -63,6 +63,7 @@ public class MenuBarController implements Initializable {
 
     private void clearLabelAndBackStack(){
         BackStack.getInstance().clear();
+        loadMenuBarImages();
         homeLabel.getStyleClass().clear();
         spacesLabel.getStyleClass().clear();
         operationsLabel.getStyleClass().clear();

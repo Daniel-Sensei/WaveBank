@@ -3,18 +3,15 @@ package com.uid.progettobanca.controller.HomeController;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.DAO.SpacesDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
-import com.uid.progettobanca.model.DAO.UtentiDAO;
 import com.uid.progettobanca.model.FormCompilationThread;
 import com.uid.progettobanca.model.Space;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.Transazione;
-import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.ImageView;
@@ -23,9 +20,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.*;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
-import org.apache.pdfbox.pdmodel.interactive.form.PDTextField;
-import org.controlsfx.control.Notifications;
 
 import java.io.File;
 import java.io.IOException;
@@ -206,14 +200,7 @@ public class TransactionDetailsController implements Initializable {
         transaction.setCommenti(commentsArea.getText());
         TransazioniDAO.update(transaction);
 
-        // Creazione della notifica
-        String title = "Notifica";
-        String message = "Cambiamenti salvati con successo!";
-
-        Notifications.create()
-                .title(title)
-                .text(message)
-                .showInformation();
+        SceneHandler.getInstance().showInfoPopup(SceneHandler.HOME_PATH + "commentsSavedPopup.fxml", (Stage) saveCommentsButton.getScene().getWindow(), 350, 75);
 
         SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.HOME_PATH + "home.fxml");
     }

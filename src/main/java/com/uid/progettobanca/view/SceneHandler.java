@@ -17,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
+import javafx.stage.Popup;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -271,6 +272,40 @@ public class SceneHandler {
         PageLoaderThread pageLoaderThread = new PageLoaderThread();
         pageLoaderThread.start();
     }
+    public void showInfoPopup(String popupPageName, Stage popupStage, double popupWidth, double popupHeight){
+        Parent popupContent = null;
+        try {
+            popupContent = SceneHandler.getInstance().loadPage(popupPageName);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Creazione del popup
+        Popup popup = new Popup();
+        popup.getContent().add(popupContent);
+        popup.setAutoHide(true);  // Nascondi automaticamente il popup quando si fa clic al di fuori
+
+        // Ottenere la finestra corrente
+        Stage currentStage = popupStage;
+
+        // Posizionamento del popup in alto al centro
+        popup.setOnShown(e -> {
+            double popupX = currentStage.getX() + (currentStage.getWidth() - popupWidth) / 2;
+            double popupY = currentStage.getY() + (currentStage.getHeight() - popupHeight) / 5;
+            popup.setX(popupX);
+            popup.setY(popupY);
+        });
+
+        // Mostra il popup
+        popup.show(currentStage);
+
+        // Chiudi il popup dopo 3 secondi
+        javafx.util.Duration duration = javafx.util.Duration.seconds(3);
+        javafx.animation.KeyFrame keyFrame = new javafx.animation.KeyFrame(duration, e -> popup.hide());
+        javafx.animation.Timeline timeline = new javafx.animation.Timeline(keyFrame);
+        timeline.play();
+    }
+
 
     public void setScrollSpeed(ScrollPane scrollPane) {
         scrollPane.addEventFilter(ScrollEvent.SCROLL, new EventHandler<ScrollEvent>() {
