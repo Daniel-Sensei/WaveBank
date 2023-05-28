@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -48,10 +50,10 @@
                            <children>
                               <HBox prefHeight="60.0" styleClass="vbox-with-rounded-border-hbox">
                                  <children>
-                                    <VBox alignment="CENTER_LEFT">
+                                    <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label text="Campanella Gianluca" />
-                                          <Label styleClass="subtitleLabel" text="cmpglc01r25c616m@studenti.unical.it" />
+                                          <Hyperlink onAction="#email1" styleClass="text-field-transparent" text="cmpglc01r25c616m@studenti.unical.it" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -61,10 +63,10 @@
                               </HBox>
                               <HBox prefHeight="60.0" styleClass="vbox-with-rounded-border-hbox">
                                  <children>
-                                    <VBox alignment="CENTER_LEFT">
+                                    <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label text="Curcio Daniel" />
-                                          <Label styleClass="subtitleLabel" text="crcdnl02e28m208a@studenti.unical.it" />
+                                          <Hyperlink onAction="#email2" styleClass="text-field-transparent" text="crcdnl02e28m208a@studenti.unical.it" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -74,10 +76,10 @@
                               </HBox>
                               <HBox prefHeight="60.0" styleClass="vbox-with-rounded-border-hbox">
                                  <children>
-                                    <VBox alignment="CENTER_LEFT">
+                                    <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label text="Gagliardi Fortunato Andrea" />
-                                          <Label styleClass="subtitleLabel" text="gglftn02e14m208l@studenti.unical.it" />
+                                          <Hyperlink onAction="#email3" styleClass="text-field-transparent" text="gglftn02e14m208l@studenti.unical.it" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -87,10 +89,10 @@
                               </HBox>
                               <HBox prefHeight="60.0" styleClass="vbox-with-rounded-border-hbox">
                                  <children>
-                                    <VBox alignment="CENTER_LEFT">
+                                    <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label text="Gattuso Pietro" />
-                                          <Label styleClass="subtitleLabel" text="Gttptr00b21m208d@studenti.unical.it" />
+                                          <Hyperlink onAction="#email4" styleClass="text-field-transparent" text="gttptr00b21m208d@studenti.unical.it" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -108,4 +110,9 @@
          </children>
       </VBox>
    </children>
+   <stylesheets>
+      <URL value="@../../../../css/style.css" />
+      <URL value="@../../../../css/fonts.css" />
+      <URL value="@../../../../css/light.css" />
+   </stylesheets>
 </AnchorPane>

@@ -616,3 +616,15 @@
     -fx-background-color: #00aacc;
     -fx-text-fill: white;
 }
+
+/* text field trasparente */
+.text-field-transparent {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 0 0px; /* Imposta la larghezza del bordo solo per il lato sinistro */
+    -fx-border-color: transparent;
+    /*-fx-transition: -fx-border-color 0.3s;*/
+    -fx-background-color: transparent;
+    -fx-font-size: 14px;
+    -fx-text-fill: textColor;
+    -fx-padding: 0 0 0 0;
+}
