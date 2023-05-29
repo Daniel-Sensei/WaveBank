@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.ManageController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.*;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
@@ -12,6 +13,7 @@ import java.util.List;
 public class SingleChartController {
 
     private String chart;
+
     @FXML
     private ImageView chartImage;
 
@@ -30,12 +32,17 @@ public class SingleChartController {
 
     private ReturnChart ritorno = new ReturnChart();
 
+    private void setTagImage(){
+        //rimuovi spazi dal nome del tag
+        String tag = chart.replaceAll("\\s+","");
+        GenericController.loadImage(tag, chartImage);
+    }
+
     @FXML
     void initialize() {
         chart = ChartsManager.getInstance().getNextChart();
         chartName.setText(chart);
-        LoadChartImg load = new LoadChartImg();
-        load.load(chart, chartImage);
+        setTagImage();
 
         ibanService.start();
 

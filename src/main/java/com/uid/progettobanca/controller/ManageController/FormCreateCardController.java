@@ -7,8 +7,12 @@ import com.uid.progettobanca.model.InsertCardService;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
@@ -16,14 +20,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FormCreateCardController {
 
 
     @FXML
-    private TextField dateValue;
-
+    private ComboBox<Integer> dateValue;
 
     @FXML
     private Label errorDate;
@@ -35,7 +39,7 @@ public class FormCreateCardController {
     private InsertCardService cardService = new InsertCardService();
     @FXML
     void createPressed(ActionEvent event) {
-        cardService.setCarta(CreateCard.createVirtualcard(Integer.parseInt(dateValue.getText())));
+        cardService.setCarta(CreateCard.createVirtualcard(dateValue.getValue()));
         cardService.restart();
     }
 
@@ -53,11 +57,15 @@ public class FormCreateCardController {
     }
 
     public void initialize() {
+        //riempi la combo box con numeri da 1 A 12
+        ObservableList<Integer> dates = FXCollections.observableArrayList();
+        for (int i = 1; i <= 12; i++) { dates.add(i); }
+        dateValue.setItems(dates);
+
         GenericController.loadImage(back);
         dateValue.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
-                FormUtils.getInstance().validateTextField(dateValue, FormUtils.getInstance().validateDuration(dateValue.getText()), errorDate);
-                createButton.setDisable(!FormUtils.getInstance().validateDuration(dateValue.getText()));
+                createButton.setDisable(dateValue.getValue() == null);
             }
         });
 

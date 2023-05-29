@@ -3,6 +3,8 @@ package com.uid.progettobanca.controller.MyAccountController;
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
+import com.uid.progettobanca.model.Transazione;
+import com.uid.progettobanca.model.UserService;
 import com.uid.progettobanca.model.Utente;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
@@ -20,6 +22,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MyAccountController implements Initializable {
@@ -140,7 +143,7 @@ public class MyAccountController implements Initializable {
     }
 
 
-
+    UserService userService = new UserService();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -149,15 +152,17 @@ public class MyAccountController implements Initializable {
         }
         GenericController.loadImages(myAccountImages);
         GenericController.loadImageButton(logout);
-        try {
-            Utente user = UtentiDAO.selectByUserId(BankApplication.getCurrentlyLoggedUser());
 
-            ibanLabel.setText(FormUtils.separateIban(user.getIban()));
+        userService.start();
 
-            nameLabel.setText(user.getNome()+ " " + user.getCognome());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
+        userService.setOnSucceeded(event -> {
+            if(event.getSource().getValue() instanceof Utente  result){
+                ibanLabel.setText(FormUtils.separateIban(result.getIban()));
+                nameLabel.setText(result.getNome()+ " " + result.getCognome());
+            }
+        });
+        userService.setOnFailed(event -> {
+            System.out.println("errore nel dati utente dal service");
+        });
     }
 }

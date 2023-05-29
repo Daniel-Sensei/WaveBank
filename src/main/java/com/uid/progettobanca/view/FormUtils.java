@@ -127,7 +127,6 @@ public class FormUtils {
     public boolean validatePhone(String phone) {
         return phone.matches("(\\+\\d{2,3})? ?\\d{10}");
     }
-    public boolean validateDuration(String duration) {return duration.matches("[1-9]|1[0-2]");}
 
     private List<Space> spaces = new LinkedList<>();
     public void getSpaces() throws SQLException {
