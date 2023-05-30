@@ -22,7 +22,6 @@ public class CardsManager {
 
     public void fillQueue(List<Carta> carte) {
         cardsQueue = carte;
-        cardsQueue.forEach(c -> System.out.println(c.toString()));
     }
 
     public void addCard(Carta carta){
