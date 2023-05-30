@@ -151,7 +151,7 @@ public class FormUtils {
     }
 
     public boolean validatePassword(String password) {
-        String regex = "^(?=.*[A-Z])(?=.*[!@#$%^&*()-_=+{};:,<.>]).{8,}$";
+        String regex = "(?=^.{8,}$)(?=.*\\d)(?=.*[!@#$%^&*.]+)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$";
         return password.matches(regex);
     }
 
