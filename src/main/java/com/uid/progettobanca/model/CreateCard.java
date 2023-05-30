@@ -25,32 +25,17 @@ public class CreateCard {
     private static GetCardService getCardService = new GetCardService("selectByNumCarta");
 
     public static void createDebitCard(int utente){
+
         Carta carta = new Carta();
-        AtomicBoolean approved = new AtomicBoolean(false);
 
-        getCardService.setOnSucceeded(event -> {
-            //se restituisce una lista nulla allora va bene e si può creare la carta
-            if(getCardService.getValue().get(0) == null) {
-                approved.set(true);
-                carta.setBloccata(false);
-                carta.setCvv(RandomNumbers.generateRandomNumbers(3)); //random
-                carta.setPin(RandomNumbers.generateRandomNumbers(5)); //random
-                carta.setTipo("Debito");
-                carta.setUserId(utente);
-                carta.setScadenza(LocalDate.now().plusYears(5));
-            }
-        });
-
-        getCardService.setOnFailed(event -> {
-            System.out.println("controllo fallito");
-        });
-
-        while (!approved.get()) {
-            String cardNumber = RandomNumbers.generateRandomNumbers(16);
-            getCardService.setCardNumber(cardNumber);
-            getCardService.restart();
-            carta.setNumCarta(cardNumber);
-        }
+        String cardNumber = RandomNumbers.generateRandomNumbers(16);
+        carta.setBloccata(false);
+        carta.setCvv(RandomNumbers.generateRandomNumbers(3)); //random
+        carta.setPin(RandomNumbers.generateRandomNumbers(5)); //random
+        carta.setTipo("Debito");
+        carta.setUserId(utente);
+        carta.setScadenza(LocalDate.now().plusYears(5));
+        carta.setNumCarta(cardNumber);
 
         CardService cardService = new CardService();
         cardService.setAction("insert");

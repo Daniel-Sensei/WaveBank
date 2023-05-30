@@ -117,13 +117,14 @@ public class RegisterFormController implements Initializable {
         return yearComboBox.getValue() + "-" + (monthComboBox.getSelectionModel().getSelectedIndex() + 1) + "-" + dayComboBox.getValue();
     }
 
+    private AccountService accountService;
+
     public void initialize(URL location, ResourceBundle resources) {
         SceneHandler.getInstance().setScrollSpeed(scrollPane);
         populateComboBoxData();
         questions.getItems().addAll(domandeDiSicurezza);
+        accountService = new AccountService("generateNew");
     }
-
-    private AccountService accountService = new AccountService("generateNew");
 
     @FXML
     void checkRegistration(ActionEvent event) {
@@ -134,11 +135,16 @@ public class RegisterFormController implements Initializable {
             if (!password.getText().equals(confirmPassword.getText())) {
                 SceneHandler.getInstance().showError("Errore", "Errore nella registrazione", "Le password non coincidono");
             } else {
+                System.out.println("prima del service");
                 accountService.setOnSucceeded(e -> {
+                    System.out.println("service ok");
                     if((Boolean) e.getSource().getValue()){
+                        System.out.println("true");
                         try {
                             UtentiDAO.insert(new Utente(name.getText(), surname.getText(), address.getText(), LocalDate.parse(convertDate(getDate())), phone.getText(), email.getText(), password.getText(), questions.getValue(), answer.getText(), BankApplication.getCurrentlyLoggedIban()));
-                        CreateCard.createDebitCard(UtentiDAO.getUserIdByEmail(email.getText()));
+                            System.out.println("dopo utente");
+                            CreateCard.createDebitCard(UtentiDAO.getUserIdByEmail(email.getText()));
+                            System.out.println("dopo carta");
                         } catch (SQLException ex) {
                             throw new RuntimeException(ex);
                         }
@@ -147,9 +153,12 @@ public class RegisterFormController implements Initializable {
                     }
                 });
                 accountService.setOnFailed(e -> {
+                    System.out.println("service failed");
                     SceneHandler.getInstance().showError("Errore", "Errore nella registrazione", "Errore durante la registrazione");
                 });
                 accountService.restart();
+
+                System.out.println("dopo il service");
             }
         }
     }

@@ -23,7 +23,10 @@ public class AccountService extends Service<Boolean> {
                     case "insert" -> ContiDAO.getInstance().insert(c);
                     case "update" -> ContiDAO.getInstance().update(c);
                     case "delete" -> ContiDAO.getInstance().delete(c);
-                    case "generateNew" -> ContiDAO.getInstance().generateNew();
+                    case "generateNew" -> {
+                        System.out.println("avvio");
+                        yield ContiDAO.getInstance().generateNew();
+                    }
                     default -> false;
                 };
             }
