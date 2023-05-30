@@ -11,7 +11,6 @@ import java.util.Objects;
 
 public class InsertCardService extends Service<Boolean> {
 
-    private String operazione;
     private Carta carta;
     public void setCarta(Carta carta){
         this.carta=carta;
