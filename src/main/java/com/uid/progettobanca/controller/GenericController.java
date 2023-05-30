@@ -21,25 +21,12 @@ public class GenericController {
             images.get(i).setImage(ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + names[i] + ".png"));
         }
     }
-
-
-    public static void setSpaceImage(String name, ImageView imageView){
-        imageView.setImage(ImageUtils.loadImageFromResource(Settings.SPACE_IMAGE_PATH + name));
-    }
-
     public static void loadImage(ImageView imageView){
         imageView.setImage(ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + imageView.getId() + ".png"));
     }
-
     public static void loadImage(String name, ImageView imageView){
         imageView.setImage(ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + name + ".png"));
     }
-
-    public static void setCardImage(String name, ImageView imageView){
-        imageView.setImage(ImageUtils.loadImageFromResource(Settings.CARDS_IMAGE_PATH + name + ".png"));
-    }
-
-
     public static void loadImagesButton(ArrayList<Button> buttons) {
         for(Button button : buttons){
             Image image = ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + button.getId() + ".png");
@@ -50,7 +37,6 @@ public class GenericController {
             button.setGraphic(imageView);
         }
     }
-
     public static void loadImageButton(Button button) {
         //System.out.println(Settings.IMAGE_PATH + button.getId() + ".png");
         Image image = ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + button.getId() + ".png");
@@ -60,7 +46,6 @@ public class GenericController {
         button.setContentDisplay(ContentDisplay.CENTER);
         button.setGraphic(imageView);
     }
-
     public static void loadImageButton(String imageName, Button button) {
         //System.out.println(Settings.IMAGE_PATH + button.getId() + ".png");
         Image image = ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + imageName + ".png");
@@ -70,4 +55,17 @@ public class GenericController {
         button.setContentDisplay(ContentDisplay.CENTER);
         button.setGraphic(imageView);
     }
+
+    public static void setSpaceImage(String name, ImageView imageView){
+        imageView.setImage(ImageUtils.loadImageFromResource(Settings.SPACE_IMAGE_PATH + name));
+    }
+
+    public static void setCardImage(String name, ImageView imageView){
+        imageView.setImage(ImageUtils.loadImageFromResource(Settings.CARDS_IMAGE_PATH + name + ".png"));
+    }
+
+    public static void setMenuBarImage(String name, ImageView imageView){
+        imageView.setImage(ImageUtils.loadImageFromResource(Settings.MENU_BAR_IMAGE_PATH + name + ".png"));
+    }
+
 }

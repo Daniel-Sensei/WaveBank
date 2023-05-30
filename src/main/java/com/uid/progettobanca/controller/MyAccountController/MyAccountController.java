@@ -157,7 +157,7 @@ public class MyAccountController implements Initializable {
 
         userService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof Utente  result){
-                ibanLabel.setText(FormUtils.separateIban(result.getIban()));
+                ibanLabel.setText(FormUtils.getInstance().separateIban(result.getIban()));
                 nameLabel.setText(result.getNome()+ " " + result.getCognome());
             }
         });

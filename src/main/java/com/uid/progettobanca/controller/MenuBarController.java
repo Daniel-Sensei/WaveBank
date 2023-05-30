@@ -63,7 +63,8 @@ public class MenuBarController implements Initializable {
 
     private void clearLabelAndBackStack(){
         BackStack.getInstance().clear();
-        loadMenuBarImages();
+        //clear delle vecchie icone per impostare quella verde
+        GenericController.loadImages(menuBarImages);
         homeLabel.getStyleClass().clear();
         spacesLabel.getStyleClass().clear();
         operationsLabel.getStyleClass().clear();
@@ -77,7 +78,12 @@ public class MenuBarController implements Initializable {
             loadMenuBarImages();
         }
         GenericController.loadImages(menuBarImages);
-        homeLabel.getStyleClass().add("menu-bar-label");
+        setLabelStyle(homeLabel, "home", home);
+    }
+
+    private void setLabelStyle(Label label, String name, ImageView imageView){
+        label.getStyleClass().add("menu-bar-label");
+        GenericController.setMenuBarImage(name, imageView);
     }
 
     @FXML
@@ -85,36 +91,36 @@ public class MenuBarController implements Initializable {
         clearLabelAndBackStack();
         FilterSelectionController.clearMemory();
         SceneHandler.getInstance().createPage(SceneHandler.getInstance().HOME_PATH + "home.fxml");
-        homeLabel.getStyleClass().add("menu-bar-label");
+        setLabelStyle(homeLabel, "home", home);
     }
 
     @FXML
     void loadManage(MouseEvent event) {
         clearLabelAndBackStack();
         SceneHandler.getInstance().setPage(SceneHandler.getInstance().MANAGE_PATH + "manage.fxml");
-        manageLabel.getStyleClass().add("menu-bar-label");
+        setLabelStyle(manageLabel, "manage", manage);
     }
 
     @FXML
     void loadMyAccount(MouseEvent event) {
         clearLabelAndBackStack();
         SceneHandler.getInstance().setPage(SceneHandler.getInstance().MY_ACCOUNT_PATH + "myAccount.fxml");
-        //SceneHandler.getInstance().createPage(SceneHandler.getInstance().MY_ACCOUNT_PATH + "myAccount.fxml");
-        myAccountLabel.getStyleClass().add("menu-bar-label");
+        setLabelStyle(myAccountLabel, "myAccount", myAccount);
+
     }
 
     @FXML
     void loadOperations(MouseEvent event) {
         clearLabelAndBackStack();
         SceneHandler.getInstance().setPage(SceneHandler.getInstance().OPERATIONS_PATH + "operations.fxml");
-        operationsLabel.getStyleClass().add("menu-bar-label");
+        setLabelStyle(operationsLabel, "operations", operations);
     }
 
     @FXML
     void loadSpaces(MouseEvent event) {
         clearLabelAndBackStack();
         SceneHandler.getInstance().setPage(SceneHandler.getInstance().SPACES_PATH + "spaces.fxml");
-        spacesLabel.getStyleClass().add("menu-bar-label");
+        setLabelStyle(spacesLabel, "spaces", spaces);
     }
 
 }

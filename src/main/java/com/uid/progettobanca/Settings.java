@@ -9,6 +9,7 @@ public class Settings {
     private static String GENERIC_IMAGE_PATH = "assets/images/";
     public static String SPACE_IMAGE_PATH = GENERIC_IMAGE_PATH + "spacesImage/";
     public static String CARDS_IMAGE_PATH = GENERIC_IMAGE_PATH + "CardsImages/";
+    public static String MENU_BAR_IMAGE_PATH = GENERIC_IMAGE_PATH + "menuBarImages/";
     public static String IMAGE_PATH = GENERIC_IMAGE_PATH + IMAGE_THEME;
     public static String VIDEO_PATH = "assets/videos/";
 

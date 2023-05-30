@@ -64,7 +64,7 @@
                            <VBox.margin>
                               <Insets bottom="20.0" />
                            </VBox.margin></ComboBox>
-                        <Slider fx:id="amountSlider" blockIncrement="5.0" majorTickUnit="5.0" max="30.0" minorTickCount="0" prefWidth="350.0" showTickLabels="true" value="10.0" />
+                        <Slider fx:id="amountSlider" blockIncrement="5.0" majorTickUnit="5.0" max="30.0" min="5.0" minorTickCount="0" prefWidth="350.0" showTickLabels="true" value="10.0" />
                      </children>
                   </VBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="50.0" spacing="5.0">
