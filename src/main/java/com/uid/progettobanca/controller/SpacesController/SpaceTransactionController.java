@@ -1,5 +1,9 @@
 package com.uid.progettobanca.controller.SpacesController;
 
+import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.model.DAO.ContiDAO;
+import com.uid.progettobanca.model.DAO.TransazioniDAO;
+import com.uid.progettobanca.model.SpaceTransactionManager;
 import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.SceneHandler;
@@ -15,6 +19,7 @@ import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class SpaceTransactionController implements Initializable {
@@ -42,8 +47,17 @@ public class SpaceTransactionController implements Initializable {
     private Button spaceTransactionConfirm;
 
     @FXML
-    void confirmTransaction(ActionEvent event) {
+    void confirmTransaction(ActionEvent event) throws SQLException {
+        String iban = BankApplication.getCurrentlyLoggedIban();
 
+        if (SpacesManager.getInstance().getTransactionDirection() == "Sx"){
+            System.out.println(SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()));
+            System.out.println(SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()));
+        }
+        else if (SpacesManager.getInstance().getTransactionDirection() == "Dx"){
+            System.out.println(SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()));
+            System.out.println(SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()));
+        }
     }
 
     @FXML

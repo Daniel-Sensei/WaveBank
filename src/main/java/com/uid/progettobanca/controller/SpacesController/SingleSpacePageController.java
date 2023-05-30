@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.SpacesController;
 
 import com.uid.progettobanca.controller.GenericController;
+import com.uid.progettobanca.model.SingleSpaceService;
 import com.uid.progettobanca.model.Space;
 import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.view.BackStack;
@@ -53,8 +54,11 @@ public class SingleSpacePageController implements Initializable {
     private Button statButton;
 
     @FXML
-    void deleteThisSpace(MouseEvent event) {
-
+    void deleteThisSpace(MouseEvent event) throws IOException {
+        SingleSpaceService singleSpaceService = new SingleSpaceService("delete", actualSpace.getSpaceId(), actualSpace.getIban());
+        singleSpaceService.restart();
+        SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().SPACES_PATH + "spaces.fxml");
+        BackStack.getInstance().loadPreviousPage();
     }
 
     @FXML
@@ -87,11 +91,11 @@ public class SingleSpacePageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-        Space space = SpacesManager.getInstance().getCurrentSpace();
+        actualSpace = SpacesManager.getInstance().getCurrentSpace();
 
 
-        balanceLabel.setText(decimalFormat.format(space.getSaldo())+ " €");
-        GenericController.setSpaceImage(space.getImage(), spaceLogoButton);
-        spacePageName.setText(space.getNome());
+        balanceLabel.setText(decimalFormat.format(actualSpace.getSaldo())+ " €");
+        GenericController.setSpaceImage(actualSpace.getImage(), spaceLogoButton);
+        spacePageName.setText(actualSpace.getNome());
     }
 }

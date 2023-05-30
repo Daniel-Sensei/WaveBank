@@ -5,11 +5,9 @@ import com.uid.progettobanca.model.DAO.SpacesDAO;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Queue;
 
-public class SpaceService extends Service <Queue<Space>>{
+public class GetAllSpaceService extends Service <Queue<Space>>{
 
     private  Queue<Space> Queue;
 
