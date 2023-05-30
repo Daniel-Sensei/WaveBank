@@ -3,6 +3,7 @@ package com.uid.progettobanca.controller.ManageController;
         import com.uid.progettobanca.BankApplication;
         import com.uid.progettobanca.controller.GenericController;
         import com.uid.progettobanca.model.*;
+        import com.uid.progettobanca.view.FormUtils;
         import com.uid.progettobanca.view.SceneHandler;
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ package com.uid.progettobanca.controller.ManageController;
         import javafx.scene.image.ImageView;
         import javafx.scene.input.MouseEvent;
         import javafx.scene.layout.VBox;
+        import org.springframework.security.core.userdetails.User;
 
         import java.io.IOException;
         import java.util.List;
@@ -53,45 +55,47 @@ public class ManageController {
 
     @FXML
     void statsPressed(ActionEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().MANAGE_PATH + "charts.fxml");
+        SceneHandler.getInstance().createPage(SceneHandler.getInstance().MANAGE_PATH + "statistics.fxml");
     }
 
     @FXML
     void monthlyPressed(ActionEvent event) {
         daysInterval=30;
-        getTransactionsService.restart();
+        transactionsService.restart();
     }
 
     @FXML
     void trimestralPressed(ActionEvent event) {
         daysInterval=90;
-        getTransactionsService.restart();
+        transactionsService.restart();
     }
 
     @FXML
     void annualPressed(ActionEvent event) {
         daysInterval=365;
-        getTransactionsService.restart();
+        transactionsService.restart();
     }
 
     private int daysInterval;
+
+    UserService userService = new UserService();
     private GraphCalculator graphCalculator=new GraphCalculator();
     private CardService cardService= new CardService();
-    private final GetTransactionsService getTransactionsService = new GetTransactionsService(BankApplication.getCurrentlyLoggedIban());
+    private final TransactionService transactionsService = new TransactionService("filterAllTransaction", null, null, "");
     public void initialize() {
 
         daysInterval=30;
 
-        getTransactionsService.start();
+        transactionsService.start();
 
-        getTransactionsService.setOnSucceeded(event -> {
+        transactionsService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof List<?> result){
                 chart.getData().clear();
                 chart.getData().add(graphCalculator.MainGraphCalculator(daysInterval, (List<Transazione>) result).getSeries());
             }
         });
-        getTransactionsService.setOnFailed(event -> {
-            System.out.println("errore nel caricamento del grafico principale");
+        transactionsService.setOnFailed(event -> {
+            throw new RuntimeException(event.getSource().getException());
         });
 
         GenericController.loadImage(back);
@@ -100,16 +104,26 @@ public class ManageController {
         cardService.setOperazione("getByUser");
         cardService.restart();
 
-        cardService.setOnSucceeded(event -> {
-            if(event.getSource().getValue() instanceof List<?> result){
-                System.out.println("in managecontroller cardService ha restituito la lista di carte");
-                CardsManager.getInstance().fillQueue((List<Carta>) result);
-                numcarte=CardsManager.getInstance().getSize();
-                loadCard();
+        userService.start();
+
+        userService.setOnSucceeded(event -> {
+            if(event.getSource().getValue() instanceof Utente  result){
+                CardsManager.getInstance().setNome(result.getNome());
+                CardsManager.getInstance().setCognome(result.getCognome());
             }
+            cardService.setOnSucceeded(event1 -> {
+                if(event1.getSource().getValue() instanceof List<?> result){
+                    CardsManager.getInstance().fillQueue((List<Carta>) result);
+                    numcarte=CardsManager.getInstance().getSize();
+                    loadCard();
+                }
+            });
+            cardService.setOnFailed(event1 -> {
+                throw new RuntimeException(event1.getSource().getException());
+            });
         });
-        cardService.setOnFailed(event -> {
-            System.out.println("errore nell'ottenimento delle carte");
+        userService.setOnFailed(event -> {
+            throw new RuntimeException(event.getSource().getException());
         });
 
     }
@@ -121,7 +135,6 @@ public class ManageController {
         try {
             card = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().MANAGE_PATH + "card.fxml");
         } catch (IOException e) {
-            System.out.println("Errore caricamento card");
             throw new RuntimeException(e);
         }
         cardBox.getChildren().add(card);

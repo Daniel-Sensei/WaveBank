@@ -12,6 +12,8 @@ public class CardsManager {
     private static CardsManager instance;  // Istanza singleton
     private List<Carta> cardsQueue;
 
+    private String nome, cognome;
+
     private int pos=0;
 
     private CardsManager() {
@@ -19,7 +21,6 @@ public class CardsManager {
 
 
     public void fillQueue(List<Carta> carte) {
-        System.out.println("fillo carte in cardsmanager");
         cardsQueue = carte;
         cardsQueue.forEach(c -> System.out.println(c.toString()));
     }
@@ -63,4 +64,18 @@ public class CardsManager {
     public int getSize() {
         return cardsQueue.size();
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setCognome(String cognome) {this.cognome = cognome;}
 }
