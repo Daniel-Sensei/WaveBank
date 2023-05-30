@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -36,6 +37,11 @@ public class SingleSpaceController implements Initializable {
     void openSpacePage(MouseEvent event) throws IOException {
         SpacesManager.getInstance().setCurrentSpace(space);
         SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "singleSpacePage.fxml");
+    }
+
+    @FXML
+    void openTransaction(DragEvent event) {
+        SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "transactionPage.fxml");
     }
 
     @Override

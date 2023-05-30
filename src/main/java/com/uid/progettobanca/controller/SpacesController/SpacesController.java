@@ -23,17 +23,9 @@ public class SpacesController implements Initializable {
 
     private GetAllSpaceService getAllSpaceService = new GetAllSpaceService();
 
-    @FXML
-    private Button Stats;
-
-    @FXML
-    private Label Title;
 
     @FXML
     private FlowPane listOfSpaces;
-
-    @FXML
-    private Button newSpace;
 
     @FXML
     private Label saldo;
@@ -56,11 +48,11 @@ public class SpacesController implements Initializable {
                 DecimalFormat decimalFormat = new DecimalFormat("#0.00");
                 saldo.setText(decimalFormat.format(ContiDAO.getSaldoByIban(BankApplication.getCurrentlyLoggedIban())) + " €");
                 SpacesManager.getInstance().fillQueue(getAllSpaceService.getValue());
+                SpacesManager.getInstance().fillList(getAllSpaceService.getValue());
                 int nSpaces = SpacesManager.getInstance().getSize();
                 for (int i = 0; i < nSpaces; i++) {
                     Parent singleSpace = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().SPACES_PATH + "singleSpace.fxml");
                     listOfSpaces.getChildren().add(singleSpace);
-
                 }
             } catch (IOException | SQLException e1) {
                 System.out.println("Initialize spaces failed");

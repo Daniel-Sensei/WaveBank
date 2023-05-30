@@ -5,14 +5,15 @@ import com.uid.progettobanca.model.DAO.SpacesDAO;
 import javafx.scene.control.ComboBox;
 
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class SpacesManager {
 
     private static SpacesManager instance;  // Istanza singleton
 
     private Queue<Space> spacesQueue = new LinkedList<>();
+
+    private Set<Space> spacesList = new HashSet<>();
 
     private Space currentSpace;
 
@@ -33,6 +34,15 @@ public class SpacesManager {
 
     public void fillQueue(Queue<Space> a) {
         spacesQueue = a;
+    }
+
+    public void fillList(Queue<Space> a) {
+        spacesList.clear();
+        spacesList.addAll(a);
+    }
+
+    public int getSpacesListSize() {
+        return spacesList.size();
     }
 
     public static SpacesManager getInstance() {
@@ -59,19 +69,11 @@ public class SpacesManager {
     }
 
     public int getSpaceId(String spaceName) {
-        spacesQueue.clear();
-        GetAllSpaceService getAllSpaceService = new GetAllSpaceService();
-        getAllSpaceService.restart();
-        getAllSpaceService.setOnSucceeded(event -> {
-            fillQueue(getAllSpaceService.getValue());
-            int size = getSize();
-            for (int i = 0; i < size; i++) {
-                Space space = spacesQueue.poll();;
+            for (Space space : spacesList){
                 if (space.getNome().equals(spaceName)) {
                     spaceId = space.getSpaceId();
                 }
             }
-        });
         return spaceId;
     }
 

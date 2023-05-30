@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller.SpacesController;
 
+import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.SingleSpaceService;
 import com.uid.progettobanca.model.Space;
@@ -55,10 +56,12 @@ public class SingleSpacePageController implements Initializable {
 
     @FXML
     void deleteThisSpace(MouseEvent event) throws IOException {
-        SingleSpaceService singleSpaceService = new SingleSpaceService("delete", actualSpace.getSpaceId(), actualSpace.getIban());
-        singleSpaceService.restart();
-        SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().SPACES_PATH + "spaces.fxml");
-        BackStack.getInstance().loadPreviousPage();
+        if(SpacesManager.getInstance().getCurrentSpace().getSpaceId() != BankApplication.getCurrentlyLoggedMainSpace()) {
+            SingleSpaceService singleSpaceService = new SingleSpaceService("delete", actualSpace.getSpaceId(), actualSpace.getIban());
+            singleSpaceService.restart();
+            SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().SPACES_PATH + "spaces.fxml");
+            BackStack.getInstance().loadPreviousPage();
+        }
     }
 
     @FXML
@@ -78,18 +81,27 @@ public class SingleSpacePageController implements Initializable {
 
     @FXML
     void transferMoneyToAnotherSpace(MouseEvent event) {
-        SpacesManager.getInstance().setTransactionDirection("Dx");
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "spaceTransaction.fxml");
+            SpacesManager.getInstance().setTransactionDirection("Dx");
+            SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "spaceTransaction.fxml");
     }
 
     @FXML
     void transferMoneyToThisSpace(MouseEvent event) {
-        SpacesManager.getInstance().setTransactionDirection("Sx");
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "spaceTransaction.fxml");
+            SpacesManager.getInstance().setTransactionDirection("Sx");
+            SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "spaceTransaction.fxml");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (SpacesManager.getInstance().getSpacesListSize() == 1) {
+            sendButton.setDisable(true);
+            receiveButton.setDisable(true);
+        }
+        else{
+            sendButton.setDisable(false);
+            receiveButton.setDisable(false);
+        }
+
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
         actualSpace = SpacesManager.getInstance().getCurrentSpace();
 

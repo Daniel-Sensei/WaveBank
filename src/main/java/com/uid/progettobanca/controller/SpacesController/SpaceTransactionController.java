@@ -47,16 +47,16 @@ public class SpaceTransactionController implements Initializable {
     private Button spaceTransactionConfirm;
 
     @FXML
-    void confirmTransaction(ActionEvent event) throws SQLException {
+    void confirmTransaction(ActionEvent event) throws SQLException, IOException {
         String iban = BankApplication.getCurrentlyLoggedIban();
 
         if (SpacesManager.getInstance().getTransactionDirection() == "Sx"){
-            System.out.println(SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()));
-            System.out.println(SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()));
+            TransazioniDAO.betweenSpaces(iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), Double.parseDouble(inputSpaceTransactionImport.getText()), description.getText());
+            BackStack.getInstance().loadPreviousPage();
         }
         else if (SpacesManager.getInstance().getTransactionDirection() == "Dx"){
-            System.out.println(SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()));
-            System.out.println(SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()));
+            TransazioniDAO.betweenSpaces(iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), Double.parseDouble(inputSpaceTransactionImport.getText()), description.getText());
+            BackStack.getInstance().loadPreviousPage();
         }
     }
 
