@@ -44,10 +44,11 @@ public class DeleteCardController {
     void deletePressed(ActionEvent event) {
         if (agreeCheck.isSelected()) {
 
+            //da sostituire con service
             CardOperationsThread cardOperationsThread = new CardOperationsThread("Elimina", CardsManager.getInstance().getCard());
             cardOperationsThread.start();
 
-
+            //setonsucceded event
             CardsManager.getInstance().setPos(0);
             SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.MANAGE_PATH + "manage.fxml");
             SceneHandler.getInstance().setPage(SceneHandler.MANAGE_PATH + "manage.fxml");

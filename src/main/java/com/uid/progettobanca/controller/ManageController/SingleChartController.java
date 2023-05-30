@@ -40,12 +40,14 @@ public class SingleChartController {
 
     @FXML
     void initialize() {
+        //chart rappresenta il nome del tag
         chart = ChartsManager.getInstance().getNextChart();
         chartName.setText(chart);
         setTagImage();
 
         transactionService.start();
 
+        //crea il grafico dopo aver preso i dati dal db
         transactionService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof List<?>  result){
                 ritorno = graphCalculator.TagGraphCalculator(daysInterval, chart, (List<Transazione>) result);

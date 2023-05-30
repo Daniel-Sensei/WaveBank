@@ -36,16 +36,11 @@ public class StatisticsController {
 
     public void initialize() {
         GenericController.loadImage(back);
-     /*   GraphCalculator graphCalculator = new GraphCalculator();
-        ReturnChart returnChart = graphCalculator.TagGraphCalculator(30, "Altro");
-
-        otherChart.getData().add(returnChart.getSeries());
-        SpentBalance.setText("€"+valueOf(returnChart.getValue())); */
         ChartsManager.getInstance().fillQueue();
         int nCharts = ChartsManager.getInstance().getSize();
         HBox hBox = new HBox();
         for (int i= 0; i < nCharts; i++) {
-            if(i%2==0){
+            if(i%2==0){     //aggiunge una riga ogni 2 grafici
                 chartsList.getChildren().add(hBox);
                 hBox = new HBox();
                 hBox.setSpacing(80);
@@ -54,7 +49,7 @@ public class StatisticsController {
             }
             try {
                 Parent singleChart = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().MANAGE_PATH + "singleChart.fxml");
-                hBox.getChildren().add(singleChart);
+                hBox.getChildren().add(singleChart);        //aggiunge il grafico alla riga
             } catch (IOException e) {
                 System.out.println("Initialize chart failed");
                 throw new RuntimeException(e);
