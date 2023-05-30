@@ -10,15 +10,12 @@ import java.util.Queue;
 
 public class SpaceService extends Service <Queue<Space>>{
 
-    private  Queue<Space> Queue;
-
     @Override
     protected Task <Queue<Space>> createTask() {
-        return new Task <Queue<Space>>() {
+        return new Task <>() {
             @Override
             protected Queue<Space> call() throws Exception {
-                Queue = SpacesDAO.selectAllByIban(BankApplication.getCurrentlyLoggedIban());
-                return Queue;
+                return SpacesDAO.selectAllByIban(BankApplication.getCurrentlyLoggedIban());
             }
         };
     }
