@@ -1,10 +1,9 @@
 package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.model.DAO.ContiDAO;
-import com.uid.progettobanca.model.DAO.SpacesDAO;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
-import javafx.application.Platform;
+import com.uid.progettobanca.model.genericObjects.Transazione;
+import com.uid.progettobanca.model.genericObjects.Utente;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import org.apache.pdfbox.pdmodel.PDDocument;

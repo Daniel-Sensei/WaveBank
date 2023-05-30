@@ -1,4 +1,4 @@
-package com.uid.progettobanca.model;
+package com.uid.progettobanca.model.genericObjects;
 
 import java.time.LocalDate;
 import java.util.Arrays;

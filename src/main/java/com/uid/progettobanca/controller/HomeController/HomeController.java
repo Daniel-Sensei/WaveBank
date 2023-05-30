@@ -3,10 +3,11 @@ package com.uid.progettobanca.controller.HomeController;
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.DAO.ContiDAO;
-import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.TransactionManager;
-import com.uid.progettobanca.model.TransactionService;
-import com.uid.progettobanca.model.Transazione;
+import com.uid.progettobanca.model.genericObjects.Conto;
+import com.uid.progettobanca.model.services.GetTransactionService;
+import com.uid.progettobanca.model.genericObjects.Transazione;
+import com.uid.progettobanca.model.services.SelectAccountService;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -145,11 +146,12 @@ public class HomeController implements Initializable {
         GenericController.loadImages(homeImages);
         GenericController.loadImagesButton(homeButtons);
         addFocusRemovalListenerToButtons();
-        try {
-            balanceLabel.setText(df.format(ContiDAO.getSaldoByIban(BankApplication.getCurrentlyLoggedIban())) + " €");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        selectAccountService.setOnSucceeded( event -> {
+            if(event.getSource().getValue() instanceof Conto result){
+                balanceLabel.setText(df.format(result.getSaldo()) + " €");
+            }
+        });
+        selectAccountService.restart();
         createFilterPopUp();
     }
 
@@ -227,10 +229,17 @@ public class HomeController implements Initializable {
         return count;
     }
 
+
+    private SelectAccountService selectAccountService;
+    private GetTransactionService getTransactionService;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        TransactionService transactionService = new TransactionService(functionName, selectedFilters, selectedInOut, searchQuery);
-        transactionService.start();
+        getTransactionService = new GetTransactionService(functionName, selectedFilters, selectedInOut, searchQuery, 0);
+        getTransactionService.restart();
+
+        selectAccountService = new SelectAccountService();
+        selectAccountService.setIban(BankApplication.getCurrentlyLoggedIban());
 
         //in loadHomeAssets() viene anche aggiunto popUp sul filter
         loadHomeAssets();
@@ -249,7 +258,7 @@ public class HomeController implements Initializable {
         vBox.setPrefWidth(VBox.USE_COMPUTED_SIZE);
         vBox.setPadding(new Insets(20, 0, 0, 0));
 
-        transactionService.setOnSucceeded(event -> {
+        getTransactionService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof List<?> result){
                 this.transactions = (List<Transazione>) result;
 
@@ -287,7 +296,7 @@ public class HomeController implements Initializable {
             }
         });
 
-        transactionService.setOnFailed(event -> {
+        getTransactionService.setOnFailed(event -> {
             throw new RuntimeException(event.getSource().getException());
         });
 

@@ -1,7 +1,9 @@
 package com.uid.progettobanca.controller.OperationsController;
 
-import com.uid.progettobanca.model.Contatto;
+import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.model.genericObjects.Contatto;
 import com.uid.progettobanca.model.DAO.ContattiDAO;
+import com.uid.progettobanca.model.services.ContactService;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.beans.property.BooleanProperty;
@@ -42,23 +44,31 @@ public class ModifyContactController implements Initializable {
     @FXML
     private Label warningSurname;
 
+    ContactService contactService = new ContactService("update");
+
     @FXML
     void onSendButtonClick(ActionEvent event) {
-        try {
-            if(!fieldIban.getText().isEmpty()||!fieldName.getText().isEmpty()||!fieldSurname.getText().isEmpty()) {
-                if (!fieldName.getText().isEmpty())
-                    contatto.setNome(fieldName.getText());
-                if (!fieldSurname.getText().isEmpty())
-                    contatto.setCognome(fieldSurname.getText());
-                if (!fieldIban.getText().isEmpty())
-                    contatto.setIban(fieldIban.getText());
-                ContattiDAO.update(contatto);
-                SceneHandler.getInstance().showInfo("Aggiornamento Contatto", "Contatto aggiornato", "Il contatto è stato modificato correttamente.");
-            }
-            SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
-        } catch (SQLException e) {
-            SceneHandler.getInstance().showError("Errore", "Errore durante l'inserimento del contatto ", e.getMessage());
+        if(!fieldIban.getText().isEmpty()||!fieldName.getText().isEmpty()||!fieldSurname.getText().isEmpty()) {
+            if (!fieldName.getText().isEmpty())
+                contatto.setNome(fieldName.getText());
+            if (!fieldSurname.getText().isEmpty())
+                contatto.setCognome(fieldSurname.getText());
+            if (!fieldIban.getText().isEmpty())
+                contatto.setIban(fieldIban.getText());
+
+            contactService.setContact(contatto);
+            contactService.restart();
+
+            contactService.setOnSucceeded(event2 -> {
+                if((Boolean) event2.getSource().getValue()){
+                    System.out.println("Contatto aggiornamento con successo");
+                    SceneHandler.getInstance().showInfo("Aggiornamento Contatto", "Contatto aggiornato", "Il contatto è stato modificato correttamente.");
+                }else System.out.println("Errore nell'aggiornamento del contatto");
+            });
+
+            contactService.setOnFailed(event2 -> System.out.println("Errore nell'aggiornamento del contatto"));
         }
+        SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
     }
 
     @Override

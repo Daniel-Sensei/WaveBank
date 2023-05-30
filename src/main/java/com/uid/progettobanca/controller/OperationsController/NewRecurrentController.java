@@ -1,8 +1,9 @@
 package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.model.DAO.Ricorrente;
+import com.uid.progettobanca.model.genericObjects.Ricorrente;
 import com.uid.progettobanca.model.DAO.RicorrentiDAO;
+import com.uid.progettobanca.model.services.RecurrentService;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -107,13 +108,24 @@ public class NewRecurrentController implements Initializable {
             return;
         }
 
-        try {
-            RicorrentiDAO.insert(new Ricorrente(fieldName.getText() + " " + fieldSurname.getText(), Double.parseDouble(fieldAmount.getText()), fieldIbanTo.getText(), date.getValue(), Integer.parseInt(fieldNGiorni.getText()), fieldDescr.getText(), BankApplication.getCurrentlyLoggedUser()));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        recurrentService.setPayment(new Ricorrente(fieldName.getText() + " " + fieldSurname.getText(), Double.parseDouble(fieldAmount.getText()), fieldIbanTo.getText(), date.getValue(), Integer.parseInt(fieldNGiorni.getText()), fieldDescr.getText(), BankApplication.getCurrentlyLoggedUser()));
+        recurrentService.setOnSucceeded(e -> {
+            if((Boolean) e.getSource().getValue())
+                SceneHandler.getInstance().showInfo("Pagamento Ricorrente", "Operazione effettuata", "Pagamento ricorrente aggiunto con successo");
+            else
+                SceneHandler.getInstance().showError("Errore", "Operazione non effettuata", "Il Pagamento Ricorrente non è stato aggiunto");
+        });
+        recurrentService.setOnFailed(e -> {
+            SceneHandler.getInstance().showError("Errore", "Operazione non effettuata", "Il Pagamento Ricorrente non è stato aggiunto");
+        });
+        recurrentService.restart();
     }
 
+    private RecurrentService recurrentService;
+
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {recurrencyComboBox.getItems().addAll(ricorrenza);}
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        recurrencyComboBox.getItems().addAll(ricorrenza);
+        recurrentService = new RecurrentService("insert");
+    }
 }

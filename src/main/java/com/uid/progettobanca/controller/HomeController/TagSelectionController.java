@@ -3,14 +3,13 @@ package com.uid.progettobanca.controller.HomeController;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.TransactionManager;
-import com.uid.progettobanca.model.Transazione;
+import com.uid.progettobanca.model.genericObjects.Transazione;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Popup;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;

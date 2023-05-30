@@ -1,9 +1,11 @@
 package com.uid.progettobanca.controller;
 
+import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
-import com.uid.progettobanca.model.Utente;
+import com.uid.progettobanca.model.genericObjects.Utente;
 import com.uid.progettobanca.model.CreateCard;
+import com.uid.progettobanca.model.services.AccountService;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -121,6 +123,7 @@ public class RegisterFormController implements Initializable {
         questions.getItems().addAll(domandeDiSicurezza);
     }
 
+    private AccountService accountService = new AccountService("generateNew");
 
     @FXML
     void checkRegistration(ActionEvent event) {
@@ -131,14 +134,22 @@ public class RegisterFormController implements Initializable {
             if (!password.getText().equals(confirmPassword.getText())) {
                 SceneHandler.getInstance().showError("Errore", "Errore nella registrazione", "Le password non coincidono");
             } else {
-                try {
-                    UtentiDAO.insert(new Utente(name.getText(), surname.getText(), address.getText(), LocalDate.parse(convertDate(getDate())), phone.getText(), email.getText(), password.getText(), questions.getValue(), answer.getText(), ContiDAO.generateNew()));
-                    CreateCard.createDebitcard(UtentiDAO.getUserIdByEmail(email.getText()));
-                    SceneHandler.getInstance().showInfo("Registrazione", "Registrazione effettuata con successo", "Ora puoi effettuare il login");
-                    SceneHandler.getInstance().setPage("login.fxml");
-                } catch (SQLException e) {
-                    System.out.println(e.getMessage());
-                }
+                accountService.setOnSucceeded(e -> {
+                    if((Boolean) e.getSource().getValue()){
+                        try {
+                            UtentiDAO.insert(new Utente(name.getText(), surname.getText(), address.getText(), LocalDate.parse(convertDate(getDate())), phone.getText(), email.getText(), password.getText(), questions.getValue(), answer.getText(), BankApplication.getCurrentlyLoggedIban()));
+                        CreateCard.createDebitCard(UtentiDAO.getUserIdByEmail(email.getText()));
+                        } catch (SQLException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        SceneHandler.getInstance().showInfo("Registrazione", "Registrazione effettuata con successo", "Ora puoi effettuare il login");
+                        SceneHandler.getInstance().setPage("login.fxml");
+                    }
+                });
+                accountService.setOnFailed(e -> {
+                    SceneHandler.getInstance().showError("Errore", "Errore nella registrazione", "Errore durante la registrazione");
+                });
+                accountService.restart();
             }
         }
     }

@@ -3,7 +3,7 @@ package com.uid.progettobanca.controller.OperationsController;
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
-import com.uid.progettobanca.model.Transazione;
+import com.uid.progettobanca.model.genericObjects.Transazione;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
@@ -83,7 +83,7 @@ public class RicaricaTelefonicaController implements Initializable {
         try {
             double amount = FormUtils.getInstance().formatAmount(amountLabel.getText());
             int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-            if (ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)) {
+            if (TransazioniDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)) {
                 TransazioniDAO.insert(new Transazione("Ricarica: "+fieldPhone.getText(), BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, fieldPhone.getText().trim(), "Ricarica Telefonica", "Altro", ""));
                 SceneHandler.getInstance().reloadDynamicPageInHashMap();
                 SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");

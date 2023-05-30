@@ -1,8 +1,7 @@
 package com.uid.progettobanca.model;
 
-import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.model.DAO.SpacesDAO;
-import java.sql.SQLException;
+import com.uid.progettobanca.model.genericObjects.Space;
+
 import java.util.LinkedList;
 import java.util.Queue;
 

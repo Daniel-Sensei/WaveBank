@@ -1,47 +1,70 @@
 package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.model.DAO.CarteDAO;
+import com.uid.progettobanca.model.genericObjects.Carta;
+import com.uid.progettobanca.model.services.CardService;
+import com.uid.progettobanca.model.services.GetCardService;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CreateCard {
-    public static Carta createVirtualcard(int lasting){
+    public static Carta createVirtualCard(int lasting){
             //crea carta
         Carta carta = new Carta();
         carta.setBloccata(false);
         carta.setCvv(RandomNumbers.generateRandomNumbers(3)); //random
         carta.setPin(RandomNumbers.generateRandomNumbers(5)); //random
         carta.setTipo("Virtuale");
-        carta.setUserId(String.valueOf(BankApplication.getCurrentlyLoggedUser()));
+        carta.setUserId(BankApplication.getCurrentlyLoggedUser());
         carta.setScadenza(LocalDate.now().plusMonths(lasting));
         carta.setNumCarta(RandomNumbers.generateRandomNumbers(16));
         return carta;
     }
 
-    public static void createDebitcard(int utente){
-        try {
-            //crea carta
-            Carta carta = new Carta();
-            boolean approved = false;
-            while (approved == false) {
-                String cardNumber= RandomNumbers.generateRandomNumbers(16);
-                if(CarteDAO.selectByNumCarta(cardNumber) == null){
-                    carta.setNumCarta(cardNumber);
-                    approved = true;
-                }
+    private static GetCardService getCardService = new GetCardService("selectByNumCarta");
 
+    public static void createDebitCard(int utente){
+        Carta carta = new Carta();
+        AtomicBoolean approved = new AtomicBoolean(false);
+
+        getCardService.setOnSucceeded(event -> {
+            //se restituisce una lista nulla allora va bene e si può creare la carta
+            if(getCardService.getValue().get(0) == null) {
+                approved.set(true);
+                carta.setBloccata(false);
+                carta.setCvv(RandomNumbers.generateRandomNumbers(3)); //random
+                carta.setPin(RandomNumbers.generateRandomNumbers(5)); //random
+                carta.setTipo("Debito");
+                carta.setUserId(utente);
+                carta.setScadenza(LocalDate.now().plusYears(5));
             }
-            carta.setBloccata(false);
-            carta.setCvv(RandomNumbers.generateRandomNumbers(3)); //random
-            carta.setPin(RandomNumbers.generateRandomNumbers(5)); //random
-            carta.setTipo("Debito");
-            carta.setUserId(String.valueOf(utente));
-            carta.setScadenza(LocalDate.now().plusYears(5));
-            CarteDAO.insert(carta);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        });
+
+        getCardService.setOnFailed(event -> {
+            System.out.println("controllo fallito");
+        });
+
+        while (!approved.get()) {
+            String cardNumber = RandomNumbers.generateRandomNumbers(16);
+            getCardService.setCardNumber(cardNumber);
+            getCardService.restart();
+            carta.setNumCarta(cardNumber);
         }
+
+        CardService cardService = new CardService();
+        cardService.setAction("insert");
+        cardService.setCarta(carta);
+        cardService.start();
+
+        cardService.setOnSucceeded(event -> {
+            if((Boolean) event.getSource().getValue()){
+                System.out.println("Creazione prima carta avvenuta con successo");
+            }else System.out.println("Creazione fallita");
+        });
+
+        cardService.setOnFailed(event -> {
+            System.out.println("Creazione fallita");
+        });
     }
 }

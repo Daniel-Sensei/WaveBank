@@ -1,16 +1,13 @@
 package com.uid.progettobanca.controller.SpacesController;
 
 import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.model.DAO.SpacesDAO;
-import com.uid.progettobanca.model.Space;
-import com.uid.progettobanca.model.SpacesManager;
+import com.uid.progettobanca.model.genericObjects.Space;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.ImageUtils;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

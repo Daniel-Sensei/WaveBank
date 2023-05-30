@@ -3,7 +3,7 @@ package com.uid.progettobanca.controller.MyAccountController;
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
-import com.uid.progettobanca.model.Utente;
+import com.uid.progettobanca.model.genericObjects.Utente;
 import com.uid.progettobanca.view.BackStack;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

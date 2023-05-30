@@ -1,9 +1,9 @@
 package com.uid.progettobanca.controller.ManageController;
 
-import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.*;
-import com.uid.progettobanca.model.DAO.UtentiDAO;
+import com.uid.progettobanca.model.genericObjects.Carta;
+import com.uid.progettobanca.model.services.CardService;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CardController {
@@ -47,15 +46,30 @@ public class CardController {
     @FXML
     private VBox cardVbox;
 
+    private CardService cardService = new CardService();
+
     @FXML
     void blockPressed(ActionEvent event) {
 
-        CardOperationsThread cardOperationsThread = new CardOperationsThread("Blocca", CardsManager.getInstance().getCard());
-        cardOperationsThread.start();
+        Carta carta = CardsManager.getInstance().getCard();
+        carta.setBloccata(!carta.isBloccata());
 
-        CardsManager.getInstance().getCard().setBloccata(!CardsManager.getInstance().getCard().isBloccata());
+        cardService.setAction("update");
+        cardService.setCarta(carta);
 
-        if(CardsManager.getInstance().getCard().isBloccata()){
+        cardService.setOnSucceeded(event2 -> {
+            if((Boolean) event2.getSource().getValue()){
+                System.out.println("S/Blocco avvenuto con successo");
+            }else System.out.println("S/Blocco fallito");
+        });
+
+        cardService.setOnFailed(event2 -> {
+            System.out.println("S/Blocco fallito");
+        });
+
+        cardService.restart();
+
+        if(carta.isBloccata()){
             GenericController.loadImageButton("unlock", security);
             blockLabel.setText("Sblocca");
         }

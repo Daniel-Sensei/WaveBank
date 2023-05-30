@@ -2,7 +2,7 @@ package com.uid.progettobanca.controller.HomeController;
 
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.TransactionManager;
-import com.uid.progettobanca.model.Transazione;
+import com.uid.progettobanca.model.genericObjects.Transazione;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

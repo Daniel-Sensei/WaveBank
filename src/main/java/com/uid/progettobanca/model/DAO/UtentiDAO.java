@@ -1,6 +1,6 @@
 package com.uid.progettobanca.model.DAO;
 
-import com.uid.progettobanca.model.Utente;
+import com.uid.progettobanca.model.genericObjects.Utente;
 import com.uid.progettobanca.view.SceneHandler;
 
 import java.sql.*;
@@ -11,15 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 
 
 public class UtentiDAO {
-    private static Connection conn;
-
-    static {
-        try {
-            conn = DatabaseManager.getInstance().getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private final static Connection conn = DatabaseManager.getInstance().getConnection();
 
     public UtentiDAO() {}
 

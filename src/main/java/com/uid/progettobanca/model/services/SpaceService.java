@@ -1,12 +1,11 @@
-package com.uid.progettobanca.model;
+package com.uid.progettobanca.model.services;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.SpacesDAO;
+import com.uid.progettobanca.model.genericObjects.Space;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Queue;
 
 public class SpaceService extends Service <Queue<Space>>{
