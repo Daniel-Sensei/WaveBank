@@ -48,9 +48,6 @@ public class MenuBarController implements Initializable {
     private Label spacesLabel;
     @FXML
     private Label myAccountLabel;
-
-
-
     private ArrayList<ImageView> menuBarImages = new ArrayList<>();
 
     private void loadMenuBarImages(){
@@ -78,7 +75,10 @@ public class MenuBarController implements Initializable {
             loadMenuBarImages();
         }
         GenericController.loadImages(menuBarImages);
-        setLabelStyle(homeLabel, "home", home);
+        if(Settings.themeChanged == false)
+            setLabelStyle(homeLabel, "home", home);
+        else
+            setLabelStyle(myAccountLabel, "myAccount", myAccount);
     }
 
     private void setLabelStyle(Label label, String name, ImageView imageView){
