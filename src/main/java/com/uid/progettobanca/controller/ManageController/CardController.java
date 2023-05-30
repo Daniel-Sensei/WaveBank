@@ -94,7 +94,7 @@ public class CardController {
         } else if (carta.getTipo().equals("Virtuale")) {
             GenericController.setCardImage("virtualcard", cardImage);
         }
-       // ownerName.setText(CardsManager.getInstance().getNome().toUpperCase() + " " + CardsManager.getInstance().getCognome().toUpperCase());
+        ownerName.setText(CardsManager.getInstance().getNome().toUpperCase() + " " + CardsManager.getInstance().getCognome().toUpperCase());
     }
 
 }

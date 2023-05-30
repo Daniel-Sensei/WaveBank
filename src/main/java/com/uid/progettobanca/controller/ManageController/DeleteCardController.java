@@ -47,7 +47,6 @@ public class DeleteCardController {
             CardOperationsThread cardOperationsThread = new CardOperationsThread("Elimina", CardsManager.getInstance().getCard());
             cardOperationsThread.start();
 
-            CardsManager.getInstance().removeCard(CardsManager.getInstance().getCard());
 
             CardsManager.getInstance().setPos(0);
             SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.MANAGE_PATH + "manage.fxml");

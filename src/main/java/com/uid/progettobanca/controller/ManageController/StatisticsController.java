@@ -2,14 +2,10 @@ package com.uid.progettobanca.controller.ManageController;
 
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.ChartsManager;
-import com.uid.progettobanca.model.GraphCalculator;
-import com.uid.progettobanca.model.ReturnChart;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.chart.LineChart;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -17,12 +13,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.LinkedList;
 
 import static java.lang.String.valueOf;
 
-public class ChartsController {
+public class StatisticsController {
 
     @FXML
     private VBox chartsList;

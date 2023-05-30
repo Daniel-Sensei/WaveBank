@@ -23,7 +23,7 @@ public class SingleChartController {
     @FXML
     private LineChart<?, ?> lineChart;
 
-    private final GetTransactionsService ibanService = new GetTransactionsService(BankApplication.getCurrentlyLoggedIban());
+    private final TransactionService transactionService = new TransactionService("filterAllTransaction", null, null, "");
     @FXML
     private Label spentBalance;
 
@@ -44,17 +44,17 @@ public class SingleChartController {
         chartName.setText(chart);
         setTagImage();
 
-        ibanService.start();
+        transactionService.start();
 
-        ibanService.setOnSucceeded(event -> {
+        transactionService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof List<?>  result){
                 ritorno = graphCalculator.TagGraphCalculator(daysInterval, chart, (List<Transazione>) result);
                 lineChart.getData().add(ritorno.getSeries());
                 spentBalance.setText(String.valueOf(ritorno.getValue()));
             }
         });
-        ibanService.setOnFailed(event -> {
-            System.out.println("errore nel caricamento del grafico per tag");
+        transactionService.setOnFailed(event -> {
+            throw new RuntimeException(event.getSource().getException());
         });
     }
 

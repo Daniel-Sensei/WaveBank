@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.SpacesController;
 
 import com.uid.progettobanca.controller.GenericController;
+import com.uid.progettobanca.model.SpaceTransactionManager;
 import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.ImageUtils;
@@ -21,10 +22,6 @@ public class SpaceTransactionComboBoxController implements Initializable {
     @FXML
     private ImageView senderImage;
 
-
-    @FXML
-    private VBox transactionDetail;
-
     @FXML
     private Label Balance;
 
@@ -35,6 +32,7 @@ public class SpaceTransactionComboBoxController implements Initializable {
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
         GenericController.setSpaceImage(FormUtils.getInstance().getSpaceImage(spaceSelector.getValue()), image);
         label.setText(decimalFormat.format(FormUtils.getInstance().getSpaceBalance(spaceSelector.getValue())) + " €");
+        SpaceTransactionManager.getInstance().setSpaceComboBoxName(spaceSelector.getValue());
     }
 
 
@@ -52,5 +50,9 @@ public class SpaceTransactionComboBoxController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String getSpace(){
+        return spaceSelector.getValue();
     }
 }

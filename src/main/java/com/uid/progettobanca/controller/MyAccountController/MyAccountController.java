@@ -162,7 +162,7 @@ public class MyAccountController implements Initializable {
             }
         });
         userService.setOnFailed(event -> {
-            System.out.println("errore nel dati utente dal service");
+            throw new RuntimeException(event.getSource().getException());
         });
     }
 }
