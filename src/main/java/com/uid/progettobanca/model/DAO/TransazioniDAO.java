@@ -258,6 +258,46 @@ public class TransazioniDAO {
         return transactions;
     }
 
+    public static List<Transazione> selectAllSpaceTransaction(String iban, int spaceID) throws SQLException {
+        List<Transazione> transactions = new Stack<>();
+        String query = "SELECT * FROM transazioni WHERE iban_from = ? " +
+                                                 "AND (space_from = ? OR space_to = ?) ORDER BY dateTime asc";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, iban);
+            stmt.setInt(2, spaceID);
+            stmt.setInt(3, spaceID);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int fromSpace = rs.getInt("space_from");
+                    int toSpace = rs.getInt("space_to");
+                    double amount = rs.getDouble("importo");
+
+                    if (fromSpace == spaceID && toSpace != spaceID) {
+                        amount *= -1;
+                    }
+
+                    Transazione transaction = new Transazione(
+                            rs.getInt("transaction_id"),
+                            rs.getString("nome"),
+                            rs.getString("iban_from"),
+                            rs.getString("iban_to"),
+                            fromSpace,
+                            toSpace,
+                            rs.getTimestamp("dateTime").toLocalDateTime(),
+                            amount,
+                            rs.getString("descrizione"),
+                            rs.getString("tipo"),
+                            rs.getString("tag"),
+                            rs.getString("commenti")
+                    );
+                    transactions.add(transaction);
+                }
+            }
+        }
+
+        return transactions;
+    }
+
     //seleziona solo trasferimenti tra spaces
     public static List<Transazione> selectBetweenSpaces(String iban) throws SQLException {
         String query = "SELECT * FROM transazioni WHERE iban_from = ? AND iban_to = ?";
