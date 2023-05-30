@@ -13,26 +13,17 @@ public class RecurrentManager {
 
     private RecurrentManager() {}
 
-    private static GetRecurrentsService getRecurrentsService;
-
     public static RecurrentManager getInstance() {
         if (instance == null) {
             instance = new RecurrentManager();
-            getRecurrentsService = new GetRecurrentsService();
         }
         return instance;
     }
 
     private Queue<Ricorrente> pagamenti;
 
-    public void fillPayments() {
-        getRecurrentsService.setOnSucceeded(event -> {
-            if(event.getSource().getValue() instanceof Queue<?> result){
-                pagamenti = (Queue<Ricorrente>) result;
-            }else {
-                System.out.println("Errore nell'acquisizione dei pagamenti ricorrenti saldo");
-            }
-        });
+    public void fillPayments(Queue <Ricorrente> pagamenti) {
+        this.pagamenti = pagamenti ;
     }
 
     public void putPayment(Ricorrente r) {

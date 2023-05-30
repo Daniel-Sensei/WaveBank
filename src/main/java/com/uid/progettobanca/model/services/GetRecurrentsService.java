@@ -17,9 +17,11 @@ public class GetRecurrentsService extends Service<Queue<Ricorrente>> {
 
     @Override
     protected Task<Queue<Ricorrente>> createTask() {
+        System.out.println("GetRecurrentsService created");
         return new Task() {
             @Override
             protected Object call() throws Exception {
+                System.out.println("GetRecurrentsService called");
                 return RicorrentiDAO.getInstance().selectAllByUserId(BankApplication.getCurrentlyLoggedUser());
             }
         };

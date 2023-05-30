@@ -115,21 +115,16 @@ public class ManageController {
             if(event.getSource().getValue() instanceof Utente result){
                 CardsManager.getInstance().setNome(result.getNome());
                 CardsManager.getInstance().setCognome(result.getCognome());
-                System.out.println("ho settato nome e cognome");
             }
             cardService.restart();
             cardService.setOnSucceeded(event1 -> {
-                System.out.println("sono prima dell'if");
                 if(event1.getSource().getValue() instanceof List<?> result){
                     CardsManager.getInstance().fillQueue((List<Carta>) result);
                     numcarte=result.size();
-                    System.out.println("ho aggiornato in numcarte");
                     loadCard();
-                    System.out.println("ho caricato le carte");
                 }
             });
             cardService.setOnFailed(event1 -> {
-                System.out.println("non ho caricato le carte");
                 throw new RuntimeException(event1.getSource().getException());
             });
         });

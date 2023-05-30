@@ -67,6 +67,7 @@ public class NewRecurrentController implements Initializable {
                 case "Annuale" -> fieldNGiorni.setText("365");
             }
         }
+        //SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "formPagamentiRicorrenti.fxml");
     }
 
     @FXML
@@ -110,8 +111,10 @@ public class NewRecurrentController implements Initializable {
 
         recurrentService.setPayment(new Ricorrente(fieldName.getText() + " " + fieldSurname.getText(), Double.parseDouble(fieldAmount.getText()), fieldIbanTo.getText(), date.getValue(), Integer.parseInt(fieldNGiorni.getText()), fieldDescr.getText(), BankApplication.getCurrentlyLoggedUser()));
         recurrentService.setOnSucceeded(e -> {
-            if((Boolean) e.getSource().getValue())
+            if((Boolean) e.getSource().getValue()) {
                 SceneHandler.getInstance().showInfo("Pagamento Ricorrente", "Operazione effettuata", "Pagamento ricorrente aggiunto con successo");
+                SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "formPagamentiRicorrenti.fxml");
+            }
             else
                 SceneHandler.getInstance().showError("Errore", "Operazione non effettuata", "Il Pagamento Ricorrente non è stato aggiunto");
         });
