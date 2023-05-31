@@ -1,5 +1,6 @@
 package com.uid.progettobanca.model.DAO;
 
+import com.uid.progettobanca.model.objects.Space;
 import com.uid.progettobanca.model.objects.Transazione;
 
 import java.sql.*;
@@ -52,8 +53,12 @@ public class TransazioniDAO {
     // spostamento denaro tra 2 spaces
 
     public boolean betweenSpaces(String iban, int spaceFrom, int spaceTo, double amount, String commenti) {
-        String nomeFrom = SpacesDAO.getInstance().selectByIbanSpaceId(iban, spaceFrom).getNome();
-        String nomeTo = SpacesDAO.getInstance().selectByIbanSpaceId(iban, spaceTo).getNome();
+        Space from = SpacesDAO.getInstance().selectByIbanSpaceId(iban, spaceFrom);
+        String nomeFrom = from.getNome();
+        from.setSaldo(from.getSaldo()-amount);
+        Space to = SpacesDAO.getInstance().selectByIbanSpaceId(iban, spaceTo);
+        String nomeTo = to.getNome();
+        to.setSaldo(to.getSaldo()+amount);
         // creao la transazione di spostamento
         Transazione t = new Transazione("Trasferimento tra spaces da "+nomeFrom+" a "+nomeTo, iban, iban, spaceFrom, spaceTo, LocalDateTime.now(), amount, "Da "+nomeFrom+" a "+nomeTo, "Trasferimento tra spaces", "altro", commenti);
         //inserisco la positiva
@@ -61,6 +66,8 @@ public class TransazioniDAO {
         // inverto l'importo e inserisco la negativa
         t.setImporto(-amount);
         insert(t);
+        SpacesDAO.getInstance().update(from);
+        SpacesDAO.getInstance().update(to);
         return true;
     }
 
