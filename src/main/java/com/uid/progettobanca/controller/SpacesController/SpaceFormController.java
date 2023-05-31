@@ -1,7 +1,7 @@
 package com.uid.progettobanca.controller.SpacesController;
 
 import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.model.services.SingleSpaceService;
+import com.uid.progettobanca.model.services.SpaceService;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.ImageUtils;
 import com.uid.progettobanca.view.SceneHandler;
@@ -58,9 +58,9 @@ public class SpaceFormController {
         String iban = BankApplication.getCurrentlyLoggedIban();
         LocalDate data = LocalDate.now();
         String action = "insert";
-        SingleSpaceService singleSpaceService = new SingleSpaceService(action, iban, nome, image, saldo, data);
-        singleSpaceService.restart();
-        singleSpaceService.setOnSucceeded(e -> {
+        SpaceService spaceService = new SpaceService(action, iban, nome, image, saldo, data);
+        spaceService.restart();
+        spaceService.setOnSucceeded(e -> {
             SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH +"spaces.fxml");
         });
     }

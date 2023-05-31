@@ -2,7 +2,7 @@ package com.uid.progettobanca.controller.SpacesController;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
-import com.uid.progettobanca.model.services.SingleSpaceService;
+import com.uid.progettobanca.model.services.SpaceService;
 import com.uid.progettobanca.model.objects.Space;
 import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.view.BackStack;
@@ -57,8 +57,8 @@ public class SingleSpacePageController implements Initializable {
     @FXML
     void deleteThisSpace(MouseEvent event) throws IOException {
         if(SpacesManager.getInstance().getCurrentSpace().getSpaceId() != BankApplication.getCurrentlyLoggedMainSpace()) {
-            SingleSpaceService singleSpaceService = new SingleSpaceService("delete", actualSpace.getSpaceId(), actualSpace.getIban());
-            singleSpaceService.restart();
+            SpaceService spaceService = new SpaceService("delete", actualSpace.getSpaceId(), actualSpace.getIban());
+            spaceService.restart();
             SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().SPACES_PATH + "spaces.fxml");
             BackStack.getInstance().loadPreviousPage();
         }

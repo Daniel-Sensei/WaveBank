@@ -7,7 +7,7 @@ import javafx.concurrent.Task;
 
 import java.time.LocalDate;
 
-public class SingleSpaceService extends Service {
+public class SpaceService extends Service {
 
     private String action ;
 
@@ -17,13 +17,13 @@ public class SingleSpaceService extends Service {
 
     private int spaceId;
 
-    public SingleSpaceService (String action, String spaceIban, String spaceName, String spaceImage, double spaceBalance, LocalDate spaceCreationDate ){
+    public SpaceService(String action, String spaceIban, String spaceName, String spaceImage, double spaceBalance, LocalDate spaceCreationDate ){
         Space space1 = new Space(spaceIban, spaceBalance , spaceCreationDate, spaceName, spaceImage);
         this.space = space1;
         this.action = action;
     }
 
-    public SingleSpaceService (String action, int spaceId, String spaceIban){
+    public SpaceService(String action, int spaceId, String spaceIban){
         this.action = action;
         this.spaceId = spaceId;
         this.spaceIban = spaceIban;
