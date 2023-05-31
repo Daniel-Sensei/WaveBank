@@ -52,10 +52,10 @@ public class ContiDAO {
         String iban = generateItalianIban();
         LocalDate data = LocalDate.now();
         insert(new Conto(iban, 0, data));
-        int bonus = 500; //sarà 50 quando non avremo più bisogno di testare, come bonus di benvenuto
-        Space s = new Space(iban, bonus, data, "Conto corrente Principale", "wallet.png");
+        Space s = new Space(iban, 0, data, "Conto corrente Principale", "wallet.png");
         SpacesDAO.getInstance().insert(s);
         BankApplication.setCurrentlyLoggedMainSpace(s.getSpaceId());
+        int bonus = 500; //sarà 50 quando non avremo più bisogno di testare, come bonus di benvenuto
         TransazioniDAO.getInstance().transazione("IT0000000000000000000000000", iban, 0, bonus);
         TransazioniDAO.getInstance().insert(new Transazione("Bonus di Benvenuto", "IT0000000000000000000000000", iban, 0, s.getSpaceId(), LocalDateTime.now(), bonus, "Il pirata ti dà il benvenuto nella banca più losca del mondo... Spendi bene questi dobloni!", "Bonus di Benvenuto", "altro", ""));
 

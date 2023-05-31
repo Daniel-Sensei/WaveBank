@@ -132,10 +132,11 @@ public class BonificoController implements Initializable {
             TransazioniDAO.getInstance().insert(new Transazione(nome, BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, 0, LocalDateTime.now(), amount, fieldDescr.getText(), "Bonifico", "Altro", ""));
 
             if (saveContact.isSelected()) {
-                ContattiDAO.getInstance().insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedUser()));
-                SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+                if(ContattiDAO.getInstance().selectByIBAN(fieldIbanTo.getText()) == null) {
+                    ContattiDAO.getInstance().insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedUser()));
+                    SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+                }
             }
-
             SceneHandler.getInstance().reloadDynamicPageInHashMap();
             SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
             SceneHandler.getInstance().showInfo("Bonifico", "Bonifico effettuato con successo", "Il bonifico è andato a buon fine.");

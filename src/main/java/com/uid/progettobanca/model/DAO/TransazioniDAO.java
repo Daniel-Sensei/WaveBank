@@ -55,21 +55,24 @@ public class TransazioniDAO {
     //trasferimento di denaro tra due conti usando le transazioni di SQLite
     public boolean transazione(String iban_from, String iban_to, int space_from, double importo) {
         try {
+            // controllo saldo sufficiente
             if (iban_from.equals(BankApplication.getCurrentlyLoggedIban())) {
                 double check = ContiDAO.getInstance().getSaldoByIban(iban_from);
                 if (check < importo) {
                     SceneHandler.getInstance().showError("Errore", "Saldo insufficiente", "Non hai abbastanza soldi per effettuare questa operazione");
                     return false;
                 }
-                Space s = SpacesDAO.getInstance().selectBySpaceId(space_from);
-                double saldo = s.getSaldo();
+                Space from = SpacesDAO.getInstance().selectBySpaceId(space_from);
+                double saldo = from.getSaldo();
                 if (saldo < importo) {
                     SceneHandler.getInstance().showError("Errore", "Saldo insufficiente nello space", "Non hai abbastanza soldi nello space selezionato per effettuare questa operazione");
                     return false;
                 }
-                s.setSaldo(saldo - importo);
-                SpacesDAO.getInstance().update(s);
+                from.setSaldo(saldo - importo);
+                SpacesDAO.getInstance().update(from);
             }
+
+            // utilizzo delle transaction "manuale" perché una delle due non viene eseguita se non esiste nella tabella
             String query = "UPDATE conti SET saldo = saldo - ? WHERE iban = ?";
             try (PreparedStatement stmt = conn.prepareStatement(query)) {
                 conn.setAutoCommit(false);
@@ -77,14 +80,22 @@ public class TransazioniDAO {
                 stmt.setString(2, iban_from);
                 stmt.executeUpdate();
                 //se esiste il conto di destinazione aggiorna il saldo
-                if (!iban_to.equals("NO") || ContiDAO.getInstance().selectByIban(iban_to) != null) {
+                if (!iban_to.equals("NO") && ContiDAO.getInstance().selectByIban(iban_to) != null) {
                     stmt.setDouble(1, importo * -1);
                     stmt.setString(2, iban_to);
                     stmt.executeUpdate();
                 }
                 conn.commit();
                 conn.setAutoCommit(true);
+
+                //va messo fuori perché sennò si blocca a causa dell'autocommit
+                if (ContiDAO.getInstance().selectByIban(iban_to) != null) {
+                    Space to = SpacesDAO.getInstance().selectAllByIban(iban_to).poll();
+                    to.setSaldo(to.getSaldo() + importo);
+                    SpacesDAO.getInstance().update(to);
+                }
             }
+
             return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -101,7 +112,7 @@ public class TransazioniDAO {
         Space to = SpacesDAO.getInstance().selectByIbanSpaceId(iban, spaceTo);
         String nomeTo = to.getNome();
         to.setSaldo(to.getSaldo()+amount);
-        // creao la transazione di spostamento
+        // creo la transazione di spostamento
         Transazione t = new Transazione("Trasferimento tra spaces da "+nomeFrom+" a "+nomeTo, iban, iban, spaceFrom, spaceTo, LocalDateTime.now(), amount, "Da "+nomeFrom+" a "+nomeTo, "Trasferimento tra spaces", "altro", commenti);
         //inserisco la positiva
         insert(t);
