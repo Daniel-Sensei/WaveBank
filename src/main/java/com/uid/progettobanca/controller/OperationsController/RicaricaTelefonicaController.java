@@ -82,7 +82,7 @@ public class RicaricaTelefonicaController implements Initializable {
         //effetuo la transazione
         double amount = FormUtils.getInstance().formatAmount(amountLabel.getText());
         int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-        if (ContiDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)) {
+        if (TransazioniDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)) {
             TransazioniDAO.getInstance().insert(new Transazione("Ricarica: "+fieldPhone.getText(), BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, fieldPhone.getText().trim(), "Ricarica Telefonica", "Altro", ""));
             SceneHandler.getInstance().reloadDynamicPageInHashMap();
             SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");

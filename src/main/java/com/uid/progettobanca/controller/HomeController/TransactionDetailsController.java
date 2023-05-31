@@ -4,9 +4,11 @@ import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.DAO.SpacesDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.FormCompilationThread;
+import com.uid.progettobanca.model.objects.Conto;
 import com.uid.progettobanca.model.objects.Space;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.objects.Transazione;
+import com.uid.progettobanca.model.services.TransactionService;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -209,12 +211,19 @@ public class TransactionDetailsController implements Initializable {
     @FXML
     void saveComments(ActionEvent event) throws SQLException {
         transaction.setCommenti(commentsArea.getText());
-        TransazioniDAO.getInstance().update(transaction);
+        TransactionService transactionService = new TransactionService("update");
+        transactionService.setTransaction(transaction);
+        transactionService.restart();
 
-        SceneHandler.getInstance().showInfoPopup(SceneHandler.HOME_PATH + "commentsSavedPopup.fxml", (Stage) saveCommentsButton.getScene().getWindow(), 350, 75);
-
-        SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.HOME_PATH + "home.fxml");
+        transactionService.setOnSucceeded(event1 -> {
+            if(event1.getSource().getValue() instanceof Boolean result)
+                if(result) {
+                    SceneHandler.getInstance().showInfoPopup(SceneHandler.HOME_PATH + "commentsSavedPopup.fxml", (Stage) saveCommentsButton.getScene().getWindow(), 350, 75);
+                    SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.HOME_PATH + "home.fxml");
+                }
+        });
     }
+
     @FXML
     private void loadPreviousPage(MouseEvent event) throws IOException {
         SceneHandler.getInstance().setPage(SceneHandler.HOME_PATH + "home.fxml");
