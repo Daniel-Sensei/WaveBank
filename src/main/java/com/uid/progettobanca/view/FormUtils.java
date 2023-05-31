@@ -2,7 +2,7 @@ package com.uid.progettobanca.view;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.SpacesDAO;
-import com.uid.progettobanca.model.Space;
+import com.uid.progettobanca.model.objects.Space;
 import javafx.animation.TranslateTransition;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;

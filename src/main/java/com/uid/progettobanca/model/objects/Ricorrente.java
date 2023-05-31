@@ -1,4 +1,4 @@
-package com.uid.progettobanca.model.DAO;
+package com.uid.progettobanca.model.objects;
 
 import java.time.LocalDate;
 

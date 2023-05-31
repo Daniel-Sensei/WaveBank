@@ -1,8 +1,8 @@
 package com.uid.progettobanca.model.DAO;
 
 import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.model.Conto;
-import com.uid.progettobanca.model.Space;
+import com.uid.progettobanca.model.objects.Conto;
+import com.uid.progettobanca.model.objects.Space;
 import com.uid.progettobanca.view.SceneHandler;
 
 import java.math.BigInteger;

@@ -2,9 +2,10 @@ package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.ContiDAO;
-import com.uid.progettobanca.model.DAO.Ricorrente;
+import com.uid.progettobanca.model.objects.Ricorrente;
 import com.uid.progettobanca.model.DAO.RicorrentiDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
+import com.uid.progettobanca.model.objects.Transazione;
 
 import java.sql.SQLException;
 import java.time.LocalDate;

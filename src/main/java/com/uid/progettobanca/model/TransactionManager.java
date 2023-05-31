@@ -2,7 +2,8 @@ package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.model.DAO.ContattiDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
-import com.uid.progettobanca.model.DAO.UtentiDAO;
+import com.uid.progettobanca.model.objects.Contatto;
+import com.uid.progettobanca.model.objects.Transazione;
 import javafx.scene.control.Label;
 
 import java.sql.SQLException;

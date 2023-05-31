@@ -1,9 +1,8 @@
 package com.uid.progettobanca.controller.ManageController;
 
-import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.*;
-import com.uid.progettobanca.model.DAO.UtentiDAO;
+import com.uid.progettobanca.model.objects.Carta;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CardController {

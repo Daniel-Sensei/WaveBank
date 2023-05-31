@@ -1,8 +1,8 @@
 package com.uid.progettobanca.controller.ManageController;
 
-import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.*;
+import com.uid.progettobanca.model.objects.Transazione;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Label;

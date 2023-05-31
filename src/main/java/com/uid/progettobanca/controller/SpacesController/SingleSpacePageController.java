@@ -3,7 +3,7 @@ package com.uid.progettobanca.controller.SpacesController;
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.SingleSpaceService;
-import com.uid.progettobanca.model.Space;
+import com.uid.progettobanca.model.objects.Space;
 import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.SceneHandler;

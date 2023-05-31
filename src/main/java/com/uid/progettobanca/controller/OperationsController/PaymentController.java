@@ -1,7 +1,7 @@
 package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.controller.GenericController;
-import com.uid.progettobanca.model.DAO.Ricorrente;
+import com.uid.progettobanca.model.objects.Ricorrente;
 import com.uid.progettobanca.model.RecurrentManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

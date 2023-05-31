@@ -1,6 +1,6 @@
 package com.uid.progettobanca.model.DAO;
 
-import com.uid.progettobanca.model.Transazione;
+import com.uid.progettobanca.model.objects.Transazione;
 
 import java.sql.*;
 import java.time.LocalDateTime;

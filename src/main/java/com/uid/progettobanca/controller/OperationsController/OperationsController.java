@@ -2,7 +2,7 @@ package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.ContactsManager;
-import com.uid.progettobanca.model.Contatto;
+import com.uid.progettobanca.model.objects.Contatto;
 import com.uid.progettobanca.model.DAO.ContattiDAO;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
@@ -21,9 +21,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class OperationsController implements Initializable {

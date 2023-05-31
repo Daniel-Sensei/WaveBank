@@ -1,8 +1,9 @@
 package com.uid.progettobanca.model.DAO;
 
+import com.uid.progettobanca.model.objects.Ricorrente;
+
 import java.sql.*;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 public class RicorrentiDAO {

@@ -1,11 +1,7 @@
 package com.uid.progettobanca.model;
 
-import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.model.DAO.CarteDAO;
-import com.uid.progettobanca.model.DAO.UtentiDAO;
-import com.uid.progettobanca.view.SceneHandler;
+import com.uid.progettobanca.model.objects.Carta;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class CardsManager {

@@ -1,10 +1,9 @@
 package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.model.Altro;
-import com.uid.progettobanca.model.Contatto;
+import com.uid.progettobanca.model.objects.Contatto;
 import com.uid.progettobanca.model.DAO.*;
-import com.uid.progettobanca.model.Transazione;
+import com.uid.progettobanca.model.objects.Transazione;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;

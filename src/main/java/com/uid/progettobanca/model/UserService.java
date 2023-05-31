@@ -1,12 +1,10 @@
 package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
+import com.uid.progettobanca.model.objects.Utente;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-
-import java.util.List;
 
 public class UserService extends Service<Utente>{
 

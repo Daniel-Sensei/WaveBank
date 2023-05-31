@@ -2,6 +2,7 @@ package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.ContattiDAO;
+import com.uid.progettobanca.model.objects.Contatto;
 
 import java.sql.SQLException;
 import java.util.Queue;

@@ -1,6 +1,6 @@
 package com.uid.progettobanca.model.DAO;
 
-import com.uid.progettobanca.model.Utente;
+import com.uid.progettobanca.model.objects.Utente;
 import com.uid.progettobanca.view.SceneHandler;
 
 import java.sql.*;

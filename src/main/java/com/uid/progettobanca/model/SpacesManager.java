@@ -1,10 +1,7 @@
 package com.uid.progettobanca.model;
 
-import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.model.DAO.SpacesDAO;
-import javafx.scene.control.ComboBox;
+import com.uid.progettobanca.model.objects.Space;
 
-import java.sql.SQLException;
 import java.util.*;
 
 public class SpacesManager {

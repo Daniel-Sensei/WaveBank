@@ -2,7 +2,7 @@ package com.uid.progettobanca.controller;
 
 import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
-import com.uid.progettobanca.model.Utente;
+import com.uid.progettobanca.model.objects.Utente;
 import com.uid.progettobanca.model.CreateCard;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
@@ -14,7 +14,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;

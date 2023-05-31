@@ -1,6 +1,7 @@
 package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.model.DAO.SpacesDAO;
+import com.uid.progettobanca.model.objects.Space;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 

@@ -1,6 +1,6 @@
 package com.uid.progettobanca.model.DAO;
 
-import com.uid.progettobanca.model.Space;
+import com.uid.progettobanca.model.objects.Space;
 
 import java.sql.*;
 import java.util.LinkedList;

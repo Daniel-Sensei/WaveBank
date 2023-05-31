@@ -1,6 +1,6 @@
 package com.uid.progettobanca.model.DAO;
 
-import com.uid.progettobanca.model.Carta;
+import com.uid.progettobanca.model.objects.Carta;
 
 import java.sql.*;
 import java.time.LocalDate;

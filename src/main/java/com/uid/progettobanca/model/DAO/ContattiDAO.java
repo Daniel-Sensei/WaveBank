@@ -1,6 +1,6 @@
 package com.uid.progettobanca.model.DAO;
 
-import com.uid.progettobanca.model.Contatto;
+import com.uid.progettobanca.model.objects.Contatto;
 
 import java.sql.*;
 import java.util.LinkedList;

@@ -1,9 +1,10 @@
 package com.uid.progettobanca.controller.ManageController;
 
-        import com.uid.progettobanca.BankApplication;
         import com.uid.progettobanca.controller.GenericController;
         import com.uid.progettobanca.model.*;
-        import com.uid.progettobanca.view.FormUtils;
+        import com.uid.progettobanca.model.objects.Carta;
+        import com.uid.progettobanca.model.objects.Transazione;
+        import com.uid.progettobanca.model.objects.Utente;
         import com.uid.progettobanca.view.SceneHandler;
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
@@ -13,7 +14,6 @@ package com.uid.progettobanca.controller.ManageController;
         import javafx.scene.image.ImageView;
         import javafx.scene.input.MouseEvent;
         import javafx.scene.layout.VBox;
-        import org.springframework.security.core.userdetails.User;
 
         import java.io.IOException;
         import java.util.List;
@@ -108,7 +108,7 @@ public class ManageController {
 
 
         userService.setOnSucceeded(event -> {
-            if(event.getSource().getValue() instanceof Utente  result){
+            if(event.getSource().getValue() instanceof Utente result){
                 CardsManager.getInstance().setNome(result.getNome());
                 CardsManager.getInstance().setCognome(result.getCognome());
                 System.out.println("ho settato nome e cognome");

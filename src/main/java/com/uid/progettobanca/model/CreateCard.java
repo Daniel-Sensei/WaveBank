@@ -1,9 +1,8 @@
 package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.model.DAO.CarteDAO;
+import com.uid.progettobanca.model.objects.Carta;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class CreateCard {

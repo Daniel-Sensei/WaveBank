@@ -2,12 +2,11 @@ package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.CarteDAO;
+import com.uid.progettobanca.model.objects.Carta;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 public class CardService extends Service<List<Carta>> {
 

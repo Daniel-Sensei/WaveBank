@@ -1,6 +1,6 @@
 package com.uid.progettobanca.controller.OperationsController;
 
-import com.uid.progettobanca.model.Contatto;
+import com.uid.progettobanca.model.objects.Contatto;
 import com.uid.progettobanca.model.DAO.ContattiDAO;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;

@@ -2,7 +2,7 @@ package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.ContactsManager;
-import com.uid.progettobanca.model.Contatto;
+import com.uid.progettobanca.model.objects.Contatto;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;

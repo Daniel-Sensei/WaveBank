@@ -1,6 +1,7 @@
 package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.model.DAO.CarteDAO;
+import com.uid.progettobanca.model.objects.Carta;
 
 import java.sql.SQLException;
 

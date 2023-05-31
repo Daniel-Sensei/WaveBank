@@ -1,6 +1,6 @@
 package com.uid.progettobanca.model.DAO;
 
-import com.uid.progettobanca.model.Altro;
+import com.uid.progettobanca.model.objects.Altro;
 
 import java.sql.*;
 import java.util.ArrayList;

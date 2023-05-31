@@ -1,10 +1,8 @@
 package com.uid.progettobanca.model;
 
-import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.model.DAO.TransazioniDAO;
+import com.uid.progettobanca.model.objects.Transazione;
 import javafx.scene.chart.XYChart;
 
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

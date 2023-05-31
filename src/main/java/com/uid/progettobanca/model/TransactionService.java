@@ -2,10 +2,9 @@ package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
+import com.uid.progettobanca.model.objects.Transazione;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 import java.util.List;
