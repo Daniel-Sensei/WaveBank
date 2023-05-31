@@ -43,13 +43,9 @@ public class NewContactController implements Initializable {
 
     @FXML
     void onSendButtonClick(ActionEvent event) {
-        try {
-            ContattiDAO.insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIban.getText(), BankApplication.getCurrentlyLoggedUser()));
-            SceneHandler.getInstance().showInfo("Aggiunta Contatto", "Contatto aggiunto", "Il contatto è stato aggiunto correttamente.");
-            SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
-        } catch (SQLException e) {
-            SceneHandler.getInstance().showError("Errore", "Errore durante l'inserimento del contatto ", e.getMessage());
-        }
+        ContattiDAO.getInstance().insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIban.getText(), BankApplication.getCurrentlyLoggedUser()));
+        SceneHandler.getInstance().showInfo("Aggiunta Contatto", "Contatto aggiunto", "Il contatto è stato aggiunto correttamente.");
+        SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
     }
 
     @Override

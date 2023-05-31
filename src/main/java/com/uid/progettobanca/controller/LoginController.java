@@ -51,23 +51,21 @@ public class LoginController implements Initializable {
 
     @FXML
     void onLoginButtonClick(ActionEvent event) {
-        try {
-            //in questa funzione viene effettuato il login e se va a buon fine viene settato il currentlyLoggedUser
-            int user = UtentiDAO.login(emailField.getText(), passwordField.getText());
-            if (user!=0) {
-                BankApplication.setCurrentlyLoggedUser(user);
+        //in questa funzione viene effettuato il login e se va a buon fine viene settato il currentlyLoggedUser
+        int user = UtentiDAO.getInstance().login(emailField.getText(), passwordField.getText());
+        if (user!=0) {
+            BankApplication.setCurrentlyLoggedUser(user);
 
-                String iban = UtentiDAO.selectByUserId(user).getIban();
-                BankApplication.setCurrentlyLoggedIban(iban);
+            String iban = UtentiDAO.getInstance().getUserById(user).getIban();
+            BankApplication.setCurrentlyLoggedIban(iban);
 
-                int mainSpace = SpacesDAO.selectAllByIban(iban).peek().getSpaceId();
-                BankApplication.setCurrentlyLoggedMainSpace(mainSpace);
+            int mainSpace = SpacesDAO.getInstance().selectAllByIban(iban).peek().getSpaceId();
+            BankApplication.setCurrentlyLoggedMainSpace(mainSpace);
 
-                SceneHandler.getInstance().init(SceneHandler.getInstance().getStage());
+            SceneHandler.getInstance().init(SceneHandler.getInstance().getStage());
 
-                RecurrentHandler.check(user);
-            }
-        } catch (Exception ignored) {}
+            RecurrentHandler.check(user);
+        }
     }
 
     private int loadAttempts = 0;

@@ -44,21 +44,17 @@ public class ModifyContactController implements Initializable {
 
     @FXML
     void onSendButtonClick(ActionEvent event) {
-        try {
-            if(!fieldIban.getText().isEmpty()||!fieldName.getText().isEmpty()||!fieldSurname.getText().isEmpty()) {
-                if (!fieldName.getText().isEmpty())
-                    contatto.setNome(fieldName.getText());
-                if (!fieldSurname.getText().isEmpty())
-                    contatto.setCognome(fieldSurname.getText());
-                if (!fieldIban.getText().isEmpty())
-                    contatto.setIban(fieldIban.getText());
-                ContattiDAO.update(contatto);
-                SceneHandler.getInstance().showInfo("Aggiornamento Contatto", "Contatto aggiornato", "Il contatto è stato modificato correttamente.");
-            }
-            SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
-        } catch (SQLException e) {
-            SceneHandler.getInstance().showError("Errore", "Errore durante l'inserimento del contatto ", e.getMessage());
+        if(!fieldIban.getText().isEmpty()||!fieldName.getText().isEmpty()||!fieldSurname.getText().isEmpty()) {
+            if (!fieldName.getText().isEmpty())
+                contatto.setNome(fieldName.getText());
+            if (!fieldSurname.getText().isEmpty())
+                contatto.setCognome(fieldSurname.getText());
+            if (!fieldIban.getText().isEmpty())
+                contatto.setIban(fieldIban.getText());
+            ContattiDAO.getInstance().update(contatto);
+            SceneHandler.getInstance().showInfo("Aggiornamento Contatto", "Contatto aggiornato", "Il contatto è stato modificato correttamente.");
         }
+        SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
     }
 
     @Override

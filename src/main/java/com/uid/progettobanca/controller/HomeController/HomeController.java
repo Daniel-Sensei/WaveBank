@@ -141,14 +141,12 @@ public class HomeController implements Initializable {
         if(homeImages.isEmpty()){
             loadHomeImages();
         }
+
         GenericController.loadImages(homeImages);
         GenericController.loadImagesButton(homeButtons);
         addFocusRemovalListenerToButtons();
-        try {
-            balanceLabel.setText(df.format(ContiDAO.getSaldoByIban(BankApplication.getCurrentlyLoggedIban())) + " €");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        balanceLabel.setText(df.format(ContiDAO.getInstance().getSaldoByIban(BankApplication.getCurrentlyLoggedIban())) + " €");
+
         createFilterPopUp();
     }
 

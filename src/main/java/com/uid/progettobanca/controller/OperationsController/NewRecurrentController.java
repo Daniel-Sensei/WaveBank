@@ -106,12 +106,7 @@ public class NewRecurrentController implements Initializable {
             SceneHandler.getInstance().showError("Errore", "Numero di giorni non valido", "Il numero di giorni deve essere un numero");
             return;
         }
-
-        try {
-            RicorrentiDAO.insert(new Ricorrente(fieldName.getText() + " " + fieldSurname.getText(), Double.parseDouble(fieldAmount.getText()), fieldIbanTo.getText(), date.getValue(), Integer.parseInt(fieldNGiorni.getText()), fieldDescr.getText(), BankApplication.getCurrentlyLoggedUser()));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        RicorrentiDAO.getInstance().insert(new Ricorrente(fieldName.getText() + " " + fieldSurname.getText(), Double.parseDouble(fieldAmount.getText()), fieldIbanTo.getText(), date.getValue(), Integer.parseInt(fieldNGiorni.getText()), fieldDescr.getText(), BankApplication.getCurrentlyLoggedUser()));
     }
 
     @Override

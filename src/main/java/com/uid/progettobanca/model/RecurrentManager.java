@@ -22,11 +22,7 @@ public class RecurrentManager {
     private Queue<Ricorrente> pagamenti;
 
     public void fillPayments() {
-        try {
-            pagamenti = RicorrentiDAO.selectAllByUserId(BankApplication.getCurrentlyLoggedUser());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        pagamenti = RicorrentiDAO.getInstance().selectAllByUserId(BankApplication.getCurrentlyLoggedUser());
     }
 
     public void putPayment(Ricorrente r) {

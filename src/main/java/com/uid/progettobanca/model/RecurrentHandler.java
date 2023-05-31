@@ -25,28 +25,24 @@ public class RecurrentHandler {
     }
 
     public static void check(int user_id){
-        try {
-            // prendo tutti i pagamenti
-            Queue<Ricorrente> payments = RicorrentiDAO.selectAllByUserId(BankApplication.getCurrentlyLoggedUser());
-            //controllo che la lista non sia vuota
-            if (payments.isEmpty()) return;
-            int space = BankApplication.getCurrentlyLoggedMainSpace();
-            String from = BankApplication.getCurrentlyLoggedIban();
-            // controllo la data di scadenza dei pagamenti
-            for(var p : payments){
-                LocalDate due = p.getDate();
-                if (due.isBefore(LocalDate.now())){
-                    String to = p.getIbanTo();
-                    double amount = p.getAmount();
-                    if(ContiDAO.transazione(from, to, space, amount)) {
-                        TransazioniDAO.insert(new Transazione(p.getNome(), from, to, space, 0, due.atStartOfDay(), amount, p.getCausale(), "Pagamento ricorrente", "Altro", ""));
-                        p.setDate(due.plusDays(p.getNGiorni()));
-                        RicorrentiDAO.update(p);
-                    }else break;
-                }
+        // prendo tutti i pagamenti
+        Queue<Ricorrente> payments = RicorrentiDAO.getInstance().selectAllByUserId(BankApplication.getCurrentlyLoggedUser());
+        //controllo che la lista non sia vuota
+        if (payments.isEmpty()) return;
+        int space = BankApplication.getCurrentlyLoggedMainSpace();
+        String from = BankApplication.getCurrentlyLoggedIban();
+        // controllo la data di scadenza dei pagamenti
+        for(var p : payments){
+            LocalDate due = p.getDate();
+            if (due.isBefore(LocalDate.now())){
+                String to = p.getIbanTo();
+                double amount = p.getAmount();
+                if(ContiDAO.getInstance().transazione(from, to, space, amount)) {
+                    TransazioniDAO.getInstance().insert(new Transazione(p.getNome(), from, to, space, 0, due.atStartOfDay(), amount, p.getCausale(), "Pagamento ricorrente", "Altro", ""));
+                    p.setDate(due.plusDays(p.getNGiorni()));
+                    RicorrentiDAO.getInstance().update(p);
+                }else break;
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 }

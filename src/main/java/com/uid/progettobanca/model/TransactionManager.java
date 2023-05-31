@@ -45,16 +45,16 @@ public class TransactionManager {
         //di default assegno come nome il tipo di transazione
         transactionName.setText(transaction.getTipo());
 
-        Contatto from = ContattiDAO.selectByIBAN(transaction.getIbanFrom());
-        Contatto to = ContattiDAO.selectByIBAN(transaction.getIbanTo());
+        Contatto from = ContattiDAO.getInstance().selectByIBAN(transaction.getIbanFrom());
+        Contatto to = ContattiDAO.getInstance().selectByIBAN(transaction.getIbanTo());
         if (from != null) {
             transactionName.setText(from.getNome() + " " + from.getCognome());
         } else if (to != null) {
             transactionName.setText(to.getNome() + " " + to.getCognome());
-        } else if (transaction.getImporto() < 0 && TransazioniDAO.getNameById(transaction.getId()) != "") {
-            transactionName.setText(TransazioniDAO.getNameById(transaction.getId()));
-        } else if (transaction.getImporto() > 0 && TransazioniDAO.getNameById(transaction.getId()) != "") {
-            transactionName.setText(TransazioniDAO.getNameById(transaction.getId()));
+        } else if (transaction.getImporto() < 0 && TransazioniDAO.getInstance().selectById(transaction.getId()).get(0).getNome() != "") {
+            transactionName.setText(TransazioniDAO.getInstance().selectById(transaction.getId()).get(0).getNome());
+        } else if (transaction.getImporto() > 0 && TransazioniDAO.getInstance().selectById(transaction.getId()).get(0).getNome() != "") {
+            transactionName.setText(TransazioniDAO.getInstance().selectById(transaction.getId()).get(0).getNome());
         }
     }
     public List<String> convertToLocalDates(List<String> dates) {

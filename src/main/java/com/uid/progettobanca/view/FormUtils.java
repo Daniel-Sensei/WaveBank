@@ -168,7 +168,7 @@ public class FormUtils {
     private List<Space> spaces = new LinkedList<>();
     public void getSpaces() throws SQLException {
         spaces.clear();
-        Queue<Space> spacesQueue = SpacesDAO.selectAllByIban(BankApplication.getCurrentlyLoggedIban());
+        Queue<Space> spacesQueue = SpacesDAO.getInstance().selectAllByIban(BankApplication.getCurrentlyLoggedIban());
         int size = spacesQueue.size();
         for(int i=0; i<size; i++) {
             Space space = spacesQueue.poll();

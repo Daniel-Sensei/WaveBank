@@ -16,20 +16,10 @@ public class CardOperationsThread extends Thread{
     @Override
     public void run(){
         if(operation == "Blocca"){
-            try {
-                CarteDAO.update(carta);
-            } catch (SQLException e) {
-                System.out.println("Errore durante il blocco della carta nel thread CardWorkerThread");
-                throw new RuntimeException(e);
-            }
+            CarteDAO.getInstance().update(carta);
         }
         if(operation == "Elimina"){
-            try {
-                CarteDAO.delete(carta.getNumCarta());
-            } catch (SQLException e) {
-                System.out.println("Errore durante l'eliminazione della carta nel thread CardWorkerThread");
-                throw new RuntimeException(e);
-            }
+            CarteDAO.getInstance().delete(carta);
         }
     }
 }

@@ -38,10 +38,10 @@ public class SingleSpaceService extends Service {
             @Override
             protected Object call() throws Exception {
                 if (action == "insert"){
-                    SpacesDAO.insert(space);
+                    SpacesDAO.getInstance().insert(space);
 
                 } else if (action == "delete") {
-                    SpacesDAO.delete(spaceIban, spaceId);
+                    SpacesDAO.getInstance().delete(space);
                 }
                 return null;
             }

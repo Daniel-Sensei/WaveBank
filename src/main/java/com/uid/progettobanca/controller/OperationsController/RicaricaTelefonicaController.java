@@ -80,17 +80,13 @@ public class RicaricaTelefonicaController implements Initializable {
     @FXML
     void onSendButtonClick(ActionEvent event) {
         //effetuo la transazione
-        try {
-            double amount = FormUtils.getInstance().formatAmount(amountLabel.getText());
-            int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-            if (ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)) {
-                TransazioniDAO.insert(new Transazione("Ricarica: "+fieldPhone.getText(), BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, fieldPhone.getText().trim(), "Ricarica Telefonica", "Altro", ""));
-                SceneHandler.getInstance().reloadDynamicPageInHashMap();
-                SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
-                SceneHandler.getInstance().showInfo("Operazione effettuata", "Ricarica telefonica effettuata", "L'importo è stato accreditato sul numero: " + fieldPhone.getText());
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        double amount = FormUtils.getInstance().formatAmount(amountLabel.getText());
+        int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
+        if (ContiDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)) {
+            TransazioniDAO.getInstance().insert(new Transazione("Ricarica: "+fieldPhone.getText(), BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, fieldPhone.getText().trim(), "Ricarica Telefonica", "Altro", ""));
+            SceneHandler.getInstance().reloadDynamicPageInHashMap();
+            SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+            SceneHandler.getInstance().showInfo("Operazione effettuata", "Ricarica telefonica effettuata", "L'importo è stato accreditato sul numero: " + fieldPhone.getText());
         }
     }
 

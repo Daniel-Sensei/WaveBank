@@ -23,7 +23,7 @@ public class CardService extends Service<List<Carta>> {
             @Override
             protected List<Carta> call() throws Exception {
                 if(operazione=="getByUser") {
-                    return CarteDAO.selectAllByUserId(String.valueOf(BankApplication.getCurrentlyLoggedUser()));
+                    return CarteDAO.getInstance().selectAllByUserId(String.valueOf(BankApplication.getCurrentlyLoggedUser()));
                 }
                 return null;
             }

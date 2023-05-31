@@ -22,7 +22,7 @@ public class ContactsManager {
     private Queue<Contatto> contacts;
 
     public Queue<Contatto> fillContacts() throws SQLException {
-        contacts = ContattiDAO.selectAllByUserID(BankApplication.getCurrentlyLoggedUser());
+        contacts = ContattiDAO.getInstance().selectAllByUserID(BankApplication.getCurrentlyLoggedUser());
         return contacts;
     }
 

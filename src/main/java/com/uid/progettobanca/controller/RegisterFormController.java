@@ -235,14 +235,14 @@ public class RegisterFormController implements Initializable {
 
     @FXML
     void checkRegistration(ActionEvent event) {
-        try {
-            UtentiDAO.insert(new Utente(name.getText().trim(), surname.getText().trim(), address.getText().trim(), LocalDate.parse(convertDate(getDate())), phone.getText().trim(), email.getText().toLowerCase().trim(), password.getText(), questions.getValue(), answer.getText(), ContiDAO.generateNew()));
-            CreateCard.createDebitcard(UtentiDAO.getUserIdByEmail(email.getText()));
-            SceneHandler.getInstance().showInfo("Registrazione", "Registrazione effettuata con successo", "Ora puoi effettuare il login");
-            SceneHandler.getInstance().setPage("login.fxml");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        //creo l'utente e implicitamente il conto
+        UtentiDAO.getInstance().insert(new Utente(name.getText().trim(), surname.getText().trim(), address.getText().trim(), LocalDate.parse(convertDate(getDate())), phone.getText().trim(), email.getText().toLowerCase().trim(), password.getText(), questions.getValue(), answer.getText(), ContiDAO.getInstance().generateNew()));
+        //creo la carta di debito
+        CreateCard.createDebitcard(UtentiDAO.getInstance().getUserByEmail(email.getText()).getUserId());
+        //avviso dell'avvenuta registrazione
+        SceneHandler.getInstance().showInfo("Registrazione", "Registrazione effettuata con successo", "Ora puoi effettuare il login");
+        //torno alla pagina di login
+        SceneHandler.getInstance().setPage("login.fxml");
     }
 
     @FXML

@@ -121,29 +121,24 @@ public class BollettinoController implements Initializable {
 
     @FXML
     void onSendButtonClick(ActionEvent event) {
-
-        try {
-            double amount = FormUtils.getInstance().formatAmount(fieldAmount.getText());
-            //salvo il tipo per il controllo
-            String tipo = "Bollettino: " + tipologiaComboBox.getSelectionModel().getSelectedItem();
-            String descr = "";
-            // se è un bianco aggiungo anche il nome del destinatario
-            if(tipo.equals("Bollettino: 123 - Bianco generico")){
-                descr += "Intestatario: " + fieldRecipient.getText().trim();
-            } else {
-                descr += "Codice: " + fieldCode.getText().trim();
-            }
-            int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-            //rimuove i soldi dal conto corrente
-            if(ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)){
-                //inserisco la transazione
-                TransazioniDAO.insert(new Transazione("Bollettino Postale", BankApplication.getCurrentlyLoggedIban(), fieldCC.getText(), space, 0,  LocalDateTime.now(), amount, descr + fieldDescr.getText(), tipo, "Altro", ""));
-                SceneHandler.getInstance().reloadDynamicPageInHashMap();
-                SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
-                SceneHandler.getInstance().showInfo("Operazione effettuata", "Bollettino pagato", "Il bollettino è stato pagato con successo");
-            }
-        }catch (SQLException e) {
-            throw new RuntimeException(e);
+        double amount = FormUtils.getInstance().formatAmount(fieldAmount.getText());
+        //salvo il tipo per il controllo
+        String tipo = "Bollettino: " + tipologiaComboBox.getSelectionModel().getSelectedItem();
+        String descr = "";
+        // se è un bianco aggiungo anche il nome del destinatario
+        if(tipo.equals("Bollettino: 123 - Bianco generico")){
+            descr += "Intestatario: " + fieldRecipient.getText().trim();
+        } else {
+            descr += "Codice: " + fieldCode.getText().trim();
+        }
+        int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
+        //rimuove i soldi dal conto corrente
+        if(ContiDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)){
+            //inserisco la transazione
+            TransazioniDAO.getInstance().insert(new Transazione("Bollettino Postale", BankApplication.getCurrentlyLoggedIban(), fieldCC.getText(), space, 0,  LocalDateTime.now(), amount, descr + fieldDescr.getText(), tipo, "Altro", ""));
+            SceneHandler.getInstance().reloadDynamicPageInHashMap();
+            SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+            SceneHandler.getInstance().showInfo("Operazione effettuata", "Bollettino pagato", "Il bollettino è stato pagato con successo");
         }
     }
 

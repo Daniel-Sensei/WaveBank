@@ -17,7 +17,7 @@ public class InsertCardService extends Service<Boolean> {
         return new Task<>() {
             @Override
             protected Boolean call() throws Exception {
-                return CarteDAO.insert(carta);
+                return CarteDAO.getInstance().insert(carta);
             }
         };
     }

@@ -13,20 +13,13 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 public class UtentiDAO {
     private static Connection conn;
 
-    static {
-        try {
-            conn = DatabaseManager.getInstance().getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public UtentiDAO() {}
 
     private static UtentiDAO instance = null;
 
-    public static UtentiDAO getInstance() throws SQLException {
+    public static UtentiDAO getInstance() {
         if (instance == null) {
+            conn = DatabaseManager.getInstance().getConnection();
             instance = new UtentiDAO();
         }
         return instance;
@@ -36,7 +29,7 @@ public class UtentiDAO {
     //  inserimenti:
 
     //inserimento tramite oggetto di tipo utente
-    public static void insert(Utente utente) throws SQLException {
+    public boolean insert (Utente utente) {
         String query = "INSERT INTO utenti (nome, cognome, indirizzo, dataNascita, telefono, email, password, domanda, risposta, iban) VALUES (?, ?, ?, ?,  ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, utente.getNome());
@@ -50,13 +43,17 @@ public class UtentiDAO {
             stmt.setString(9, BCrypt.hashpw(utente.getRisposta(), BCrypt.gensalt(12)));
             stmt.setString(10, utente.getIban());
             stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
 
     //  getting:
 
-    public static Utente selectByUserId(int user_id) throws SQLException {
+    public Utente getUserById (int user_id) {
         String query = "SELECT * FROM utenti WHERE user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, user_id);
@@ -78,10 +75,12 @@ public class UtentiDAO {
                     return null;
                 }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public static List<Utente> selectAll() throws SQLException {
+    public List<Utente> selectAll() {
         String query = "SELECT * FROM utenti";
         try (Statement stmt = conn.createStatement();
              ResultSet result = stmt.executeQuery(query)) {
@@ -103,17 +102,20 @@ public class UtentiDAO {
                     );
             }
             return utenti;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
     //inserire selectByIban
-    public static Utente selectByIban(String iban) throws SQLException {
+    public Utente selectByIban (String iban) {
         String query = "SELECT * FROM utenti WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
             try (ResultSet result = stmt.executeQuery()) {
                 if (result.next()) {
-                    return new Utente (result.getInt("user_id"),
+                    return new Utente (
+                            result.getInt("user_id"),
                             result.getString("nome"),
                             result.getString("cognome"),
                             result.getString("indirizzo"),
@@ -129,57 +131,44 @@ public class UtentiDAO {
                     return null;
                 }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
     // restituisce l'id utente dall'email
-    public static int getUserIdByEmail(String email) throws SQLException {
-        String query = "SELECT user_id FROM utenti WHERE email = ?";
+    public Utente getUserByEmail (String email) {
+        String query = "SELECT * FROM utenti WHERE email = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, email);
             try (ResultSet result = stmt.executeQuery()) {
                 if (result.next()) {
-                    return result.getInt("user_id");
+                    return new Utente (
+                            result.getInt("user_id"),
+                            result.getString("nome"),
+                            result.getString("cognome"),
+                            result.getString("indirizzo"),
+                            result.getDate("dataNascita").toLocalDate(),
+                            result.getString("telefono"),
+                            result.getString("email"),
+                            result.getString("password"),
+                            result.getString("domanda"),
+                            result.getString("risposta"),
+                            result.getString("iban")
+                    );
                 } else {
-                    return 0;
+                    return null;
                 }
             }
-        }
-    }
-
-    //restituisce la domanda di sicurezza associata ad un determinato indirizzo email
-    public static String getDomandaByEmail(String email) throws SQLException {
-        String query = "SELECT domanda FROM utenti WHERE email = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, email);
-            try (ResultSet result = stmt.executeQuery()) {
-                if (result.next()) {
-                    return result.getString("domanda");
-                } else {
-                    return "";
-                }
-            }
-        }
-    }
-
-    // restituisce l'email dall'id utente
-    public static String getEmailByUserId(int user_id) throws SQLException {
-        String query = "SELECT email FROM utenti WHERE user_id = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, user_id);
-            try (ResultSet result = stmt.executeQuery()) {
-                if (result.next()) {
-                    return result.getString("email");
-                } else {
-                    return "";
-                }
-            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
 
     // restituisce l'id dell'utente se il login va a buon fine, altrimenti null
-    public static int login(String email, String password) throws SQLException {
+    //cambiare il login in modo che restituisca un booleano ed imposti il bank application logged user
+    public int login (String email, String password) {
         // cerca l'utente nel database
         String query = "SELECT user_id FROM utenti WHERE email = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -199,12 +188,15 @@ public class UtentiDAO {
                     return 0;
                 }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 
 
     // checkPassword
-    public static boolean checkPassword(int user_id, String password) throws SQLException {
+    public boolean checkPassword(int user_id, String password) {
         // cerca l'utente nel database
         String query = "SELECT password FROM utenti WHERE user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -217,13 +209,16 @@ public class UtentiDAO {
                     return false;
                 }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
 
     //  aggiornamento:
 
-    public static void update(Utente utente) throws SQLException {
+    public boolean update(Utente utente) {
         //l'aggiornamento avviene tramite un oggetto di tipo utente che dobbiamo aver precedentemente modificato
         String query = "UPDATE utenti SET nome = ?, cognome = ?, indirizzo = ?, dataNascita = ?, telefono = ?, email = ?, iban = ? WHERE user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -236,12 +231,16 @@ public class UtentiDAO {
             stmt.setString(7, utente.getIban());
             stmt.setInt(8, utente.getUserId());
             stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
 
     // funzione che controlla la risposta alla domanda segreta
-    public static boolean checkRisposta(String email, String risposta) throws SQLException {
+    public boolean checkRisposta(String email, String risposta) {
         String query = "SELECT risposta FROM utenti WHERE email = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, email);
@@ -252,28 +251,39 @@ public class UtentiDAO {
                     return false;
                 }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
     // cambio password
 
-    public static void updatePassword(String email, String password) throws SQLException {
+    public boolean updatePassword(String email, String password) {
         String query = "UPDATE utenti SET password = ? WHERE email = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, BCrypt.hashpw(password, BCrypt.gensalt(12)));// da cambiare
             stmt.setString(2, email);
             stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
 
     //  rimozione:
 
-    public static void delete(String user_id) throws SQLException {
+    public boolean delete(Utente utente) {
         String query = "DELETE FROM utenti WHERE user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, user_id);
+            stmt.setInt(1, utente.getUserId());
             stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }

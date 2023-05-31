@@ -105,6 +105,7 @@ public class TransactionDetailsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         if(transactionDetailsImages.isEmpty()){
             loadTransactionDetailsImages();
         }
@@ -124,6 +125,7 @@ public class TransactionDetailsController implements Initializable {
         commentsArea.setText(transaction.getCommenti());
         descriptionLabel.setText(transaction.getDescrizione());
         typeLabel.setText(transaction.getTipo());
+
         if (typeLabel.getText().equals("Bonifico")){
             GenericController.loadImage("bonifico", typeImage);
         }
@@ -136,12 +138,21 @@ public class TransactionDetailsController implements Initializable {
         else if (typeLabel.getText().contains("Bollettino")) {
             GenericController.loadImage("bollettino", typeImage);
         }
-        else{
+        else if (typeLabel.getText().contains("Pagamenti Ricorrenti")){
             GenericController.loadImage("pagamentiRicorrenti", typeImage);
         }
+        else{
+            GenericController.loadImage("altro", typeImage);
+        }
+
         try {
             TransactionManager.getInstance().setTransactionName(transactionName, transaction);
-            Space space = SpacesDAO.selectBySpaceId(transaction.getSpaceFrom());
+            Space space;
+            if(transaction.getSpaceFrom()!=0) {
+                space = SpacesDAO.getInstance().selectBySpaceId(transaction.getSpaceFrom());
+            } else {
+                space = SpacesDAO.getInstance().selectBySpaceId(transaction.getSpaceTo());
+            }
             spaceLabel.setText(space.getNome());
             GenericController.setSpaceImage(space.getImage(), spaceImage);
         } catch (SQLException e) {
@@ -198,7 +209,7 @@ public class TransactionDetailsController implements Initializable {
     @FXML
     void saveComments(ActionEvent event) throws SQLException {
         transaction.setCommenti(commentsArea.getText());
-        TransazioniDAO.update(transaction);
+        TransazioniDAO.getInstance().update(transaction);
 
         SceneHandler.getInstance().showInfoPopup(SceneHandler.HOME_PATH + "commentsSavedPopup.fxml", (Stage) saveCommentsButton.getScene().getWindow(), 350, 75);
 

@@ -9,20 +9,13 @@ import java.util.Queue;
 public class SpacesDAO {
     private static Connection conn;
 
-    static {
-        try {
-            conn = DatabaseManager.getInstance().getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     private SpacesDAO() {}
 
     private static SpacesDAO instance = null;
 
-    public static SpacesDAO getInstance() throws SQLException {
+    public static SpacesDAO getInstance() {
         if (instance == null) {
+            conn = DatabaseManager.getInstance().getConnection();
             instance = new SpacesDAO();
         }
         return instance;
@@ -32,7 +25,7 @@ public class SpacesDAO {
     //  inserimenti:
 
     //inserimento tramite oggetto di tipo space
-    public static void insert(Space space) throws SQLException {
+    public boolean insert(Space space) {
         String query = "INSERT INTO spaces (iban, saldo, dataApertura, nome, imagePath) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, space.getIban());
@@ -46,6 +39,10 @@ public class SpacesDAO {
                     space.setSpaceId(rs.getInt(1));
                 }
             }
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
@@ -53,7 +50,7 @@ public class SpacesDAO {
     //  getting:
 
     //restituisce uno spazio tramite iban e space_id
-    public static Space selectByIbanSpaceId(String iban, int space_id) throws SQLException {
+    public Space selectByIbanSpaceId(String iban, int space_id) {
         String query = "SELECT * FROM spaces WHERE iban = ? AND space_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
@@ -70,11 +67,13 @@ public class SpacesDAO {
                     return null;
                 }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
     //restituisce tutti gli spazi di un utente
-    public static Queue<Space> selectAllByIban(String iban) throws SQLException {
+    public Queue<Space> selectAllByIban(String iban) {
         String query = "SELECT * FROM spaces WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
@@ -90,11 +89,13 @@ public class SpacesDAO {
                 }
                 return spaces;
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
     //return Space by space_id
-    public static Space selectBySpaceId(int space_id) throws SQLException {
+    public Space selectBySpaceId(int space_id) {
         String query = "SELECT * FROM spaces WHERE space_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, space_id);
@@ -110,20 +111,8 @@ public class SpacesDAO {
                     return null;
                 }
             }
-        }
-    }
-
-    public static String selectNameBySpaceId(int space_id) throws SQLException {
-        String query = "SELECT none FROM spaces WHERE space_id = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, space_id);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getString("nome");
-                } else {
-                    return null;
-                }
-            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -131,7 +120,7 @@ public class SpacesDAO {
     //  aggiornamento:
 
     //aggiornamento limitato a saldo, nome e imagePath tramite oggetto di tipo space
-    public static void update(Space space) throws SQLException {
+    public boolean update(Space space) {
         String query = "UPDATE spaces SET saldo = ?, nome = ?, imagePath = ? WHERE iban = ? AND space_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setDouble(1, space.getSaldo());
@@ -140,28 +129,26 @@ public class SpacesDAO {
             stmt.setString(4, space.getIban());
             stmt.setInt(5, space.getSpaceId());
             stmt.executeUpdate();
-        }
-    }
-
-    //aggiornamento limitato a saldo tramite space_id
-    public static void updateSaldo(int space_id, double saldo) throws SQLException {
-        String query = "UPDATE spaces SET saldo = ? WHERE space_id = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setDouble(1, saldo);
-            stmt.setInt(2, space_id);
-            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
 
     //  rimozione:
 
-    public static void delete(String iban, int space_id) throws SQLException {
+    public boolean delete(Space space) {
         String query = "DELETE FROM spaces WHERE iban = ? AND space_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, iban);
-            stmt.setInt(2, space_id);
+            stmt.setString(1, space.getIban());
+            stmt.setInt(2, space.getSpaceId());
             stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }

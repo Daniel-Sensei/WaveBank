@@ -51,11 +51,11 @@ public class SpaceTransactionController implements Initializable {
         String iban = BankApplication.getCurrentlyLoggedIban();
 
         if (SpacesManager.getInstance().getTransactionDirection() == "Sx"){
-            TransazioniDAO.betweenSpaces(iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), Double.parseDouble(inputSpaceTransactionImport.getText()), description.getText());
+            TransazioniDAO.getInstance().betweenSpaces(iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), Double.parseDouble(inputSpaceTransactionImport.getText()), description.getText());
             BackStack.getInstance().loadPreviousPage();
         }
         else if (SpacesManager.getInstance().getTransactionDirection() == "Dx"){
-            TransazioniDAO.betweenSpaces(iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), Double.parseDouble(inputSpaceTransactionImport.getText()), description.getText());
+            TransazioniDAO.getInstance().betweenSpaces(iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), Double.parseDouble(inputSpaceTransactionImport.getText()), description.getText());
             BackStack.getInstance().loadPreviousPage();
         }
     }

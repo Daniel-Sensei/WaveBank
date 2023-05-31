@@ -46,7 +46,7 @@ public class SpacesController implements Initializable {
         getAllSpaceService.setOnSucceeded(e -> {
             try {
                 DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-                saldo.setText(decimalFormat.format(ContiDAO.getSaldoByIban(BankApplication.getCurrentlyLoggedIban())) + " €");
+                saldo.setText(decimalFormat.format(ContiDAO.getInstance().getSaldoByIban(BankApplication.getCurrentlyLoggedIban())) + " €");
                 SpacesManager.getInstance().fillQueue(getAllSpaceService.getValue());
                 SpacesManager.getInstance().fillList(getAllSpaceService.getValue());
                 int nSpaces = SpacesManager.getInstance().getSize();
@@ -54,9 +54,9 @@ public class SpacesController implements Initializable {
                     Parent singleSpace = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().SPACES_PATH + "singleSpace.fxml");
                     listOfSpaces.getChildren().add(singleSpace);
                 }
-            } catch (IOException | SQLException e1) {
+            } catch (IOException exception) {
                 System.out.println("Initialize spaces failed");
-                throw new RuntimeException(e1);
+                throw new RuntimeException(exception);
             }
         });
 

@@ -123,27 +123,22 @@ public class BonificoController implements Initializable {
 
     @FXML
     void onSendButtonClick(ActionEvent event) {
+        double amount = FormUtils.getInstance().formatAmount(fieldAmount.getText());
 
-        try {
-            double amount = FormUtils.getInstance().formatAmount(fieldAmount.getText());
+        //bisogna mettere ContiDao.transazione in un if per bloccare operazione in caso di fondi insufficienti
+        int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
+        if (ContiDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, amount)) {
+            String nome = fieldName.getText() + " " + fieldSurname.getText();
+            TransazioniDAO.getInstance().insert(new Transazione(nome, BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, 0, LocalDateTime.now(), amount, fieldDescr.getText(), "Bonifico", "Altro", ""));
 
-            //bisogna mettere ContiDao.transazione in un if per bloccare operazione in caso di fondi insufficienti
-            int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-            if (ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, amount)) {
-                String nome = fieldName.getText() + " " + fieldSurname.getText();
-                TransazioniDAO.insert(new Transazione(nome, BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, 0, LocalDateTime.now(), amount, fieldDescr.getText(), "Bonifico", "Altro", ""));
-
-                if (saveContact.isSelected()) {
-                    ContattiDAO.insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedUser()));
-                    SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.OPERATIONS_PATH + "operations.fxml");
-                }
-
-                SceneHandler.getInstance().reloadDynamicPageInHashMap();
-                SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
-                SceneHandler.getInstance().showInfo("Bonifico", "Bonifico effettuato con successo", "Il bonifico è andato a buon fine.");
+            if (saveContact.isSelected()) {
+                ContattiDAO.getInstance().insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedUser()));
+                SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.OPERATIONS_PATH + "operations.fxml");
             }
-        } catch (SQLException e) {
-            SceneHandler.getInstance().showError("Errore", "Errore durante l'inserimento del contatto ", e.getMessage());
+
+            SceneHandler.getInstance().reloadDynamicPageInHashMap();
+            SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+            SceneHandler.getInstance().showInfo("Bonifico", "Bonifico effettuato con successo", "Il bonifico è andato a buon fine.");
         }
     }
 

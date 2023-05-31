@@ -47,17 +47,13 @@ public class PersonalDataController {
 
     public void initialize() {
         GenericController.loadImage(back);
-        try {
-            Utente user = UtentiDAO.selectByUserId(BankApplication.getCurrentlyLoggedUser());
-            nomeLabel.setText(user.getNome());
-            cognomeLabel.setText(user.getCognome());
-            emailLabel.setText(user.getEmail());
-            telefonoLabel.setText(user.getTelefono());
-            indirizzoLabel.setText(user.getIndirizzo());
-            ibanLabel.setText(user.getIban());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        Utente user = UtentiDAO.getInstance().getUserById(BankApplication.getCurrentlyLoggedUser());
+        nomeLabel.setText(user.getNome());
+        cognomeLabel.setText(user.getCognome());
+        emailLabel.setText(user.getEmail());
+        telefonoLabel.setText(user.getTelefono());
+        indirizzoLabel.setText(user.getIndirizzo());
+        ibanLabel.setText(user.getIban());
     }
 
 }

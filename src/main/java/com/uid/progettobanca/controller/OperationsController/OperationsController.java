@@ -173,13 +173,9 @@ public class OperationsController implements Initializable {
     @FXML
     void onDeleteClick(ActionEvent event) {
         if(selectedContact != -1){
-            try {
-                ContattiDAO.delete(contacts.get(selectedContact).getContattoID());
-                contacts.remove(selectedContact);
-                contactsVBox.getChildren().remove(selectedContact);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            ContattiDAO.getInstance().delete(contacts.get(selectedContact));
+            contacts.remove(selectedContact);
+            contactsVBox.getChildren().remove(selectedContact);
         }
     }
 }

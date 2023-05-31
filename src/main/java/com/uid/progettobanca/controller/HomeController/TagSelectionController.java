@@ -77,7 +77,7 @@ public class TagSelectionController implements Initializable {
 
     private void setGenericTag(String tag) throws SQLException {
         transaction.setTag(tag);
-        TransazioniDAO.update(transaction);
+        TransazioniDAO.getInstance().update(transaction);
 
         SceneHandler.getInstance().reloadDynamicPageInHashMap();
         TransactionManager.getInstance().putTransaction(transaction);

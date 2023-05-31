@@ -14,8 +14,8 @@ public class UserService extends Service<Utente>{
     protected Task<Utente> createTask() {
         return new Task<>() {
             @Override
-            protected Utente call() throws Exception {
-                return UtentiDAO.selectByUserId(BankApplication.getCurrentlyLoggedUser());
+            protected Utente call(){
+                return UtentiDAO.getInstance().getUserById(BankApplication.getCurrentlyLoggedUser());
             }
         };
     }

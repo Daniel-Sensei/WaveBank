@@ -41,30 +41,22 @@ public class PasswordRecoveryController implements Initializable {
 
     @FXML
     void onEmailInserted(ActionEvent event) {
-        try {
-            String q = UtentiDAO.getDomandaByEmail(fieldEmail.getText());
-            if(q.isEmpty())
-                SceneHandler.getInstance().showError("Errore", "Errore durante il recupero della domanda", "L'email inserita non è presente nel database.");
-            else question.setText(q);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        String q = UtentiDAO.getInstance().getUserByEmail(fieldEmail.getText()).getDomanda();
+        if(q.isEmpty())
+            SceneHandler.getInstance().showError("Errore", "Errore durante il recupero della domanda", "L'email inserita non è presente nel database.");
+        else question.setText(q);
     }
 
     @FXML
     void onUpdatePasswordClick(ActionEvent event) {
-        try{
-            if(UtentiDAO.checkRisposta(fieldEmail.getText(), fieldAnswer.getText()))
-                if(fieldPassword.getText().equals(confirmPassword.getText()) && !fieldPassword.getText().isEmpty()) {
-                    UtentiDAO.updatePassword(fieldEmail.getText(), fieldPassword.getText());
-                    SceneHandler.getInstance().showInfo("Password","Password aggiornata", "La password è stata aggiornata con successo.");
-                    SceneHandler.getInstance().setPage("login.fxml");
-                }
-                else SceneHandler.getInstance().showError("Errore", "Errore durante il cambio della password", "Le password sono vuote o non coincidono.");
-            else SceneHandler.getInstance().showError("Errore", "Errore durante il controllo della risposta", "Risposta errata, riprova.");
-        } catch (SQLException e) {
-            SceneHandler.getInstance().showError("Errore", "Errore durante il cambio della password", "Riprova più tardi, se il problema persiste contatta l'assistenza.");
-        }
+        if(UtentiDAO.getInstance().checkRisposta(fieldEmail.getText(), fieldAnswer.getText()))
+            if(fieldPassword.getText().equals(confirmPassword.getText()) && !fieldPassword.getText().isEmpty()) {
+                UtentiDAO.getInstance().updatePassword(fieldEmail.getText(), fieldPassword.getText());
+                SceneHandler.getInstance().showInfo("Password","Password aggiornata", "La password è stata aggiornata con successo.");
+                SceneHandler.getInstance().setPage("login.fxml");
+            }
+            else SceneHandler.getInstance().showError("Errore", "Errore durante il cambio della password", "Le password sono vuote o non coincidono.");
+        else SceneHandler.getInstance().showError("Errore", "Errore durante il controllo della risposta", "Risposta errata, riprova.");
     }
 
     @FXML

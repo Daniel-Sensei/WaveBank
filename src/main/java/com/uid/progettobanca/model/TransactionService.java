@@ -34,13 +34,13 @@ public class TransactionService extends Service<List<Transazione>> {
             @Override
             protected Object call() throws Exception {
                 if(functionName.equals("filterAllTransaction")){
-                    return TransazioniDAO.selectAllTransaction(BankApplication.getCurrentlyLoggedIban());
+                    return TransazioniDAO.getInstance().selectAllTransaction(BankApplication.getCurrentlyLoggedIban());
                 }
                 else if(functionName.equals("filterSelectedTransaction")){
-                    return TransazioniDAO.selectFilteredTransactions(BankApplication.getCurrentlyLoggedIban(), selectedFilters, searchQuery, selectedInOut);
+                    return TransazioniDAO.getInstance().selectFilteredTransactions(BankApplication.getCurrentlyLoggedIban(), selectedFilters, searchQuery, selectedInOut);
                 }
                 else if(functionName.equals("filtersSpaceTransaction")){
-                    return TransazioniDAO.selectAllSpaceTransaction(BankApplication.getCurrentlyLoggedIban(), spaceID);
+                    return TransazioniDAO.getInstance().selectAllSpaceTransaction(BankApplication.getCurrentlyLoggedIban(), spaceID);
                 }
                 return null;
             }

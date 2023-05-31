@@ -62,20 +62,14 @@ public class SafetyController {
 
     @FXML
     void sendButtonPressed(ActionEvent event) {
-        try {
-            if (UtentiDAO.checkPassword(BankApplication.getCurrentlyLoggedUser(), oldPsw.getText())) {
-                UtentiDAO.updatePassword(UtentiDAO.getEmailByUserId(BankApplication.getCurrentlyLoggedUser()), newPsw.getText());
-                SceneHandler.getInstance().showInfo("Cambio password", "Cambio password effettuato", "Hai cambiato password!");
-                SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.MY_ACCOUNT_PATH + "safety.fxml");
-                SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "myAccount.fxml");
-            } else {
-                FormUtils.getInstance().validatePasswordField(oldPsw, false, warningWrongPsw);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if (UtentiDAO.getInstance().checkPassword(BankApplication.getCurrentlyLoggedUser(), oldPsw.getText())) {
+            UtentiDAO.getInstance().updatePassword(UtentiDAO.getInstance().getUserById(BankApplication.getCurrentlyLoggedUser()).getEmail(), newPsw.getText());
+            SceneHandler.getInstance().showInfo("Cambio password", "Cambio password effettuato", "Hai cambiato password!");
+            SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.MY_ACCOUNT_PATH + "safety.fxml");
+            SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "myAccount.fxml");
+        } else {
+            FormUtils.getInstance().validatePasswordField(oldPsw, false, warningWrongPsw);
         }
-
-
     }
 
     public void initialize() {

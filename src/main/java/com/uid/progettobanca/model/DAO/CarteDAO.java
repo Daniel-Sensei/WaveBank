@@ -1,30 +1,22 @@
 package com.uid.progettobanca.model.DAO;
 
-import com.uid.progettobanca.model.objects.Carta;
-
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.uid.progettobanca.model.objects.Carta;
 
 public class CarteDAO {
 
     private static Connection conn;
 
-    static {
-        try {
-            conn = DatabaseManager.getInstance().getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     private CarteDAO(){}
 
     private static CarteDAO instance = null;
 
-    public static CarteDAO getInstance() throws SQLException {
+    public static CarteDAO getInstance() {
         if (instance == null) {
+            conn = DatabaseManager.getInstance().getConnection();
             instance = new CarteDAO();
         }
         return instance;
@@ -34,7 +26,7 @@ public class CarteDAO {
     //  Inserimenti:
 
     //inserimento tramite oggetto di tipo carta
-    public static Boolean insert(Carta carta) throws SQLException {
+    public boolean insert(Carta carta) {
         String query = "INSERT INTO carte (num, cvv, scadenza, pin, bloccata, tipo, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, carta.getNumCarta());
@@ -48,25 +40,7 @@ public class CarteDAO {
             return true;
         }
         catch (SQLException e){
-            return false;
-        }
-    }
-
-    //inserimento specificando tutti i parametri
-    public static Boolean insert(String num, String cvv, LocalDate scadenza, String pin, boolean bloccata, String tipo, String user_id) throws SQLException {
-        String query = "INSERT INTO carte (num, cvv, scadenza, pin, bloccata, tipo, user_id) VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, num);
-            stmt.setString(2, cvv);
-            stmt.setDate(3, Date.valueOf(scadenza));
-            stmt.setString(4, pin);
-            stmt.setBoolean(5, bloccata);
-            stmt.setString(6, tipo);
-            stmt.setString(7, user_id);
-            stmt.executeUpdate();
-            return true;
-        }
-        catch (SQLException e){
+            e.printStackTrace();
             return false;
         }
     }
@@ -75,7 +49,7 @@ public class CarteDAO {
     //  getting:
 
     //restiuisce tutte le carte di un cliente
-    public static List<Carta> selectAllByUserId(String user_id) throws SQLException {
+    public List<Carta> selectAllByUserId(String user_id) {
         String query = "SELECT * FROM carte WHERE user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, user_id);
@@ -94,11 +68,13 @@ public class CarteDAO {
                 }
                 return carte;
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
     //restituisce una carta specifica
-    public static Carta selectByNumCarta(String num) throws SQLException {
+    public Carta selectByNumCarta(String num) {
         String query = "SELECT * FROM carte WHERE num = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, num);
@@ -116,6 +92,8 @@ public class CarteDAO {
                     return null;
                 }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -123,24 +101,32 @@ public class CarteDAO {
     //  aggiornamento:
 
     //aggiorna lo stato di blocco di una carta
-    public static void update(Carta carta) throws SQLException {
+    public boolean update(Carta carta) {
         String query = "UPDATE carte SET bloccata = ?, pin = ? WHERE num = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setBoolean(1, carta.isBloccata());
             stmt.setString(2, carta.getPin());
             stmt.setString(3, carta.getNumCarta());
             stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
 
     //  rimozione:
 
-    public static void delete(String num) throws SQLException {
+    public boolean delete(Carta carta) {
         String query = "DELETE FROM carte WHERE num = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, num);
+            stmt.setString(1, carta.getNumCarta());
             stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }

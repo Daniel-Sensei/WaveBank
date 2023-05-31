@@ -9,20 +9,13 @@ import java.util.Queue;
 public class ContattiDAO {
     private static Connection conn;
 
-    static {
-        try {
-            conn = DatabaseManager.getInstance().getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     private ContattiDAO() {}
 
     private static ContattiDAO instance = null;
 
-    public static ContattiDAO getInstance() throws SQLException {
+    public static ContattiDAO getInstance() {
         if (instance == null) {
+            conn = DatabaseManager.getInstance().getConnection();
             instance = new ContattiDAO();
         }
         return instance;
@@ -32,7 +25,7 @@ public class ContattiDAO {
     //  Inserimenti:
 
     //inserimehnto tramite oggetto di tipo rubrica
-    public static void insert(Contatto contatto) throws SQLException {
+    public boolean insert(Contatto contatto) {
         String query = "INSERT INTO contatti (nome, cognome, iban_to, user_id) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, contatto.getNome());
@@ -45,6 +38,10 @@ public class ContattiDAO {
                     contatto.setContattoID(rs.getInt(1));
                 }
             }
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
@@ -52,7 +49,7 @@ public class ContattiDAO {
     // getting:
 
     //restituisce tutte le carte associare ad un utente
-    public static Queue<Contatto> selectAllByUserID(int user_id) throws SQLException {
+    public Queue<Contatto> selectAllByUserID(int user_id) {
         String query = "SELECT * FROM contatti WHERE user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, user_id);
@@ -70,10 +67,12 @@ public class ContattiDAO {
                 }
                 return rubrica;
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public static Contatto selectById(int contatto_id) throws SQLException {
+    public Contatto selectById(int contatto_id) {
         String query = "SELECT * FROM contatti WHERE contatto_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, contatto_id);
@@ -89,10 +88,12 @@ public class ContattiDAO {
                     return null;
                 }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public static Contatto selectByIBAN(String iban) throws SQLException {
+    public Contatto selectByIBAN(String iban) {
         String query = "SELECT * FROM contatti WHERE iban_to = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
@@ -108,6 +109,8 @@ public class ContattiDAO {
                     return null;
                 }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -115,7 +118,7 @@ public class ContattiDAO {
     //  aggiornamento:
 
     //aggiornamento limitato a saldo, nome e imagePath tramite oggetto di tipo contatto
-    public static void update(Contatto contatto) throws SQLException {
+    public boolean update(Contatto contatto) {
         String query = "UPDATE contatti SET nome = ?, cognome = ?, iban_to = ?  WHERE contatto_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, contatto.getNome());
@@ -123,17 +126,25 @@ public class ContattiDAO {
             stmt.setString(3, contatto.getIban());
             stmt.setInt(4, contatto.getContattoID());
             stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
 
     //  rimozione:
 
-    public static void delete(int contatto_id) throws SQLException {
+    public boolean delete(Contatto contatto) {
         String query = "DELETE FROM contatti WHERE contatto_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, contatto_id);
+            stmt.setInt(1, contatto.getContattoID());
             stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }

@@ -272,6 +272,7 @@ public class SceneHandler {
         PageLoaderThread pageLoaderThread = new PageLoaderThread();
         pageLoaderThread.start();
     }
+
     public void showInfoPopup(String popupPageName, Stage popupStage, double popupWidth, double popupHeight){
         Parent popupContent = null;
         try {

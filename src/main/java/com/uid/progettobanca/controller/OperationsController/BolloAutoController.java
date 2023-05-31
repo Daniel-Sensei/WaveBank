@@ -72,14 +72,10 @@ public class BolloAutoController implements Initializable {
     private void playPirataConRadio(){
         if(fieldPlate.getText().trim().equalsIgnoreCase("galeone") && fieldCF.getText().trim().equalsIgnoreCase("pirata")){
             openVideoPlayer();
-            try {
-                int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-                ContiDAO.transazione("IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, 50);
-                TransazioniDAO.insert(new Transazione("Pirata con Radio", "IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, space, LocalDateTime.now(), 50, "Il pirata ha apprezzato il tuo gesto e ti dona 50 dobloni", "Regalo del Pirata", "Intrattenimento", ""));
-                SceneHandler.getInstance().reloadDynamicPageInHashMap();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
+            ContiDAO.getInstance().transazione("IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, 50);
+            TransazioniDAO.getInstance().insert(new Transazione("Pirata con Radio", "IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, space, LocalDateTime.now(), 50, "Il pirata ha apprezzato il tuo gesto e ti dona 50 dobloni", "Regalo del Pirata", "Intrattenimento", ""));
+            SceneHandler.getInstance().reloadDynamicPageInHashMap();
         }
     }
     public void initialize(URL location, ResourceBundle resources) {
@@ -116,20 +112,15 @@ public class BolloAutoController implements Initializable {
     @FXML
     void onSendButtonClick(ActionEvent event) {
         //effettuo il pagamento
-        try {
-            double amount = FormUtils.getInstance().formatAmount(amountLabel.getText());
-            int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-            if (ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)) {
-                //inserisco la transazione
-                TransazioniDAO.insert(new Transazione("Bollo: "+ fieldPlate.getText(), BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, "Bollo " + typeComboBox.getValue(), "Bollo", "Altro", ""));
-                SceneHandler.getInstance().reloadDynamicPageInHashMap();
-                SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
-                SceneHandler.getInstance().showInfo("Operazione effettuata", "Bollo pagato", "Il bollo è stato pagato con successo");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        double amount = FormUtils.getInstance().formatAmount(amountLabel.getText());
+        int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
+        if (ContiDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)) {
+            //inserisco la transazione
+            TransazioniDAO.getInstance().insert(new Transazione("Bollo: "+ fieldPlate.getText(), BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, "Bollo " + typeComboBox.getValue(), "Bollo", "Altro", ""));
+            SceneHandler.getInstance().reloadDynamicPageInHashMap();
+            SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+            SceneHandler.getInstance().showInfo("Operazione effettuata", "Bollo pagato", "Il bollo è stato pagato con successo");
         }
-
     }
 
     @FXML

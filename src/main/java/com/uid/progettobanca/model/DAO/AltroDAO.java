@@ -8,22 +8,15 @@ import java.util.List;
 
 public class AltroDAO {
 
-    private static Connection conn;
-
-    static {
-        try {
-            conn = DatabaseManager.getInstance().getConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static Connection conn = null;
 
     private AltroDAO(){}
 
     private static AltroDAO instance = null;
 
-    public static AltroDAO getInstance() throws SQLException {
+    public static AltroDAO getInstance() {
         if (instance == null) {
+            conn = DatabaseManager.getInstance().getConnection();
             instance = new AltroDAO();
         }
         return instance;
@@ -32,22 +25,16 @@ public class AltroDAO {
     // Inserimenti:
 
     //inserimento tramite oggetto azienda
-    public static void insert(Altro altro) throws SQLException {
+    public boolean insert(Altro altro) {
         String query = "INSERT INTO altro (nome, iban) VALUES(?,?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, altro.getNome());
             stmt.setString(2, altro.getIban());
             stmt.executeUpdate();
-        }
-    }
-
-    //inserimento tramite nome e iban
-    public static void insert(String nome, String iban) throws SQLException {
-        String query = "INSERT INTO altro (nome, iban) VALUES(?,?)";
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, nome);
-            stmt.setString(2, iban);
-            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
@@ -55,7 +42,7 @@ public class AltroDAO {
     // getting:
 
     //selezione di un'azienda tramite partita iva
-    public static Altro selectByIban(String iban) throws SQLException {
+    public Altro selectByIban(String iban) {
         String query = "SELECT * FROM altro WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
@@ -68,11 +55,13 @@ public class AltroDAO {
                     return null;
                 }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
     //selezione di tutte le aziende
-    public static List<Altro> selectAll() throws SQLException {
+    public List<Altro> selectAll() {
         String query = "SELECT * FROM altro";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             ResultSet rs = stmt.executeQuery();
@@ -85,6 +74,8 @@ public class AltroDAO {
             }
             rs.close();
             return aziende;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -92,33 +83,31 @@ public class AltroDAO {
     // Aggiornamenti:
 
     //aggiornamento tramite oggetto azienda
-    public static void update(Altro altro) throws SQLException {
+    public boolean update(Altro altro) {
         String query = "UPDATE altro SET nome=? WHERE iban=?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, altro.getNome());
             stmt.setString(2, altro.getIban());
             stmt.executeUpdate();
-        }
-    }
-
-    // update gdel nome tramite iban + nome
-    public static void update(String nome, String iban) throws SQLException {
-        String query = "UPDATE altro SET nome = ? WHERE iban = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, nome);
-            stmt.setString(2, iban);
-            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
 
     // Rimozione:
 
-    public static void delete(String iban) throws SQLException {
+    public boolean delete(Altro altro) {
         String query = "DELETE FROM altro WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, iban);
+            stmt.setString(1, altro.getIban());
             stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }

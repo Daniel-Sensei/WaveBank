@@ -6,13 +6,9 @@ package com.uid.progettobanca.model.DAO;
  *
  ****************************************************************/
 
-// le funzioni di inserimento/aggiornamento/rimozione dati sono rimandate alle DAO presenti nel model
-// il funzionamento è abbastanza semplice ed intuitivo
-// per ulteriori informazioni contattatemi
-// -gian
-
 //PS: l'ho fatto funzionare per miracolo, non rompetelo pls :)
 
+import com.uid.progettobanca.model.objects.Altro;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -21,7 +17,7 @@ import java.sql.*;
 
 public class DatabaseManager {
 
-    private static final String dbPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources"+ File.separator + "database.db";
+    private final String dbPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources"+ File.separator + "database.db";
     private static DatabaseManager instance;
     //se non funziona mettere l'assegnazione nel costruttore e togliere final
 
@@ -34,9 +30,14 @@ public class DatabaseManager {
         return instance;
     }
 
-    public Connection getConnection() throws SQLException {
+    public Connection getConnection(){
         //restituisce la connesione al db
-        return DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+        try {
+            return DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+        } catch (SQLException e) {
+            System.out.println("Errore di connessione al database");
+            throw new RuntimeException(e);
+        }
     }
 
     public void checkAndCreateDatabase() throws Exception {
@@ -135,7 +136,7 @@ public class DatabaseManager {
                                     "date DATE not null, nGiorni int not null, causale VARCHAR not null, " +
                                     "user_id CHAR(16) NOT NULL, FOREIGN KEY (user_id) REFERENCES utenti(user_id));");
 
-            AltroDAO.insert("Pirata con Radio", "IT0000000000000000000000000");
+            AltroDAO.getInstance().insert( new Altro("Pirata con Radio", "IT0000000000000000000000000"));
 
         } catch (SQLException e) {
             System.err.println("Error creating database: " + e.getMessage());

@@ -17,7 +17,7 @@ public class GetAllSpaceService extends Service <Queue<Space>>{
         return new Task <Queue<Space>>() {
             @Override
             protected Queue<Space> call() throws Exception {
-                Queue = SpacesDAO.selectAllByIban(BankApplication.getCurrentlyLoggedIban());
+                Queue = SpacesDAO.getInstance().selectAllByIban(BankApplication.getCurrentlyLoggedIban());
                 return Queue;
             }
         };
