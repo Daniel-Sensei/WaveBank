@@ -10,9 +10,9 @@ public class Carta {
     private String pin;
     private boolean bloccata;
     private String tipo;
-    private String user_id;
+    private int user_id;
 
-    public Carta(String num, String cvv, LocalDate scadenza, String pin, boolean bloccata, String tipo, String user_id) {
+    public Carta(String num, String cvv, LocalDate scadenza, String pin, boolean bloccata, String tipo, int user_id) {
         this.numCarta = num;
         this.cvv = cvv;
         this.scadenza = scadenza;
@@ -51,7 +51,7 @@ public class Carta {
 
     public void setTipo(String tipo) {this.tipo = tipo;}
 
-    public String getUserId() {return user_id;}
+    public int getUserId() {return user_id;}
 
-    public void setUserId(String user_id) {this.user_id = user_id;}
+    public void setUserId(int user_id) {this.user_id = user_id;}
 }

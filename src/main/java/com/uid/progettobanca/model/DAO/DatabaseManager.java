@@ -87,7 +87,7 @@ public class DatabaseManager {
                                     "num CHAR(16) PRIMARY KEY, cvv char(3) not null, "+
                                     "scadenza DATE not null, pin char(3) not null, "+
                                     "bloccata TINYINT[1] not null, tipo varchar(10) not null, "+
-                                    "user_id CHAR(16) not null, FOREIGN KEY (user_id) REFERENCES utenti(user_id));");
+                                    "user_id integer not null, FOREIGN KEY (user_id) REFERENCES utenti(user_id));");
 
             statement.execute("CREATE TABLE IF NOT EXISTS transazioni ("+
                                     "transaction_id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR not null, "+

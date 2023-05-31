@@ -35,7 +35,7 @@ public class CarteDAO {
             stmt.setString(4, carta.getPin());
             stmt.setBoolean(5, carta.isBloccata());
             stmt.setString(6, carta.getTipo());
-            stmt.setString(7, carta.getUserId());
+            stmt.setInt(7, carta.getUserId());
             stmt.executeUpdate();
             return true;
         }
@@ -49,10 +49,10 @@ public class CarteDAO {
     //  getting:
 
     //restiuisce tutte le carte di un cliente
-    public List<Carta> selectAllByUserId(String user_id) {
+    public List<Carta> selectAllByUserId(int user_id) {
         String query = "SELECT * FROM carte WHERE user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, user_id);
+            stmt.setInt(1, user_id);
             try (ResultSet rs = stmt.executeQuery()) {
                 List<Carta> carte = new ArrayList<>();
                 while (rs.next()) {
@@ -86,7 +86,7 @@ public class CarteDAO {
                             rs.getString("pin"),
                             rs.getBoolean("bloccata"),
                             rs.getString("tipo"),
-                            rs.getString("user_id")
+                            rs.getInt("user_id")
                     );
                 } else {
                     return null;

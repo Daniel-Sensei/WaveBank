@@ -13,7 +13,7 @@ public class CreateCard {
         carta.setCvv(RandomNumbers.generateRandomNumbers(3)); //random
         carta.setPin(RandomNumbers.generateRandomNumbers(5)); //random
         carta.setTipo("Virtuale");
-        carta.setUserId(String.valueOf(BankApplication.getCurrentlyLoggedUser()));
+        carta.setUserId(BankApplication.getCurrentlyLoggedUser());
         carta.setScadenza(LocalDate.now().plusMonths(lasting));
         carta.setNumCarta(RandomNumbers.generateRandomNumbers(16));
         return carta;
@@ -27,7 +27,7 @@ public class CreateCard {
         carta.setCvv(RandomNumbers.generateRandomNumbers(3)); //random
         carta.setPin(RandomNumbers.generateRandomNumbers(5)); //random
         carta.setTipo("Debito");
-        carta.setUserId(String.valueOf(utente));
+        carta.setUserId(utente);
         carta.setScadenza(LocalDate.now().plusYears(5));
         InsertCardService insertCarteService = new InsertCardService();
         insertCarteService.setCarta(carta);
