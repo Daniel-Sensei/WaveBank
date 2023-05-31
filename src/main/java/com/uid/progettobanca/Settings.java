@@ -1,6 +1,9 @@
 package com.uid.progettobanca;
 
+import java.util.Locale;
+
 public class Settings {
+    public static Locale locale = new Locale("IT");
     public static boolean darkTheme = false;
     public static boolean themeChanged = false;
     public static String CSS_THEME = "light.css";

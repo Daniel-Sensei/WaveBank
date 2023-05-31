@@ -4,6 +4,7 @@ import javafx.scene.Parent;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class PageLoaderThread extends Thread {
 
@@ -34,6 +35,8 @@ public class PageLoaderThread extends Thread {
             try {
                 Parent page = SceneHandler.getInstance().loadPage(pageName);
                 SceneHandler.getInstance().addPage(pageName, page);
+
+                ;
                 //System.out.println("THREAD --> Creata pagina: " + pageName);
             } catch (IOException ignored) {
                 System.out.println("THREAD --> Errore nella creazione della pagina: " + pageName);

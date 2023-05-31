@@ -9,6 +9,7 @@ import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -17,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class SettingsController implements Initializable {
@@ -33,6 +35,8 @@ public class SettingsController implements Initializable {
     private String[] themes = {"Chiaro", "Scuro"};
 
     private String theme = Settings.CSS_THEME;
+
+    private String language = Settings.locale.getLanguage();
 
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {
@@ -65,7 +69,19 @@ public class SettingsController implements Initializable {
 
     @FXML
     void changeLanguage(ActionEvent event) {
-
+        String choice = languageComboBox.getSelectionModel().getSelectedItem();
+        if  (choice.equals("Italiano") && !language.equals("IT")){
+            Locale ita = new Locale("IT");
+            Settings.locale = ita;
+            SceneHandler.getInstance().changeTheme();
+            SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "settings.fxml");
+        }
+        else if (choice.equals("Inglese") && !language.equals("EN")){
+            Locale en = new Locale("EN");
+            Settings.locale = en;
+            SceneHandler.getInstance().changeTheme();
+            SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "settings.fxml");
+        }
     }
 
 }

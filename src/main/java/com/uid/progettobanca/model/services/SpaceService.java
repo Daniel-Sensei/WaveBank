@@ -28,9 +28,6 @@ public class SpaceService extends Service {
         this.space = space2;
     }
 
-
-
-
     @Override
     protected Task createTask() {
         return new Task() {

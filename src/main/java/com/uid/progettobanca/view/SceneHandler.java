@@ -27,13 +27,13 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.uid.progettobanca.Settings.locale;
+
 public class SceneHandler {
 
     private static final SceneHandler instance = new SceneHandler();
     private Stage stage;
     private Scene scene;
-
-
     private static final String separator = File.separator; //il path si adatta ai diversi sistemi operativi
 
 
@@ -134,6 +134,7 @@ public class SceneHandler {
 
     private <T> T loadRootFromFXML(String resourceName) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(new File(ABSOLUTE_PATH + resourceName).toURI().toURL());
+        fxmlLoader.setResources(ResourceBundle.getBundle("bundle", locale));
         return fxmlLoader.load();
     }
 
