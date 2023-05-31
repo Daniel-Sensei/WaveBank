@@ -62,7 +62,7 @@ public class Ricorrente {
     @Override
     public String toString() {
         return "Ricorrente{" +
-                "recurrentId=" + paymentId +
+                "paymentId=" + paymentId +
                 ", nome='" + nome + '\'' +
                 ", importo=" + amount +
                 ", iban_to='" + iban_to + '\'' +
