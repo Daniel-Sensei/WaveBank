@@ -126,6 +126,7 @@ public class RicorrentiDAO {
             stmt.setInt(1, payment.getPaymentId());
             stmt.setInt(2, payment.getUserId());
             stmt.executeUpdate();
+            System.out.println("Ricorrente eliminato");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
