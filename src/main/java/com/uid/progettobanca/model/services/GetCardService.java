@@ -12,7 +12,9 @@ public class GetCardService extends Service<List<Carta>> {
     private String action = "";
     private String cardNum = "";
 
-    public GetCardService(String action) {
+    public GetCardService() {}
+
+    public void setAction(String action) {
         this.action = action;
     }
 
