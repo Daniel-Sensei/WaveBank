@@ -14,7 +14,7 @@ public class CardService extends Service<Boolean> {
 
     public void setAction(String action) {this.action = action;}
 
-    public void setCarta(Carta c) {this.c = c;}
+    public void setCard(Carta c) {this.c = c;}
 
     @Override
     protected Task<Boolean> createTask() {

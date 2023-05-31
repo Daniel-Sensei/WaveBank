@@ -10,7 +10,6 @@ import java.util.Queue;
 
 public class GetRecurrentsService extends Service<Queue<Ricorrente>> {
 
-
     public GetRecurrentsService() {}
 
     @Override

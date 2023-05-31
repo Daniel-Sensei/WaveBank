@@ -12,7 +12,7 @@ public class AccountService extends Service<Boolean> {
 
     public AccountService(String action) {this.action = action;}
 
-    public void setConto(Conto c) {this.c = c;}
+    public void setAccount(Conto c) {this.c = c;}
 
     @Override
     protected Task<Boolean> createTask() {
