@@ -2,9 +2,10 @@ package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
+import com.uid.progettobanca.controller.LoginController;
 import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
-import com.uid.progettobanca.model.genericObjects.Transazione;
+import com.uid.progettobanca.model.Transazione;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.ImageUtils;
@@ -29,6 +30,7 @@ import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -74,7 +76,7 @@ public class BolloAutoController implements Initializable {
             openVideoPlayer();
             try {
                 int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-                TransazioniDAO.transazione("IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, 50);
+                ContiDAO.transazione("IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, 50);
                 TransazioniDAO.insert(new Transazione("Pirata con Radio", "IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, space, LocalDateTime.now(), 50, "Il pirata ha apprezzato il tuo gesto e ti dona 50 dobloni", "Regalo del Pirata", "Intrattenimento", ""));
                 SceneHandler.getInstance().reloadDynamicPageInHashMap();
             } catch (SQLException e) {
@@ -119,7 +121,7 @@ public class BolloAutoController implements Initializable {
         try {
             double amount = FormUtils.getInstance().formatAmount(amountLabel.getText());
             int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-            if (TransazioniDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)) {
+            if (ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)) {
                 //inserisco la transazione
                 TransazioniDAO.insert(new Transazione("Bollo: "+ fieldPlate.getText(), BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, "Bollo " + typeComboBox.getValue(), "Bollo", "Altro", ""));
                 SceneHandler.getInstance().reloadDynamicPageInHashMap();

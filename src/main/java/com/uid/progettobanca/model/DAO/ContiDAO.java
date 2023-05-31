@@ -1,8 +1,8 @@
 package com.uid.progettobanca.model.DAO;
 
 import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.model.genericObjects.Conto;
-import com.uid.progettobanca.model.genericObjects.Space;
+import com.uid.progettobanca.model.Conto;
+import com.uid.progettobanca.model.Space;
 import com.uid.progettobanca.view.SceneHandler;
 
 import java.math.BigInteger;
@@ -12,7 +12,15 @@ import java.util.Random;
 
 public class ContiDAO {
 
-    private final Connection conn = DatabaseManager.getInstance().getConnection();
+    private static Connection conn;
+
+    static {
+        try {
+            conn = DatabaseManager.getInstance().getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private ContiDAO() {}
 
@@ -29,40 +37,46 @@ public class ContiDAO {
     //  Inserimenti:
 
     //inserimento tramite oggetto di tipo conto
-    public boolean insert(Conto conto){
+    public static void insert(Conto conto) throws SQLException {
         String query = "INSERT INTO conti (iban, saldo, dataApertura) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, conto.getIban());
             stmt.setDouble(2, conto.getSaldo());
             stmt.setDate(3, Date.valueOf(conto.getDataApertura()));
             stmt.executeUpdate();
-            return true;
-        } catch (SQLException ignored) {
-            return false;
         }
     }
 
+    // inserimento specificando i valori
 
-    //inserimento tramite inizializzazione random
+    public static void insert(String iban, double saldo, LocalDate dataApertura) throws SQLException {
+        String query = "INSERT INTO conti (iban, saldo, dataApertura) VALUES (?, ?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, iban);
+            stmt.setDouble(2, saldo);
+            stmt.setDate(3, Date.valueOf(dataApertura));
+            stmt.executeUpdate();
+        }
+    }
 
-    public boolean generateNew() throws SQLException {
+    //inserimento tramite inizializzazione randomica
+
+    public static String generateNew() throws SQLException {
         String iban = generateItalianIban();
         int saldo = 500;
         LocalDate data = LocalDate.now();
-        while(!insert(new Conto(iban, saldo, data))) {
-            iban = generateItalianIban();
-        }
-        Space s = new Space(iban, saldo, data, "Conto corrente Principale", "wallet.png");
+        insert(iban, saldo, data);
+        Space s = new Space(iban,saldo,data,"Conto corrente Principale","wallet.png" );
         SpacesDAO.insert(s);
-        BankApplication.setCurrentlyLoggedIban(iban);
         BankApplication.setCurrentlyLoggedMainSpace(s.getSpaceId());
-        return true;
+
+        return iban;
     }
 
 
     //  getting:
 
-    public Conto selectByIban(String iban) throws SQLException {
+    public static Conto selectByIban(String iban) throws SQLException {
         String query = "SELECT * FROM conti WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
@@ -79,33 +93,77 @@ public class ContiDAO {
         }
     }
 
+    // get saldo by iban
+
+    public static double getSaldoByIban(String iban) throws SQLException {
+        String query = "SELECT saldo FROM conti WHERE iban = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, iban);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getDouble("saldo");
+                } else {
+                    return 0;
+                }
+            }
+        }
+    }
+
 
     //  aggiornamenti:
 
+    //trasferimento di denaro tra due conti usando le transazioni di SQLite
+    public static boolean transazione(String iban_from, String iban_to, int space_from, double importo) throws SQLException {
+        if(iban_from.equals(BankApplication.getCurrentlyLoggedIban())) {
+            double check = getSaldoByIban(iban_from);
+            if (check < importo) {
+                SceneHandler.getInstance().showError("Errore", "Saldo insufficiente", "Non hai abbastanza soldi per effettuare questa operazione");
+                return false;
+            }
+            double saldo=SpacesDAO.selectBySpaceId(space_from).getSaldo();
+            if(saldo<importo){
+                SceneHandler.getInstance().showError("Errore", "Saldo insufficiente nello space", "Non hai abbastanza soldi nello space selezionato per effettuare questa operazione");
+                return false;
+            }
+            SpacesDAO.updateSaldo(space_from, saldo - importo);
+        }
+        String query = "UPDATE conti SET saldo = saldo - ? WHERE iban = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            conn.setAutoCommit(false);
+            stmt.setDouble(1, importo);
+            stmt.setString(2, iban_from);
+            stmt.executeUpdate();
+            //se esiste il conto di destinazione aggiorna il saldo
+            if(!iban_to.equals("NO") || selectByIban(iban_to) != null) {
+                stmt.setDouble(1, importo*-1);
+                stmt.setString(2, iban_to);
+                stmt.executeUpdate();
+            }
+            conn.commit();
+            conn.setAutoCommit(true);
+        }
+        return true;
+    }
+
+
     //aggiornamento tramite oggetto di tipo conto
-    public boolean update(Conto conto){
+    public static void update(Conto conto) throws SQLException {
         String query = "UPDATE conti SET saldo = ? WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setDouble(1, conto.getSaldo());
             stmt.setString(2, conto.getIban());
             stmt.executeUpdate();
-            return true;
-        } catch (SQLException ignored) {
-            return false;
         }
     }
 
 
     //  rimozione:
 
-    public boolean delete(Conto conto){
+    public static void delete(String iban) throws SQLException {
         String query = "DELETE FROM conti WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, conto.getIban());
+            stmt.setString(1, iban);
             stmt.executeUpdate();
-            return true;
-        } catch (SQLException ignored) {
-            return false;
         }
     }
 

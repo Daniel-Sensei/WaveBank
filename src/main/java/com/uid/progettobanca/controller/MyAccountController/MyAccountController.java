@@ -2,8 +2,10 @@ package com.uid.progettobanca.controller.MyAccountController;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
-import com.uid.progettobanca.model.services.UserService;
-import com.uid.progettobanca.model.genericObjects.Utente;
+import com.uid.progettobanca.model.DAO.UtentiDAO;
+import com.uid.progettobanca.model.Transazione;
+import com.uid.progettobanca.model.UserService;
+import com.uid.progettobanca.model.Utente;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
@@ -18,7 +20,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MyAccountController implements Initializable {
@@ -153,7 +157,7 @@ public class MyAccountController implements Initializable {
 
         userService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof Utente  result){
-                ibanLabel.setText(FormUtils.separateIban(result.getIban()));
+                ibanLabel.setText(FormUtils.getInstance().separateIban(result.getIban()));
                 nameLabel.setText(result.getNome()+ " " + result.getCognome());
             }
         });

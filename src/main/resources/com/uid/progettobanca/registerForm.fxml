@@ -22,7 +22,7 @@
                   <VBox alignment="CENTER_LEFT" spacing="3.0">
                      <children>
                         <Label styleClass="titleLabel" text="Registrazione" />
-                        <Label fx:id="backLabel" onMouseClicked="#createLoginPage" styleClass="subtitleLabel" text="Indietro">
+                        <Label fx:id="backLabel" onMouseClicked="#backToLogin" styleClass="subtitleLabel" text="Indietro">
                            <graphic>
                               <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic>
@@ -36,19 +36,19 @@
             </HBox>
             <VBox spacing="5.0">
                <children>
-                  <Label text="Nome" />
+                  <Label fx:id="nameLabel" text="Nome*" />
                   <TextField fx:id="name" prefHeight="35.0" />
                </children>
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <Label text="Cognome" />
+                  <Label fx:id="surnameLabel" text="Cognome*" />
                   <TextField fx:id="surname" prefHeight="35.0" />
                </children>
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <Label text="Data di nascita" />
+                  <Label fx:id="dateLabel" text="Data di nascita*" />
                   <HBox alignment="CENTER_LEFT" prefHeight="35.0" spacing="10.0">
                      <children>
                         <ComboBox fx:id="dayComboBox" prefHeight="35.0" prefWidth="100.0" promptText="Giorno" visibleRowCount="6" HBox.hgrow="ALWAYS" />
@@ -60,43 +60,43 @@
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <Label text="Email" />
+                  <Label fx:id="emailLabel" text="Email*" />
                   <TextField fx:id="email" prefHeight="35.0" />
                </children>
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <Label text="Password" />
+                  <Label fx:id="passwordLabel" text="Password*" wrapText="true" />
                   <PasswordField fx:id="password" prefHeight="35.0" />
                </children>
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <Label text="Conferma password" />
+                  <Label fx:id="confirmPasswordLabel" text="Conferma password*" />
                   <PasswordField fx:id="confirmPassword" prefHeight="35.0" />
                </children>
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <Label text="Domanda di sicurezza" wrapText="true" />
+                  <Label fx:id="questionLabel" text="Domanda di sicurezza*" wrapText="true" />
                   <ComboBox fx:id="questions" prefHeight="35.0" prefWidth="350.0" promptText="Selezionare una domanda tra le seguenti" visibleRowCount="5" />
                </children>
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <Label text="Risposta" />
+                  <Label fx:id="answerLabel" text="Risposta*" />
                   <TextField fx:id="answer" prefHeight="35.0" />
                </children>
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <Label text="Indirizzo di residenza" />
+                  <Label fx:id="addressLabel" text="Indirizzo di residenza*" />
                   <TextField fx:id="address" prefHeight="35.0" />
                </children>
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <Label text="Cellulare" />
+                  <Label fx:id="phoneLabel" text="Cellulare*" />
                   <TextField fx:id="phone" prefHeight="35.0" />
                </children>
                <VBox.margin>

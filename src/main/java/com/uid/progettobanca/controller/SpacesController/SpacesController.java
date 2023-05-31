@@ -2,9 +2,7 @@ package com.uid.progettobanca.controller.SpacesController;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.ContiDAO;
-import com.uid.progettobanca.model.genericObjects.Conto;
-import com.uid.progettobanca.model.services.SelectAccountService;
-import com.uid.progettobanca.model.services.SpaceService;
+import com.uid.progettobanca.model.GetAllSpaceService;
 import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
@@ -23,19 +21,11 @@ import java.util.ResourceBundle;
 
 public class SpacesController implements Initializable {
 
-    private SpaceService spaceService = new SpaceService();
+    private GetAllSpaceService getAllSpaceService = new GetAllSpaceService();
 
-    @FXML
-    private Button Stats;
-
-    @FXML
-    private Label Title;
 
     @FXML
     private FlowPane listOfSpaces;
-
-    @FXML
-    private Button newSpace;
 
     @FXML
     private Label saldo;
@@ -47,35 +37,26 @@ public class SpacesController implements Initializable {
     @FXML
     void createSpaceForm(ActionEvent event) throws IOException {
         SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "formCreateSpace.fxml");
-
     }
-
-    private SelectAccountService selectAccountService;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        selectAccountService = new SelectAccountService();
-        selectAccountService.setIban(BankApplication.getCurrentlyLoggedIban());
+        getAllSpaceService.restart();
 
-        spaceService.restart();
-
-        spaceService.setOnSucceeded(e -> {
+        getAllSpaceService.setOnSucceeded(e -> {
             try {
                 DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-                selectAccountService.setOnSucceeded( event -> {
-                    if(event.getSource().getValue() instanceof Conto result){
-                        saldo.setText(decimalFormat.format(result.getSaldo() + " €"));
-                    }
-                });
-                selectAccountService.restart();
-                SpacesManager.getInstance().fillQueue(spaceService.getValue());
+                saldo.setText(decimalFormat.format(ContiDAO.getSaldoByIban(BankApplication.getCurrentlyLoggedIban())) + " €");
+                SpacesManager.getInstance().fillQueue(getAllSpaceService.getValue());
+                SpacesManager.getInstance().fillList(getAllSpaceService.getValue());
                 int nSpaces = SpacesManager.getInstance().getSize();
                 for (int i = 0; i < nSpaces; i++) {
                     Parent singleSpace = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().SPACES_PATH + "singleSpace.fxml");
                     listOfSpaces.getChildren().add(singleSpace);
                 }
-            } catch (IOException exception) {
+            } catch (IOException | SQLException e1) {
                 System.out.println("Initialize spaces failed");
+                throw new RuntimeException(e1);
             }
         });
 

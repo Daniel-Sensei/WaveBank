@@ -1,9 +1,8 @@
 package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.model.genericObjects.Contatto;
+import com.uid.progettobanca.model.Contatto;
 import com.uid.progettobanca.model.DAO.ContattiDAO;
-import com.uid.progettobanca.model.services.ContactService;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.beans.binding.Bindings;
@@ -42,22 +41,15 @@ public class NewContactController implements Initializable {
     @FXML
     private Label warningSurname;
 
-    private ContactService contactService = new ContactService("insert");
-
     @FXML
     void onSendButtonClick(ActionEvent event) {
-        contactService.setContact(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIban.getText(), BankApplication.getCurrentlyLoggedUser()));
-        contactService.restart();
-
-        contactService.setOnSucceeded(event2 -> {
-            if((Boolean) event2.getSource().getValue()){
-                SceneHandler.getInstance().showInfo("Aggiunta Contatto", "Contatto aggiunto", "Il contatto è stato aggiunto correttamente.");
-            }else System.out.println("Errore nell'inserimento del contatto");
-        });
-
-        contactService.setOnFailed(event2 -> System.out.println("Errore nell'inserimento del contatto"));
-
-        SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+        try {
+            ContattiDAO.insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIban.getText(), BankApplication.getCurrentlyLoggedUser()));
+            SceneHandler.getInstance().showInfo("Aggiunta Contatto", "Contatto aggiunto", "Il contatto è stato aggiunto correttamente.");
+            SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+        } catch (SQLException e) {
+            SceneHandler.getInstance().showError("Errore", "Errore durante l'inserimento del contatto ", e.getMessage());
+        }
     }
 
     @Override

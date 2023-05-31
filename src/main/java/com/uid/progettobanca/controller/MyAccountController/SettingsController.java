@@ -2,6 +2,7 @@ package com.uid.progettobanca.controller.MyAccountController;
 
 import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
+import com.uid.progettobanca.controller.MenuBarController;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.PageLoaderThread;
 import com.uid.progettobanca.view.SceneHandler;

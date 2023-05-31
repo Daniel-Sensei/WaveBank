@@ -1,7 +1,7 @@
 package com.uid.progettobanca.controller.ManageController;
 
 import com.uid.progettobanca.controller.GenericController;
-import com.uid.progettobanca.model.services.CardService;
+import com.uid.progettobanca.model.CardOperationsThread;
 import com.uid.progettobanca.model.CardsManager;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.SceneHandler;
@@ -40,27 +40,15 @@ public class DeleteCardController {
         GenericController.loadImage(back);
     }
 
-    private CardService cardService = new CardService();
-
     @FXML
     void deletePressed(ActionEvent event) {
         if (agreeCheck.isSelected()) {
 
-            cardService.setAction("delete");
-            cardService.setCarta(CardsManager.getInstance().getCard());
-            cardService.restart();
+            //da sostituire con service
+            CardOperationsThread cardOperationsThread = new CardOperationsThread("Elimina", CardsManager.getInstance().getCard());
+            cardOperationsThread.start();
 
-            cardService.setOnSucceeded(event2 -> {
-                if((Boolean) event2.getSource().getValue()){
-                    System.out.println("Eliminazione avvenuto con successo");
-                }else System.out.println("Eliminazione fallito");
-            });
-
-            cardService.setOnFailed(event2 -> {
-                System.out.println("Eliminazione fallito");
-            });
-
-
+            //setonsucceded event
             CardsManager.getInstance().setPos(0);
             SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.MANAGE_PATH + "manage.fxml");
             SceneHandler.getInstance().setPage(SceneHandler.MANAGE_PATH + "manage.fxml");

@@ -1,9 +1,11 @@
 package com.uid.progettobanca.model;
 
-import com.uid.progettobanca.model.genericObjects.Space;
+import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.model.DAO.SpacesDAO;
+import javafx.scene.control.ComboBox;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.sql.SQLException;
+import java.util.*;
 
 public class SpacesManager {
 
@@ -11,9 +13,13 @@ public class SpacesManager {
 
     private Queue<Space> spacesQueue = new LinkedList<>();
 
+    private Set<Space> spacesList = new HashSet<>();
+
     private Space currentSpace;
 
     private String transactionDirection;
+
+    private int spaceId;
 
     public String getTransactionDirection() {
         return transactionDirection;
@@ -28,6 +34,15 @@ public class SpacesManager {
 
     public void fillQueue(Queue<Space> a) {
         spacesQueue = a;
+    }
+
+    public void fillList(Queue<Space> a) {
+        spacesList.clear();
+        spacesList.addAll(a);
+    }
+
+    public int getSpacesListSize() {
+        return spacesList.size();
     }
 
     public static SpacesManager getInstance() {
@@ -51,6 +66,15 @@ public class SpacesManager {
 
     public int getSize() {
         return spacesQueue.size();
+    }
+
+    public int getSpaceId(String spaceName) {
+            for (Space space : spacesList){
+                if (space.getNome().equals(spaceName)) {
+                    spaceId = space.getSpaceId();
+                }
+            }
+        return spaceId;
     }
 
 }

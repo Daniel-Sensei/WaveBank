@@ -2,9 +2,8 @@ package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.ContactsManager;
-import com.uid.progettobanca.model.genericObjects.Contatto;
+import com.uid.progettobanca.model.Contatto;
 import com.uid.progettobanca.model.DAO.ContattiDAO;
-import com.uid.progettobanca.model.services.ContactService;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,7 +21,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class OperationsController implements Initializable {
@@ -147,7 +148,7 @@ public class OperationsController implements Initializable {
                     }
                 });
             }
-        } catch (IOException e) {
+        } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -174,14 +175,13 @@ public class OperationsController implements Initializable {
     @FXML
     void onDeleteClick(ActionEvent event) {
         if(selectedContact != -1){
-            ContactService contactService = new ContactService("delete");
-            contactService.setContact(contacts.get(selectedContact));
-            contactService.setOnSucceeded(e -> {
-                if((Boolean) e.getSource().getValue()){
-                    contacts.remove(selectedContact);
-                    contactsVBox.getChildren().remove(selectedContact);
-                }
-            });
+            try {
+                ContattiDAO.delete(contacts.get(selectedContact).getContattoID());
+                contacts.remove(selectedContact);
+                contactsVBox.getChildren().remove(selectedContact);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

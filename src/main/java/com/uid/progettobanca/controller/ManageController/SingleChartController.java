@@ -1,9 +1,8 @@
 package com.uid.progettobanca.controller.ManageController;
 
+import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.*;
-import com.uid.progettobanca.model.genericObjects.Transazione;
-import com.uid.progettobanca.model.services.GetTransactionService;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Label;
@@ -24,8 +23,7 @@ public class SingleChartController {
     @FXML
     private LineChart<?, ?> lineChart;
 
-    private GetTransactionService getTransactionService = new GetTransactionService();
-
+    private final TransactionService transactionService = new TransactionService("filterAllTransaction", null, null, "");
     @FXML
     private Label spentBalance;
 
@@ -42,20 +40,22 @@ public class SingleChartController {
 
     @FXML
     void initialize() {
+        //chart rappresenta il nome del tag
         chart = ChartsManager.getInstance().getNextChart();
         chartName.setText(chart);
         setTagImage();
 
-        getTransactionService.restart();
+        transactionService.start();
 
-        getTransactionService.setOnSucceeded(event -> {
+        //crea il grafico dopo aver preso i dati dal db
+        transactionService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof List<?>  result){
                 ritorno = graphCalculator.TagGraphCalculator(daysInterval, chart, (List<Transazione>) result);
                 lineChart.getData().add(ritorno.getSeries());
                 spentBalance.setText(String.valueOf(ritorno.getValue()));
             }
         });
-        getTransactionService.setOnFailed(event -> {
+        transactionService.setOnFailed(event -> {
             throw new RuntimeException(event.getSource().getException());
         });
     }

@@ -2,7 +2,7 @@ package com.uid.progettobanca.view;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.SpacesDAO;
-import com.uid.progettobanca.model.genericObjects.Space;
+import com.uid.progettobanca.model.Space;
 import javafx.animation.TranslateTransition;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -68,6 +68,23 @@ public class FormUtils {
         return isValid;
     }
 
+    public boolean validateTextFieldRegister(Label labelName, TextField textField, Boolean validateFunction, String correctLabel, String warningLabel) {
+
+        String text = textField.getText().trim();
+        boolean isValid = validateFunction;
+        if(!isValid){
+            labelName.setText(warningLabel);
+            labelName.setStyle("-fx-text-fill: redColor;");
+        }
+        else{
+            labelName.setText(correctLabel);
+            labelName.setStyle("-fx-text-fill: textColor;");
+        }
+        setTextFieldStyle(textField, isValid);
+
+        return isValid;
+    }
+
     public boolean validatePasswordField(PasswordField textField, Boolean validateFunction, Label warningLabel) {
 
         String text = textField.getText().trim();
@@ -128,6 +145,26 @@ public class FormUtils {
         return phone.matches("(\\+\\d{2,3})? ?\\d{10}");
     }
 
+    public boolean validateEmail(String email) {
+        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        return email.matches(regex);
+    }
+
+    public boolean validatePassword(String password) {
+        String regex = "(?=^.{8,}$)(?=.*\\d)(?=.*[!@#$%^&*.]+)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$";
+        return password.matches(regex);
+    }
+
+    public boolean validateConfirmPassword(String password, String confirmPassword) {
+        return password.equals(confirmPassword);
+    }
+    public boolean validateAddress(String address) {
+        return address.matches("[A-Za-z0-9 ]+,*[A-Za-z0-9 ]*");
+    }
+    public boolean validateNameNumber(String name) {
+        return name.matches("[A-Za-z0-9 ]+");
+    }
+
     private List<Space> spaces = new LinkedList<>();
     public void getSpaces() throws SQLException {
         spaces.clear();
@@ -182,7 +219,7 @@ public class FormUtils {
         return Double.parseDouble(null);
     }
 
-    public static String separateIban(String iban) {
+    public String separateIban(String iban) {
         String ibanSeparated = "";
         for (int i = 0; i < iban.length(); i++) {
             if (i % 4 == 0 && i != 0) {

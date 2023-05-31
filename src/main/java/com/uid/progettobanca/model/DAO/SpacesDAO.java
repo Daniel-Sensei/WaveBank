@@ -1,14 +1,21 @@
 package com.uid.progettobanca.model.DAO;
 
-import com.uid.progettobanca.model.genericObjects.Space;
+import com.uid.progettobanca.model.Space;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class SpacesDAO {
-    private final static Connection conn = DatabaseManager.getInstance().getConnection();
+    private static Connection conn;
 
+    static {
+        try {
+            conn = DatabaseManager.getInstance().getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private SpacesDAO() {}
 

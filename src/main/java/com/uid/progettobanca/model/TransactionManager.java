@@ -1,12 +1,8 @@
 package com.uid.progettobanca.model;
 
-import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.ContattiDAO;
+import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
-import com.uid.progettobanca.model.genericObjects.Contatto;
-import com.uid.progettobanca.model.genericObjects.Transazione;
-import com.uid.progettobanca.model.genericObjects.Utente;
-import com.uid.progettobanca.model.services.GetContactService;
 import javafx.scene.control.Label;
 
 import java.sql.SQLException;
@@ -44,36 +40,22 @@ public class TransactionManager {
         transactionsStack.push(transazione);
     }
 
-    private GetContactService getContactService = new GetContactService("selectByIban");
-
-    public void setTransactionName(Label transactionName, Transazione transaction) throws SQLException {
-        getContactService.setIban(transaction.getIbanFrom());
-
-        var ref = new Object() {
-            Contatto from;
-        };
-
-        getContactService.setOnSucceeded(event -> {
-            if(event.getSource().getValue() instanceof List<?> result){
-                ref.from = ((List<Contatto>) result).get(0);
-            }else System.out.println("Errore nel recupero del contatto");
-        });
-
-        getContactService.setOnFailed(event -> System.out.println("Errore nel recupero del contatto"));
-
+    public static void setTransactionName(Label transactionName, Transazione transaction) throws SQLException {
         //di default assegno come nome il tipo di transazione
         transactionName.setText(transaction.getTipo());
 
-        if(transaction.getIbanTo().equals(BankApplication.getCurrentlyLoggedIban())) {
-            Utente user = UtentiDAO.selectByIban(transaction.getIbanFrom());
-            getContactService.restart();
-            if(user != null)
-                transactionName.setText(user.getNome() + " " + user.getCognome());
-            else if(ref.from != null)
-                transactionName.setText(ref.from.getNome() + " " + ref.from.getCognome());
-        } else transactionName.setText(transaction.getNome());
+        Contatto from = ContattiDAO.selectByIBAN(transaction.getIbanFrom());
+        Contatto to = ContattiDAO.selectByIBAN(transaction.getIbanTo());
+        if (from != null) {
+            transactionName.setText(from.getNome() + " " + from.getCognome());
+        } else if (to != null) {
+            transactionName.setText(to.getNome() + " " + to.getCognome());
+        } else if (transaction.getImporto() < 0 && TransazioniDAO.getNameById(transaction.getId()) != "") {
+            transactionName.setText(TransazioniDAO.getNameById(transaction.getId()));
+        } else if (transaction.getImporto() > 0 && TransazioniDAO.getNameById(transaction.getId()) != "") {
+            transactionName.setText(TransazioniDAO.getNameById(transaction.getId()));
+        }
     }
-
     public List<String> convertToLocalDates(List<String> dates) {
         // Creazione del formatter per il formato desiderato
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ITALIAN);

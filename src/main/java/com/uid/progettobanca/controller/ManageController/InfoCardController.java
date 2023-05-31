@@ -50,7 +50,7 @@ public class InfoCardController {
 
     public void initialize() {
         GenericController.loadImage(back);
-        cardCode.setText(FormUtils.separateIban(CardsManager.getInstance().getCard().getNumCarta()));
+        cardCode.setText(FormUtils.getInstance().separateIban(CardsManager.getInstance().getCard().getNumCarta()));
         cardCVV.setText(CardsManager.getInstance().getCard().getCvv());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
         String formattedDate = CardsManager.getInstance().getCard().getScadenza().format(formatter);

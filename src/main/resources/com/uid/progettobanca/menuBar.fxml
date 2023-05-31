@@ -3,13 +3,25 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.MenuBarController">
+<HBox alignment="CENTER_RIGHT" prefHeight="80.0" prefWidth="1280.0" styleClass="menu-bar" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.MenuBarController">
    <children>
-      <HBox alignment="CENTER_RIGHT" layoutX="43.0" layoutY="20.0" styleClass="menu-bar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../assets/images/waveLogo3x2sup.png" />
+               </image>
+            </ImageView>
+         </children>
+         <padding>
+            <Insets left="30.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
          <children>
             <Label fx:id="homeLabel" onMouseClicked="#loadHome" text="Home">
                <graphic>
@@ -67,9 +79,9 @@
                </cursor>
             </Label>
          </children>
-         <padding>
-            <Insets right="25.0" />
-         </padding>
       </HBox>
    </children>
-</AnchorPane>
+   <padding>
+      <Insets right="25.0" />
+   </padding>
+</HBox>

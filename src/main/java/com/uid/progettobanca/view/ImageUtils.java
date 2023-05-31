@@ -1,10 +1,12 @@
 package com.uid.progettobanca.view;
 
+import com.uid.progettobanca.model.Space;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ImageUtils {

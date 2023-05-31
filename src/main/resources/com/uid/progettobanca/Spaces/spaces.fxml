@@ -35,12 +35,6 @@
                         <Label text="Nuovo Spazio" />
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER">
-                     <children>
-                        <Button fx:id="Stats" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" styleClass="secondaryButton" />
-                        <Label text="Statistiche" />
-                     </children>
-                  </VBox>
                </children>
             </HBox>
             <FlowPane fx:id="listOfSpaces" hgap="20.0" vgap="20.0">

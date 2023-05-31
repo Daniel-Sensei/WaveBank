@@ -62,7 +62,6 @@ public class LoginController implements Initializable {
 
                 int mainSpace = SpacesDAO.selectAllByIban(iban).peek().getSpaceId();
                 BankApplication.setCurrentlyLoggedMainSpace(mainSpace);
-                System.out.println(mainSpace);
 
                 SceneHandler.getInstance().init(SceneHandler.getInstance().getStage());
 

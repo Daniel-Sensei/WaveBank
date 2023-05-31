@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.PagamentiRicorrentiController">
+<ScrollPane fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.PagamentiRicorrentiController">
    <content>
       <VBox spacing="20.0">
          <padding>
@@ -61,7 +62,66 @@
             <VBox spacing="10.0">
                <children>
                   <Label styleClass="subtitleLabel" text="Pagamenti ricorrenti attivi" />
-                  <VBox fx:id="paymentsVBOX" styleClass="vbox-with-rounded-border" />
+                  <VBox fx:id="paymentsVBOX" styleClass="vbox-with-rounded-border">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
+                              <Label text="Vivo Market" HBox.hgrow="ALWAYS" />
+                              <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" styleClass="button-label" text="Prossimo Rinnovo: 22/12/2023" />
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets left="15.0" right="15.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
+                              <Label text="Vivo Market" HBox.hgrow="ALWAYS" />
+                              <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" styleClass="button-label" text="Prossimo Rinnovo: 22/12/2023" />
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets left="15.0" right="15.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
+                              <Label text="Vivo Market" HBox.hgrow="ALWAYS" />
+                              <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" styleClass="button-label" text="Prossimo Rinnovo: 22/12/2023" />
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets left="15.0" right="15.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="75.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox-bottom">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="tertiaryButton" />
+                              <Label text="Vivo Market" HBox.hgrow="ALWAYS" />
+                              <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" styleClass="button-label" text="Prossimo Rinnovo: 22/12/2023" />
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets left="15.0" right="15.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </children>

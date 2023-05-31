@@ -14,9 +14,6 @@ package com.uid.progettobanca.model.DAO;
 //PS: l'ho fatto funzionare per miracolo, non rompetelo pls :)
 
 
-import com.uid.progettobanca.model.genericObjects.Altro;
-import com.uid.progettobanca.model.services.OtherService;
-
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -37,13 +34,9 @@ public class DatabaseManager {
         return instance;
     }
 
-    public Connection getConnection(){
+    public Connection getConnection() throws SQLException {
         //restituisce la connesione al db
-        try {
-            return DriverManager.getConnection("jdbc:sqlite:" + dbPath);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return DriverManager.getConnection("jdbc:sqlite:" + dbPath);
     }
 
     public void checkAndCreateDatabase() throws Exception {
@@ -141,19 +134,8 @@ public class DatabaseManager {
                                     "nome VARCHAR(50) not null, importo REAL not null, iban_to CHAR(27) not null, "+
                                     "date DATE not null, nGiorni int not null, causale VARCHAR not null, " +
                                     "user_id CHAR(16) NOT NULL, FOREIGN KEY (user_id) REFERENCES utenti(user_id));");
-            
-            OtherService otherService = new OtherService("insert", new Altro("Pirata con Radio", "IT0000000000000000000000000"));
-            otherService.start();
 
-            otherService.setOnSucceeded(event -> {
-                if((Boolean) event.getSource().getValue()){
-                    System.out.println("Inserimento avvenuto con successo");
-                }else System.out.println("Inserimento pirata fallito");
-            });
-
-            otherService.setOnFailed(event -> {
-                System.out.println("Inserimento pirata fallito");
-            });
+            AltroDAO.insert("Pirata con Radio", "IT0000000000000000000000000");
 
         } catch (SQLException e) {
             System.err.println("Error creating database: " + e.getMessage());

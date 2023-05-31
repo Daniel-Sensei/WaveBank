@@ -1,9 +1,8 @@
 package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.model.genericObjects.Ricorrente;
+import com.uid.progettobanca.model.DAO.Ricorrente;
 import com.uid.progettobanca.model.DAO.RicorrentiDAO;
-import com.uid.progettobanca.model.services.RecurrentService;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -67,7 +66,6 @@ public class NewRecurrentController implements Initializable {
                 case "Annuale" -> fieldNGiorni.setText("365");
             }
         }
-        //SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "formPagamentiRicorrenti.fxml");
     }
 
     @FXML
@@ -109,26 +107,13 @@ public class NewRecurrentController implements Initializable {
             return;
         }
 
-        recurrentService.setPayment(new Ricorrente(fieldName.getText() + " " + fieldSurname.getText(), Double.parseDouble(fieldAmount.getText()), fieldIbanTo.getText(), date.getValue(), Integer.parseInt(fieldNGiorni.getText()), fieldDescr.getText(), BankApplication.getCurrentlyLoggedUser()));
-        recurrentService.setOnSucceeded(e -> {
-            if((Boolean) e.getSource().getValue()) {
-                SceneHandler.getInstance().showInfo("Pagamento Ricorrente", "Operazione effettuata", "Pagamento ricorrente aggiunto con successo");
-                SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "formPagamentiRicorrenti.fxml");
-            }
-            else
-                SceneHandler.getInstance().showError("Errore", "Operazione non effettuata", "Il Pagamento Ricorrente non è stato aggiunto");
-        });
-        recurrentService.setOnFailed(e -> {
-            SceneHandler.getInstance().showError("Errore", "Operazione non effettuata", "Il Pagamento Ricorrente non è stato aggiunto");
-        });
-        recurrentService.restart();
+        try {
+            RicorrentiDAO.insert(new Ricorrente(fieldName.getText() + " " + fieldSurname.getText(), Double.parseDouble(fieldAmount.getText()), fieldIbanTo.getText(), date.getValue(), Integer.parseInt(fieldNGiorni.getText()), fieldDescr.getText(), BankApplication.getCurrentlyLoggedUser()));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
-
-    private RecurrentService recurrentService;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        recurrencyComboBox.getItems().addAll(ricorrenza);
-        recurrentService = new RecurrentService("insert");
-    }
+    public void initialize(URL url, ResourceBundle resourceBundle) {recurrencyComboBox.getItems().addAll(ricorrenza);}
 }

@@ -1,30 +1,31 @@
 package com.uid.progettobanca.model.DAO;
 
-import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.model.genericObjects.Conto;
-import com.uid.progettobanca.model.genericObjects.Space;
-import com.uid.progettobanca.model.genericObjects.Transazione;
-import com.uid.progettobanca.model.services.SelectAccountService;
+import com.uid.progettobanca.model.Transazione;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class TransazioniDAO {
-    private static final Connection conn = DatabaseManager.getInstance().getConnection();
+    private static Connection conn;
+
+    static {
+        try {
+            conn = DatabaseManager.getInstance().getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private TransazioniDAO() {}
 
     private static TransazioniDAO instance = null;
 
-    private static SelectAccountService selectAccountService;
-
     public static TransazioniDAO getInstance() throws SQLException {
         if (instance == null) {
             instance = new TransazioniDAO();
-            selectAccountService = new SelectAccountService();
         }
         return instance;
     }
@@ -33,7 +34,7 @@ public class TransazioniDAO {
     //  Inserimenti:
 
     //inserimento tramite oggetto di tipo transazione
-    public static boolean insert(Transazione transazione){
+    public static void insert(Transazione transazione) throws SQLException {
         String query = "INSERT INTO transazioni (nome, iban_from, iban_to, space_from, space_to, dateTime, importo, descrizione, tipo, tag, commenti) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, transazione.getNome());
@@ -48,53 +49,28 @@ public class TransazioniDAO {
             stmt.setString(10, transazione.getTag());
             stmt.setString(11, transazione.getCommenti());
             stmt.executeUpdate();
-            return true;
-        } catch (SQLException ignored) {
-            return false;
         }
     }
 
     // spostamento denaro tra 2 spaces
 
-    public boolean betweenSpaces(Transazione t){
-        // Transazione t = new Transazione("Trasferimento tra spaces da "+nomeFrom+" a "+nomeTo, iban, iban, spaceFrom, spaceTo, LocalDateTime.now(), amount, "Da "+nomeFrom+" a "+nomeTo, "Trasferimento tra spaces", "altro", commenti);
-        // String nomeFrom = SpacesDAO.selectByIbanSpaceId(t.getIbanFrom(), t.getSpaceFrom()).getNome();
-        // String nomeTo = SpacesDAO.selectByIbanSpaceId(t.getIbanFrom(), t.getSpaceTo()).getNome();
-
-        try {
-            Space from = SpacesDAO.selectByIbanSpaceId(t.getIbanFrom(), t.getSpaceFrom());
-            if(from == null)
-                return false;
-            else if(from.getSaldo() < t.getImporto())
-                return false;
-            Space to = SpacesDAO.selectByIbanSpaceId(t.getIbanFrom(), t.getSpaceTo());
-            if(to == null)
-                return false;
-
-            //inserisco la positiva
-            if(!insert(t))
-                return false;
-            from.setSaldo(from.getSaldo()+t.getImporto());
-            SpacesDAO.update(from);
-
-            // inverto l'importo e inserisco la negativa
-            t.setImporto(-t.getImporto());
-            if(!insert(t))
-                return false;
-            to.setSaldo(to.getSaldo()+t.getImporto());
-            SpacesDAO.update(to);
-
-            return true;
-        } catch (SQLException ignored) {
-            return false;
-        }
+    public static void betweenSpaces(String iban, int spaceFrom, int spaceTo, double amount, String commenti) throws SQLException {
+        String nomeFrom = SpacesDAO.selectByIbanSpaceId(iban, spaceFrom).getNome();
+        String nomeTo = SpacesDAO.selectByIbanSpaceId(iban, spaceTo).getNome();
+        // creao la transazione di spostamento
+        Transazione t = new Transazione("Trasferimento tra spaces da "+nomeFrom+" a "+nomeTo, iban, iban, spaceFrom, spaceTo, LocalDateTime.now(), amount, "Da "+nomeFrom+" a "+nomeTo, "Trasferimento tra spaces", "altro", commenti);
+        //inserisco la positiva
+        insert(t);
+        // inverto l'importo e inserisco la negativa
+        t.setImporto(-amount);
+        insert(t);
     }
 
 
     //  getting:
 
     //seleziona una transazione tramite l'id di quest'ultima
-    public Transazione selectById(int id) throws SQLException {
+    public static Transazione selectById(int id) throws SQLException {
         String query = "SELECT * FROM transazioni WHERE transaction_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, id);
@@ -121,7 +97,7 @@ public class TransazioniDAO {
     }
 
     //seleziona tutte le transazioni di un determinato iban
-    public List<Transazione> selectByIban(String iban) throws SQLException {
+    public static List<Transazione> selectByIban(String iban) throws SQLException {
         String query = "SELECT * FROM transazioni WHERE iban_from = ? OR iban_to = ? ORDER BY dateTime asc";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
@@ -157,7 +133,7 @@ public class TransazioniDAO {
     }
 
     //METODO PER TUTTE LE TRANSAZIONI
-    public List<Transazione> selectAllTransaction(String iban) throws SQLException {
+    public static List<Transazione> selectAllTransaction(String iban) throws SQLException {
         List<Transazione> transactions = new Stack<>();
         String query = "SELECT * FROM transazioni WHERE (iban_from = ? OR iban_to = ?) ORDER BY dateTime asc";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -196,7 +172,7 @@ public class TransazioniDAO {
     }
 
     //METODO PER TAG E (IN,OUT)
-    public List<Transazione> selectFilteredTransactions(String iban, List<String> tags, String nome, String ibanSelection) throws SQLException {
+    public static List<Transazione> selectFilteredTransactions(String iban, List<String> tags, String nome, String ibanSelection) throws SQLException {
         boolean both = ibanSelection == null || ibanSelection.isEmpty() || ibanSelection.equals("both");
         List<Transazione> transactions = new ArrayList<>();
         StringBuilder queryBuilder = new StringBuilder();
@@ -282,7 +258,7 @@ public class TransazioniDAO {
         return transactions;
     }
 
-    public List<Transazione> selectAllSpaceTransaction(String iban, int spaceID) throws SQLException {
+    public static List<Transazione> selectAllSpaceTransaction(String iban, int spaceID) throws SQLException {
         List<Transazione> transactions = new Stack<>();
         String query = "SELECT * FROM transazioni WHERE iban_from = ? " +
                                                  "AND (space_from = ? OR space_to = ?) ORDER BY dateTime asc";
@@ -323,7 +299,7 @@ public class TransazioniDAO {
     }
 
     //seleziona solo trasferimenti tra spaces
-    public List<Transazione> selectBetweenSpaces(String iban) throws SQLException {
+    public static List<Transazione> selectBetweenSpaces(String iban) throws SQLException {
         String query = "SELECT * FROM transazioni WHERE iban_from = ? AND iban_to = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);
@@ -352,7 +328,7 @@ public class TransazioniDAO {
     }
 
     // restituisce il nome del proprietario di un iban
-    public String getNameById(int id) throws SQLException {
+    public static String getNameById(int id) throws SQLException {
         String query = "SELECT nome FROM transazioni WHERE transaction_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, id);
@@ -368,86 +344,14 @@ public class TransazioniDAO {
 
     //  aggiornamento:
 
-    //trasferimento di denaro tra due conti usando le transazioni di SQLite
-    public static boolean transazione(String iban_from, String iban_to, int space_from, double importo) throws SQLException {
-        if(iban_from.equals(BankApplication.getCurrentlyLoggedIban())) {
-
-            AtomicReference<Double> check = new AtomicReference<>((double) 0);
-            AtomicReference<Double> saldo = new AtomicReference<>((double) 0);
-
-            selectAccountService.setIban(iban_from);
-            selectAccountService.setOnSucceeded(event -> {
-                if(event.getSource().getValue() instanceof Conto result){
-                    check.set(result.getSaldo());
-                    try {
-                        saldo.set(SpacesDAO.selectBySpaceId(space_from).getSaldo());
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                    try {
-                        SpacesDAO.updateSaldo(space_from, saldo.get() - importo);
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
-
-            selectAccountService.setOnFailed(event -> {
-                System.out.println("Errore controllo saldo");
-            });
-
-            selectAccountService.restart();
-
-            if (check.get() < importo || saldo.get() < importo) {
-                return false;
-            }
-        }
-
-        String query = "UPDATE conti SET saldo = saldo - ? WHERE iban = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            conn.setAutoCommit(false);
-            stmt.setDouble(1, importo);
-            stmt.setString(2, iban_from);
-            stmt.executeUpdate();
-            //se esiste il conto di destinazione aggiorna il saldo
-
-            if(!iban_to.equals("NO")) {
-                selectAccountService.setIban(iban_to);
-
-                selectAccountService.setOnSucceeded(event -> {
-                    if (event.getSource().getValue() instanceof Conto result) {
-                        try {
-                            stmt.setDouble(1, importo*-1);
-                            stmt.setString(2, iban_to);
-                            stmt.executeUpdate();
-                        } catch (SQLException ignored){}
-                    }
-                });
-
-                selectAccountService.setOnFailed(event -> {
-                    System.out.println("Errore nel trasferimento");
-                });
-
-                selectAccountService.restart();
-            }
-
-            conn.commit();
-            conn.setAutoCommit(true);
-        }
-        return true;
-    }
-
     // aggiornamento limitato a descrizione, tag e commenti tramite oggetto di tipo transazione
-    public static boolean update(Transazione transazione){
+    public static void update(Transazione transazione) throws SQLException {
         String query = "UPDATE transazioni SET tag = ?, commenti = ? WHERE transaction_id = ?;";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, transazione.getTag());
             stmt.setString(2, transazione.getCommenti());
             stmt.setInt(3, transazione.getId());
             stmt.executeUpdate();
-            return true;
-        } catch (SQLException ignored) {
-            return false;
         }
     }
 
@@ -455,14 +359,11 @@ public class TransazioniDAO {
     //  rimozione:
 
     // Rimozione della transazione tramite l'ID della transazione
-    public boolean delete(Transazione transazione){
+    public static void delete(int transactionId) throws SQLException {
         String query = "DELETE FROM transazioni WHERE transaction_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, transazione.getId());
+            stmt.setInt(1, transactionId);
             stmt.executeUpdate();
-            return true;
-        } catch (SQLException ignored) {
-            return false;
         }
     }
 }

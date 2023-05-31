@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -212,8 +211,4 @@
    <padding>
       <Insets bottom="50.0" left="75.0" right="75.0" top="30.0" />
    </padding>
-   <stylesheets>
-      <URL value="@../../../../css/style.css" />
-      <URL value="@../../../../css/light.css" />
-   </stylesheets>
 </VBox>

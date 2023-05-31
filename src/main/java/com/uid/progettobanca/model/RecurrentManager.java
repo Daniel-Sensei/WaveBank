@@ -1,9 +1,8 @@
 package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.model.genericObjects.Ricorrente;
+import com.uid.progettobanca.model.DAO.Ricorrente;
 import com.uid.progettobanca.model.DAO.RicorrentiDAO;
-import com.uid.progettobanca.model.services.GetRecurrentsService;
 
 import java.sql.SQLException;
 import java.util.Queue;
@@ -22,8 +21,12 @@ public class RecurrentManager {
 
     private Queue<Ricorrente> pagamenti;
 
-    public void fillPayments(Queue <Ricorrente> pagamenti) {
-        this.pagamenti = pagamenti ;
+    public void fillPayments() {
+        try {
+            pagamenti = RicorrentiDAO.selectAllByUserId(BankApplication.getCurrentlyLoggedUser());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void putPayment(Ricorrente r) {

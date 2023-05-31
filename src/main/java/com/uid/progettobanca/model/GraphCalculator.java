@@ -1,8 +1,10 @@
 package com.uid.progettobanca.model;
 
-import com.uid.progettobanca.model.genericObjects.Transazione;
+import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import javafx.scene.chart.XYChart;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +28,15 @@ public class GraphCalculator {
         for(int i =0; i<DaysInterval; i++){
             DaysValues.add(0.0);
         }
+        Boolean inserito=false;
         LocalDateTime now = LocalDateTime.now();
         for(int i=0; i<transazioni.size(); i++) {
             int iterations = 0;
+            inserito=false;
             for (LocalDateTime j = LocalDateTime.now().minusDays(DaysInterval); j.isBefore(now); j = j.plusDays(1)) {
                 if (transazioni.get(i).getDateTime().isAfter(j) && transazioni.get(i).getDateTime().isBefore(j.plusDays(1))) {
                     DaysValues.set(iterations, DaysValues.get(iterations) + transazioni.get(i).getImporto());
+                    break;
                 }
                 iterations++;
             }

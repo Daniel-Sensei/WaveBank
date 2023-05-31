@@ -1,11 +1,10 @@
 package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.model.genericObjects.Contatto;
+import com.uid.progettobanca.model.Altro;
+import com.uid.progettobanca.model.Contatto;
 import com.uid.progettobanca.model.DAO.*;
-import com.uid.progettobanca.model.genericObjects.Transazione;
-import com.uid.progettobanca.model.services.ContactService;
-import com.uid.progettobanca.model.services.GetContactService;
+import com.uid.progettobanca.model.Transazione;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
@@ -21,8 +20,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Queue;
 import java.util.ResourceBundle;
 
 public class BonificoController implements Initializable {
@@ -124,7 +121,6 @@ public class BonificoController implements Initializable {
         sendButton.disableProperty().bind(formValid.not());
     }
 
-    private ContactService contactService = new ContactService("insert");
 
     @FXML
     void onSendButtonClick(ActionEvent event) {
@@ -134,23 +130,13 @@ public class BonificoController implements Initializable {
 
             //bisogna mettere ContiDao.transazione in un if per bloccare operazione in caso di fondi insufficienti
             int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-            if (TransazioniDAO.transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, amount)) {
+            if (ContiDAO.transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, amount)) {
                 String nome = fieldName.getText() + " " + fieldSurname.getText();
                 TransazioniDAO.insert(new Transazione(nome, BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, 0, LocalDateTime.now(), amount, fieldDescr.getText(), "Bonifico", "Altro", ""));
 
                 if (saveContact.isSelected()) {
-                    contactService.setContact(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedUser()));
-
-                    contactService.setOnSucceeded(e -> {
-                        if((Boolean) e.getSource().getValue()){
-                            System.out.println("Contatto inserito con successo");
-                            SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.OPERATIONS_PATH + "operations.fxml");
-                        }else System.out.println("Errore nell'inserimento del contatto");
-                    });
-
-                    contactService.setOnFailed(e -> System.out.println("Errore nell'inserimento del contatto"));
-
-                    contactService.restart();
+                    ContattiDAO.insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedUser()));
+                    SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.OPERATIONS_PATH + "operations.fxml");
                 }
 
                 SceneHandler.getInstance().reloadDynamicPageInHashMap();

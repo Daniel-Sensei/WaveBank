@@ -1,6 +1,6 @@
 package com.uid.progettobanca.model.DAO;
 
-import com.uid.progettobanca.model.genericObjects.Altro;
+import com.uid.progettobanca.model.Altro;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,8 +8,15 @@ import java.util.List;
 
 public class AltroDAO {
 
-    private final Connection conn = DatabaseManager.getInstance().getConnection();
+    private static Connection conn;
 
+    static {
+        try {
+            conn = DatabaseManager.getInstance().getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private AltroDAO(){}
 
@@ -25,23 +32,47 @@ public class AltroDAO {
     // Inserimenti:
 
     //inserimento tramite oggetto azienda
-    public boolean insert(Altro altro){
+    public static void insert(Altro altro) throws SQLException {
         String query = "INSERT INTO altro (nome, iban) VALUES(?,?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, altro.getNome());
             stmt.setString(2, altro.getIban());
             stmt.executeUpdate();
-            return true;
-        } catch (SQLException ignored) {
-            return false;
+        }
+    }
+
+    //inserimento tramite nome e iban
+    public static void insert(String nome, String iban) throws SQLException {
+        String query = "INSERT INTO altro (nome, iban) VALUES(?,?)";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, nome);
+            stmt.setString(2, iban);
+            stmt.executeUpdate();
         }
     }
 
 
     // getting:
 
-    //selezione di tutte le righe
-    public List<Altro> selectAll() throws SQLException {
+    //selezione di un'azienda tramite partita iva
+    public static Altro selectByIban(String iban) throws SQLException {
+        String query = "SELECT * FROM altro WHERE iban = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, iban);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Altro(
+                            rs.getString("nome"),
+                            rs.getString("iban"));
+                } else {
+                    return null;
+                }
+            }
+        }
+    }
+
+    //selezione di tutte le aziende
+    public static List<Altro> selectAll() throws SQLException {
         String query = "SELECT * FROM altro";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             ResultSet rs = stmt.executeQuery();
@@ -61,29 +92,33 @@ public class AltroDAO {
     // Aggiornamenti:
 
     //aggiornamento tramite oggetto azienda
-    public boolean update(Altro altro){
+    public static void update(Altro altro) throws SQLException {
         String query = "UPDATE altro SET nome=? WHERE iban=?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, altro.getNome());
             stmt.setString(2, altro.getIban());
             stmt.executeUpdate();
-            return true;
-        } catch (SQLException ignored) {
-            return false;
+        }
+    }
+
+    // update gdel nome tramite iban + nome
+    public static void update(String nome, String iban) throws SQLException {
+        String query = "UPDATE altro SET nome = ? WHERE iban = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, nome);
+            stmt.setString(2, iban);
+            stmt.executeUpdate();
         }
     }
 
 
     // Rimozione:
 
-    public boolean delete(Altro a){
+    public static void delete(String iban) throws SQLException {
         String query = "DELETE FROM altro WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, a.getIban());
+            stmt.setString(1, iban);
             stmt.executeUpdate();
-            return true;
-        } catch (SQLException ignored) {
-            return false;
         }
     }
 }

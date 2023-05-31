@@ -1,13 +1,9 @@
 package com.uid.progettobanca.controller.ManageController;
 
+        import com.uid.progettobanca.BankApplication;
         import com.uid.progettobanca.controller.GenericController;
         import com.uid.progettobanca.model.*;
-        import com.uid.progettobanca.model.genericObjects.Carta;
-        import com.uid.progettobanca.model.genericObjects.Transazione;
-        import com.uid.progettobanca.model.genericObjects.Utente;
-        import com.uid.progettobanca.model.services.GetCardService;
-        import com.uid.progettobanca.model.services.GetTransactionService;
-        import com.uid.progettobanca.model.services.UserService;
+        import com.uid.progettobanca.view.FormUtils;
         import com.uid.progettobanca.view.SceneHandler;
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
@@ -17,6 +13,7 @@ package com.uid.progettobanca.controller.ManageController;
         import javafx.scene.image.ImageView;
         import javafx.scene.input.MouseEvent;
         import javafx.scene.layout.VBox;
+        import org.springframework.security.core.userdetails.User;
 
         import java.io.IOException;
         import java.util.List;
@@ -82,16 +79,14 @@ public class ManageController {
     private int daysInterval;
 
     UserService userService = new UserService();
-    private GraphCalculator graphCalculator = new GraphCalculator();
-    private GetCardService cardService = new GetCardService("allByUser");;
-    private GetTransactionService transactionsService = new GetTransactionService();
-
-
+    private GraphCalculator graphCalculator=new GraphCalculator();
+    private CardService cardService= new CardService();
+    private final TransactionService transactionsService = new TransactionService("filterAllTransaction", null, null, "");
     public void initialize() {
 
         daysInterval=30;
 
-        transactionsService.restart();
+        transactionsService.start();
 
         transactionsService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof List<?> result){
@@ -106,25 +101,31 @@ public class ManageController {
         GenericController.loadImage(back);
         GenericController.loadImage(forward);
 
+        cardService.setOperazione("getByUser");;
 
         userService.start();
 
 
 
         userService.setOnSucceeded(event -> {
-            if(event.getSource().getValue() instanceof Utente result){
+            if(event.getSource().getValue() instanceof Utente  result){
                 CardsManager.getInstance().setNome(result.getNome());
                 CardsManager.getInstance().setCognome(result.getCognome());
+                System.out.println("ho settato nome e cognome");
             }
-            cardService.restart();
+            cardService.start();    //parte il thread per prendere le carte (se fatto partire prima, potrebbe essere più veloce del thread pecedente e perdere il setonsucceed)
             cardService.setOnSucceeded(event1 -> {
+                System.out.println("sono prima dell'if");
                 if(event1.getSource().getValue() instanceof List<?> result){
                     CardsManager.getInstance().fillQueue((List<Carta>) result);
                     numcarte=result.size();
+                    System.out.println("ho aggiornato in numcarte");
                     loadCard();
+                    System.out.println("ho caricato le carte");
                 }
             });
             cardService.setOnFailed(event1 -> {
+                System.out.println("non ho caricato le carte");
                 throw new RuntimeException(event1.getSource().getException());
             });
         });
