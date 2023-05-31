@@ -1,8 +1,11 @@
 package com.uid.progettobanca.model.DAO;
 
+import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.objects.Space;
+import com.uid.progettobanca.model.objects.Transazione;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -118,11 +121,22 @@ public class SpacesDAO {
 
     public boolean delete(Space space) {
         String query = "DELETE FROM spaces WHERE iban = ? AND space_id = ?";
+
+        String iban = space.getIban();
+        double amount = space.getSaldo();
+        int id = space.getSpaceId();
+
+        if(amount>0){
+            TransazioniDAO.getInstance().transazione(iban, iban, id, amount);
+            TransazioniDAO.getInstance().insert(new Transazione("Rimborso saldo residuo", iban, iban, id, BankApplication.getCurrentlyLoggedMainSpace(), LocalDateTime.now(), amount, "Rimborso saldo residuo in space " + space.getNome(), "Rimborso", "Altro",""));
+        }
+
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, space.getIban());
-            stmt.setInt(2, space.getSpaceId());
+            stmt.setString(1, iban);
+            stmt.setInt(2, id);
             stmt.executeUpdate();
             return true;
+
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
