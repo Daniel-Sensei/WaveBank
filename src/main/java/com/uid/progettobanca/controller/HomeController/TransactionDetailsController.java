@@ -84,6 +84,8 @@ public class TransactionDetailsController implements Initializable {
 
     @FXML
     private Label typeLabel;
+    @FXML
+    private Label fromToLabel;
 
     DecimalFormat df = new DecimalFormat("#0.00");
 
@@ -114,12 +116,18 @@ public class TransactionDetailsController implements Initializable {
         GenericController.loadImages(transactionDetailsImages);
 
         transaction = TransactionManager.getInstance().getNextTransaction();
+        Space space;
         if(transaction.getImporto() < 0) {
+            fromToLabel.setText("Da");
+            space = SpacesDAO.getInstance().selectBySpaceId(transaction.getSpaceFrom());
             amountLabel.setText(df.format(transaction.getImporto()) + " €");
         }
         else {
+            fromToLabel.setText("A");
+            space = SpacesDAO.getInstance().selectBySpaceId(transaction.getSpaceTo());
             amountLabel.setText("+" + df.format(transaction.getImporto()) + " €");
         }
+        spaceLabel.setText(space.getNome());
 
         categoryLabel.setText(transaction.getTag());
         setTagImage(transaction.getTag());
@@ -149,17 +157,10 @@ public class TransactionDetailsController implements Initializable {
 
         try {
             TransactionManager.getInstance().setTransactionName(transactionName, transaction);
-            Space space;
-            if(transaction.getSpaceFrom()!=0) {
-                space = SpacesDAO.getInstance().selectBySpaceId(transaction.getSpaceFrom());
-            } else {
-                space = SpacesDAO.getInstance().selectBySpaceId(transaction.getSpaceTo());
-            }
-            spaceLabel.setText(space.getNome());
-            GenericController.setSpaceImage(space.getImage(), spaceImage);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        GenericController.setSpaceImage(space.getImage(), spaceImage);
 
         changeTag();
 

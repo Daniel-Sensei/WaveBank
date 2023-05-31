@@ -3,7 +3,9 @@ package com.uid.progettobanca.model;
 import com.uid.progettobanca.model.DAO.ContattiDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.objects.Contatto;
+import com.uid.progettobanca.model.objects.Conto;
 import com.uid.progettobanca.model.objects.Transazione;
+import com.uid.progettobanca.model.services.GetContactService;
 import javafx.scene.control.Label;
 
 import java.sql.SQLException;
@@ -45,6 +47,32 @@ public class TransactionManager {
         //di default assegno come nome il tipo di transazione
         transactionName.setText(transaction.getTipo());
 
+        GetContactService getFirstContact = new GetContactService("selectByIban");
+        getFirstContact.setIban(transaction.getIbanFrom());
+        getFirstContact.start();
+        getFirstContact.setOnSucceeded(event -> {
+            System.out.println("PRIMA IF");
+            if(event.getSource().getValue() instanceof List<?> result) {
+                System.out.println("DOPO IF");
+                Contatto from = (Contatto) result.get(0);
+                GetContactService getSecondContact = new GetContactService("selectByIban");
+                getSecondContact.setIban(transaction.getIbanTo());
+                getSecondContact.start();
+                getSecondContact.setOnSucceeded(event1 -> {
+                    if(event1.getSource().getValue() instanceof List<?> result1) {
+                        Contatto to = (Contatto) result1.get(0);
+                        if (from != null && to != null) {
+                            transactionName.setText(from.getNome() + " " + from.getCognome() + " -> " + to.getNome() + " " + to.getCognome());
+                        } else if (from != null) {
+                            transactionName.setText(from.getNome() + " " + from.getCognome());
+                        } else if (to != null) {
+                            transactionName.setText(to.getNome() + " " + to.getCognome());
+                        }
+                    }
+                });
+            }
+        });
+        /*
         Contatto from = ContattiDAO.getInstance().selectByIBAN(transaction.getIbanFrom());
         Contatto to = ContattiDAO.getInstance().selectByIBAN(transaction.getIbanTo());
         if (from != null) {
@@ -56,6 +84,8 @@ public class TransactionManager {
         } else if (transaction.getImporto() > 0 && TransazioniDAO.getInstance().selectById(transaction.getId()).get(0).getNome() != "") {
             transactionName.setText(TransazioniDAO.getInstance().selectById(transaction.getId()).get(0).getNome());
         }
+
+         */
     }
     public List<String> convertToLocalDates(List<String> dates) {
         // Creazione del formatter per il formato desiderato
