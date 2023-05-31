@@ -111,6 +111,7 @@ public class SceneHandler {
 
             borderPane = new BorderPane();
             borderPane.getStyleClass().add("root"); /*imposta proprietà root per il font family*/
+
             scene = new Scene(borderPane, 1280, 720);
             loadFonts();
 

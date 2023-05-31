@@ -177,7 +177,7 @@ public class RegisterFormController implements Initializable {
         });
         password.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
-                FormUtils.getInstance().validateTextFieldRegister(passwordLabel, password, FormUtils.getInstance().validatePassword(password.getText()), "Password*", "La password deve contenere almeno 8 caratteri, una lettera maiuscola e un carattere speciale*");
+                FormUtils.getInstance().validateTextFieldRegister(passwordLabel, password, FormUtils.getInstance().validatePassword(password.getText()), "Password*", "La password deve contenere almeno 8 caratteri, almeno una lettera minuscola, almeno una lettera maiuscola e un carattere speciale*");
             }
         });
         confirmPassword.focusedProperty().addListener((obs, oldValue, newValue) -> {
