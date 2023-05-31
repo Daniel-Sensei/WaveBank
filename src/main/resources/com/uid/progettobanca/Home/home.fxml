@@ -24,7 +24,7 @@
                         <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                            <children>
                               <Label styleClass="titleLabel" text="Home" />
-                              <Label fx:id="balanceLabel" styleClass="titleLabel" text="100,00 $" />
+                              <Label fx:id="balanceLabel" styleClass="titleLabel" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" spacing="5.0">

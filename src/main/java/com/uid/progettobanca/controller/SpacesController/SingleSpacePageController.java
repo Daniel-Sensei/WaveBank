@@ -57,7 +57,7 @@ public class SingleSpacePageController implements Initializable {
     @FXML
     void deleteThisSpace(MouseEvent event) throws IOException {
         if(SpacesManager.getInstance().getCurrentSpace().getSpaceId() != BankApplication.getCurrentlyLoggedMainSpace()) {
-            SpaceService spaceService = new SpaceService("delete", actualSpace.getSpaceId(), actualSpace.getIban());
+            SpaceService spaceService = new SpaceService("delete", actualSpace);
             spaceService.restart();
             SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().SPACES_PATH + "spaces.fxml");
             BackStack.getInstance().loadPreviousPage();

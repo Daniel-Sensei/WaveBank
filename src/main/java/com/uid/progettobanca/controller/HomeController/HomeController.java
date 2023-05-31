@@ -4,6 +4,8 @@ import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.TransactionManager;
+import com.uid.progettobanca.model.objects.Conto;
+import com.uid.progettobanca.model.services.GetAccountService;
 import com.uid.progettobanca.model.services.GetTransactionService;
 import com.uid.progettobanca.model.objects.Transazione;
 import com.uid.progettobanca.view.SceneHandler;
@@ -73,6 +75,7 @@ public class HomeController implements Initializable {
     private TextField searchTextField;
     public static String searchQuery = "";
 
+    GetAccountService getAccountService = new GetAccountService();
 
     public void addFocusRemovalListenerToButtons() {
         for (Button button : allHomeButtons) {
@@ -144,7 +147,12 @@ public class HomeController implements Initializable {
         GenericController.loadImages(homeImages);
         GenericController.loadImagesButton(homeButtons);
         addFocusRemovalListenerToButtons();
-        balanceLabel.setText(df.format(ContiDAO.getInstance().getSaldoByIban(BankApplication.getCurrentlyLoggedIban())) + " €");
+        getAccountService.setIban(BankApplication.getCurrentlyLoggedIban());
+        getAccountService.restart();
+        getAccountService.setOnSucceeded(event -> {
+            if(event.getSource().getValue() instanceof Conto result)
+                balanceLabel.setText(df.format(result.getSaldo()) + " €");
+        });
 
         createFilterPopUp();
     }

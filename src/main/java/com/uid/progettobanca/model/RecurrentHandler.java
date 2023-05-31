@@ -37,7 +37,7 @@ public class RecurrentHandler {
             if (due.isBefore(LocalDate.now())){
                 String to = p.getIbanTo();
                 double amount = p.getAmount();
-                if(ContiDAO.getInstance().transazione(from, to, space, amount)) {
+                if(TransazioniDAO.getInstance().transazione(from, to, space, amount)) {
                     TransazioniDAO.getInstance().insert(new Transazione(p.getNome(), from, to, space, 0, due.atStartOfDay(), amount, p.getCausale(), "Pagamento ricorrente", "Altro", ""));
                     p.setDate(due.plusDays(p.getNGiorni()));
                     RicorrentiDAO.getInstance().update(p);

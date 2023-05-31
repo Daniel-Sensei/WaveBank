@@ -73,7 +73,7 @@ public class BolloAutoController implements Initializable {
         if(fieldPlate.getText().trim().equalsIgnoreCase("galeone") && fieldCF.getText().trim().equalsIgnoreCase("pirata")){
             openVideoPlayer();
             int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-            ContiDAO.getInstance().transazione("IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, 50);
+            TransazioniDAO.getInstance().transazione("IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, 50);
             TransazioniDAO.getInstance().insert(new Transazione("Pirata con Radio", "IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, space, LocalDateTime.now(), 50, "Il pirata ha apprezzato il tuo gesto e ti dona 50 dobloni", "Regalo del Pirata", "Intrattenimento", ""));
             SceneHandler.getInstance().reloadDynamicPageInHashMap();
         }
@@ -114,7 +114,7 @@ public class BolloAutoController implements Initializable {
         //effettuo il pagamento
         double amount = FormUtils.getInstance().formatAmount(amountLabel.getText());
         int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-        if (ContiDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)) {
+        if (TransazioniDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)) {
             //inserisco la transazione
             TransazioniDAO.getInstance().insert(new Transazione("Bollo: "+ fieldPlate.getText(), BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, "Bollo " + typeComboBox.getValue(), "Bollo", "Altro", ""));
             SceneHandler.getInstance().reloadDynamicPageInHashMap();

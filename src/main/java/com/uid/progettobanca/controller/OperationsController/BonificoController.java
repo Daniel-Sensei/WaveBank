@@ -127,7 +127,7 @@ public class BonificoController implements Initializable {
 
         //bisogna mettere ContiDao.transazione in un if per bloccare operazione in caso di fondi insufficienti
         int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-        if (ContiDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, amount)) {
+        if (TransazioniDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, amount)) {
             String nome = fieldName.getText() + " " + fieldSurname.getText();
             TransazioniDAO.getInstance().insert(new Transazione(nome, BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, 0, LocalDateTime.now(), amount, fieldDescr.getText(), "Bonifico", "Altro", ""));
 

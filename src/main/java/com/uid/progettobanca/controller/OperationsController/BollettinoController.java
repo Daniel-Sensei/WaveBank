@@ -133,7 +133,7 @@ public class BollettinoController implements Initializable {
         }
         int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
         //rimuove i soldi dal conto corrente
-        if(ContiDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)){
+        if(TransazioniDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)){
             //inserisco la transazione
             TransazioniDAO.getInstance().insert(new Transazione("Bollettino Postale", BankApplication.getCurrentlyLoggedIban(), fieldCC.getText(), space, 0,  LocalDateTime.now(), amount, descr + fieldDescr.getText(), tipo, "Altro", ""));
             SceneHandler.getInstance().reloadDynamicPageInHashMap();
