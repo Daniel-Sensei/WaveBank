@@ -1,4 +1,4 @@
-package com.uid.progettobanca.model;
+package com.uid.progettobanca.model.services;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.SpacesDAO;
@@ -10,15 +10,12 @@ import java.util.Queue;
 
 public class GetAllSpaceService extends Service <Queue<Space>>{
 
-    private  Queue<Space> Queue;
-
     @Override
     protected Task <Queue<Space>> createTask() {
         return new Task <Queue<Space>>() {
             @Override
             protected Queue<Space> call() throws Exception {
-                Queue = SpacesDAO.getInstance().selectAllByIban(BankApplication.getCurrentlyLoggedIban());
-                return Queue;
+                return SpacesDAO.getInstance().selectAllByIban(BankApplication.getCurrentlyLoggedIban());
             }
         };
     }

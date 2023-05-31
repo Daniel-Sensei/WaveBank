@@ -1,7 +1,7 @@
 package com.uid.progettobanca.controller.SpacesController;
 
 import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.model.SingleSpaceService;
+import com.uid.progettobanca.model.services.SingleSpaceService;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.ImageUtils;
 import com.uid.progettobanca.view.SceneHandler;

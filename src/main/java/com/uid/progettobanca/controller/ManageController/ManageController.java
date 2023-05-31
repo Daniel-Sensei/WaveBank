@@ -5,6 +5,7 @@ package com.uid.progettobanca.controller.ManageController;
         import com.uid.progettobanca.model.objects.Carta;
         import com.uid.progettobanca.model.objects.Transazione;
         import com.uid.progettobanca.model.objects.Utente;
+        import com.uid.progettobanca.model.services.GetTransactionService;
         import com.uid.progettobanca.view.SceneHandler;
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
@@ -81,7 +82,7 @@ public class ManageController {
     UserService userService = new UserService();
     private GraphCalculator graphCalculator=new GraphCalculator();
     private CardService cardService= new CardService();
-    private final TransactionService transactionsService = new TransactionService("filterAllTransaction", null, null, "");
+    private final GetTransactionService transactionsService = new GetTransactionService("filterAllTransaction", null, null, "");
     public void initialize() {
 
         daysInterval=30;

@@ -1,4 +1,4 @@
-package com.uid.progettobanca.model;
+package com.uid.progettobanca.model.services;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
@@ -9,21 +9,21 @@ import javafx.concurrent.Task;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionService extends Service<List<Transazione>> {
+public class GetTransactionService extends Service<List<Transazione>> {
     private String functionName = "filterAllTransaction";
     private List<String> selectedFilters = new ArrayList<>();
     private String selectedInOut = "both";
     private String searchQuery = "";
     private int spaceID = 0;
 
-    public TransactionService(String functionName, List<String> selectedFilters, String selectedInOut, String searchQuery) {
+    public GetTransactionService(String functionName, List<String> selectedFilters, String selectedInOut, String searchQuery) {
         this.functionName = functionName;
         this.selectedFilters = selectedFilters;
         this.selectedInOut = selectedInOut;
         this.searchQuery = searchQuery;
     }
 
-    public TransactionService(String functionName, int spaceID){
+    public GetTransactionService(String functionName, int spaceID){
         this.functionName = functionName;
         this.spaceID = spaceID;
     }
