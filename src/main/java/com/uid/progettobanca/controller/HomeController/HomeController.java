@@ -4,7 +4,7 @@ import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.TransactionManager;
-import com.uid.progettobanca.model.TransactionService;
+import com.uid.progettobanca.model.services.GetTransactionService;
 import com.uid.progettobanca.model.objects.Transazione;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
@@ -28,7 +28,6 @@ import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -226,8 +225,8 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        TransactionService transactionService = new TransactionService(functionName, selectedFilters, selectedInOut, searchQuery);
-        transactionService.start();
+        GetTransactionService getTransactionService = new GetTransactionService(functionName, selectedFilters, selectedInOut, searchQuery);
+        getTransactionService.start();
 
         //in loadHomeAssets() viene anche aggiunto popUp sul filter
         loadHomeAssets();
@@ -246,7 +245,7 @@ public class HomeController implements Initializable {
         vBox.setPrefWidth(VBox.USE_COMPUTED_SIZE);
         vBox.setPadding(new Insets(20, 0, 0, 0));
 
-        transactionService.setOnSucceeded(event -> {
+        getTransactionService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof List<?> result){
                 this.transactions = (List<Transazione>) result;
 
@@ -284,7 +283,7 @@ public class HomeController implements Initializable {
             }
         });
 
-        transactionService.setOnFailed(event -> {
+        getTransactionService.setOnFailed(event -> {
             throw new RuntimeException(event.getSource().getException());
         });
 
