@@ -1,23 +1,24 @@
 package com.uid.progettobanca.controller.ManageController;
 
-        import com.uid.progettobanca.controller.GenericController;
-        import com.uid.progettobanca.model.*;
-        import com.uid.progettobanca.model.objects.Carta;
-        import com.uid.progettobanca.model.objects.Transazione;
-        import com.uid.progettobanca.model.objects.Utente;
-        import com.uid.progettobanca.model.services.GetTransactionService;
-        import com.uid.progettobanca.view.SceneHandler;
-        import javafx.event.ActionEvent;
-        import javafx.fxml.FXML;
-        import javafx.scene.Parent;
-        import javafx.scene.chart.LineChart;
-        import javafx.scene.control.Label;
-        import javafx.scene.image.ImageView;
-        import javafx.scene.input.MouseEvent;
-        import javafx.scene.layout.VBox;
+import com.uid.progettobanca.controller.GenericController;
+import com.uid.progettobanca.model.*;
+import com.uid.progettobanca.model.objects.Carta;
+import com.uid.progettobanca.model.objects.Transazione;
+import com.uid.progettobanca.model.objects.Utente;
+import com.uid.progettobanca.model.services.GetCardService;
+import com.uid.progettobanca.model.services.GetTransactionService;
+import com.uid.progettobanca.view.SceneHandler;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.chart.LineChart;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 
-        import java.io.IOException;
-        import java.util.List;
+import java.io.IOException;
+import java.util.List;
 
 public class ManageController {
     int numcarte=0;
@@ -81,7 +82,7 @@ public class ManageController {
 
     UserService userService = new UserService();
     private GraphCalculator graphCalculator=new GraphCalculator();
-    private CardService cardService= new CardService();
+    private GetCardService getCardService= new GetCardService();
     private final GetTransactionService transactionsService = new GetTransactionService("filterAllTransaction", null, null, "");
     public void initialize() {
 
@@ -102,7 +103,7 @@ public class ManageController {
         GenericController.loadImage(back);
         GenericController.loadImage(forward);
 
-        cardService.setOperazione("getByUser");;
+        getCardService.setAction("allByUser");;
 
         userService.start();
 
@@ -114,8 +115,8 @@ public class ManageController {
                 CardsManager.getInstance().setCognome(result.getCognome());
                 System.out.println("ho settato nome e cognome");
             }
-            cardService.start();    //parte il thread per prendere le carte (se fatto partire prima, potrebbe essere più veloce del thread pecedente e perdere il setonsucceed)
-            cardService.setOnSucceeded(event1 -> {
+            getCardService.start();    //parte il thread per prendere le carte (se fatto partire prima, potrebbe essere più veloce del thread pecedente e perdere il setonsucceed)
+            getCardService.setOnSucceeded(event1 -> {
                 System.out.println("sono prima dell'if");
                 if(event1.getSource().getValue() instanceof List<?> result){
                     CardsManager.getInstance().fillQueue((List<Carta>) result);
@@ -125,7 +126,7 @@ public class ManageController {
                     System.out.println("ho caricato le carte");
                 }
             });
-            cardService.setOnFailed(event1 -> {
+            getCardService.setOnFailed(event1 -> {
                 System.out.println("non ho caricato le carte");
                 throw new RuntimeException(event1.getSource().getException());
             });
