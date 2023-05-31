@@ -10,10 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.event.EventHandler;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class PasswordRecoveryController implements Initializable {
@@ -41,7 +39,7 @@ public class PasswordRecoveryController implements Initializable {
 
     @FXML
     void onEmailInserted(ActionEvent event) {
-        String q = UtentiDAO.getInstance().getUserByEmail(fieldEmail.getText()).getDomanda();
+        String q = UtentiDAO.getInstance().selectByEmail(fieldEmail.getText()).getDomanda();
         if(q.isEmpty())
             SceneHandler.getInstance().showError("Errore", "Errore durante il recupero della domanda", "L'email inserita non è presente nel database.");
         else question.setText(q);
@@ -49,7 +47,7 @@ public class PasswordRecoveryController implements Initializable {
 
     @FXML
     void onUpdatePasswordClick(ActionEvent event) {
-        if(UtentiDAO.getInstance().checkRisposta(fieldEmail.getText(), fieldAnswer.getText()))
+        if(UtentiDAO.getInstance().checkAnswer(fieldEmail.getText(), fieldAnswer.getText()))
             if(fieldPassword.getText().equals(confirmPassword.getText()) && !fieldPassword.getText().isEmpty()) {
                 UtentiDAO.getInstance().updatePassword(fieldEmail.getText(), fieldPassword.getText());
                 SceneHandler.getInstance().showInfo("Password","Password aggiornata", "La password è stata aggiornata con successo.");

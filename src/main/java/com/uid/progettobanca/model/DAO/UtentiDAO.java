@@ -1,11 +1,10 @@
 package com.uid.progettobanca.model.DAO;
 
+import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.objects.Utente;
 import com.uid.progettobanca.view.SceneHandler;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
@@ -80,33 +79,6 @@ public class UtentiDAO {
         }
     }
 
-    public List<Utente> selectAll() {
-        String query = "SELECT * FROM utenti";
-        try (Statement stmt = conn.createStatement();
-             ResultSet result = stmt.executeQuery(query)) {
-            List<Utente> utenti = new ArrayList<>();
-            while (result.next()) {
-                utenti.add(new Utente(
-                            result.getInt("user_id"),
-                            result.getString("nome"),
-                            result.getString("cognome"),
-                            result.getString("indirizzo"),
-                            result.getDate("dataNascita").toLocalDate(),
-                            result.getString("telefono"),
-                            result.getString("email"),
-                            result.getString("password"),
-                            result.getString("domanda"),
-                            result.getString("risposta"),
-                            result.getString("iban")
-                        )
-                    );
-            }
-            return utenti;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     //inserire selectByIban
     public Utente selectByIban (String iban) {
         String query = "SELECT * FROM utenti WHERE iban = ?";
@@ -137,7 +109,7 @@ public class UtentiDAO {
     }
 
     // restituisce l'id utente dall'email
-    public Utente getUserByEmail (String email) {
+    public Utente selectByEmail(String email) {
         String query = "SELECT * FROM utenti WHERE email = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, email);
@@ -168,7 +140,7 @@ public class UtentiDAO {
 
     // restituisce l'id dell'utente se il login va a buon fine, altrimenti null
     //cambiare il login in modo che restituisca un booleano ed imposti il bank application logged user
-    public int login (String email, String password) {
+    public boolean login (String email, String password) {
         // cerca l'utente nel database
         String query = "SELECT user_id FROM utenti WHERE email = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -178,19 +150,20 @@ public class UtentiDAO {
                     int user = result.getInt("user_id");
                     // se la password è corretta, restituisce l'id dell'utente
                     if (checkPassword(user, password)) {
-                        return user;
+                        BankApplication.setCurrentlyLoggedUser(user);
+                        return true;
                     } else {
                         SceneHandler.getInstance().showError("Errore Login", "Email o Password Errati", "L'email o la password inseriti non sono corretti, per favore riprovare");
-                        return 0;
+                        return false;
                     }
                 } else {
                     SceneHandler.getInstance().showError("Errore Login", "Email o Password Errati", "L'email o la password inseriti non sono corretti, per favore riprovare");
-                    return 0;
+                    return false;
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return 0;
+            return false;
         }
     }
 
@@ -205,6 +178,24 @@ public class UtentiDAO {
                 if (result.next()) {
                     String storedPassword = result.getString("password");
                    return BCrypt.checkpw(password, storedPassword);
+                } else {
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // funzione che controlla la risposta alla domanda segreta
+    public boolean checkAnswer(String email, String risposta) {
+        String query = "SELECT risposta FROM utenti WHERE email = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, email);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return BCrypt.checkpw(risposta, rs.getString("risposta"));
                 } else {
                     return false;
                 }
@@ -238,24 +229,6 @@ public class UtentiDAO {
         }
     }
 
-
-    // funzione che controlla la risposta alla domanda segreta
-    public boolean checkRisposta(String email, String risposta) {
-        String query = "SELECT risposta FROM utenti WHERE email = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, email);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return BCrypt.checkpw(risposta, rs.getString("risposta"));
-                } else {
-                    return false;
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 
     // cambio password
 

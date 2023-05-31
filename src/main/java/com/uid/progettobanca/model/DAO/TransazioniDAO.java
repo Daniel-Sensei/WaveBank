@@ -106,10 +106,10 @@ public class TransazioniDAO {
     // spostamento denaro tra 2 spaces
 
     public boolean betweenSpaces(String iban, int spaceFrom, int spaceTo, double amount, String commenti) {
-        Space from = SpacesDAO.getInstance().selectByIbanSpaceId(iban, spaceFrom);
+        Space from = SpacesDAO.getInstance().selectBySpaceId(spaceFrom);
         String nomeFrom = from.getNome();
         from.setSaldo(from.getSaldo()-amount);
-        Space to = SpacesDAO.getInstance().selectByIbanSpaceId(iban, spaceTo);
+        Space to = SpacesDAO.getInstance().selectBySpaceId(spaceTo);
         String nomeTo = to.getNome();
         to.setSaldo(to.getSaldo()+amount);
         // creo la transazione di spostamento

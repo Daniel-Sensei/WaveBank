@@ -15,7 +15,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.ResourceBundle;
@@ -238,7 +237,7 @@ public class RegisterFormController implements Initializable {
         //creo l'utente e implicitamente il conto
         UtentiDAO.getInstance().insert(new Utente(name.getText().trim(), surname.getText().trim(), address.getText().trim(), LocalDate.parse(convertDate(getDate())), phone.getText().trim(), email.getText().toLowerCase().trim(), password.getText(), questions.getValue(), answer.getText(), ContiDAO.getInstance().generateNew()));
         //creo la carta di debito
-        CreateCard.createDebitcard(UtentiDAO.getInstance().getUserByEmail(email.getText()).getUserId());
+        CreateCard.createDebitcard(UtentiDAO.getInstance().selectByEmail(email.getText()).getUserId());
         //avviso dell'avvenuta registrazione
         SceneHandler.getInstance().showInfo("Registrazione", "Registrazione effettuata con successo", "Ora puoi effettuare il login");
         //torno alla pagina di login

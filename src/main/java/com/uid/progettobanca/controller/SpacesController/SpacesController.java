@@ -39,6 +39,8 @@ public class SpacesController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        getSpaceService.setIban(BankApplication.getCurrentlyLoggedIban());
+        getSpaceService.setAction("allByIban");
         getSpaceService.restart();
 
         getSpaceService.setOnSucceeded(e -> {

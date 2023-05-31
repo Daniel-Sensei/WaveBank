@@ -49,29 +49,6 @@ public class SpacesDAO {
 
     //  getting:
 
-    //restituisce uno spazio tramite iban e space_id
-    public Space selectByIbanSpaceId(String iban, int space_id) {
-        String query = "SELECT * FROM spaces WHERE iban = ? AND space_id = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, iban);
-            stmt.setInt(2, space_id);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return new Space(iban, space_id,
-                            rs.getDouble("saldo"),
-                            rs.getDate("dataApertura").toLocalDate(),
-                            rs.getString("nome"),
-                            rs.getString("imagePath")
-                    );
-                } else {
-                    return null;
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     //restituisce tutti gli spazi di un utente
     public Queue<Space> selectAllByIban(String iban) {
         String query = "SELECT * FROM spaces WHERE iban = ?";
