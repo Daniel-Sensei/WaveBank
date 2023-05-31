@@ -30,19 +30,19 @@
                         <VBox alignment="CENTER" spacing="5.0">
                            <children>
                               <Button fx:id="send" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                              <Label styleClass="button-label" text="Invia" />
+                              <Label styleClass="button-label" text="%Invia" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" spacing="5.0">
                            <children>
                               <Button fx:id="receive" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                              <Label styleClass="button-label" text="Ricevi" />
+                              <Label styleClass="button-label" text="%Ricevi" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" spacing="5.0">
                            <children>
                               <Button fx:id="statistics" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
-                              <Label styleClass="button-label" text="Statistiche" />
+                              <Label styleClass="button-label" text="%Statistiche" />
                            </children>
                         </VBox>
                      </children>
@@ -57,7 +57,7 @@
                                        <HBox.margin>
                                           <Insets left="15.0" />
                                        </HBox.margin></ImageView>
-                                    <TextField fx:id="searchTextField" onKeyPressed="#enterPressed" prefHeight="40.0" promptText="Cerca sul conto principale" styleClass="search-bar" HBox.hgrow="ALWAYS">
+                                    <TextField fx:id="searchTextField" onKeyPressed="#enterPressed" prefHeight="40.0" promptText="%SearchBar" styleClass="search-bar" HBox.hgrow="ALWAYS">
                                        <padding>
                                           <Insets left="10.0" />
                                        </padding>
@@ -67,7 +67,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </HBox>
-                              <Button fx:id="searchButton" alignment="CENTER" mnemonicParsing="false" onAction="#searchTransactionName" prefHeight="40.0" prefWidth="110.0" styleClass="tertiaryButton" text="Cerca" />
+                              <Button fx:id="searchButton" alignment="CENTER" mnemonicParsing="false" onAction="#searchTransactionName" prefHeight="40.0" prefWidth="110.0" styleClass="tertiaryButton" text="%Cerca" />
                               <Button fx:id="filter" alignment="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="60.0" styleClass="tertiaryButton" />
                            </children>
                         </HBox>

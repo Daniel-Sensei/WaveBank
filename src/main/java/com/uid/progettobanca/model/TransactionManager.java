@@ -1,5 +1,6 @@
 package com.uid.progettobanca.model;
 
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.model.DAO.ContattiDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.objects.Contatto;
@@ -88,34 +89,67 @@ public class TransactionManager {
          */
     }
     public List<String> convertToLocalDates(List<String> dates) {
-        // Creazione del formatter per il formato desiderato
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ITALIAN);
+        if (Settings.locale.getLanguage().equals("it")) {
+            // Creazione del formatter per il formato desiderato
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ITALIAN);
 
-        // Lista per memorizzare i risultati delle conversioni
-        List<String> convertedDates = new ArrayList<>();
+            // Lista per memorizzare i risultati delle conversioni
+            List<String> convertedDates = new ArrayList<>();
 
-        // Iterazione sulle date fornite
-        for (String dateStr : dates) {
-            // Parsing della data fornita
-            LocalDate date = LocalDate.parse(dateStr, formatter);
+            // Iterazione sulle date fornite
+            for (String dateStr : dates) {
+                // Parsing della data fornita
+                LocalDate date = LocalDate.parse(dateStr, formatter);
 
-            // Calcolo delle differenze di giorni rispetto alla data odierna
-            long daysDifference = ChronoUnit.DAYS.between(date, LocalDate.now());
+                // Calcolo delle differenze di giorni rispetto alla data odierna
+                long daysDifference = ChronoUnit.DAYS.between(date, LocalDate.now());
 
-            if (daysDifference == 0) {
-                convertedDates.add("Oggi".toUpperCase());
-            } else if (daysDifference == 1) {
-                convertedDates.add("Ieri".toUpperCase());
-            } else if (daysDifference < 7) {
-                String dayOfWeek = date.getDayOfWeek().getDisplayName(TextStyle.FULL_STANDALONE, Locale.ITALIAN);
-                convertedDates.add(dayOfWeek.toUpperCase());
-            } else {
-                // Formattazione della data nel formato desiderato
-                DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("EEEE d MMMM", Locale.ITALIAN);
-                convertedDates.add(date.format(outputFormatter).toUpperCase());
+                if (daysDifference == 0) {
+                    convertedDates.add("Oggi".toUpperCase());
+                } else if (daysDifference == 1) {
+                    convertedDates.add("Ieri".toUpperCase());
+                } else if (daysDifference < 7) {
+                    String dayOfWeek = date.getDayOfWeek().getDisplayName(TextStyle.FULL_STANDALONE, Locale.ITALIAN);
+                    convertedDates.add(dayOfWeek.toUpperCase());
+                } else {
+                    // Formattazione della data nel formato desiderato
+                    DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("EEEE d MMMM", Locale.ITALIAN);
+                    convertedDates.add(date.format(outputFormatter).toUpperCase());
+                }
             }
+            return convertedDates;
         }
-        return convertedDates;
+        else if(Settings.locale.getLanguage().equals("en")){
+            // Creazione del formatter per il formato desiderato in inglese
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+
+            // Lista per memorizzare i risultati delle conversioni
+            List<String> convertedDates = new ArrayList<>();
+
+            // Iterazione sulle date fornite
+            for (String dateStr : dates) {
+                // Parsing della data fornita
+                LocalDate date = LocalDate.parse(dateStr, formatter);
+
+                // Calcolo delle differenze di giorni rispetto alla data odierna
+                long daysDifference = ChronoUnit.DAYS.between(date, LocalDate.now());
+
+                if (daysDifference == 0) {
+                    convertedDates.add("Today".toUpperCase());
+                } else if (daysDifference == 1) {
+                    convertedDates.add("Yesterday".toUpperCase());
+                } else if (daysDifference < 7) {
+                    String dayOfWeek = date.getDayOfWeek().getDisplayName(TextStyle.FULL_STANDALONE, Locale.ENGLISH);
+                    convertedDates.add(dayOfWeek.toUpperCase());
+                } else {
+                    // Formattazione della data nel formato desiderato
+                    DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM d", Locale.ENGLISH);
+                    convertedDates.add(date.format(outputFormatter).toUpperCase());
+                }
+            }
+            return convertedDates;
+        }
+        return null;
     }
 
 }

@@ -69,6 +69,7 @@ public class SettingsController implements Initializable {
 
     @FXML
     void changeLanguage(ActionEvent event) {
+        Settings.themeChanged = true;
         String choice = languageComboBox.getSelectionModel().getSelectedItem();
         if  (choice.equals("Italiano") && !language.equals("IT")){
             Locale ita = new Locale("IT");
