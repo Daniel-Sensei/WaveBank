@@ -8,6 +8,7 @@ import javafx.concurrent.Task;
 import java.util.List;
 
 public class GetOtherService extends Service<List<Altro>> {
+
     public GetOtherService() {}
 
     @Override

@@ -27,7 +27,11 @@ public class GetCardService extends Service<List<Carta>> {
             protected Object call() throws Exception {
                 return switch (action) {
                     case "allByUser" -> CarteDAO.getInstance().selectAllByUserId(BankApplication.getCurrentlyLoggedUser());
-                    case "selectByNumCarta" -> CarteDAO.getInstance().selectByNumCarta(cardNum);
+                    case "selectByNumCarta" -> {
+                        List<Carta> carta = null;
+                        carta.add(CarteDAO.getInstance().selectByNumCarta(cardNum));
+                        yield carta;
+                    }
                     default -> null;
                 };
             }
