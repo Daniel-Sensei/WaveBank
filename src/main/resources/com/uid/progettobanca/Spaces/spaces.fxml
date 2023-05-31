@@ -32,7 +32,7 @@
                   <VBox alignment="CENTER">
                      <children>
                         <Button fx:id="newSpace" mnemonicParsing="false" onAction="#createSpaceForm" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" />
-                        <Label text="Nuovo Spazio" />
+                        <Label text="%NuovoSpazio" />
                      </children>
                   </VBox>
                </children>

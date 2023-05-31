@@ -22,12 +22,12 @@
                   <Insets />
                </VBox.margin>
                <children>
-                  <Label styleClass="titleLabel" text="Crea un nuovo spazio" textAlignment="CENTER">
+                  <Label styleClass="titleLabel" text="%CreaNuovoSpace" textAlignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="backButton" onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="Indietro">
+                  <Label fx:id="backButton" onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="%back">
                      <graphic>
                         <ImageView fitHeight="12.0" fitWidth="12.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -55,7 +55,7 @@
                            </children></FlowPane>
                      </children>
                   </HBox>
-                  <Label text="Inserisci il nome del tuo spazio (Obbligatorio)">
+                  <Label styleClass="subtitleLabel" text="%nomeSpace">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -68,12 +68,12 @@
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <Label text="Proseguendo, accetti i T&amp;C Wave Spaces" />
+                  <Label text="%TerminiECondizioni" />
                </children>
             </VBox>
             <HBox spacing="60.0">
                <children>
-                  <Button fx:id="spaceCreationConfirm" mnemonicParsing="false" onAction="#createSpace" prefHeight="30.0" styleClass="greenButton" text="Accetta e crea uno spazio">
+                  <Button fx:id="spaceCreationConfirm" mnemonicParsing="false" onAction="#createSpace" prefHeight="30.0" styleClass="greenButton" text="%BottoneAccettaCreazioneSpace">
                      <font>
                         <Font size="14.0" />
                      </font>
