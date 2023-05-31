@@ -23,10 +23,9 @@ public class SpaceService extends Service {
         this.action = action;
     }
 
-    public SpaceService(String action, int spaceId, String spaceIban){
+    public SpaceService(String action, Space space2){
         this.action = action;
-        this.spaceId = spaceId;
-        this.spaceIban = spaceIban;
+        this.space = space2;
     }
 
 
