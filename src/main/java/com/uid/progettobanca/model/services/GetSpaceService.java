@@ -8,7 +8,7 @@ import javafx.concurrent.Task;
 
 import java.util.Queue;
 
-public class GetAllSpaceService extends Service <Queue<Space>>{
+public class GetSpaceService extends Service <Queue<Space>>{
 
     @Override
     protected Task <Queue<Space>> createTask() {

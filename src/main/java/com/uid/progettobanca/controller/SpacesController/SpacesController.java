@@ -2,7 +2,7 @@ package com.uid.progettobanca.controller.SpacesController;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.ContiDAO;
-import com.uid.progettobanca.model.services.GetAllSpaceService;
+import com.uid.progettobanca.model.services.GetSpaceService;
 import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 
 public class SpacesController implements Initializable {
 
-    private GetAllSpaceService getAllSpaceService = new GetAllSpaceService();
+    private GetSpaceService getSpaceService = new GetSpaceService();
 
 
     @FXML
@@ -39,14 +39,14 @@ public class SpacesController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        getAllSpaceService.restart();
+        getSpaceService.restart();
 
-        getAllSpaceService.setOnSucceeded(e -> {
+        getSpaceService.setOnSucceeded(e -> {
             try {
                 DecimalFormat decimalFormat = new DecimalFormat("#0.00");
                 saldo.setText(decimalFormat.format(ContiDAO.getInstance().getSaldoByIban(BankApplication.getCurrentlyLoggedIban())) + " €");
-                SpacesManager.getInstance().fillQueue(getAllSpaceService.getValue());
-                SpacesManager.getInstance().fillList(getAllSpaceService.getValue());
+                SpacesManager.getInstance().fillQueue(getSpaceService.getValue());
+                SpacesManager.getInstance().fillList(getSpaceService.getValue());
                 int nSpaces = SpacesManager.getInstance().getSize();
                 for (int i = 0; i < nSpaces; i++) {
                     Parent singleSpace = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().SPACES_PATH + "singleSpace.fxml");
