@@ -3,6 +3,7 @@ package com.uid.progettobanca.controller.OperationsController;
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.objects.Ricorrente;
 import com.uid.progettobanca.model.DAO.RicorrentiDAO;
+import com.uid.progettobanca.model.services.RecurrentService;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -68,6 +70,8 @@ public class NewRecurrentController implements Initializable {
         }
     }
 
+    RecurrentService recurrentService = new RecurrentService("insert");
+
     @FXML
     void onSendButtonClick(ActionEvent event) {
 
@@ -106,7 +110,18 @@ public class NewRecurrentController implements Initializable {
             SceneHandler.getInstance().showError("Errore", "Numero di giorni non valido", "Il numero di giorni deve essere un numero");
             return;
         }
-        RicorrentiDAO.getInstance().insert(new Ricorrente(fieldName.getText() + " " + fieldSurname.getText(), Double.parseDouble(fieldAmount.getText()), fieldIbanTo.getText(), date.getValue(), Integer.parseInt(fieldNGiorni.getText()), fieldDescr.getText(), BankApplication.getCurrentlyLoggedUser()));
+        recurrentService.setPayment(new Ricorrente(fieldName.getText() + " " + fieldSurname.getText(), Double.parseDouble(fieldAmount.getText()), fieldIbanTo.getText(), date.getValue(), Integer.parseInt(fieldNGiorni.getText()), fieldDescr.getText(), BankApplication.getCurrentlyLoggedUser()));
+        recurrentService.start();
+        recurrentService.setOnSucceeded(e -> {
+            if(e.getSource().getValue() instanceof Boolean){
+                System.out.println("Pagamento ricorrente inserito correttamente");
+                SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.OPERATIONS_PATH + "formPagamentiRicorrenti.fxml");
+                SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "formPagamentiRicorrenti.fxml");
+            }
+        });
+        recurrentService.setOnFailed(e -> {
+            throw new RuntimeException(e.getSource().getException());
+        });
     }
 
     @Override

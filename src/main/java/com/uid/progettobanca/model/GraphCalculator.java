@@ -11,7 +11,7 @@ public class GraphCalculator {
     public ReturnChart MainGraphCalculator(int DaysInterval, List<Transazione> transazioni){
         XYChart.Series data = new XYChart.Series();
 
-        double baseline=500;
+        double baseline=0;
         //prendi le transazioni degli ultimi 30 giorni in ordine cronologico
         //trova il saldo iniziale
         for(int i=0; i<transazioni.size(); i++){

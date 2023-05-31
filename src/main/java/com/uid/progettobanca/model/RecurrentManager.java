@@ -21,8 +21,8 @@ public class RecurrentManager {
 
     private Queue<Ricorrente> pagamenti;
 
-    public void fillPayments() {
-        pagamenti = RicorrentiDAO.getInstance().selectAllByUserId(BankApplication.getCurrentlyLoggedUser());
+    public void fillPayments(Queue<Ricorrente> pagamenti) {
+        this.pagamenti = pagamenti;
     }
 
     public void putPayment(Ricorrente r) {
