@@ -56,8 +56,8 @@ public class ContiDAO {
         SpacesDAO.getInstance().insert(s);
         BankApplication.setCurrentlyLoggedMainSpace(s.getSpaceId());
         int bonus = 500; //sarà 50 quando non avremo più bisogno di testare, come bonus di benvenuto
-        transazione("IT0000000000000000000000000", iban, 0, bonus);
-        TransazioniDAO.getInstance().getInstance().insert(new Transazione("Bonus di Benvenuto", "IT0000000000000000000000000", iban, 0, s.getSpaceId(), LocalDateTime.now(), bonus, "Il pirata ti dà il benvenuto nella banca più losca del mondo... Spendi bene questi dobloni!", "Bonus di Benvenuto", "altro", ""));
+        TransazioniDAO.getInstance().transazione("IT0000000000000000000000000", iban, 0, bonus);
+        TransazioniDAO.getInstance().insert(new Transazione("Bonus di Benvenuto", "IT0000000000000000000000000", iban, 0, s.getSpaceId(), LocalDateTime.now(), bonus, "Il pirata ti dà il benvenuto nella banca più losca del mondo... Spendi bene questi dobloni!", "Bonus di Benvenuto", "altro", ""));
 
         return iban;
     }
@@ -104,45 +104,6 @@ public class ContiDAO {
 
 
     //  aggiornamenti:
-
-    //trasferimento di denaro tra due conti usando le transazioni di SQLite
-    public boolean transazione(String iban_from, String iban_to, int space_from, double importo) {
-        try {
-            if (iban_from.equals(BankApplication.getCurrentlyLoggedIban())) {
-                double check = getSaldoByIban(iban_from);
-                if (check < importo) {
-                    SceneHandler.getInstance().showError("Errore", "Saldo insufficiente", "Non hai abbastanza soldi per effettuare questa operazione");
-                    return false;
-                }
-                Space s = SpacesDAO.getInstance().selectBySpaceId(space_from);
-                double saldo = s.getSaldo();
-                if (saldo < importo) {
-                    SceneHandler.getInstance().showError("Errore", "Saldo insufficiente nello space", "Non hai abbastanza soldi nello space selezionato per effettuare questa operazione");
-                    return false;
-                }
-                s.setSaldo(saldo - importo);
-                SpacesDAO.getInstance().update(s);
-            }
-            String query = "UPDATE conti SET saldo = saldo - ? WHERE iban = ?";
-            try (PreparedStatement stmt = conn.prepareStatement(query)) {
-                conn.setAutoCommit(false);
-                stmt.setDouble(1, importo);
-                stmt.setString(2, iban_from);
-                stmt.executeUpdate();
-                //se esiste il conto di destinazione aggiorna il saldo
-                if (!iban_to.equals("NO") || selectByIban(iban_to) != null) {
-                    stmt.setDouble(1, importo * -1);
-                    stmt.setString(2, iban_to);
-                    stmt.executeUpdate();
-                }
-                conn.commit();
-                conn.setAutoCommit(true);
-            }
-            return true;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 
     //aggiornamento tramite oggetto di tipo conto

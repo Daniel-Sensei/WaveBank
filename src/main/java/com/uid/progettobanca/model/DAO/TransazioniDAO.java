@@ -1,7 +1,9 @@
 package com.uid.progettobanca.model.DAO;
 
+import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.objects.Space;
 import com.uid.progettobanca.model.objects.Transazione;
+import com.uid.progettobanca.view.SceneHandler;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -49,6 +51,46 @@ public class TransazioniDAO {
             return false;
         }
     }
+
+    //trasferimento di denaro tra due conti usando le transazioni di SQLite
+    public boolean transazione(String iban_from, String iban_to, int space_from, double importo) {
+        try {
+            if (iban_from.equals(BankApplication.getCurrentlyLoggedIban())) {
+                double check = ContiDAO.getInstance().getSaldoByIban(iban_from);
+                if (check < importo) {
+                    SceneHandler.getInstance().showError("Errore", "Saldo insufficiente", "Non hai abbastanza soldi per effettuare questa operazione");
+                    return false;
+                }
+                Space s = SpacesDAO.getInstance().selectBySpaceId(space_from);
+                double saldo = s.getSaldo();
+                if (saldo < importo) {
+                    SceneHandler.getInstance().showError("Errore", "Saldo insufficiente nello space", "Non hai abbastanza soldi nello space selezionato per effettuare questa operazione");
+                    return false;
+                }
+                s.setSaldo(saldo - importo);
+                SpacesDAO.getInstance().update(s);
+            }
+            String query = "UPDATE conti SET saldo = saldo - ? WHERE iban = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                conn.setAutoCommit(false);
+                stmt.setDouble(1, importo);
+                stmt.setString(2, iban_from);
+                stmt.executeUpdate();
+                //se esiste il conto di destinazione aggiorna il saldo
+                if (!iban_to.equals("NO") || ContiDAO.getInstance().selectByIban(iban_to) != null) {
+                    stmt.setDouble(1, importo * -1);
+                    stmt.setString(2, iban_to);
+                    stmt.executeUpdate();
+                }
+                conn.commit();
+                conn.setAutoCommit(true);
+            }
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     // spostamento denaro tra 2 spaces
 
