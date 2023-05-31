@@ -127,14 +127,14 @@ public class DatabaseManager {
             statement.execute("CREATE TABLE IF NOT EXISTS contatti ("+
                                     "contatto_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
                                     "nome VARCHAR not null, cognome VARCHAR(50) not null, "+
-                                    "iban_to  CHAR(27) not null, user_id CHAR(16) NOT NULL, " +
+                                    "iban_to  CHAR(27) not null, user_id INTEGER NOT NULL, " +
                                     "FOREIGN KEY (user_id) REFERENCES utenti(user_id));");
 
             statement.execute("CREATE TABLE IF NOT EXISTS ricorrenti ("+
                                     "payment_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
                                     "nome VARCHAR(50) not null, importo REAL not null, iban_to CHAR(27) not null, "+
                                     "date DATE not null, nGiorni int not null, causale VARCHAR not null, " +
-                                    "user_id CHAR(16) NOT NULL, FOREIGN KEY (user_id) REFERENCES utenti(user_id));");
+                                    "user_id INTEGER NOT NULL, FOREIGN KEY (user_id) REFERENCES utenti(user_id));");
 
             AltroDAO.getInstance().insert( new Altro("Pirata con Radio", "IT0000000000000000000000000"));
 
