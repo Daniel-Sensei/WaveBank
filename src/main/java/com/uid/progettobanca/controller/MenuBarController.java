@@ -110,7 +110,7 @@ public class MenuBarController implements Initializable {
     }
 
     @FXML
-    void loadOperations(MouseEvent event) {
+    public void loadOperations(MouseEvent event) {
         clearLabelAndBackStack();
         SceneHandler.getInstance().setPage(SceneHandler.getInstance().OPERATIONS_PATH + "operations.fxml");
         setLabelStyle(operationsLabel, "operations", operations);

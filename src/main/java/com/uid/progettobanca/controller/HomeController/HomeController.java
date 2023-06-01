@@ -2,6 +2,7 @@ package com.uid.progettobanca.controller.HomeController;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
+import com.uid.progettobanca.controller.MenuBarController;
 import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.objects.Conto;
@@ -22,6 +23,7 @@ import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -40,8 +42,6 @@ public class HomeController implements Initializable {
     @FXML
     private Button filter;
 
-    @FXML
-    private Button receive;
 
     @FXML
     private ImageView search;
@@ -88,14 +88,12 @@ public class HomeController implements Initializable {
     private void loadHomeButtons(){
         homeButtons.add(statistics);
         homeButtons.add(filter);
-        homeButtons.add(receive);
         homeButtons.add(send);
     }
 
     private void loadAllHomeButtons(){
         allHomeButtons.add(statistics);
         allHomeButtons.add(filter);
-        allHomeButtons.add(receive);
         allHomeButtons.add(send);
         allHomeButtons.add(searchButton);
     }
@@ -310,6 +308,16 @@ public class HomeController implements Initializable {
         searchQuery = searchTextField.getText();
         SceneHandler.getInstance().createPage(SceneHandler.HOME_PATH + "home.fxml");
         HomeController.functionName = "filterAllTransaction";
+    }
+
+    @FXML
+    void openOperations(ActionEvent event) {
+        SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+    }
+
+    @FXML
+    void openStatistics(ActionEvent event) {
+        SceneHandler.getInstance().setPage(SceneHandler.MANAGE_PATH+ "statistics.fxml");
     }
 
 

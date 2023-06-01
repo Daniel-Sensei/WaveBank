@@ -6,6 +6,7 @@ import com.uid.progettobanca.model.objects.Contatto;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
+import java.util.LinkedList;
 import java.util.Queue;
 
 public class GetContactService extends Service<Queue<Contatto>> {
@@ -28,12 +29,12 @@ public class GetContactService extends Service<Queue<Contatto>> {
                 return switch (action) {
                     case "allByUser" -> ContattiDAO.getInstance().selectAllByUserID(BankApplication.getCurrentlyLoggedUser());
                     case "selectById" -> {
-                        Queue<Contatto> contatto = null;
+                        Queue<Contatto> contatto = new LinkedList<>();
                         contatto.add(ContattiDAO.getInstance().selectById(contactId));
                         yield contatto;
                     }
                     case "selectByIban" -> {
-                        Queue<Contatto> contatto = null;
+                        Queue<Contatto> contatto = new LinkedList<>();
                         contatto.add(ContattiDAO.getInstance().selectByIBAN(iban));
                         yield contatto;
                     }

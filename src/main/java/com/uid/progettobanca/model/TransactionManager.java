@@ -1,12 +1,15 @@
 package com.uid.progettobanca.model;
 
+import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.model.DAO.ContattiDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.objects.Contatto;
 import com.uid.progettobanca.model.objects.Conto;
 import com.uid.progettobanca.model.objects.Transazione;
+import com.uid.progettobanca.model.objects.Utente;
 import com.uid.progettobanca.model.services.GetContactService;
+import com.uid.progettobanca.model.services.GetUserService;
 import javafx.scene.control.Label;
 
 import java.sql.SQLException;
@@ -48,31 +51,35 @@ public class TransactionManager {
         //di default assegno come nome il tipo di transazione
         transactionName.setText(transaction.getTipo());
 
-        GetContactService getFirstContact = new GetContactService("selectByIban");
-        getFirstContact.setIban(transaction.getIbanFrom());
-        getFirstContact.start();
-        getFirstContact.setOnSucceeded(event -> {
-            System.out.println("PRIMA IF");
-            if(event.getSource().getValue() instanceof List<?> result) {
-                System.out.println("DOPO IF");
-                Contatto from = (Contatto) result.get(0);
-                GetContactService getSecondContact = new GetContactService("selectByIban");
-                getSecondContact.setIban(transaction.getIbanTo());
-                getSecondContact.start();
-                getSecondContact.setOnSucceeded(event1 -> {
-                    if(event1.getSource().getValue() instanceof List<?> result1) {
-                        Contatto to = (Contatto) result1.get(0);
-                        if (from != null && to != null) {
-                            transactionName.setText(from.getNome() + " " + from.getCognome() + " -> " + to.getNome() + " " + to.getCognome());
-                        } else if (from != null) {
-                            transactionName.setText(from.getNome() + " " + from.getCognome());
-                        } else if (to != null) {
-                            transactionName.setText(to.getNome() + " " + to.getCognome());
+        transactionName.setText(transaction.getNome());
+
+        if(transaction.getTipo().equals(("Bonifico"))) {
+            if(transaction.getIbanTo().equals(BankApplication.getCurrentlyLoggedIban())) {
+                GetContactService getContactService = new GetContactService("selectByIban");
+                getContactService.setIban(transaction.getIbanFrom());
+                getContactService.restart();
+                getContactService.setOnSucceeded(e -> {
+                    if(e.getSource().getValue() instanceof Queue<?> result){
+                        Contatto contatto = (Contatto) result.poll();
+                        if(contatto != null){
+                            transactionName.setText(contatto.getNome() + " " + contatto.getCognome());
+                        }
+                        else{
+                            GetUserService getUserService = new GetUserService();
+                            getUserService.setAction("selectByIban");
+                            getUserService.setIban(transaction.getIbanFrom());
+                            getUserService.restart();
+                            getUserService.setOnSucceeded(event -> {
+                                if(event.getSource().getValue() instanceof Utente user) {
+                                    transactionName.setText(user.getNome() + " " + user.getCognome());
+                                }
+                            });
                         }
                     }
                 });
             }
-        });
+        }
+
         /*
         Contatto from = ContattiDAO.getInstance().selectByIBAN(transaction.getIbanFrom());
         Contatto to = ContattiDAO.getInstance().selectByIBAN(transaction.getIbanTo());

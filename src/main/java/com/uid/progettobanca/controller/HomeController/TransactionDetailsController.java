@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller.HomeController;
 
+import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.DAO.SpacesDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
@@ -117,15 +118,27 @@ public class TransactionDetailsController implements Initializable {
 
         transaction = TransactionManager.getInstance().getNextTransaction();
         Space space;
-        if(transaction.getImporto() < 0) {
-            fromToLabel.setText("Da");
-            space = SpacesDAO.getInstance().selectBySpaceId(transaction.getSpaceFrom());
-            amountLabel.setText(df.format(transaction.getImporto()) + " €");
+        if(transaction.getSpaceTo() != 0) {
+            if (transaction.getImporto() < 0) {
+                fromToLabel.setText("Da");
+                space = SpacesDAO.getInstance().selectBySpaceId(transaction.getSpaceFrom());
+                amountLabel.setText(df.format(transaction.getImporto()) + " €");
+            } else {
+                fromToLabel.setText("A");
+                space = SpacesDAO.getInstance().selectBySpaceId(transaction.getSpaceTo());
+                amountLabel.setText("+" + df.format(transaction.getImporto()) + " €");
+            }
         }
-        else {
-            fromToLabel.setText("A");
-            space = SpacesDAO.getInstance().selectBySpaceId(transaction.getSpaceTo());
-            amountLabel.setText("+" + df.format(transaction.getImporto()) + " €");
+        else{
+            space = SpacesDAO.getInstance().selectBySpaceId(BankApplication.getCurrentlyLoggedMainSpace());
+            if(transaction.getImporto() < 0){
+                fromToLabel.setText("Da");
+                amountLabel.setText(df.format(transaction.getImporto()) + " €");
+            }
+            else{
+                fromToLabel.setText("A");
+                amountLabel.setText("+" + df.format(transaction.getImporto()) + " €");
+            }
         }
         spaceLabel.setText(space.getNome());
 
@@ -135,6 +148,7 @@ public class TransactionDetailsController implements Initializable {
         commentsArea.setText(transaction.getCommenti());
         descriptionLabel.setText(transaction.getDescrizione());
         typeLabel.setText(transaction.getTipo());
+
 
         if (typeLabel.getText().equals("Bonifico")){
             GenericController.loadImage("bonifico", typeImage);

@@ -29,19 +29,13 @@
                         </VBox>
                         <VBox alignment="CENTER" spacing="5.0">
                            <children>
-                              <Button fx:id="send" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
+                              <Button fx:id="send" mnemonicParsing="false" onAction="#openOperations" prefHeight="50.0" prefWidth="50.0" />
                               <Label styleClass="button-label" text="%Invia" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" spacing="5.0">
                            <children>
-                              <Button fx:id="receive" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" />
-                              <Label styleClass="button-label" text="%Ricevi" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER" spacing="5.0">
-                           <children>
-                              <Button fx:id="statistics" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
+                              <Button fx:id="statistics" mnemonicParsing="false" onAction="#openStatistics" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
                               <Label styleClass="button-label" text="%Statistiche" />
                            </children>
                         </VBox>
