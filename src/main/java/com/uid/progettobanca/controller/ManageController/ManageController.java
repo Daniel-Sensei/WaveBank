@@ -7,6 +7,7 @@ import com.uid.progettobanca.model.objects.Transazione;
 import com.uid.progettobanca.model.objects.Utente;
 import com.uid.progettobanca.model.services.GetCardService;
 import com.uid.progettobanca.model.services.GetTransactionService;
+import com.uid.progettobanca.model.services.GetUserService;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -80,7 +81,7 @@ public class ManageController {
 
     private int daysInterval;
 
-    UserService userService = new UserService();
+    GetUserService userService = new GetUserService();
     private GraphCalculator graphCalculator=new GraphCalculator();
     private GetCardService getCardService= new GetCardService();
     private final GetTransactionService transactionsService = new GetTransactionService("filterAllTransaction", null, null, "");
@@ -105,6 +106,7 @@ public class ManageController {
 
         getCardService.setAction("allByUser");;
 
+        userService.setAction("selectById");
         userService.start();
 
 

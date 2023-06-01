@@ -3,8 +3,8 @@ package com.uid.progettobanca.controller.MyAccountController;
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
-import com.uid.progettobanca.model.UserService;
 import com.uid.progettobanca.model.objects.Utente;
+import com.uid.progettobanca.model.services.GetUserService;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
@@ -153,7 +153,7 @@ public class MyAccountController implements Initializable {
     }
 
 
-    UserService userService = new UserService();
+    GetUserService userService = new GetUserService();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -163,6 +163,7 @@ public class MyAccountController implements Initializable {
         GenericController.loadImages(myAccountImages);
         GenericController.loadImageButton(logout);
 
+        userService.setAction("selectById");
         userService.start();
 
         userService.setOnSucceeded(event -> {
