@@ -2,7 +2,6 @@ package com.uid.progettobanca.view;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
-import com.uid.progettobanca.model.DAO.ContiDAO;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -11,9 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
@@ -23,9 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static com.uid.progettobanca.Settings.locale;
 
@@ -244,20 +239,29 @@ public class SceneHandler {
 
 
 
-    public void showError(String pageTitle, String headerMassage, String contentText) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+    public String showMessage(String type, String pageTitle, String headerMassage, String contentText) {
+        Alert alert;
+        switch(type){
+            case "error" -> alert = new Alert(Alert.AlertType.ERROR);
+            case "info" -> alert = new Alert(Alert.AlertType.INFORMATION);
+            case "question" -> alert = new Alert(Alert.AlertType.CONFIRMATION);
+            default -> alert = new Alert(Alert.AlertType.WARNING);
+        }
+
         alert.setTitle(pageTitle);
         alert.setHeaderText(headerMassage);
         alert.setContentText(contentText);
-        alert.showAndWait();
-    }
 
-    public void showInfo(String title, String headerMassage, String contentText) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(headerMassage);
-        alert.setContentText(contentText);
+        //imposta all'alert il css in uso nelle altre pagine
+        alert.getDialogPane().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + Settings.CSS_THEME, CSS_PATH + "style.css");
+        //imposta il css del pulsante annulla a secondarybutton
+        alert.getDialogPane().lookupButton(alert.getButtonTypes().get(1)).getStyleClass().add("secondaryButton");
+        //imposta il css dello sfondo a background
+        alert.getDialogPane().getStyleClass().add("background");
+
         alert.showAndWait();
+
+        return alert.getResult().getText();
     }
 
     public void addPage(String pageName, Parent page) {

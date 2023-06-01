@@ -59,13 +59,13 @@ public class TransazioniDAO {
             if (iban_from.equals(BankApplication.getCurrentlyLoggedIban())) {
                 double check = ContiDAO.getInstance().getSaldoByIban(iban_from);
                 if (check < importo) {
-                    SceneHandler.getInstance().showError("Errore", "Saldo insufficiente", "Non hai abbastanza soldi per effettuare questa operazione");
+                    SceneHandler.getInstance().showMessage("error", "Errore", "Saldo insufficiente", "Non hai abbastanza soldi per effettuare questa operazione");
                     return false;
                 }
                 Space from = SpacesDAO.getInstance().selectBySpaceId(space_from);
                 double saldo = from.getSaldo();
                 if (saldo < importo) {
-                    SceneHandler.getInstance().showError("Errore", "Saldo insufficiente nello space", "Non hai abbastanza soldi nello space selezionato per effettuare questa operazione");
+                    SceneHandler.getInstance().showMessage("error", "Errore", "Saldo insufficiente nello space", "Non hai abbastanza soldi nello space selezionato per effettuare questa operazione");
                     return false;
                 }
                 from.setSaldo(saldo - importo);

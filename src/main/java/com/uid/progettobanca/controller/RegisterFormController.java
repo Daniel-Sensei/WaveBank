@@ -239,7 +239,7 @@ public class RegisterFormController implements Initializable {
         //creo la carta di debito
         CreateCard.createDebitcard(UtentiDAO.getInstance().selectByEmail(email.getText()).getUserId());
         //avviso dell'avvenuta registrazione
-        SceneHandler.getInstance().showInfo("Registrazione", "Registrazione effettuata con successo", "Ora puoi effettuare il login");
+        SceneHandler.getInstance().showMessage("info", "Registrazione", "Registrazione effettuata con successo", "Ora puoi effettuare il login");
         //torno alla pagina di login
         SceneHandler.getInstance().setPage("login.fxml");
     }

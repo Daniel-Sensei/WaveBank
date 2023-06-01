@@ -60,7 +60,7 @@ public class ModifyContactController implements Initializable {
             if (!fieldIban.getText().isEmpty())
                 contatto.setIban(fieldIban.getText());
             ContattiDAO.getInstance().update(contatto);
-            SceneHandler.getInstance().showInfo("Aggiornamento Contatto", "Contatto aggiornato", "Il contatto è stato modificato correttamente.");
+            SceneHandler.getInstance().showMessage("info", "Aggiornamento Contatto", "Contatto aggiornato", "Il contatto è stato modificato correttamente.");
         }
         SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
     }

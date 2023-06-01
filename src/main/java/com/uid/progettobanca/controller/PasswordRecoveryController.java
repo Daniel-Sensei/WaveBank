@@ -41,7 +41,7 @@ public class PasswordRecoveryController implements Initializable {
     void onEmailInserted(ActionEvent event) {
         String q = UtentiDAO.getInstance().selectByEmail(fieldEmail.getText()).getDomanda();
         if(q.isEmpty())
-            SceneHandler.getInstance().showError("Errore", "Errore durante il recupero della domanda", "L'email inserita non è presente nel database.");
+            SceneHandler.getInstance().showMessage("error", "Errore", "Errore durante il recupero della domanda", "L'email inserita non è presente nel database.");
         else question.setText(q);
     }
 
@@ -50,11 +50,11 @@ public class PasswordRecoveryController implements Initializable {
         if(UtentiDAO.getInstance().checkAnswer(fieldEmail.getText(), fieldAnswer.getText()))
             if(fieldPassword.getText().equals(confirmPassword.getText()) && !fieldPassword.getText().isEmpty()) {
                 UtentiDAO.getInstance().updatePassword(fieldEmail.getText(), fieldPassword.getText());
-                SceneHandler.getInstance().showInfo("Password","Password aggiornata", "La password è stata aggiornata con successo.");
+                SceneHandler.getInstance().showMessage("info", "Password","Password aggiornata", "La password è stata aggiornata con successo.");
                 SceneHandler.getInstance().setPage("login.fxml");
             }
-            else SceneHandler.getInstance().showError("Errore", "Errore durante il cambio della password", "Le password sono vuote o non coincidono.");
-        else SceneHandler.getInstance().showError("Errore", "Errore durante il controllo della risposta", "Risposta errata, riprova.");
+            else SceneHandler.getInstance().showMessage("error", "Errore", "Errore durante il cambio della password", "Le password sono vuote o non coincidono.");
+        else SceneHandler.getInstance().showMessage("error", "Errore", "Errore durante il controllo della risposta", "Risposta errata, riprova.");
     }
 
     @FXML
@@ -63,6 +63,5 @@ public class PasswordRecoveryController implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-    }
+    public void initialize(URL url, ResourceBundle resourceBundle) {}
 }

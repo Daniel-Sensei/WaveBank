@@ -64,7 +64,7 @@ public class SafetyController {
     void sendButtonPressed(ActionEvent event) {
         if (UtentiDAO.getInstance().checkPassword(BankApplication.getCurrentlyLoggedUser(), oldPsw.getText())) {
             UtentiDAO.getInstance().updatePassword(UtentiDAO.getInstance().getUserById(BankApplication.getCurrentlyLoggedUser()).getEmail(), newPsw.getText());
-            SceneHandler.getInstance().showInfo("Cambio password", "Cambio password effettuato", "Hai cambiato password!");
+            SceneHandler.getInstance().showMessage("info", "Cambio password", "Cambio password effettuato", "Hai cambiato password!");
             SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.MY_ACCOUNT_PATH + "safety.fxml");
             SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "myAccount.fxml");
         } else {

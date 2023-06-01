@@ -3,8 +3,8 @@ package com.uid.progettobanca.controller.OperationsController;
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.objects.Ricorrente;
-import com.uid.progettobanca.model.DAO.RicorrentiDAO;
 import com.uid.progettobanca.model.services.RecurrentService;
+import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,10 +14,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.ResourceBundle;
@@ -129,37 +129,37 @@ public class NewRecurrentController implements Initializable {
 
         //controllo validità iban con regex
         if(!fieldIbanTo.getText().matches("[A-Z]{2}[0-9]{2}[A-Z0-9][0-9]{22}")) {
-            SceneHandler.getInstance().showError("Errore", "IBAN non valido", "L'IBAN deve essere composto da 27 caratteri");
+            SceneHandler.getInstance().showMessage("error", "Errore", "IBAN non valido", "L'IBAN deve essere composto da 27 caratteri");
             return;
         }
 
         //controllo che nessuno dei campi sia vuoto
         if(fieldAmount.getText().isEmpty() || fieldDescr.getText().isEmpty() || fieldIbanTo.getText().isEmpty() || fieldName.getText().isEmpty() || fieldSurname.getText().isEmpty() || LocalDate.parse(convertDate(getDate())) == null || recurrencyComboBox.getValue().isEmpty()){
-            SceneHandler.getInstance().showError("Errore", "Campi vuoti", "Riempire tutti i campi");
+            SceneHandler.getInstance().showMessage("error", "Errore", "Campi vuoti", "Riempire tutti i campi");
             return;
         }
 
         //controllo che l'importo sia un numero dando la possibilità di inserire 2 decimali con il punto
         if(!fieldAmount.getText().matches("[0-9]+(\\.[0-9]{1,2})?")) {
-            SceneHandler.getInstance().showError("Errore", "Importo non valido", "L'importo deve essere composto da cifre");
+            SceneHandler.getInstance().showMessage("error", "Errore", "Importo non valido", "L'importo deve essere composto da cifre");
             return;
         }
 
         //controllo che la data sia valida
         if(LocalDate.parse(convertDate(getDate())).isBefore(LocalDate.now())) {
-            SceneHandler.getInstance().showError("Errore", "Data non valida", "La data deve essere successiva ad oggi");
+            SceneHandler.getInstance().showMessage("error", "Errore", "Data non valida", "La data deve essere successiva ad oggi");
             return;
         }
 
         //controllo che il nome e il cognome siano composti solo da lettere
         if(!fieldName.getText().matches("[a-zA-Z]+") || !fieldSurname.getText().matches("[a-zA-Z]+")) {
-            SceneHandler.getInstance().showError("Errore", "Nome o Cognome non validi", "Il nome e il cognome devono essere composti solo da lettere");
+            SceneHandler.getInstance().showMessage("error", "Errore", "Nome o Cognome non validi", "Il nome e il cognome devono essere composti solo da lettere");
             return;
         }
 
         //controllo che il numero di giorni sia un numero
         if(!fieldNGiorni.getText().matches("[0-9]+")) {
-            SceneHandler.getInstance().showError("Errore", "Numero di giorni non valido", "Il numero di giorni deve essere un numero");
+            SceneHandler.getInstance().showMessage("error", "Errore", "Numero di giorni non valido", "Il numero di giorni deve essere un numero");
             return;
         }
         recurrentService.setPayment(new Ricorrente(fieldName.getText() + " " + fieldSurname.getText(), Double.parseDouble(fieldAmount.getText()), fieldIbanTo.getText(), LocalDate.parse(convertDate(getDate())), Integer.parseInt(fieldNGiorni.getText()), fieldDescr.getText(), BankApplication.getCurrentlyLoggedUser()));
@@ -181,5 +181,10 @@ public class NewRecurrentController implements Initializable {
         populateComboBoxData();
         GenericController.loadImage(back);
         recurrencyComboBox.getItems().addAll(ricorrenza);
+    }
+
+    @FXML
+    void loadPreviousPage(MouseEvent event) throws IOException {
+        BackStack.getInstance().loadPreviousPage();
     }
 }

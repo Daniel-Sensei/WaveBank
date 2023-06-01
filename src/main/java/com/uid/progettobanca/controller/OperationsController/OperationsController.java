@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller.OperationsController;
 
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.ContactsManager;
 import com.uid.progettobanca.model.objects.Contatto;
@@ -9,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -22,8 +24,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicLong;
+
 
 public class OperationsController implements Initializable {
 
@@ -172,10 +174,13 @@ public class OperationsController implements Initializable {
 
     @FXML
     void onDeleteClick(ActionEvent event) {
-        if(selectedContact != -1){
-            ContattiDAO.getInstance().delete(contacts.get(selectedContact));
-            contacts.remove(selectedContact);
-            contactsVBox.getChildren().remove(selectedContact);
+        if (selectedContact != -1) {
+            if(SceneHandler.getInstance().showMessage("question", "Conferma", "Conferma eliminazione", "Sei sicuro di voler eliminare il contatto selezionato?").equals("OK")) {
+                ContattiDAO.getInstance().delete(contacts.get(selectedContact));
+                contacts.remove(selectedContact);
+                contactsVBox.getChildren().remove(selectedContact);
+                selectedContact = -1;
+            }
         }
     }
 }

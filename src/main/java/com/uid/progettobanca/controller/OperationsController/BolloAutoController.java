@@ -126,7 +126,7 @@ public class BolloAutoController implements Initializable {
             TransazioniDAO.getInstance().insert(new Transazione("Bollo: "+ fieldPlate.getText(), BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, "Bollo " + typeComboBox.getValue(), "Bollo", "Altro", ""));
             SceneHandler.getInstance().reloadDynamicPageInHashMap();
             SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
-            SceneHandler.getInstance().showInfo("Operazione effettuata", "Bollo pagato", "Il bollo è stato pagato con successo");
+            SceneHandler.getInstance().showMessage("info", "Operazione effettuata", "Bollo pagato", "Il bollo è stato pagato con successo");
         }
     }
 

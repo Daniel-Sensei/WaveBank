@@ -91,7 +91,7 @@ public class RicaricaTelefonicaController implements Initializable {
             TransazioniDAO.getInstance().insert(new Transazione("Ricarica: "+fieldPhone.getText(), BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, fieldPhone.getText().trim(), "Ricarica Telefonica", "Altro", ""));
             SceneHandler.getInstance().reloadDynamicPageInHashMap();
             SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
-            SceneHandler.getInstance().showInfo("Operazione effettuata", "Ricarica telefonica effettuata", "L'importo è stato accreditato sul numero: " + fieldPhone.getText());
+            SceneHandler.getInstance().showMessage("info", "Operazione effettuata", "Ricarica telefonica effettuata", "L'importo è stato accreditato sul numero: " + fieldPhone.getText());
         }
     }
 

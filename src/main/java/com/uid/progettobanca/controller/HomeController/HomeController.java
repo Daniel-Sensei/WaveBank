@@ -2,8 +2,6 @@ package com.uid.progettobanca.controller.HomeController;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
-import com.uid.progettobanca.controller.MenuBarController;
-import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.objects.Conto;
 import com.uid.progettobanca.model.services.GetAccountService;
@@ -23,7 +21,6 @@ import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;

@@ -144,7 +144,7 @@ public class BollettinoController implements Initializable {
             TransazioniDAO.getInstance().insert(new Transazione("Bollettino Postale", BankApplication.getCurrentlyLoggedIban(), fieldCC.getText(), space, 0,  LocalDateTime.now(), amount, descr + fieldDescr.getText(), tipo, "Altro", ""));
             SceneHandler.getInstance().reloadDynamicPageInHashMap();
             SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
-            SceneHandler.getInstance().showInfo("Operazione effettuata", "Bollettino pagato", "Il bollettino è stato pagato con successo");
+            SceneHandler.getInstance().showMessage("info", "Operazione effettuata", "Bollettino pagato", "Il bollettino è stato pagato con successo");
         }
     }
 
@@ -189,6 +189,4 @@ public class BollettinoController implements Initializable {
     void loadPreviousPage(MouseEvent event) throws IOException {
         BackStack.getInstance().loadPreviousPage();
     }
-
-
 }

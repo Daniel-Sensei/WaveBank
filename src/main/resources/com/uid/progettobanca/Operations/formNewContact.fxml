@@ -27,9 +27,9 @@
                                 <VBox alignment="CENTER_LEFT" spacing="3.0">
                                     <children>
                                         <Label styleClass="titleLabel" text="Aggiungi nuovo contatto" />
-                                        <Label styleClass="subtitleLabel" text="Indietro">
+                                        <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="Indietro">
                                             <graphic>
-                                                <ImageView fx:id="back" fitHeight="12.0" fitWidth="12.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" />
+                                                <ImageView fx:id="back" fitHeight="12.0" fitWidth="12.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
                                             </graphic>
                                             <cursor>
                                                 <Cursor fx:constant="HAND" />

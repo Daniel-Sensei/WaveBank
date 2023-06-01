@@ -150,7 +150,7 @@ public class BonificoController implements Initializable {
             }
             SceneHandler.getInstance().reloadDynamicPageInHashMap();
             SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
-            SceneHandler.getInstance().showInfo("Bonifico", "Bonifico effettuato con successo", "Il bonifico è andato a buon fine.");
+            SceneHandler.getInstance().showMessage("info", "Bonifico", "Bonifico effettuato con successo", "Il bonifico è andato a buon fine.");
         }
     }
 

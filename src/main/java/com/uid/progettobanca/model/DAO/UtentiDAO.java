@@ -153,11 +153,11 @@ public class UtentiDAO {
                         BankApplication.setCurrentlyLoggedUser(user);
                         return true;
                     } else {
-                        SceneHandler.getInstance().showError("Errore Login", "Email o Password Errati", "L'email o la password inseriti non sono corretti, per favore riprovare");
+                        SceneHandler.getInstance().showMessage("error", "Errore Login", "Email o Password Errati", "L'email o la password inseriti non sono corretti, per favore riprovare");
                         return false;
                     }
                 } else {
-                    SceneHandler.getInstance().showError("Errore Login", "Email o Password Errati", "L'email o la password inseriti non sono corretti, per favore riprovare");
+                    SceneHandler.getInstance().showMessage("error", "Errore Login", "Email o Password Errati", "L'email o la password inseriti non sono corretti, per favore riprovare");
                     return false;
                 }
             }
