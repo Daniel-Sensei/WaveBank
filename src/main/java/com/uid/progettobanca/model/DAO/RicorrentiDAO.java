@@ -82,7 +82,7 @@ public class RicorrentiDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 Queue<Ricorrente> pagamenti = new LinkedList<>();
                 while (rs.next()) {
-                    pagamenti.add(new Ricorrente(user_id,
+                    pagamenti.add(new Ricorrente(rs.getInt("payment_id"),
                             rs.getString("nome"),
                             rs.getDouble("importo"),
                             rs.getString("iban_to"),
@@ -126,7 +126,6 @@ public class RicorrentiDAO {
             stmt.setInt(1, payment.getPaymentId());
             stmt.setInt(2, payment.getUserId());
             stmt.executeUpdate();
-            System.out.println("Ricorrente eliminato");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

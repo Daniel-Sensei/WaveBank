@@ -1,6 +1,8 @@
 package com.uid.progettobanca.controller.OperationsController;
 
+import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
+import com.uid.progettobanca.model.DAO.RicorrentiDAO;
 import com.uid.progettobanca.model.RecurrentManager;
 import com.uid.progettobanca.model.objects.Ricorrente;
 import com.uid.progettobanca.model.services.GetRecurrentsService;

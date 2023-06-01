@@ -47,6 +47,8 @@ public class SceneHandler {
      private String theme = "light";
      **/
 
+    private FXMLLoader fxmlLoader;
+
     private final static String FONTS_PATH = CSS_PATH + "fonts/";
     public final static String HOME_PATH = "/Home/";
     public final static String MANAGE_PATH = "/Manage/";
@@ -67,8 +69,7 @@ public class SceneHandler {
         return instance;
     }
 
-    private SceneHandler() {
-    }
+    private SceneHandler() {}
 
     public Stage getStage() {
         return stage;
@@ -133,9 +134,13 @@ public class SceneHandler {
     }
 
     private <T> T loadRootFromFXML(String resourceName) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(new File(ABSOLUTE_PATH + resourceName).toURI().toURL());
+        fxmlLoader = new FXMLLoader(new File(ABSOLUTE_PATH + resourceName).toURI().toURL());
         fxmlLoader.setResources(ResourceBundle.getBundle("bundle", locale));
         return fxmlLoader.load();
+    }
+
+    public <T> T getController() {
+        return fxmlLoader.getController();
     }
 
     private void loadFonts() {
