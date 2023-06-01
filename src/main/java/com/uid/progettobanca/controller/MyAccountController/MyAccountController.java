@@ -148,7 +148,6 @@ public class MyAccountController implements Initializable {
         // Imposta la stringa da copiare
         content.putString(BankApplication.getCurrentlyLoggedIban());
         SceneHandler.getInstance().showInfoPopup(SceneHandler.MY_ACCOUNT_PATH + "ibanCopiedPopup.fxml", (Stage) copy.getScene().getWindow(), 300, 75);
-
         // Copia il contenuto negli appunti
         clipboard.setContent(content);
     }
