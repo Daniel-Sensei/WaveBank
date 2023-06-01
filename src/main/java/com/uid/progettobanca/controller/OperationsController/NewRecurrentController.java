@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.objects.Ricorrente;
 import com.uid.progettobanca.model.DAO.RicorrentiDAO;
 import com.uid.progettobanca.model.services.RecurrentService;
@@ -12,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.net.URL;
@@ -49,6 +51,9 @@ public class NewRecurrentController implements Initializable {
 
     @FXML
     private Button sendButton;
+
+    @FXML
+    private ImageView back;
 
     @FXML
     void onAltroSelection(ActionEvent event) {
@@ -125,5 +130,8 @@ public class NewRecurrentController implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {recurrencyComboBox.getItems().addAll(ricorrenza);}
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        GenericController.loadImage(back);
+        recurrencyComboBox.getItems().addAll(ricorrenza);
+    }
 }

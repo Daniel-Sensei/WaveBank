@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.objects.Contatto;
 import com.uid.progettobanca.model.DAO.ContattiDAO;
 import com.uid.progettobanca.view.FormUtils;
@@ -13,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -42,6 +44,9 @@ public class NewContactController implements Initializable {
     private Label warningSurname;
 
     @FXML
+    private ImageView back;
+
+    @FXML
     void onSendButtonClick(ActionEvent event) {
         ContattiDAO.getInstance().insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIban.getText(), BankApplication.getCurrentlyLoggedUser()));
         SceneHandler.getInstance().showInfo("Aggiunta Contatto", "Contatto aggiunto", "Il contatto è stato aggiunto correttamente.");
@@ -50,6 +55,7 @@ public class NewContactController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        GenericController.loadImage(back);
         fieldIban.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
                 FormUtils.getInstance().validateTextField(fieldIban, FormUtils.getInstance().validateIban(fieldIban.getText()), warningIban);

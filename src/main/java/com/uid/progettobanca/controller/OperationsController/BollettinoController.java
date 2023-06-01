@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.objects.Transazione;
@@ -16,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -71,8 +73,12 @@ public class BollettinoController implements Initializable {
     @FXML
     private Label warningTipologia;
 
+    @FXML
+    private ImageView back;
+
     private BooleanBinding formValid;
     public void initialize(URL location, ResourceBundle resources) {
+        GenericController.loadImage(back);
 
         tipologiaComboBox.getItems().addAll(tipologia);
         try {

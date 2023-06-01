@@ -37,6 +37,9 @@ public class PaymentController implements Initializable {
     private ImageView trash;
 
     @FXML
+    private ImageView back;
+
+    @FXML
     void mouseExited(MouseEvent event) {
         trash.setVisible(true);
     }
@@ -65,6 +68,7 @@ public class PaymentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        GenericController.loadImage(back);
         GenericController.loadImage(trash);
         GenericController.loadImage("pagamentiRicorrenti", tag);
 

@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.objects.Contatto;
 import com.uid.progettobanca.model.DAO.*;
 import com.uid.progettobanca.model.objects.Transazione;
@@ -13,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -62,8 +64,12 @@ public class BonificoController implements Initializable {
     @FXML
     private ComboBox<String> spacesComboBox;
 
+    @FXML
+    private ImageView back;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        GenericController.loadImage(back);
         try {
             FormUtils.getInstance().fillSpacesComboBox(spacesComboBox);
         } catch (SQLException e) {

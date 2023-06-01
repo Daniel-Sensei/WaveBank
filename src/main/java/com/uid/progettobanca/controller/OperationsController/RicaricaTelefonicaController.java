@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.objects.Transazione;
@@ -13,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -40,11 +42,14 @@ public class RicaricaTelefonicaController implements Initializable {
     @FXML
     private Label amountLabel;
     private BooleanBinding formValid;
+    @FXML
+    private ImageView back;
 
     @FXML
     private String[] providers = {"TIM", "Vodafone", "Wind Tre", "Iliad", "Fastweb", "PosteMobile", "CoopVoce"};
 
     public void initialize(URL location, ResourceBundle resources) {
+        GenericController.loadImage(back);
         providerComboBox.getItems().addAll(providers);
         try {
             FormUtils.getInstance().fillSpacesComboBox(spacesComboBox);

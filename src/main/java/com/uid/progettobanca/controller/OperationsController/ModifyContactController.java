@@ -1,7 +1,9 @@
 package com.uid.progettobanca.controller.OperationsController;
 
+import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.objects.Contatto;
 import com.uid.progettobanca.model.DAO.ContattiDAO;
+import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.beans.property.BooleanProperty;
@@ -12,7 +14,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -43,6 +48,9 @@ public class ModifyContactController implements Initializable {
     private Label warningSurname;
 
     @FXML
+    private ImageView back;
+
+    @FXML
     void onSendButtonClick(ActionEvent event) {
         if(!fieldIban.getText().isEmpty()||!fieldName.getText().isEmpty()||!fieldSurname.getText().isEmpty()) {
             if (!fieldName.getText().isEmpty())
@@ -59,6 +67,7 @@ public class ModifyContactController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        GenericController.loadImage(back);
 
         contatto = OperationsController.getSelectedContact();
 
@@ -106,6 +115,11 @@ public class ModifyContactController implements Initializable {
 
     private void updateButtonState(BooleanProperty ibanValid, BooleanProperty nameValid, BooleanProperty surnameValid) {
         sendButton.setDisable(!(ibanValid.get() && nameValid.get() && surnameValid.get()));
+    }
+
+    @FXML
+    void loadPreviousPage(MouseEvent event) throws IOException {
+        BackStack.getInstance().loadPreviousPage();
     }
 
 }

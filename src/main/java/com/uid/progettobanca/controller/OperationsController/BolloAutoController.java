@@ -2,6 +2,7 @@ package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
+import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.objects.Transazione;
@@ -21,6 +22,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
@@ -66,8 +68,12 @@ public class BolloAutoController implements Initializable {
     private Label warningPlate;
 
     private BooleanBinding formValid;
+
     @FXML
     private Label amountLabel;
+
+    @FXML
+    private ImageView back;
 
     private void playPirataConRadio(){
         if(fieldPlate.getText().trim().equalsIgnoreCase("galeone") && fieldCF.getText().trim().equalsIgnoreCase("pirata")){
@@ -79,6 +85,7 @@ public class BolloAutoController implements Initializable {
         }
     }
     public void initialize(URL location, ResourceBundle resources) {
+        GenericController.loadImage(back);
         typeComboBox.getItems().addAll(tipologia);
         try {
             FormUtils.getInstance().fillSpacesComboBox(spacesComboBox);
