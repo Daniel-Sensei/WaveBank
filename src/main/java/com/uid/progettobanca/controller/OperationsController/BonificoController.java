@@ -120,6 +120,11 @@ public class BonificoController implements Initializable {
         sendButton.disableProperty().bind(formValid.not());
     }
 
+    public void setContactData(Contatto contact) {
+        fieldName.setText(contact.getNome());
+        fieldSurname.setText(contact.getCognome());
+        fieldIbanTo.setText(contact.getIban());
+    }
 
     @FXML
     void onSendButtonClick(ActionEvent event) {

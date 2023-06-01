@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class OperationsController implements Initializable {
@@ -126,10 +127,9 @@ public class OperationsController implements Initializable {
                     if (event.getButton() == MouseButton.PRIMARY) {
                         long currentTime = System.currentTimeMillis();
                         if (currentTime - lastClickTime[0].get() <= DOUBLE_CLICK_TIME_THRESHOLD) {
-                            // Doppio click
-                            System.out.println("Doppio click sul contatto con indice: " + contactIndex);
-                            // Aggiungi info contatto nel form bonifico
                             openFormBonifico(event);
+                            BonificoController b = SceneHandler.getInstance().getController();
+                            b.setContactData(contacts.get(contactIndex));
                         } else {
                             // Click singolo
                             // Rimuovi la classe di stile dal contatto precedentemente selezionato
