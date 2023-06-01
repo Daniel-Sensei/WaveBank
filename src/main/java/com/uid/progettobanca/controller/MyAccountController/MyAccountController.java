@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.MyAccountController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.UserService;
 import com.uid.progettobanca.model.objects.Utente;
@@ -9,6 +10,7 @@ import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -89,11 +91,24 @@ public class MyAccountController implements Initializable {
         myAccountImages.add(copy);
     }
 
+    private final static String CSS_PATH = "/css/" ;
     @FXML
     void userLogout(ActionEvent event) {
         //Completare il logout
-        SceneHandler.getInstance().createLoginScene((Stage) logout.getScene().getWindow());
-
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Conferma");;
+        alert.setHeaderText("Conferma logout");
+        alert.setContentText("Sei sicuro di voler effettuare il logout?");
+        //imposta all'alert il css attuale
+        alert.getDialogPane().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + Settings.CSS_THEME, CSS_PATH + "style.css");
+        //imposta il css del pulsante annulla a secondarybutton
+        alert.getDialogPane().lookupButton(alert.getButtonTypes().get(1)).getStyleClass().add("secondaryButton");
+        //imposta il css dello sfondo a background
+        alert.getDialogPane().getStyleClass().add("background");
+        alert.showAndWait();
+        if(alert.getResult().getText().equals("OK")) {
+            SceneHandler.getInstance().createLoginScene((Stage) logout.getScene().getWindow());
+        }
     }
 
     private void openGenericPage(String pageName){
