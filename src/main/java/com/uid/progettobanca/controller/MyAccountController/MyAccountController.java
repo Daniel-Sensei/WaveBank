@@ -94,19 +94,7 @@ public class MyAccountController implements Initializable {
     private final static String CSS_PATH = "/css/" ;
     @FXML
     void userLogout(ActionEvent event) {
-        //Completare il logout
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Conferma");;
-        alert.setHeaderText("Conferma logout");
-        alert.setContentText("Sei sicuro di voler effettuare il logout?");
-        //imposta all'alert il css attuale
-        alert.getDialogPane().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + Settings.CSS_THEME, CSS_PATH + "style.css");
-        //imposta il css del pulsante annulla a secondarybutton
-        alert.getDialogPane().lookupButton(alert.getButtonTypes().get(1)).getStyleClass().add("secondaryButton");
-        //imposta il css dello sfondo a background
-        alert.getDialogPane().getStyleClass().add("background");
-        alert.showAndWait();
-        if(alert.getResult().getText().equals("OK")) {
+        if(SceneHandler.getInstance().showMessage("question", "Conferma","Conferma logout", "Sei sicuro di voler effettuare il logout?").equals("OK")) {
             SceneHandler.getInstance().createLoginScene((Stage) logout.getScene().getWindow());
         }
     }

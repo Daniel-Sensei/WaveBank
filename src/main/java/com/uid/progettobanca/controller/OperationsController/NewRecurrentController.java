@@ -80,7 +80,7 @@ public class NewRecurrentController implements Initializable {
         // Popola la ComboBox degli anni
         yearComboBox.getItems().clear();
         int annoCorrente = Calendar.getInstance().get(Calendar.YEAR);
-        for (int anno = annoCorrente; anno >= annoCorrente - 100; anno--) {
+        for (int anno = annoCorrente; anno <= annoCorrente + 5; anno++) {
             yearComboBox.getItems().add(String.valueOf(anno));
         }
     }

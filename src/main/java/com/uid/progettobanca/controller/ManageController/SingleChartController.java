@@ -53,7 +53,7 @@ public class SingleChartController {
             if(event.getSource().getValue() instanceof List<?>  result){
                 ritorno = graphCalculator.TagGraphCalculator(daysInterval, chart, (List<Transazione>) result);
                 lineChart.getData().add(ritorno.getSeries());
-                spentBalance.setText(String.valueOf(ritorno.getValue()));
+                spentBalance.setText(ritorno.getValue());
             }
         });
         getTransactionService.setOnFailed(event -> {

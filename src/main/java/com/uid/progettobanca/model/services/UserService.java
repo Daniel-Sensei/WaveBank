@@ -1,5 +1,6 @@
 package com.uid.progettobanca.model.services;
 
+import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.UtentiDAO;
 import com.uid.progettobanca.model.objects.Utente;
 import javafx.concurrent.Service;
@@ -32,6 +33,7 @@ public class UserService extends Service<Boolean> {
                 return switch (action) {
                     case "insert" -> UtentiDAO.getInstance().insert(u);
                     case "update" -> UtentiDAO.getInstance().update(u);
+                    case "updatePasswordFromUserId" ->  UtentiDAO.getInstance().updatePassword(UtentiDAO.getInstance().getUserById(BankApplication.getCurrentlyLoggedUser()).getEmail(), password);
                     case "delete" -> UtentiDAO.getInstance().delete(u);
                     case "checkAnswer" -> UtentiDAO.getInstance().checkAnswer(email, risposta);
                     case "checkPassword" -> UtentiDAO.getInstance().checkPassword(user_id, password);
