@@ -99,34 +99,6 @@ public class HomeController implements Initializable {
         homeImages.add(search);
     }
 
-    private VBox createTransactionBox(){
-        VBox transactionBox = new VBox();
-        transactionBox.setPrefHeight(VBox.USE_COMPUTED_SIZE);
-        transactionBox.setPrefWidth(VBox.USE_COMPUTED_SIZE);
-        VBox.setMargin(transactionBox, new Insets(0, 0, 20, 0));
-        transactionBox.getStyleClass().add("vbox-with-rounded-border");
-
-        return transactionBox;
-    }
-
-    private void addTransactions(VBox transactionBox, int nTransaction){
-
-        for(int j=0; j<nTransaction; j++){
-            try {
-                Parent transaction = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().HOME_PATH + "transaction.fxml");
-                if(j == nTransaction-1){
-                    transaction.getStyleClass().add("vbox-with-rounded-border-hbox-bottom");
-                }
-                else {
-                    transaction.getStyleClass().add("vbox-with-rounded-border-hbox");
-                }
-                transactionBox.getChildren().add(transaction);
-            } catch (IOException e) {
-                System.out.println("Initialize transaction failed");
-                throw new RuntimeException(e);
-            }
-        }
-    }
 
     private void loadHomeAssets(){
         SceneHandler.getInstance().setScrollSpeed(scrollPane);
@@ -194,37 +166,6 @@ public class HomeController implements Initializable {
 
     }
 
-    private List<String> countDistinctDates(List<Transazione> transazioni) {
-        Set<LocalDateTime> dateSet = new HashSet<>();
-        Set<String> uniqueDates = new HashSet<>();
-
-        for (Transazione transazione : transazioni) {
-            LocalDateTime dateTime = transazione.getDateTime();
-            String dateString = dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-            if (!dateSet.contains(dateTime) && !uniqueDates.contains(dateString)) {
-                dateSet.add(dateTime);
-                uniqueDates.add(dateString);
-            }
-        }
-
-        return new ArrayList<>(uniqueDates);
-    }
-
-    private int countNumTransactionBox(List<Transazione> transazioni, String data) {
-        int count = 0;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        for (Transazione transazione : transazioni) {
-            LocalDateTime transactionDate = transazione.getDateTime();
-            String transactionDateString = transactionDate.format(formatter);
-            if (transactionDateString.equals(data)) {
-                count++;
-            }
-        }
-
-        return count;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -254,7 +195,8 @@ public class HomeController implements Initializable {
 
                 //fill dello Stack per gestire dettagli delle transazioni
                 TransactionManager.getInstance().fillTransactionStack(transactions);
-                distinctDates = countDistinctDates(transactions);
+                distinctDates = TransactionManager.getInstance().countDistinctDates(transactions);
+                System.out.println("Distinct dates= " + distinctDates);
                 int nVBox = distinctDates.size();
                 List<String> convertedDates = TransactionManager.getInstance().convertToLocalDates(distinctDates);
                 if (nVBox != 0) {
@@ -266,10 +208,10 @@ public class HomeController implements Initializable {
                         VBox.setMargin(labelDate, new Insets(0, 0, 2, 0));
                         vBox.getChildren().add(labelDate);
 
-                        VBox transactionBox = createTransactionBox();
+                        VBox transactionBox = TransactionManager.getInstance().createTransactionBox();
 
                         //cicla nel for per aggiungere le transazioni
-                        addTransactions(transactionBox, countNumTransactionBox(transactions, distinctDates.get(i)));
+                        TransactionManager.getInstance().addTransactions(transactionBox, TransactionManager.getInstance().countNumTransactionBox(transactions, distinctDates.get(i)));
 
                         vBox.getChildren().add(transactionBox);
                     }

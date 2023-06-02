@@ -290,12 +290,11 @@ public class TransazioniDAO {
 
     public List<Transazione> selectAllSpaceTransaction(String iban, int spaceID) {
         List<Transazione> transactions = new Stack<>();
-        String query = "SELECT * FROM transazioni WHERE iban_from = ? " +
-                                                 "AND (space_from = ? OR space_to = ?) ORDER BY dateTime asc";
+        String query = "SELECT * FROM transazioni WHERE " +
+                                                 "(space_from = ? OR space_to = ?) ORDER BY dateTime asc";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, iban);
+            stmt.setInt(1, spaceID);
             stmt.setInt(2, spaceID);
-            stmt.setInt(3, spaceID);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     int fromSpace = rs.getInt("space_from");

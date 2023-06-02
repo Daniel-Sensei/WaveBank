@@ -2,6 +2,9 @@ package com.uid.progettobanca.controller.SpacesController;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
+import com.uid.progettobanca.model.TransactionManager;
+import com.uid.progettobanca.model.objects.Transazione;
+import com.uid.progettobanca.model.services.GetTransactionService;
 import com.uid.progettobanca.model.services.SpaceService;
 import com.uid.progettobanca.model.objects.Space;
 import com.uid.progettobanca.model.SpacesManager;
@@ -9,8 +12,11 @@ import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -18,11 +24,15 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class SingleSpacePageController implements Initializable {
 
-    private Space actualSpace;
+    private Space currentSpace;
+    @FXML
+    private VBox spaceVbox;
 
     @FXML
     private Label backButton;
@@ -50,6 +60,10 @@ public class SingleSpacePageController implements Initializable {
 
     @FXML
     private ImageView spaceLogoButton;
+    private List<Transazione> transactions = new ArrayList<>();
+    private List<String> distinctDates = new ArrayList<>();
+    @FXML
+    private ScrollPane scrollPane;
 
     @FXML
     private Button statButton;
@@ -57,7 +71,7 @@ public class SingleSpacePageController implements Initializable {
     @FXML
     void deleteThisSpace(MouseEvent event) throws IOException {
         if(SpacesManager.getInstance().getCurrentSpace().getSpaceId() != BankApplication.getCurrentlyLoggedMainSpace()) {
-            SpaceService spaceService = new SpaceService("delete", actualSpace);
+            SpaceService spaceService = new SpaceService("delete", currentSpace);
             spaceService.restart();
             SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().SPACES_PATH + "spaces.fxml");
             BackStack.getInstance().loadPreviousPage();
@@ -93,6 +107,8 @@ public class SingleSpacePageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        SceneHandler.getInstance().setScrollSpeed(scrollPane);
+
         if (SpacesManager.getInstance().getSpacesListSize() == 1) {
             sendButton.setDisable(true);
             receiveButton.setDisable(true);
@@ -103,11 +119,60 @@ public class SingleSpacePageController implements Initializable {
         }
 
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-        actualSpace = SpacesManager.getInstance().getCurrentSpace();
+        currentSpace = SpacesManager.getInstance().getCurrentSpace();
+        balanceLabel.setText(decimalFormat.format(currentSpace.getSaldo())+ " €");
+        GenericController.setSpaceImage(currentSpace.getImage(), spaceLogoButton);
+        spacePageName.setText(currentSpace.getNome());
 
 
-        balanceLabel.setText(decimalFormat.format(actualSpace.getSaldo())+ " €");
-        GenericController.setSpaceImage(actualSpace.getImage(), spaceLogoButton);
-        spacePageName.setText(actualSpace.getNome());
+        GetTransactionService getTransactionService = new GetTransactionService("filtersSpaceTransaction", currentSpace.getSpaceId());
+        getTransactionService.start();
+
+        VBox vBox = new VBox();
+        vBox.setPrefHeight(VBox.USE_COMPUTED_SIZE);
+        vBox.setPrefWidth(VBox.USE_COMPUTED_SIZE);
+        vBox.setPadding(new Insets(20, 0, 0, 0));
+
+        getTransactionService.setOnSucceeded(event -> {
+            if(event.getSource().getValue() instanceof List<?> result){
+                this.transactions = (List<Transazione>) result;
+
+                //fill dello Stack per gestire dettagli delle transazioni
+                TransactionManager.getInstance().fillTransactionStack(transactions);
+                distinctDates = TransactionManager.getInstance().countDistinctDates(transactions);
+                int nVBox = distinctDates.size();
+                List<String> convertedDates = TransactionManager.getInstance().convertToLocalDates(distinctDates);
+                if (nVBox != 0) {
+                    for (int i = 0; i < nVBox; i++) {
+
+                        Label labelDate = new Label(convertedDates.get(i));
+                        labelDate.setPrefHeight(Label.USE_COMPUTED_SIZE);
+                        labelDate.setPrefWidth(Label.USE_COMPUTED_SIZE);
+                        VBox.setMargin(labelDate, new Insets(0, 0, 2, 0));
+                        vBox.getChildren().add(labelDate);
+
+                        VBox transactionBox = TransactionManager.getInstance().createTransactionBox();
+
+                        //cicla nel for per aggiungere le transazioni
+                        TransactionManager.getInstance().addTransactions(transactionBox, TransactionManager.getInstance().countNumTransactionBox(transactions, distinctDates.get(i)));
+
+                        vBox.getChildren().add(transactionBox);
+                    }
+
+                    spaceVbox.getChildren().add(vBox);
+                } else {
+                    try {
+                        Parent parent = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().HOME_PATH + "noTransaction.fxml");
+                        spaceVbox.getChildren().add(parent);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
+
+        getTransactionService.setOnFailed(event -> {
+            throw new RuntimeException(event.getSource().getException());
+        });
     }
 }
