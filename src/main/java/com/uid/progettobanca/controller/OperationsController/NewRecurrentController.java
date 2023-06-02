@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
@@ -132,6 +133,15 @@ public class NewRecurrentController implements Initializable {
             SceneHandler.getInstance().showMessage("error", "Errore", "IBAN non valido", "L'IBAN deve essere composto da 27 caratteri");
             return;
         }
+
+        //controllo che la data esista
+        try {
+            LocalDate.parse(convertDate(getDate()));
+        } catch (DateTimeParseException e) {
+            SceneHandler.getInstance().showMessage("error", "Errore", "Data non valida", "La data inserita non è valida");
+            return;
+        }
+
 
         //controllo che nessuno dei campi sia vuoto
         if(fieldAmount.getText().isEmpty() || fieldDescr.getText().isEmpty() || fieldIbanTo.getText().isEmpty() || fieldName.getText().isEmpty() || fieldSurname.getText().isEmpty() || LocalDate.parse(convertDate(getDate())) == null || recurrencyComboBox.getValue().isEmpty()){
