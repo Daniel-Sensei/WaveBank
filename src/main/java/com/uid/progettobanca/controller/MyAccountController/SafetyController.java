@@ -13,12 +13,12 @@ import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Button;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
@@ -40,10 +40,13 @@ public class SafetyController {
     private Button sendButton;
 
     @FXML
-    private javafx.scene.control.Label warningWrongPsw;
+    private Label warningWrongPsw;
 
     @FXML
-    private javafx.scene.control.Label warningDiffPsw;
+    private Label warningDiffPsw;
+
+    @FXML
+    private Label warningBadPsw;
 
     @FXML
     private ImageView back;
@@ -63,7 +66,7 @@ public class SafetyController {
     @FXML
     void pswGuide(MouseEvent event) {
         try {
-            Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=dFayOVDKHn0&ab"));
+            java.awt.Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=dFayOVDKHn0&ab"));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -106,10 +109,18 @@ public class SafetyController {
 
     public void initialize() {
         GenericController.loadImage(back);
+
+        newPsw.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
+                FormUtils.getInstance().validatePasswordField(newPsw, FormUtils.getInstance().validatePassword(newPsw.getText()), warningBadPsw);
+                sendButton.setDisable(!(confirmPsw.getText().equals(newPsw.getText()) && FormUtils.getInstance().validatePassword(newPsw.getText())));
+            }
+        });
+
         confirmPsw.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
                 FormUtils.getInstance().validatePasswordField(confirmPsw, confirmPsw.getText().equals(newPsw.getText()), warningDiffPsw);
-                sendButton.setDisable(!confirmPsw.getText().equals(newPsw.getText()));
+                sendButton.setDisable(!(confirmPsw.getText().equals(newPsw.getText()) && FormUtils.getInstance().validatePassword(newPsw.getText())));
             }
         });
     }

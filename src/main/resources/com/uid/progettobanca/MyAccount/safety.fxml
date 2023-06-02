@@ -67,9 +67,10 @@
                                     </Label>
                                  </children>
                               </HBox>
-                              <HBox>
+                              <HBox alignment="CENTER_LEFT">
                                  <children>
                                     <PasswordField fx:id="newPsw" prefHeight="50.0" prefWidth="350.0" promptText="Nuova password" />
+                                    <Label fx:id="warningBadPsw" style="-fx-text-fill: redColor;" text="Password non valida*" visible="false" />
                                  </children>
                               </HBox>
                               <HBox alignment="BOTTOM_LEFT">
@@ -81,7 +82,7 @@
                                     </Label>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" spacing="5.0">
+                              <HBox alignment="CENTER_LEFT" spacing="5.0">
                                  <children>
                                     <PasswordField fx:id="confirmPsw" prefHeight="50.0" prefWidth="350.0" promptText="Conferma password" />
                                     <Label fx:id="warningDiffPsw" style="-fx-text-fill: redColor;" text="Password diverse*" visible="false" />
