@@ -157,12 +157,11 @@ public class BollettinoController implements Initializable {
                 transactionService.setOnSucceeded(e1 -> {
                     if((Boolean) e1.getSource().getValue()){
                         SceneHandler.getInstance().reloadDynamicPageInHashMap();
-                        SceneHandler.getInstance().showMessage("info", "Operazione effettuata", "Bollettino pagato", "Il bollettino è stato pagato con successo");
-                        SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+                        SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "transactionSuccess.fxml");
                     }
                 });
             }else{
-                SceneHandler.getInstance().showMessage("error", "Errore", "Saldo insufficiente", "Non hai abbastanza soldi per effettuare questa operazione");
+                SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "transactionFailed.fxml");
             }
         });
     }

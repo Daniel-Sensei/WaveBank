@@ -8,6 +8,7 @@ import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Popup;
@@ -52,6 +53,8 @@ public class TagSelectionController implements Initializable {
 
     @FXML
     private ImageView stipendio;
+    @FXML
+    private ScrollPane scrollPane;
 
     @FXML
     private ImageView viaggi;
@@ -168,8 +171,8 @@ public class TagSelectionController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(tagImages.isEmpty())
             loadTagImages();
-
         GenericController.loadImages(tagNames, tagImages);
+        SceneHandler.getInstance().setScrollSpeed(scrollPane);
 
         transaction = TransactionManager.getInstance().getNextTransaction();
     }

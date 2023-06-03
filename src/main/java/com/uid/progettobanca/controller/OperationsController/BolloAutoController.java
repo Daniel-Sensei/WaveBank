@@ -152,11 +152,10 @@ public class BolloAutoController implements Initializable {
                 transactionService.restart();
                 transactionService.setOnSucceeded(e1 -> {
                     SceneHandler.getInstance().reloadDynamicPageInHashMap();
-                    SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
-                    SceneHandler.getInstance().showMessage("info", "Operazione effettuata", "Bollo pagato", "Il bollo è stato pagato con successo");
+                    SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "transactionSuccess.fxml");
                 });
             } else {
-                SceneHandler.getInstance().showMessage("error", "Errore", "Saldo insufficiente",  "Il pagamento non è andato a buon fine.\n\nControlla il saldo e riprova.");
+                SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "transactionFailed.fxml");
             }
         });
     }

@@ -102,11 +102,10 @@ public class RicaricaTelefonicaController implements Initializable {
                 transactionService.restart();
                 transactionService.setOnSucceeded(e1 -> {
                     SceneHandler.getInstance().reloadDynamicPageInHashMap();
-                    SceneHandler.getInstance().showMessage("info", "Operazione effettuata", "Ricarica telefonica effettuata", "L'importo è stato accreditato sul numero: " + fieldPhone.getText());
-                    SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+                    SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "transactionSuccess.fxml");
                 });
             } else {
-                SceneHandler.getInstance().showMessage("error", "Errore", "Saldo insufficiente",  "Il pagamento non è andato a buon fine.\n\nControlla il saldo e riprova.");
+                SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "transactionFailed.fxml");
             }
         });
     }
