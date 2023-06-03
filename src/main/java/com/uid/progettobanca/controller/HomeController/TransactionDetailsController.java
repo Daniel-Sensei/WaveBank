@@ -259,7 +259,8 @@ public class TransactionDetailsController implements Initializable {
     @FXML
     void saveComments(ActionEvent event) throws SQLException {
         transaction.setCommenti(commentsArea.getText());
-        TransactionService transactionService = new TransactionService("update");
+        TransactionService transactionService = new TransactionService();
+        transactionService.setAction("update");
         transactionService.setTransaction(transaction);
         transactionService.restart();
 

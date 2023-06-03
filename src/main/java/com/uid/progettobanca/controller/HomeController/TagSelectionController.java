@@ -78,7 +78,8 @@ public class TagSelectionController implements Initializable {
     private void setGenericTag(String tag) throws SQLException {
         transaction.setTag(tag);
 
-        TransactionService transactionService = new TransactionService("update");
+        TransactionService transactionService = new TransactionService();
+        transactionService.setAction("update");
         transactionService.setTransaction(transaction);
         transactionService.restart();
 

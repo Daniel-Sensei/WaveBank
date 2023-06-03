@@ -24,10 +24,10 @@ public class TransactionService extends Service<Boolean> {
     public void setSpaceTo(int space_to) {this.space_to = space_to;}
     public void setComments(String comments) {this.comments = comments;}
     public void setAmount(double amount) {this.amount = amount;}
-
+    public void setAction(String action) {this.action = action;}
     public void setTransaction(Transazione t) {this.t = t;}
 
-    public TransactionService(String action) {this.action = action;}
+    public TransactionService() {}
 
 
     @Override
