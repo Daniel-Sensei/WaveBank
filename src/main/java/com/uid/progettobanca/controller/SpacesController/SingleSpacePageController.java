@@ -66,9 +66,6 @@ public class SingleSpacePageController implements Initializable {
     private ScrollPane scrollPane;
 
     @FXML
-    private Button statButton;
-
-    @FXML
     void deleteThisSpace(MouseEvent event) throws IOException {
         if(SpacesManager.getInstance().getCurrentSpace().getSpaceId() != BankApplication.getCurrentlyLoggedMainSpace()) {
             SpaceService spaceService = new SpaceService("delete", currentSpace);
@@ -79,18 +76,9 @@ public class SingleSpacePageController implements Initializable {
     }
 
     @FXML
-    void hideBalance(MouseEvent event) {
-
-    }
-
-    @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {
+        SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().SPACES_PATH + "spaces.fxml");
         BackStack.getInstance().loadPreviousPage();
-    }
-
-    @FXML
-    void openStatPage(MouseEvent event) {
-
     }
 
     @FXML

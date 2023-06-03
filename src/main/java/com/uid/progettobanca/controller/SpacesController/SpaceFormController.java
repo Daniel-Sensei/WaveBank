@@ -46,8 +46,8 @@ public class SpaceFormController {
     private Button spaceCreationConfirm;
 
     @FXML
-    void cancelSpaceForm(ActionEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH +"spaces.fxml");
+    void cancelSpaceForm(ActionEvent event) throws IOException {
+        BackStack.getInstance().loadPreviousPage();
     }
 
     @FXML
@@ -61,7 +61,12 @@ public class SpaceFormController {
         SpaceService spaceService = new SpaceService(action, iban, nome, image, saldo, data);
         spaceService.restart();
         spaceService.setOnSucceeded(e -> {
-            SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH +"spaces.fxml");
+            SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().SPACES_PATH +"spaces.fxml");
+            try {
+                BackStack.getInstance().loadPreviousPage();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         });
     }
 
