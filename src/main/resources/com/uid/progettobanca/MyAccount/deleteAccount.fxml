@@ -27,8 +27,8 @@
                      <children>
                         <VBox alignment="CENTER_LEFT" spacing="3.0">
                            <children>
-                              <Label styleClass="titleLabel" text="Chiudi conto" />
-                              <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="Indietro">
+                              <Label styleClass="titleLabel" text="%closeAccount" />
+                              <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="%back">
                                  <graphic>
                                     <ImageView fx:id="back" fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true" />
                                  </graphic>
@@ -44,12 +44,12 @@
             </AnchorPane>
             <VBox spacing="30.0">
                <children>
-                  <Label prefHeight="357.0" prefWidth="866.0" text="Termini e condizioni per la chiusura del conto corrente presso Wave Bank:1. Il titolare del conto deve presentare una richiesta scritta di chiusura del conto corrente alla Wave Bank.2. Il saldo attuale del conto deve essere pari a zero prima che la richiesta di chiusura possa essere accettata.3. Tutti i prelievi autorizzati e gli assegni emessi dal titolare del conto devono essere liquidati prima della chiusura del conto.4. Se il conto ha un saldo negativo, il titolare del conto deve pagare la somma dovuta prima che la richiesta di chiusura possa essere accettata.5. La Wave Bank può richiedere al titolare del conto di fornire documenti di identità aggiuntivi per confermare la sua identità prima di procedere alla chiusura del conto.6. La Wave Bank provvederà alla chiusura del conto entro un periodo di tempo ragionevole dopo aver ricevuto la richiesta di chiusura.7. La Wave Bank non sarà responsabile per eventuali transazioni o addebiti sul conto dopo la ricezione della richiesta di chiusura, inclusi quelli che possono verificarsi a causa di ritardi di elaborazione.8. Dopo la chiusura del conto, qualsiasi importo residuo verrà trasferito al titolare del conto sotto forma di assegno o tramite bonifico bancario a un conto esterno fornito dal titolare del conto.9. Il titolare del conto è responsabile di assicurarsi di aver cancellato tutte le autorizzazioni di pagamento automatico e di aver informato i suoi creditori e altri fornitori di servizi dell'intenzione di chiudere il conto corrente presso la Wave Bank.10. Il titolare del conto è consapevole che la chiusura del conto potrebbe influire sulla sua capacità di ottenere credito in futuro presso la Wave Bank o altre istituzioni finanziarie." wrapText="true" />
-                  <Label prefWidth="866.0" styleClass="subtitleLabel" text="L'operazione di chiusura dell'account non è reversibile, pertanto ti chiediamo di riflettere sulle conseguenze di questa azione." wrapText="true" />
+                  <Label prefHeight="357.0" prefWidth="866.0" text="%closeAccountText" wrapText="true" />
+                  <Label prefWidth="866.0" styleClass="subtitleLabel" text="%closeAccountDisclaimer" wrapText="true" />
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                      <children>
-                        <TextField fx:id="password" maxWidth="300.0" prefHeight="40.0" promptText="Conferma password" />
-                        <Button mnemonicParsing="false" onAction="#deleteAccount" prefHeight="40.0" style="-fx-background-color: redColor;" styleClass="greenButton" text="Elimina conto">
+                        <TextField fx:id="password" maxWidth="300.0" prefHeight="40.0" promptText="%confirmPassword" />
+                        <Button mnemonicParsing="false" onAction="#deleteAccount" prefHeight="40.0" style="-fx-background-color: redColor;" styleClass="greenButton" text="%closeAccountButton">
                            <padding>
                               <Insets left="20.0" right="20.0" />
                            </padding>

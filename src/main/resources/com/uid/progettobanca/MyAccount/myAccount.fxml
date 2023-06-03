@@ -21,12 +21,12 @@
                <children>
                   <HBox alignment="CENTER_RIGHT" prefHeight="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label styleClass="titleLabel" text="Il mio conto" />
+                        <Label styleClass="titleLabel" text="%myAccount" />
                         <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS" />
                         <VBox alignment="CENTER">
                            <children>
                               <Button fx:id="logout" mnemonicParsing="false" onAction="#userLogout" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
-                              <Label styleClass="button-label" text="Esci" />
+                              <Label styleClass="button-label" text="%logout" />
                            </children>
                         </VBox>
                      </children>
@@ -70,7 +70,7 @@
                            <children>
                               <VBox alignment="CENTER_LEFT" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label styleClass="subtitleLabel" text="Abbonamento:" />
+                                    <Label styleClass="subtitleLabel" text="%subscription" />
                                     <Label text="WAVE Bank Standard" />
                                  </children>
                               </VBox>
@@ -87,7 +87,7 @@
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
                            <children>
                               <ImageView fx:id="euro" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                              <Label text="Benvenuto in Wave!" HBox.hgrow="ALWAYS" />
+                              <Label text="%welcome" HBox.hgrow="ALWAYS" />
                               <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                                  <children>
                                     <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
@@ -95,7 +95,7 @@
                               </HBox>
                            </children>
                         </HBox>
-                        <Label text="Grazie per aver partecipato al programma in anteprima! Ti ricordiamo che durante il periodo di lancio dell'applicazione potrai svolgere tutte le operazioni senza commissioni extra." wrapText="true" />
+                        <Label text="%thanksMessage" wrapText="true" />
                      </children>
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -110,7 +110,7 @@
                <children>
                   <VBox prefWidth="400.0" spacing="5.0">
                      <children>
-                        <Label styleClass="subtitleLabel" text="Profilo" />
+                        <Label styleClass="subtitleLabel" text="%profile" />
                         <AnchorPane prefWidth="400.0">
                            <children>
                               <VBox alignment="CENTER" layoutX="14.0" styleClass="vbox-with-rounded-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -118,7 +118,7 @@
                                     <HBox alignment="CENTER_LEFT" onMouseClicked="#openPersonalData" prefHeight="75.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                                        <children>
                                           <ImageView fx:id="data" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-                                          <Label text="Dati personali" HBox.hgrow="ALWAYS" />
+                                          <Label text="%personalData" HBox.hgrow="ALWAYS" />
                                           <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                                              <children>
                                                 <ImageView fx:id="forward" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />
@@ -138,7 +138,7 @@
                                     <HBox alignment="CENTER_LEFT" onMouseClicked="#openContacts" prefHeight="75.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox-bottom">
                                        <children>
                                           <ImageView fx:id="receipt" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-                                          <Label text="Contattaci" HBox.hgrow="ALWAYS" />
+                                          <Label text="%contactUs" HBox.hgrow="ALWAYS" />
                                           <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                                              <children>
                                                 <ImageView fx:id="forward5" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />
@@ -161,7 +161,7 @@
                   <HBox HBox.hgrow="ALWAYS" />
                   <VBox prefWidth="400.0" spacing="5.0">
                      <children>
-                        <Label styleClass="subtitleLabel" text="Impostazioni" />
+                        <Label styleClass="subtitleLabel" text="%settings" />
                         <AnchorPane prefWidth="400.0">
                            <children>
                               <VBox alignment="CENTER" layoutX="14.0" styleClass="vbox-with-rounded-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -169,7 +169,7 @@
                                     <HBox alignment="CENTER_LEFT" onMouseClicked="#openSettings" prefHeight="75.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                                        <children>
                                           <ImageView fx:id="settings" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-                                          <Label text="Impostazioni app" HBox.hgrow="ALWAYS" />
+                                          <Label text="%appSettings" HBox.hgrow="ALWAYS" />
                                           <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                                              <children>
                                                 <ImageView fx:id="forward2" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />
@@ -189,7 +189,7 @@
                                     <HBox alignment="CENTER_LEFT" onMouseClicked="#openSafety" prefHeight="75.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                                        <children>
                                           <ImageView fx:id="security" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-                                          <Label text="Sicurezza" HBox.hgrow="ALWAYS" />
+                                          <Label text="%safety" HBox.hgrow="ALWAYS" />
                                           <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                                              <children>
                                                 <ImageView fx:id="forward3" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />
@@ -206,7 +206,7 @@
                                     <HBox alignment="CENTER_LEFT" onMouseClicked="#openDeleteAccount" prefHeight="75.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox-bottom">
                                        <children>
                                           <ImageView fx:id="cross" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-                                          <Label text="Chiudi conto" HBox.hgrow="ALWAYS" />
+                                          <Label text="%closeAccount" HBox.hgrow="ALWAYS" />
                                           <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                                              <children>
                                                 <ImageView fx:id="forward4" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />

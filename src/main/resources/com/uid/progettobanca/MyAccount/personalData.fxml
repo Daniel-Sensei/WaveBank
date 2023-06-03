@@ -24,8 +24,8 @@
                      <children>
                         <VBox alignment="CENTER_LEFT" spacing="3.0">
                            <children>
-                              <Label styleClass="titleLabel" text="Dati personali" />
-                              <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="Indietro">
+                              <Label styleClass="titleLabel" text="%personalData" />
+                              <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="%back">
                                  <graphic>
                                     <ImageView fx:id="back" fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true" />
                                  </graphic>
@@ -43,14 +43,14 @@
                <children>
                   <VBox prefWidth="400.0" spacing="3.0">
                      <children>
-                        <Label styleClass="subtitleLabel" text="I tuoi dati" />
+                        <Label styleClass="subtitleLabel" text="%yourData" />
                         <VBox styleClass="vbox-with-rounded-border">
                            <children>
                               <HBox prefHeight="60.0" styleClass="border-bottom">
                                  <children>
                                     <VBox alignment="CENTER_LEFT">
                                        <children>
-                                          <Label text="Nome" />
+                                          <Label text="%name" />
                                           <Label fx:id="nomeLabel" styleClass="subtitleLabel" text="Mario Rossi" />
                                        </children>
                                     </VBox>
@@ -63,7 +63,7 @@
                                  <children>
                                     <VBox alignment="CENTER_LEFT">
                                        <children>
-                                          <Label text="Cognome" />
+                                          <Label text="%surname" />
                                           <Label fx:id="cognomeLabel" styleClass="subtitleLabel" text="Label" />
                                        </children>
                                     </VBox>
@@ -76,7 +76,7 @@
                                  <children>
                                     <VBox alignment="CENTER_LEFT">
                                        <children>
-                                          <Label text="Indirizzo" />
+                                          <Label text="%address" />
                                           <Label fx:id="indirizzoLabel" styleClass="subtitleLabel" text="Label" />
                                        </children>
                                     </VBox>
@@ -89,7 +89,7 @@
                                  <children>
                                     <VBox alignment="CENTER_LEFT">
                                        <children>
-                                          <Label text="Telefono" />
+                                          <Label text="%phone" />
                                           <Label fx:id="telefonoLabel" styleClass="subtitleLabel" text="Label" />
                                        </children>
                                     </VBox>
@@ -131,10 +131,10 @@
                   <HBox HBox.hgrow="ALWAYS" />
                   <VBox>
                      <children>
-                        <Label styleClass="subtitleLabel" text="Informazioni sull'uso" />
+                        <Label styleClass="subtitleLabel" text="%useInfo" />
                         <VBox prefWidth="400.0" spacing="5.0" styleClass="vbox-with-rounded-border">
                            <children>
-                              <Label style="-fx-font-size: 12;" text="&quot;Nonostante le nostre precauzioni, non possiamo garantire la protezione totale dei dati personali dall'accesso non autorizzato o da eventuali tentativi di violazione.La responsabilità di mantenere la sicurezza del proprio ambiente di lavoro, incluso il dispositivo utilizzato, è a carico dell'utente. Le consigliamo di adottare adeguate misure di sicurezza, come l'uso di password complesse e l'aggiornamento regolare dei sistemi operativi e degli antivirus.Ci esoneriamo da ogni responsabilità nel caso in cui i dati personali vengano compromessi a causa di eventi esterni, come violazioni della sicurezza o malware. È importante che l'utente adotti precauzioni per proteggere i propri dati personali e di non condividere informazioni sensibili con terze parti non affidabili.&quot;" wrapText="true" />
+                              <Label style="-fx-font-size: 12;" text="%useInfoText" wrapText="true" />
                            </children>
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -145,7 +145,7 @@
                </children>
             </HBox>
             <HBox VBox.vgrow="ALWAYS" />
-            <Label style="-fx-text-fill: accentColor; -fx-font-size: 12;" text="App non soggetta a copyright. Utilizzo riservato a fini didattici" />
+            <Label style="-fx-text-fill: accentColor; -fx-font-size: 12;" text="%copyright" />
          </children>
       </VBox>
    </children>

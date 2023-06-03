@@ -26,8 +26,8 @@
                      <children>
                         <VBox alignment="CENTER_LEFT" spacing="3.0">
                            <children>
-                              <Label styleClass="titleLabel" text="Sicurezza" />
-                              <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="Indietro">
+                              <Label styleClass="titleLabel" text="%safety" />
+                              <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="%back">
                                  <graphic>
                                     <ImageView fx:id="back" fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true" />
                                  </graphic>
@@ -45,22 +45,22 @@
                <children>
                   <VBox prefWidth="375.0" spacing="10.0">
                      <children>
-                        <Label styleClass="subtitleLabel" text="Modifica password" />
+                        <Label styleClass="subtitleLabel" text="%changePsw" />
                         <VBox alignment="CENTER_LEFT" spacing="5.0">
                            <children>
-                              <Label fx:id="oldPswLaebl" text="Vecchia password*" />
+                              <Label fx:id="oldPswLaebl" text="%oldPsw*" />
                               <HBox alignment="CENTER_LEFT" spacing="5.0">
                                  <children>
-                                    <PasswordField fx:id="oldPsw" prefHeight="50.0" prefWidth="400.0" promptText="Vecchia password" />
+                                    <PasswordField fx:id="oldPsw" prefHeight="50.0" prefWidth="400.0" promptText="%oldPsw" />
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="15.0" />
                                  </VBox.margin>
                               </HBox>
-                              <Label fx:id="newPswLabel" prefWidth="400.0" text="Nuova password*" wrapText="true" />
+                              <Label fx:id="newPswLabel" prefWidth="400.0" text="%newPsw*" wrapText="true" />
                               <HBox alignment="CENTER_LEFT" spacing="5.0">
                                  <children>
-                                    <PasswordField fx:id="newPsw" prefHeight="50.0" promptText="Nuova password" HBox.hgrow="ALWAYS">
+                                    <PasswordField fx:id="newPsw" prefHeight="50.0" promptText="%newPsw" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets />
                                        </HBox.margin></PasswordField>
@@ -69,10 +69,10 @@
                                     <Insets bottom="5.0" />
                                  </VBox.margin>
                               </HBox>
-                              <Label fx:id="confirmPswLabel" text="Conferma nuova password*" />
+                              <Label fx:id="confirmPswLabel" text="%confirmPsw*" />
                               <HBox alignment="CENTER_LEFT" spacing="5.0">
                                  <children>
-                                    <PasswordField fx:id="confirmPsw" prefHeight="50.0" promptText="Conferma password" HBox.hgrow="ALWAYS" />
+                                    <PasswordField fx:id="confirmPsw" prefHeight="50.0" promptText="%confirmPsw" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
                            </children>
@@ -90,7 +90,7 @@
                   <Insets />
                </VBox.margin>
                <children>
-                  <Button fx:id="sendButton" disable="true" mnemonicParsing="false" onAction="#sendButtonPressed" prefHeight="40.0" prefWidth="100.0" styleClass="greenButton" text="Invia">
+                  <Button fx:id="sendButton" disable="true" mnemonicParsing="false" onAction="#sendButtonPressed" prefHeight="40.0" prefWidth="100.0" styleClass="greenButton" text="%send">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
