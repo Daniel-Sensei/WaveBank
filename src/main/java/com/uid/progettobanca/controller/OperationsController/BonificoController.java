@@ -206,6 +206,7 @@ public class BonificoController implements Initializable {
                                 if (e2.getSource().getValue() instanceof Queue<?> result) {
                                     Queue<Contatto> contacts = (Queue<Contatto>) result;
                                     if (contacts.stream().noneMatch(c -> c.getIban().equals(iban))) {
+                                        System.out.println("sono ultimo if");
                                         ContactService contactService = new ContactService();
                                         contactService.setAction("insert");
                                         contactService.setContact(new Contatto(fieldName.getText(), fieldSurname.getText(), iban, BankApplication.getCurrentlyLoggedUser()));
@@ -217,13 +218,14 @@ public class BonificoController implements Initializable {
                                 throw new RuntimeException(e2.getSource().getException());
                             });
                         }
+                        SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "transactionSuccess.fxml");
                     }
                 });
                 transactionService.setOnFailed(e1 -> {
                     throw new RuntimeException(e1.getSource().getException());
                 });
             }else{
-                SceneHandler.getInstance().showMessage("error", "Errore", "Saldo insufficiente",  "Il pagamento non è andato a buon fine.\n\nControlla il saldo e riprova.");
+                SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "transactionFailed.fxml");
             }
         });
         transactionService.setOnFailed(e -> {
