@@ -135,16 +135,17 @@ public class BonificoController implements Initializable {
     @FXML
     void onSendButtonClick(ActionEvent event) {
         double amount = FormUtils.getInstance().formatAmount(fieldAmount.getText());
+        String ibanTo = fieldIbanTo.getText().replace(" ", "").trim();
 
         //bisogna mettere ContiDao.transazione in un if per bloccare operazione in caso di fondi insufficienti
         int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-        if (TransazioniDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, amount)) {
+        if (TransazioniDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), ibanTo, space, amount)) {
             String nome = fieldName.getText() + " " + fieldSurname.getText();
-            TransazioniDAO.getInstance().insert(new Transazione(nome, BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, 0, LocalDateTime.now(), amount, fieldDescr.getText(), "Bonifico", "Altro", ""));
+            TransazioniDAO.getInstance().insert(new Transazione(nome, BankApplication.getCurrentlyLoggedIban(), ibanTo, space, 0, LocalDateTime.now(), amount, fieldDescr.getText(), "Bonifico", "Altro", ""));
 
             if (saveContact.isSelected()) {
-                if(ContattiDAO.getInstance().selectByIBAN(fieldIbanTo.getText()) == null) {
-                    ContattiDAO.getInstance().insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedUser()));
+                if(ContattiDAO.getInstance().selectByIBAN(ibanTo) == null) {
+                    ContattiDAO.getInstance().insert(new Contatto(fieldName.getText(), fieldSurname.getText(), ibanTo, BankApplication.getCurrentlyLoggedUser()));
                     SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.OPERATIONS_PATH + "operations.fxml");
                 }
             }

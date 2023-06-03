@@ -260,8 +260,16 @@ public class TransazioniDAO {
                     String toIban = rs.getString("iban_to");
                     double amount = rs.getDouble("importo");
 
+
                     if (fromIban.equals(iban) && !toIban.equals(iban)) {
                         amount *= -1; // Importo negativo se l'IBAN corrisponde a iban_from
+                    }
+
+                    if(fromIban.equals(iban) && toIban.equals(iban) && ibanSelection.equals("iban_from") && amount > 0){
+                        continue;
+                    }
+                    else if(fromIban.equals(iban) && toIban.equals(iban) && ibanSelection.equals("iban_to") && amount < 0){
+                        continue;
                     }
 
                     Transazione transaction = new Transazione(
@@ -290,8 +298,7 @@ public class TransazioniDAO {
 
     public List<Transazione> selectAllSpaceTransaction(String iban, int spaceID) {
         List<Transazione> transactions = new Stack<>();
-        String query = "SELECT * FROM transazioni WHERE " +
-                                                 "(space_from = ? OR space_to = ?) ORDER BY dateTime asc";
+        String query = "SELECT * FROM transazioni WHERE (space_from = ? OR space_to = ?) ORDER BY dateTime asc";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, spaceID);
             stmt.setInt(2, spaceID);

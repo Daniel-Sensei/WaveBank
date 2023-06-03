@@ -151,7 +151,6 @@ public class OperationsController implements Initializable {
             handleDeselectContact(isContactSelected, lastSelectedContact);
 
             isContactSelected.set(false);
-            System.out.println("Click sulla pagina: " + isContactSelected.get());
         });
 
         for (var contact : contactsVBox.getChildren()) {
@@ -178,7 +177,6 @@ public class OperationsController implements Initializable {
                 modifyContact.setDisable(false);
                 deleteContact.setDisable(false);
                 isContactSelected.set(true);
-                System.out.println("Click sul contatto: " + isContactSelected.get());
 
                 long currentTime = System.currentTimeMillis();
                 if (currentTime - lastClickTime[0].get() <= DOUBLE_CLICK_TIME_THRESHOLD) {
@@ -202,13 +200,11 @@ public class OperationsController implements Initializable {
         contact.getStyleClass().add("contact");
         selectedContact = contactsVBox.getChildren().indexOf(contact);
         lastSelectedContact[0] = contact;
-        System.out.println("Selezionato");
     }
 
     // Gestisce la deselezione del contatto
     private void handleDeselectContact(AtomicBoolean isContactSelected, Node[] lastSelectedContact) {
         if (!isContactSelected.get() && lastSelectedContact[0] != null) {
-            System.out.println("Deselezionato");
             lastSelectedContact[0].getStyleClass().clear();
             lastSelectedContact[0].getStyleClass().add("vbox-with-rounded-border-hbox");
             lastSelectedContact[0] = null;
