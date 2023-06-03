@@ -1,7 +1,5 @@
 package com.uid.progettobanca.model;
 
-import com.uid.progettobanca.model.DAO.TransazioniDAO;
-
 public class SpaceTransactionManager {
 
     private static SpaceTransactionManager instance;

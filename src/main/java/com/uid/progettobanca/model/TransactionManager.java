@@ -2,10 +2,7 @@ package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
-import com.uid.progettobanca.model.DAO.ContattiDAO;
-import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.objects.Contatto;
-import com.uid.progettobanca.model.objects.Conto;
 import com.uid.progettobanca.model.objects.Transazione;
 import com.uid.progettobanca.model.objects.Utente;
 import com.uid.progettobanca.model.services.GetContactService;

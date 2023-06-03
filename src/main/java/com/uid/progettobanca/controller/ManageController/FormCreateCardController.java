@@ -2,7 +2,7 @@ package com.uid.progettobanca.controller.ManageController;
 
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.CreateCard;
-import com.uid.progettobanca.model.InsertCardService;
+import com.uid.progettobanca.model.services.InsertCardService;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.collections.FXCollections;

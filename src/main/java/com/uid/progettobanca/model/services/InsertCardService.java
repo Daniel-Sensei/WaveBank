@@ -1,4 +1,4 @@
-package com.uid.progettobanca.model;
+package com.uid.progettobanca.model.services;
 
 import com.uid.progettobanca.model.DAO.CarteDAO;
 import com.uid.progettobanca.model.objects.Carta;

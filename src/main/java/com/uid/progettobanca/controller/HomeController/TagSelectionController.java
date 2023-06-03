@@ -1,9 +1,9 @@
 package com.uid.progettobanca.controller.HomeController;
 
 import com.uid.progettobanca.controller.GenericController;
-import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.objects.Transazione;
+import com.uid.progettobanca.model.services.TransactionService;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -77,14 +77,28 @@ public class TagSelectionController implements Initializable {
 
     private void setGenericTag(String tag) throws SQLException {
         transaction.setTag(tag);
-        TransazioniDAO.getInstance().update(transaction);
 
-        SceneHandler.getInstance().reloadDynamicPageInHashMap();
-        TransactionManager.getInstance().putTransaction(transaction);
+        TransactionService transactionService = new TransactionService("update");
+        transactionService.setTransaction(transaction);
+        transactionService.restart();
 
-        // Ottieni e chiudi poup
-        Popup popup = (Popup) altro.getScene().getWindow();
-        popup.hide();
+        transactionService.setOnSucceeded(e -> {
+            if(e.getSource().getValue() instanceof Boolean result){
+                if(result){
+                    SceneHandler.getInstance().reloadDynamicPageInHashMap();
+                    TransactionManager.getInstance().putTransaction(transaction);
+
+                    // Ottieni e chiudi poup
+                    Popup popup = (Popup) altro.getScene().getWindow();
+                    popup.hide();
+                }
+            }
+        });
+
+        transactionService.setOnFailed(e -> {
+            //genera eccezione runtime
+            throw new RuntimeException(e.getSource().getException());
+        });
 
     }
     @FXML

@@ -2,7 +2,6 @@ package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.objects.Ricorrente;
-import com.uid.progettobanca.model.DAO.RicorrentiDAO;
 
 import java.sql.SQLException;
 import java.util.Queue;

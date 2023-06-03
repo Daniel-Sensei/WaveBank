@@ -86,6 +86,7 @@ public class FormCompilationThread extends Service<PDDocument> {
                     PDTextField descrizione = (PDTextField) acroForm.getField("descrizione");
                     descrizione.setValue(transaction.getDescrizione());
 
+
                     //PIE DI PAGINA
                     //nomeUtente
                     Utente user = UtentiDAO.getInstance().getUserById(BankApplication.getCurrentlyLoggedUser());
@@ -97,10 +98,6 @@ public class FormCompilationThread extends Service<PDDocument> {
                     //iban
                     PDTextField iban = (PDTextField) acroForm.getField("iban");
                     iban.setValue(BankApplication.getCurrentlyLoggedIban());
-
-                    // Salva il documento con il form compilato
-                    //document.save("output.pdf");
-                    //Bisogna chiudere il document solo dopo aver salvato
 
                 } catch (IOException e) {
                     e.printStackTrace();

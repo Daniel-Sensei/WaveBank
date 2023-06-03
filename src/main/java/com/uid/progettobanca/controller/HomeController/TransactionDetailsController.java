@@ -2,18 +2,17 @@ package com.uid.progettobanca.controller.HomeController;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
-import com.uid.progettobanca.model.DAO.SpacesDAO;
-import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.FormCompilationThread;
-import com.uid.progettobanca.model.objects.Conto;
 import com.uid.progettobanca.model.objects.Space;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.objects.Transazione;
+import com.uid.progettobanca.model.services.GetSpaceService;
 import com.uid.progettobanca.model.services.TransactionService;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.effect.BoxBlur;
@@ -31,7 +30,9 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Queue;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class TransactionDetailsController implements Initializable {
     private Transazione transaction;
@@ -91,6 +92,8 @@ public class TransactionDetailsController implements Initializable {
     DecimalFormat df = new DecimalFormat("#0.00");
 
     private ArrayList<ImageView> transactionDetailsImages = new ArrayList<>();
+    private Space space = null;
+    private GetSpaceService getSpaceService = new GetSpaceService();
 
 
     @FXML
@@ -107,6 +110,16 @@ public class TransactionDetailsController implements Initializable {
         tag = tag.replaceAll("\\s+","");
         GenericController.loadImage(tag, tagImage);
     }
+    private void setSpaceLabelImage(){
+        if(space != null) {
+            spaceLabel.setText(space.getNome());
+            GenericController.setSpaceImage(space.getImage(), spaceImage);
+        }
+        else {
+            spaceLabel.setText("Space eliminato");
+            GenericController.setSpaceImage("wallet.png", spaceImage);
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -117,20 +130,42 @@ public class TransactionDetailsController implements Initializable {
         GenericController.loadImages(transactionDetailsImages);
 
         transaction = TransactionManager.getInstance().getNextTransaction();
-        Space space;
+
+        getSpaceService.setAction("selectBySpaceId");
         if(transaction.getSpaceTo() != 0) {
             if (transaction.getImporto() < 0) {
                 fromToLabel.setText("Da");
-                space = SpacesDAO.getInstance().selectBySpaceId(transaction.getSpaceFrom());
+                getSpaceService.setSpaceId(transaction.getSpaceFrom());
+                getSpaceService.restart();
+                getSpaceService.setOnSucceeded(e -> {
+                    if(e.getSource().getValue() instanceof Queue<?> result){
+                        space = (Space) result.poll();
+                        setSpaceLabelImage();
+                    }
+                });
                 amountLabel.setText(df.format(transaction.getImporto()) + " €");
             } else {
                 fromToLabel.setText("A");
-                space = SpacesDAO.getInstance().selectBySpaceId(transaction.getSpaceTo());
+                getSpaceService.setSpaceId(transaction.getSpaceTo());
+                getSpaceService.restart();
+                getSpaceService.setOnSucceeded(e -> {
+                    if(e.getSource().getValue() instanceof Queue<?> result){
+                        space = (Space) result.poll();
+                        setSpaceLabelImage();
+                    }
+                });
                 amountLabel.setText("+" + df.format(transaction.getImporto()) + " €");
             }
         }
         else{
-            space = SpacesDAO.getInstance().selectBySpaceId(BankApplication.getCurrentlyLoggedMainSpace());
+            getSpaceService.setSpaceId(BankApplication.getCurrentlyLoggedMainSpace());
+            getSpaceService.restart();
+            getSpaceService.setOnSucceeded(e -> {
+                if(e.getSource().getValue() instanceof Queue<?> result){
+                    space = (Space) result.poll();
+                    setSpaceLabelImage();
+                }
+            });
             if(transaction.getImporto() < 0){
                 fromToLabel.setText("Da");
                 amountLabel.setText(df.format(transaction.getImporto()) + " €");
@@ -140,7 +175,6 @@ public class TransactionDetailsController implements Initializable {
                 amountLabel.setText("+" + df.format(transaction.getImporto()) + " €");
             }
         }
-        spaceLabel.setText(space.getNome());
 
         categoryLabel.setText(transaction.getTag());
         setTagImage(transaction.getTag());
@@ -174,7 +208,6 @@ public class TransactionDetailsController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        GenericController.setSpaceImage(space.getImage(), spaceImage);
 
         changeTag();
 

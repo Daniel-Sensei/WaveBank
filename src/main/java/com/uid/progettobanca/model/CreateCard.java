@@ -2,6 +2,7 @@ package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.objects.Carta;
+import com.uid.progettobanca.model.services.InsertCardService;
 
 import java.time.LocalDate;
 

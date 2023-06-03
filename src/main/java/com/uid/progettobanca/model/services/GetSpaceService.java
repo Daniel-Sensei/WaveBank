@@ -6,6 +6,7 @@ import com.uid.progettobanca.model.objects.Space;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
+import java.util.LinkedList;
 import java.util.Queue;
 
 public class GetSpaceService extends Service <Queue<Space>>{
@@ -28,7 +29,7 @@ public class GetSpaceService extends Service <Queue<Space>>{
                 return switch(action){
                     case "allByIban" -> SpacesDAO.getInstance().selectAllByIban(iban);
                     case "selectBySpaceId" -> {
-                        Queue<Space> space = null;
+                        Queue<Space> space = new LinkedList<>();
                         space.add(SpacesDAO.getInstance().selectBySpaceId(space_id));
                         yield space;
                     }
