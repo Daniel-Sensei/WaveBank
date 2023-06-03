@@ -52,16 +52,19 @@ public class SpaceTransactionController implements Initializable {
 
         if (SpacesManager.getInstance().getTransactionDirection() == "Sx"){
             TransazioniDAO.getInstance().betweenSpaces(iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), Double.parseDouble(inputSpaceTransactionImport.getText()), description.getText());
+            SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().SPACES_PATH + "singleSpacePage.fxml");
             BackStack.getInstance().loadPreviousPage();
         }
         else if (SpacesManager.getInstance().getTransactionDirection() == "Dx"){
             TransazioniDAO.getInstance().betweenSpaces(iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), Double.parseDouble(inputSpaceTransactionImport.getText()), description.getText());
+            SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().SPACES_PATH + "singleSpacePage.fxml");
             BackStack.getInstance().loadPreviousPage();
         }
     }
 
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {
+        SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().SPACES_PATH + "singleSpacePage.fxml");
         BackStack.getInstance().loadPreviousPage();
     }
 
