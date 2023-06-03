@@ -43,7 +43,13 @@ public class SafetyController {
 
     @FXML
     private ImageView back;
+    @FXML
+    private Label newPswLabel;
+    @FXML
+    private Label confirmPswLabel;
 
+    @FXML
+    private Label oldPswLaebl;
     UserService userService = new UserService();
     UserService userService2 = new UserService();
 
@@ -91,7 +97,7 @@ public class SafetyController {
                     });
 
                 } else {
-                    FormUtils.getInstance().validateTextField(oldPsw, false, warningWrongPsw);
+                    FormUtils.getInstance().validateTextFieldRegister(oldPswLaebl, oldPsw, false, "Vecchia password*", "La password non è corretta");
                 }
             }
         });
@@ -105,14 +111,14 @@ public class SafetyController {
 
         newPsw.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
-                FormUtils.getInstance().validateTextField(newPsw, FormUtils.getInstance().validatePassword(newPsw.getText()), warningBadPsw);
+                FormUtils.getInstance().validateTextFieldRegister(newPswLabel, newPsw, FormUtils.getInstance().validatePassword(newPsw.getText()), "Nuova password*", "La password deve contenere almeno 8 caratteri, almeno una lettera minuscola, almeno una lettera maiuscola e un carattere speciale*");
                 sendButton.setDisable(!(confirmPsw.getText().equals(newPsw.getText()) && FormUtils.getInstance().validatePassword(newPsw.getText())));
             }
         });
 
         confirmPsw.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
-                FormUtils.getInstance().validateTextField(confirmPsw, confirmPsw.getText().equals(newPsw.getText()), warningDiffPsw);
+                FormUtils.getInstance().validateTextFieldRegister(confirmPswLabel, confirmPsw, confirmPsw.getText().equals(newPsw.getText()), "Conferma nuova password*", "Le password non coincidono*");
                 sendButton.setDisable(!(confirmPsw.getText().equals(newPsw.getText()) && FormUtils.getInstance().validatePassword(newPsw.getText())));
             }
         });

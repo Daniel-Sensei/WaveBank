@@ -209,11 +209,13 @@
     -fx-padding: 0px 0px 0px -9px;
 }
 
+/*
 .text-area:hover,
 .text-area:focused {
     -fx-border-width: 1px;
     -fx-border-color: greenButtonColor;
 }
+*/
 
 /* TEXT */
 

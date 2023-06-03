@@ -4,7 +4,6 @@ import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.view.BackStack;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
