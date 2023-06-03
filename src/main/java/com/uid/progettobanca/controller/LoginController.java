@@ -64,7 +64,7 @@ public class LoginController implements Initializable {
                 getUserService.setAction("selectByEmail");
                 getUserService.setEmail(emailField.getText());
                 getUserService.restart();
-                getUserService.setOnSucceeded(e2 -> {
+                getUserService.setOnSucceeded(e1 -> {
 
                     BankApplication.setCurrentlyLoggedUser(getUserService.getValue().getUserId());
                     String iban = getUserService.getValue().getIban();
@@ -74,13 +74,22 @@ public class LoginController implements Initializable {
                     getSpaceService.setAction("selectByIban");
                     getSpaceService.setIban(iban);
                     getSpaceService.restart();
-                    getSpaceService.setOnSucceeded(e3 -> {
+                    getSpaceService.setOnSucceeded(e2 -> {
                         BankApplication.setCurrentlyLoggedMainSpace(getSpaceService.getValue().peek().getSpaceId());
                         SceneHandler.getInstance().init(SceneHandler.getInstance().getStage());
                         RecurrentHandler.getInstance().check(BankApplication.getCurrentlyLoggedUser());
                     });
+                    getSpaceService.setOnFailed(e2 -> {
+                        throw new RuntimeException(e2.getSource().getException());
+                    });
+                });
+                getUserService.setOnFailed(e1 -> {
+                    throw new RuntimeException(e1.getSource().getException());
                 });
             }
+        });
+        userService.setOnFailed(e -> {
+            throw new RuntimeException(e.getSource().getException());
         });
     }
 

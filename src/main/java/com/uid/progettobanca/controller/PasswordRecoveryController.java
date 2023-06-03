@@ -51,6 +51,9 @@ public class PasswordRecoveryController implements Initializable {
                 SceneHandler.getInstance().showMessage("error", "Errore", "Errore durante il recupero della domanda", "L'email inserita non è presente nel database.");
             else question.setText(getUserService.getValue().getDomanda());
         });
+        getUserService.setOnFailed(e -> {
+            throw new RuntimeException(e.getSource().getException());
+        });
     }
 
     @FXML
@@ -66,17 +69,23 @@ public class PasswordRecoveryController implements Initializable {
                     userService.setEmail(fieldEmail.getText());
                     userService.setPassword(fieldPassword.getText());
                     userService.restart();
-                    userService.setOnSucceeded(e2 -> {
+                    userService.setOnSucceeded(e1 -> {
                         if (userService.getValue()) {
                             SceneHandler.getInstance().showMessage("info", "Password", "Password aggiornata", "La password è stata aggiornata con successo.");
                             SceneHandler.getInstance().setPage("login.fxml");
                         } else
                             SceneHandler.getInstance().showMessage("error", "Errore", "Errore durante il cambio della password", "La password non è stata aggiornata.");
-                });
+                    });
+                    userService.setOnFailed(e1 -> {
+                        throw new RuntimeException(e1.getSource().getException());
+                    });
                 } else
                     SceneHandler.getInstance().showMessage("error", "Errore", "Errore durante il cambio della password", "Le password non coincidono.");
             else
                 SceneHandler.getInstance().showMessage("error", "Errore", "Errore durante il controllo della risposta", "Risposta errata, riprova.");
+        });
+        userService.setOnFailed(e -> {
+            throw new RuntimeException(e.getSource().getException());
         });
     }
 

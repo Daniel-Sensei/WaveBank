@@ -154,9 +154,15 @@ public class BolloAutoController implements Initializable {
                     SceneHandler.getInstance().reloadDynamicPageInHashMap();
                     SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "transactionSuccess.fxml");
                 });
+                transactionService.setOnFailed(e1 -> {
+                    throw new RuntimeException(e1.getSource().getException());
+                });
             } else {
                 SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "transactionFailed.fxml");
             }
+        });
+        transactionService.setOnFailed(e -> {
+            throw new RuntimeException(e.getSource().getException());
         });
     }
 

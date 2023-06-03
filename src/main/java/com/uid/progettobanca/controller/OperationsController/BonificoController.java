@@ -158,6 +158,9 @@ public class BonificoController implements Initializable {
                 contact.set((Contatto) result.poll());
             }
         });
+        getContactService.setOnFailed(e -> {
+            throw new RuntimeException(e.getSource().getException());
+        });
 
         final boolean exists = contact.get() != null;
 
@@ -184,6 +187,9 @@ public class BonificoController implements Initializable {
                             tempSpace.set(temp.getSpaceId());
                         }
                     });
+                    getSpaceService.setOnFailed(e1 -> {
+                        throw new RuntimeException(e1.getSource().getException());
+                    });
                 }
 
                 final int spaceTo = tempSpace.get();
@@ -198,7 +204,7 @@ public class BonificoController implements Initializable {
                             getContactService.restart();
                             getContactService.setOnSucceeded(e2 -> {
                                 if (e2.getSource().getValue() instanceof Queue<?> result) {
-                                    Queue<Contatto> contacts = (Queue<Contatto>) result.poll();
+                                    Queue<Contatto> contacts = (Queue<Contatto>) result;
                                     if (contacts.stream().noneMatch(c -> c.getIban().equals(iban))) {
                                         ContactService contactService = new ContactService();
                                         contactService.setAction("insert");
@@ -207,12 +213,21 @@ public class BonificoController implements Initializable {
                                     }
                                 }
                             });
+                            getContactService.setOnFailed(e2 -> {
+                                throw new RuntimeException(e2.getSource().getException());
+                            });
                         }
                     }
+                });
+                transactionService.setOnFailed(e1 -> {
+                    throw new RuntimeException(e1.getSource().getException());
                 });
             }else{
                 SceneHandler.getInstance().showMessage("error", "Errore", "Saldo insufficiente",  "Il pagamento non è andato a buon fine.\n\nControlla il saldo e riprova.");
             }
+        });
+        transactionService.setOnFailed(e -> {
+            throw new RuntimeException(e.getSource().getException());
         });
     }
 

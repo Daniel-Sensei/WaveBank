@@ -251,6 +251,9 @@ public class OperationsController implements Initializable {
                         selectedContact = -1;
                     }
                 });
+                contactService.setOnFailed(e -> {
+                    throw new RuntimeException(e.getSource().getException());
+                });
             }
         }
     }

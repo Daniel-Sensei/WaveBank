@@ -24,7 +24,6 @@ public class AccountService extends Service<Boolean> {
                         case "insert" -> ContiDAO.getInstance().insert(c);
                         case "update" -> ContiDAO.getInstance().update(c);
                         case "delete" -> ContiDAO.getInstance().delete(c);
-                        case "generateNew" -> ContiDAO.getInstance().generateNew();
                         default -> false;
                     };
                 else return false;

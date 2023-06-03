@@ -1,9 +1,10 @@
 package com.uid.progettobanca.controller;
 
-import com.uid.progettobanca.model.DAO.ContiDAO;
-import com.uid.progettobanca.model.DAO.UtentiDAO;
 import com.uid.progettobanca.model.objects.Utente;
 import com.uid.progettobanca.model.CreateCard;
+import com.uid.progettobanca.model.services.GetUserService;
+import com.uid.progettobanca.model.services.NewAccountService;
+import com.uid.progettobanca.model.services.UserService;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.beans.binding.Bindings;
@@ -231,17 +232,52 @@ public class RegisterFormController implements Initializable {
 
     }
 
+    private UserService userService = new UserService();
+
+    private NewAccountService newAccountService = new NewAccountService();
+
+    private GetUserService getUserService = new GetUserService();
 
     @FXML
     void checkRegistration(ActionEvent event) {
-        //creo l'utente e implicitamente il conto
-        UtentiDAO.getInstance().insert(new Utente(name.getText().trim(), surname.getText().trim(), address.getText().trim(), LocalDate.parse(convertDate(getDate())), phone.getText().trim(), email.getText().toLowerCase().trim(), password.getText(), questions.getValue(), answer.getText(), ContiDAO.getInstance().generateNew()));
-        //creo la carta di debito
-        CreateCard.createDebitcard(UtentiDAO.getInstance().selectByEmail(email.getText()).getUserId());
-        //avviso dell'avvenuta registrazione
-        SceneHandler.getInstance().showMessage("info", "Registrazione", "Registrazione effettuata con successo", "Ora puoi effettuare il login");
-        //torno alla pagina di login
-        SceneHandler.getInstance().setPage("login.fxml");
+        LocalDate referenceDate = LocalDate.now().minusYears(18);
+        LocalDate date = LocalDate.parse(convertDate(getDate()));
+        if(date.isBefore(referenceDate) || date.equals(referenceDate)) {
+            //creo il conto
+            newAccountService.restart();
+            newAccountService.setOnSucceeded(e -> {
+                String iban = newAccountService.getValue();
+                //creo l'utente
+                userService.setAction("insert");
+                userService.setUser(new Utente(name.getText().trim(), surname.getText().trim(), address.getText().trim(), LocalDate.parse(convertDate(getDate())), phone.getText().trim(), email.getText().toLowerCase().trim(), password.getText(), questions.getValue(), answer.getText(), iban));
+                userService.restart();
+                userService.setOnSucceeded(e1 -> {
+                    getUserService.setAction("selectByEmail");
+                    getUserService.setEmail(email.getText().toLowerCase().trim());
+                    getUserService.restart();
+                    getUserService.setOnSucceeded(e2 -> {
+                        //creo la carta di debito
+                        CreateCard.createDebitcard(getUserService.getValue().getUserId());
+                        //avviso dell'avvenuta registrazione
+                        SceneHandler.getInstance().showMessage("info", "Registrazione", "Registrazione effettuata con successo", "Ora puoi effettuare il login");
+                        //torno alla pagina di login
+                        SceneHandler.getInstance().setPage("login.fxml");
+                    });
+                    getUserService.setOnFailed(e2 -> {
+                        throw new RuntimeException(e2.getSource().getException());
+                    });
+                });
+                userService.setOnFailed(e1 -> {
+                    throw new RuntimeException(e1.getSource().getException());
+                });
+            });
+            newAccountService.setOnFailed(e -> {
+                throw new RuntimeException(e.getSource().getException());
+            });
+        }
+        else {
+            SceneHandler.getInstance().showMessage("error", "Errore", "Registrazione fallita", "Devi avere almeno 18 anni per registrarti");
+        }
     }
 
     @FXML
