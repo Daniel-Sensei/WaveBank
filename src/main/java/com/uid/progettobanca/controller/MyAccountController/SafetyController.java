@@ -68,14 +68,14 @@ public class SafetyController {
     @FXML
     void sendButtonPressed(ActionEvent event) {
         userService.setAction("checkPassword");
-        userService.setUser_id(BankApplication.getCurrentlyLoggedUser());
+        userService.setUserId(BankApplication.getCurrentlyLoggedUser());
         userService.setPassword(oldPsw.getText());
         userService.restart();
         userService.setOnSucceeded(event1 -> {
             if(event1.getSource().getValue() instanceof Boolean result){
                 if (result) {
-                    userService2.setAction("updatePasswordFromUserId");
-                    userService2.setUser_id(BankApplication.getCurrentlyLoggedUser());
+                    userService2.setAction("updatePassword");
+                    userService2.setUserId(BankApplication.getCurrentlyLoggedUser());
                     userService2.setPassword(newPsw.getText());
                     userService2.restart();
 

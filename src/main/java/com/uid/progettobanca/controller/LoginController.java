@@ -2,9 +2,10 @@ package com.uid.progettobanca.controller;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
-import com.uid.progettobanca.model.DAO.SpacesDAO;
-import com.uid.progettobanca.model.DAO.UtentiDAO;
 import com.uid.progettobanca.model.RecurrentHandler;
+import com.uid.progettobanca.model.services.GetSpaceService;
+import com.uid.progettobanca.model.services.GetUserService;
+import com.uid.progettobanca.model.services.UserService;
 import com.uid.progettobanca.view.ImageUtils;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.animation.PauseTransition;
@@ -52,18 +53,35 @@ public class LoginController implements Initializable {
     @FXML
     void onLoginButtonClick(ActionEvent event) {
         //in questa funzione viene effettuato il login e se va a buon fine viene settato il currentlyLoggedUser
-        if (UtentiDAO.getInstance().login(emailField.getText(), passwordField.getText())) {
+        UserService userService = new UserService();
+        userService.setAction("login");
+        userService.setEmail(emailField.getText());
+        userService.setPassword(passwordField.getText());
+        userService.restart();
+        userService.setOnSucceeded(e -> {
+            if (userService.getValue()) {
+                GetUserService getUserService = new GetUserService();
+                getUserService.setAction("selectByEmail");
+                getUserService.setEmail(emailField.getText());
+                getUserService.restart();
+                getUserService.setOnSucceeded(e2 -> {
 
-            String iban = UtentiDAO.getInstance().getUserById(BankApplication.getCurrentlyLoggedUser()).getIban();
-            BankApplication.setCurrentlyLoggedIban(iban);
+                    BankApplication.setCurrentlyLoggedUser(getUserService.getValue().getUserId());
+                    String iban = getUserService.getValue().getIban();
+                    BankApplication.setCurrentlyLoggedIban(iban);
 
-            int mainSpace = SpacesDAO.getInstance().selectAllByIban(iban).peek().getSpaceId();
-            BankApplication.setCurrentlyLoggedMainSpace(mainSpace);
-
-            SceneHandler.getInstance().init(SceneHandler.getInstance().getStage());
-
-            RecurrentHandler.check(BankApplication.getCurrentlyLoggedUser());
-        }
+                    GetSpaceService getSpaceService = new GetSpaceService();
+                    getSpaceService.setAction("selectByIban");
+                    getSpaceService.setIban(iban);
+                    getSpaceService.restart();
+                    getSpaceService.setOnSucceeded(e3 -> {
+                        BankApplication.setCurrentlyLoggedMainSpace(getSpaceService.getValue().peek().getSpaceId());
+                        SceneHandler.getInstance().init(SceneHandler.getInstance().getStage());
+                        RecurrentHandler.getInstance().check(BankApplication.getCurrentlyLoggedUser());
+                    });
+                });
+            }
+        });
     }
 
     private int loadAttempts = 0;
@@ -115,16 +133,5 @@ public class LoginController implements Initializable {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(0.5); // Imposta il valore di opacità desiderato (da -1 a 1)
         backgroundMediaView.setEffect(colorAdjust);
-
-        /*
-        LocalDate date = LocalDate.of(2002, 1, 1);
-        try {
-            UtentiDAO.insert(new Utente("Mario", "Rossi", "via dei Mille", date, "123", "mario@gmail.com", "ciao"));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-         */
-
     }
 }

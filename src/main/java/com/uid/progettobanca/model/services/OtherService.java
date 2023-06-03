@@ -20,6 +20,7 @@ public class OtherService extends Service<Boolean> {
         return new Task() {
             @Override
             protected Object call() throws Exception {
+                if(a == null) return false;
                 return switch (action) {
                     case "insert" -> AltroDAO.getInstance().insert(a);
                     case "update" -> AltroDAO.getInstance().update(a);

@@ -3,9 +3,8 @@ package com.uid.progettobanca.controller.OperationsController;
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
-import com.uid.progettobanca.model.DAO.ContiDAO;
-import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.objects.Transazione;
+import com.uid.progettobanca.model.services.TransactionService;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.ImageUtils;
@@ -75,15 +74,35 @@ public class BolloAutoController implements Initializable {
     @FXML
     private ImageView back;
 
+    private final TransactionService transactionService = new TransactionService();
+
     private void playPirataConRadio(){
         if(fieldPlate.getText().trim().equalsIgnoreCase("galeone") && fieldCF.getText().trim().equalsIgnoreCase("pirata")){
             openVideoPlayer();
+
             int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-            TransazioniDAO.getInstance().transazione("IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, 50);
-            TransazioniDAO.getInstance().insert(new Transazione("Pirata con Radio", "IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, space, LocalDateTime.now(), 50, "Il pirata ha apprezzato il tuo gesto e ti dona 50 dobloni", "Regalo del Pirata", "Intrattenimento", ""));
-            SceneHandler.getInstance().reloadDynamicPageInHashMap();
+
+            int regalo = 50;
+
+            transactionService.setIbanFrom("IT0000000000000000000000000");
+            transactionService.setIbanTo(BankApplication.getCurrentlyLoggedIban());
+            transactionService.setSpaceFrom(0);
+            transactionService.setAmount(regalo);
+            transactionService.setAction("transazione");
+            transactionService.restart();
+            transactionService.setOnSucceeded(e -> {
+                if ((Boolean) e.getSource().getValue()) {
+                    transactionService.setAction("insert");
+                    transactionService.setTransaction(new Transazione("Pirata con Radio", "IT0000000000000000000000000", BankApplication.getCurrentlyLoggedIban(), 0, space, LocalDateTime.now(), 50, "Il pirata ha apprezzato il tuo gesto e ti dona 50 dobloni", "Regalo del Pirata", "Intrattenimento", ""));
+                    transactionService.restart();
+                    transactionService.setOnSucceeded(e1 -> {
+                        SceneHandler.getInstance().reloadDynamicPageInHashMap();
+                    });
+                }
+            });
         }
     }
+
     public void initialize(URL location, ResourceBundle resources) {
         GenericController.loadImage(back);
         typeComboBox.getItems().addAll(tipologia);
@@ -115,19 +134,31 @@ public class BolloAutoController implements Initializable {
         sendButton.setDisable(true);
     }
 
-
     @FXML
     void onSendButtonClick(ActionEvent event) {
         //effettuo il pagamento
         double amount = FormUtils.getInstance().formatAmount(amountLabel.getText());
         int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-        if (TransazioniDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)) {
-            //inserisco la transazione
-            TransazioniDAO.getInstance().insert(new Transazione("Bollo: "+ fieldPlate.getText(), BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, "Bollo " + typeComboBox.getValue(), "Bollo", "Altro", ""));
-            SceneHandler.getInstance().reloadDynamicPageInHashMap();
-            SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
-            SceneHandler.getInstance().showMessage("info", "Operazione effettuata", "Bollo pagato", "Il bollo è stato pagato con successo");
-        }
+        transactionService.setAction("transazione");
+        transactionService.setIbanFrom(BankApplication.getCurrentlyLoggedIban());
+        transactionService.setIbanTo("NO");
+        transactionService.setSpaceFrom(space);
+        transactionService.setAmount(amount);
+        transactionService.restart();
+        transactionService.setOnSucceeded(e ->{
+            if ((Boolean) e.getSource().getValue()) {
+                transactionService.setAction("insert");
+                transactionService.setTransaction(new Transazione("Bollo: "+ fieldPlate.getText(), BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, "Bollo " + typeComboBox.getValue(), "Bollo", "Altro", ""));
+                transactionService.restart();
+                transactionService.setOnSucceeded(e1 -> {
+                    SceneHandler.getInstance().reloadDynamicPageInHashMap();
+                    SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+                    SceneHandler.getInstance().showMessage("info", "Operazione effettuata", "Bollo pagato", "Il bollo è stato pagato con successo");
+                });
+            } else {
+                SceneHandler.getInstance().showMessage("error", "Errore", "Saldo insufficiente",  "Il pagamento non è andato a buon fine.\n\nControlla il saldo e riprova.");
+            }
+        });
     }
 
     @FXML
@@ -138,18 +169,20 @@ public class BolloAutoController implements Initializable {
         else if(scelta.equals("Motoveicolo")) amountLabel.setText("150,00 €");
         else amountLabel.setText("100,00 €");
         formValid = Bindings.createBooleanBinding(() ->
-                                FormUtils.getInstance().validatePlate(fieldPlate.getText()) &&
+                        FormUtils.getInstance().validatePlate(fieldPlate.getText()) &&
                                 FormUtils.getInstance().validateCF(fieldCF.getText()) &&
                                 FormUtils.getInstance().validateDueBollo(fieldDue.getText()),
-                                fieldPlate.textProperty(),
-                                fieldCF.textProperty(),
-                                fieldDue.textProperty());
+                fieldPlate.textProperty(),
+                fieldCF.textProperty(),
+                fieldDue.textProperty());
         sendButton.disableProperty().bind(formValid.not());
     }
+
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {
         BackStack.getInstance().loadPreviousPage();
     }
+
     private int loadAttempts = 0;
     private static final int MAX_LOAD_ATTEMPTS = 5;
 
@@ -205,6 +238,4 @@ public class BolloAutoController implements Initializable {
             System.out.println("Errore durante il caricamento del video dopo " + MAX_LOAD_ATTEMPTS + " tentativi.");
         }
     }
-
-
 }

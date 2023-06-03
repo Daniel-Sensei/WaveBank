@@ -14,9 +14,7 @@ public class GetCardService extends Service<List<Carta>> {
 
     public GetCardService() {}
 
-    public void setAction(String action) {
-        this.action = action;
-    }
+    public void setAction(String action) {this.action = action;}
 
     public void setCardNumber(String cardNum) {this.cardNum = cardNum;}
 

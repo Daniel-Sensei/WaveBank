@@ -2,7 +2,7 @@ package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.objects.Contatto;
-import com.uid.progettobanca.model.DAO.ContattiDAO;
+import com.uid.progettobanca.model.services.ContactService;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
@@ -19,7 +19,6 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ModifyContactController implements Initializable {
@@ -59,8 +58,13 @@ public class ModifyContactController implements Initializable {
                 contatto.setCognome(fieldSurname.getText());
             if (!fieldIban.getText().isEmpty())
                 contatto.setIban(fieldIban.getText());
-            ContattiDAO.getInstance().update(contatto);
-            SceneHandler.getInstance().showMessage("info", "Aggiornamento Contatto", "Contatto aggiornato", "Il contatto è stato modificato correttamente.");
+            ContactService contactService = new ContactService();
+            contactService.setAction("update");
+            contactService.setContact(contatto);
+            contactService.start();
+            contactService.setOnSucceeded(e -> {
+                SceneHandler.getInstance().showMessage("info", "Aggiornamento Contatto", "Contatto aggiornato", "Il contatto è stato modificato correttamente.");
+            });
         }
         SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
     }

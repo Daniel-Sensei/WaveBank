@@ -14,10 +14,9 @@ public class GetContactService extends Service<Queue<Contatto>> {
     private String iban = "";
     private int contactId = 0;
 
-    public GetContactService(String action) {
-        this.action = action;
-    }
+    public GetContactService() {}
 
+    public void setAction(String action) {this.action = action;}
     public void setIban(String iban) {this.iban = iban;}
     public void setContactId(int contactId) {this.contactId = contactId;}
 

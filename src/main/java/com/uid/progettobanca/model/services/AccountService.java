@@ -19,13 +19,15 @@ public class AccountService extends Service<Boolean> {
         return new Task() {
             @Override
             protected Object call() throws Exception {
-                return switch (action) {
-                    case "insert" -> ContiDAO.getInstance().insert(c);
-                    case "update" -> ContiDAO.getInstance().update(c);
-                    case "delete" -> ContiDAO.getInstance().delete(c);
-                    case "generateNew" -> ContiDAO.getInstance().generateNew();
-                    default -> false;
-                };
+                if(c!=null || action.equals("generateNew"))
+                    return switch (action) {
+                        case "insert" -> ContiDAO.getInstance().insert(c);
+                        case "update" -> ContiDAO.getInstance().update(c);
+                        case "delete" -> ContiDAO.getInstance().delete(c);
+                        case "generateNew" -> ContiDAO.getInstance().generateNew();
+                        default -> false;
+                    };
+                else return false;
             }
         };
     }

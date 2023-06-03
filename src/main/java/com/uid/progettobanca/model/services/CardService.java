@@ -21,6 +21,7 @@ public class CardService extends Service<Boolean> {
         return new Task() {
             @Override
             protected Object call() throws Exception {
+                if(c == null) return false;
                 return switch (action) {
                     case "insert" -> CarteDAO.getInstance().insert(c);
                     case "update" -> CarteDAO.getInstance().update(c);

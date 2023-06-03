@@ -150,7 +150,6 @@ public class UtentiDAO {
                     int user = result.getInt("user_id");
                     // se la password è corretta, restituisce l'id dell'utente
                     if (checkPassword(user, password)) {
-                        BankApplication.setCurrentlyLoggedUser(user);
                         return true;
                     } else {
                         SceneHandler.getInstance().showMessage("error", "Errore Login", "Email o Password Errati", "L'email o la password inseriti non sono corretti, per favore riprovare");

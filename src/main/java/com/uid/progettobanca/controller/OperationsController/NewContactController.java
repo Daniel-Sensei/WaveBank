@@ -3,7 +3,7 @@ package com.uid.progettobanca.controller.OperationsController;
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.objects.Contatto;
-import com.uid.progettobanca.model.DAO.ContattiDAO;
+import com.uid.progettobanca.model.services.ContactService;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
@@ -20,7 +20,6 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class NewContactController implements Initializable {
@@ -52,8 +51,13 @@ public class NewContactController implements Initializable {
     @FXML
     void onSendButtonClick(ActionEvent event) {
         String iban = fieldIban.getText().replace(" ", "").trim();
-        ContattiDAO.getInstance().insert(new Contatto(fieldName.getText(), fieldSurname.getText(), iban, BankApplication.getCurrentlyLoggedUser()));
-        SceneHandler.getInstance().showMessage("info", "Aggiunta Contatto", "Contatto aggiunto", "Il contatto è stato aggiunto correttamente.");
+        ContactService contactService = new ContactService();
+        contactService.setAction("insert");
+        contactService.setContact(new Contatto(fieldName.getText(), fieldSurname.getText(), iban, BankApplication.getCurrentlyLoggedUser()));
+        contactService.start();
+        contactService.setOnSucceeded(e -> {
+            SceneHandler.getInstance().showMessage("info", "Aggiunta Contatto", "Contatto aggiunto", "Il contatto è stato aggiunto correttamente.");
+        });
         SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
     }
 

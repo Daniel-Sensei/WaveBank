@@ -3,8 +3,12 @@ package com.uid.progettobanca.controller.OperationsController;
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.objects.Contatto;
-import com.uid.progettobanca.model.DAO.*;
+import com.uid.progettobanca.model.objects.Space;
 import com.uid.progettobanca.model.objects.Transazione;
+import com.uid.progettobanca.model.services.ContactService;
+import com.uid.progettobanca.model.services.GetContactService;
+import com.uid.progettobanca.model.services.GetSpaceService;
+import com.uid.progettobanca.model.services.TransactionService;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
@@ -21,9 +25,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Queue;
 import java.util.ResourceBundle;
-
-import static org.springframework.util.StringUtils.replace;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class BonificoController implements Initializable {
 
@@ -134,35 +139,81 @@ public class BonificoController implements Initializable {
         fieldIbanTo.setText(contact.getIban());
     }
 
+    private final GetContactService getContactService = new GetContactService();
+
+    private final TransactionService transactionService = new TransactionService();
+
     @FXML
     void onSendButtonClick(ActionEvent event) {
-        //bisogna mettere ContiDao.transazione in un if per bloccare operazione in caso di fondi insufficienti
         int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
         double amount = FormUtils.getInstance().formatAmount(fieldAmount.getText());
         String iban = fieldIbanTo.getText().replace(" ", "").trim();
+        AtomicReference<Contatto> contact = new AtomicReference<>(null);
 
-        Contatto contact = ContattiDAO.getInstance().selectByIBAN(iban);
-
-        boolean exists = contact != null;
-
-        if (TransazioniDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), iban, space, amount)) {
-            String nome = fieldName.getText() + " " + fieldSurname.getText();
-            int spaceTo = 0;
-            if(exists){
-                spaceTo = SpacesDAO.getInstance().selectAllByIban(contact.getIban()).poll().getSpaceId();
+        getContactService.setAction("selectByIBAN");
+        getContactService.setIban(iban);
+        getContactService.restart();
+        getContactService.setOnSucceeded(e -> {
+            if(e.getSource().getValue() instanceof Queue<?> result) {
+                contact.set((Contatto) result.poll());
             }
-            TransazioniDAO.getInstance().insert(new Transazione(nome, BankApplication.getCurrentlyLoggedIban(), iban, space, spaceTo, LocalDateTime.now(), amount, fieldDescr.getText(), "Bonifico", "Altro", ""));
+        });
 
-            if (saveContact.isSelected()) {
-                if(ContattiDAO.getInstance().selectAllByUserID(BankApplication.getCurrentlyLoggedUser()).stream().noneMatch(c -> c.getIban().equals(iban))) {
-                    ContattiDAO.getInstance().insert(new Contatto(fieldName.getText(), fieldSurname.getText(), iban, BankApplication.getCurrentlyLoggedUser()));
-                    SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+        final boolean exists = contact.get() != null;
+
+        transactionService.setAction("transazione");
+        transactionService.setIbanFrom(BankApplication.getCurrentlyLoggedIban());
+        transactionService.setIbanTo(iban);
+        transactionService.setSpaceFrom(space);
+        transactionService.setAmount(amount);
+        transactionService.restart();
+        transactionService.setOnSucceeded(e -> {
+            if((Boolean) e.getSource().getValue()){
+                String nome = fieldName.getText() + " " + fieldSurname.getText();
+
+                AtomicInteger tempSpace = new AtomicInteger(0);
+
+                if(exists){
+                    GetSpaceService getSpaceService = new GetSpaceService();
+                    getSpaceService.setAction("selectByIban");
+                    getSpaceService.setIban(contact.get().getIban());
+                    getSpaceService.restart();
+                    getSpaceService.setOnSucceeded(e1 -> {
+                        if(e.getSource().getValue() instanceof Queue<?> result) {
+                            Space temp = (Space) result.poll();
+                            tempSpace.set(temp.getSpaceId());
+                        }
+                    });
                 }
+
+                final int spaceTo = tempSpace.get();
+
+                transactionService.setAction("insert");
+                transactionService.setTransaction(new Transazione(nome, BankApplication.getCurrentlyLoggedIban(), iban, space, spaceTo, LocalDateTime.now(), amount, fieldDescr.getText(), "Bonifico", "Altro", ""));
+                transactionService.restart();
+                transactionService.setOnSucceeded(e1 -> {
+                    if ((Boolean) e1.getSource().getValue()) {
+                        if (saveContact.isSelected()) {
+                            getContactService.setAction("allByUser");
+                            getContactService.restart();
+                            getContactService.setOnSucceeded(e2 -> {
+                                if (e2.getSource().getValue() instanceof Queue<?> result) {
+                                    Queue<Contatto> contacts = (Queue<Contatto>) result.poll();
+                                    if (contacts.stream().noneMatch(c -> c.getIban().equals(iban))) {
+                                        ContactService contactService = new ContactService();
+                                        contactService.setAction("insert");
+                                        contactService.setContact(new Contatto(fieldName.getText(), fieldSurname.getText(), iban, BankApplication.getCurrentlyLoggedUser()));
+                                        SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            }else{
+                SceneHandler.getInstance().showMessage("error", "Errore", "Saldo insufficiente",  "Il pagamento non è andato a buon fine.\n\nControlla il saldo e riprova.");
             }
-            SceneHandler.getInstance().reloadDynamicPageInHashMap();
-            SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
-            SceneHandler.getInstance().showMessage("info", "Bonifico", "Bonifico effettuato con successo", "Il bonifico è andato a buon fine.");
-        }
+        });
     }
 
     @FXML

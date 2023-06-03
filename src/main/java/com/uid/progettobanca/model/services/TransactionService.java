@@ -43,14 +43,16 @@ public class TransactionService extends Service<Boolean> {
         return new Task() {
             @Override
             protected Object call() throws Exception {
-                return switch (action) {
-                    case "insert" -> TransazioniDAO.getInstance().insert(t);
-                    case "update" -> TransazioniDAO.getInstance().update(t);
-                    case "delete" -> TransazioniDAO.getInstance().delete(t);
-                    case "transazione" -> TransazioniDAO.getInstance().transazione(iban_from, iban_to, space_from, amount);
-                    case "betweenSpaces" -> TransazioniDAO.getInstance().betweenSpaces(iban_from, space_from, space_to, amount, comments);
-                    default -> false;
-                };
+                if(t!=null || action.equals("transazione") || action.equals("betweenSpaces"))
+                    return switch (action) {
+                        case "insert" -> TransazioniDAO.getInstance().insert(t);
+                        case "update" -> TransazioniDAO.getInstance().update(t);
+                        case "delete" -> TransazioniDAO.getInstance().delete(t);
+                        case "transazione" -> TransazioniDAO.getInstance().transazione(iban_from, iban_to, space_from, amount);
+                        case "betweenSpaces" -> TransazioniDAO.getInstance().betweenSpaces(iban_from, space_from, space_to, amount, comments);
+                        default -> false;
+                    };
+                else return false;
             }
         };
     }

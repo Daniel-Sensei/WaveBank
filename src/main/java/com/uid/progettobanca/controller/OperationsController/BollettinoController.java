@@ -2,9 +2,8 @@ package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
-import com.uid.progettobanca.model.DAO.ContiDAO;
-import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.objects.Transazione;
+import com.uid.progettobanca.model.services.TransactionService;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
@@ -76,11 +75,15 @@ public class BollettinoController implements Initializable {
     @FXML
     private ImageView back;
 
+    private final TransactionService transactionService = new TransactionService();
+
     private BooleanBinding formValid;
+
     public void initialize(URL location, ResourceBundle resources) {
         GenericController.loadImage(back);
 
         tipologiaComboBox.getItems().addAll(tipologia);
+
         try {
             FormUtils.getInstance().fillSpacesComboBox(spacesComboBox);
         } catch (SQLException e) {
@@ -117,12 +120,10 @@ public class BollettinoController implements Initializable {
             }
         });
 
-
         fieldCode.setDisable(true);
         fieldRecipient.setDisable(true);
         fieldDescr.setDisable(true);
         sendButton.setDisable(true);
-
     }
 
     @FXML
@@ -137,18 +138,33 @@ public class BollettinoController implements Initializable {
         } else {
             descr += "Codice: " + fieldCode.getText().trim();
         }
+
+        String finalDescr = descr;
+
         int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-        //rimuove i soldi dal conto corrente
-        if(TransazioniDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)){
-            //inserisco la transazione
-            TransazioniDAO.getInstance().insert(new Transazione("Bollettino Postale", BankApplication.getCurrentlyLoggedIban(), fieldCC.getText(), space, 0,  LocalDateTime.now(), amount, descr + fieldDescr.getText(), tipo, "Altro", ""));
-            SceneHandler.getInstance().reloadDynamicPageInHashMap();
-            SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
-            SceneHandler.getInstance().showMessage("info", "Operazione effettuata", "Bollettino pagato", "Il bollettino è stato pagato con successo");
-        }
-        else{
-            SceneHandler.getInstance().showMessage("error", "Errore", "Saldo insufficiente", "Non hai abbastanza soldi per effettuare questa operazione");
-        }
+
+        transactionService.setIbanFrom(BankApplication.getCurrentlyLoggedIban());
+        transactionService.setIbanTo("NO");
+        transactionService.setSpaceFrom(space);
+        transactionService.setAmount(amount);
+        transactionService.setAction("transazione");
+        transactionService.restart();
+        transactionService.setOnSucceeded(e -> {
+            if((Boolean) e.getSource().getValue()){
+                transactionService.setAction("insert");
+                transactionService.setTransaction(new Transazione("Bollettino Postale", BankApplication.getCurrentlyLoggedIban(), fieldCC.getText(), space, 0,  LocalDateTime.now(), amount, finalDescr + fieldDescr.getText(), tipo, "Altro", ""));
+                transactionService.restart();
+                transactionService.setOnSucceeded(e1 -> {
+                    if((Boolean) e1.getSource().getValue()){
+                        SceneHandler.getInstance().reloadDynamicPageInHashMap();
+                        SceneHandler.getInstance().showMessage("info", "Operazione effettuata", "Bollettino pagato", "Il bollettino è stato pagato con successo");
+                        SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+                    }
+                });
+            }else{
+                SceneHandler.getInstance().showMessage("error", "Errore", "Saldo insufficiente", "Non hai abbastanza soldi per effettuare questa operazione");
+            }
+        });
     }
 
     @FXML

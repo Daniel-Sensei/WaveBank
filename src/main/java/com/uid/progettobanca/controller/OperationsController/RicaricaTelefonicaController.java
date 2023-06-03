@@ -2,9 +2,8 @@ package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
-import com.uid.progettobanca.model.DAO.ContiDAO;
-import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.objects.Transazione;
+import com.uid.progettobanca.model.services.TransactionService;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
@@ -84,15 +83,32 @@ public class RicaricaTelefonicaController implements Initializable {
 
     @FXML
     void onSendButtonClick(ActionEvent event) {
+
         //effetuo la transazione
         double amount = FormUtils.getInstance().formatAmount(amountLabel.getText());
         int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-        if (TransazioniDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), "NO", space, amount)) {
-            TransazioniDAO.getInstance().insert(new Transazione("Ricarica: "+fieldPhone.getText(), BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, fieldPhone.getText().trim(), "Ricarica Telefonica", "Altro", ""));
-            SceneHandler.getInstance().reloadDynamicPageInHashMap();
-            SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
-            SceneHandler.getInstance().showMessage("info", "Operazione effettuata", "Ricarica telefonica effettuata", "L'importo è stato accreditato sul numero: " + fieldPhone.getText());
-        }
+
+        TransactionService transactionService = new TransactionService();
+        transactionService.setAction("transazione");
+        transactionService.setIbanFrom(BankApplication.getCurrentlyLoggedIban());
+        transactionService.setIbanTo("NO");
+        transactionService.setSpaceFrom(space);
+        transactionService.setAmount(amount);
+        transactionService.restart();
+        transactionService.setOnSucceeded(e ->{
+            if ((Boolean) e.getSource().getValue()) {
+                transactionService.setAction("insert");
+                transactionService.setTransaction(new Transazione("Ricarica: "+fieldPhone.getText(), BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, fieldPhone.getText().trim(), "Ricarica Telefonica", "Altro", ""));
+                transactionService.restart();
+                transactionService.setOnSucceeded(e1 -> {
+                    SceneHandler.getInstance().reloadDynamicPageInHashMap();
+                    SceneHandler.getInstance().showMessage("info", "Operazione effettuata", "Ricarica telefonica effettuata", "L'importo è stato accreditato sul numero: " + fieldPhone.getText());
+                    SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+                });
+            } else {
+                SceneHandler.getInstance().showMessage("error", "Errore", "Saldo insufficiente",  "Il pagamento non è andato a buon fine.\n\nControlla il saldo e riprova.");
+            }
+        });
     }
 
     @FXML

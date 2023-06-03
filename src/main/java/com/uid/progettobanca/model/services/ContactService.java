@@ -10,10 +10,9 @@ public class ContactService extends Service<Boolean> {
     private String action = "";
     private Contatto c;
 
-    public ContactService(String action) {
-        this.action = action;
-    }
+    public ContactService() {}
 
+    public void setAction(String action) {this.action = action;}
     public void setContact(Contatto c) {
         this.c = c;
     }
@@ -23,6 +22,7 @@ public class ContactService extends Service<Boolean> {
         return new Task() {
             @Override
             protected Object call() throws Exception {
+                if (c == null) return false;
                 return switch (action) {
                     case "insert" -> ContattiDAO.getInstance().insert(c);
                     case "update" -> ContattiDAO.getInstance().update(c);

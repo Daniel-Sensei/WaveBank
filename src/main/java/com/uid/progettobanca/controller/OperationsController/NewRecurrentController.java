@@ -123,7 +123,7 @@ public class NewRecurrentController implements Initializable {
         }
     }
 
-    RecurrentService recurrentService = new RecurrentService("insert");
+    RecurrentService recurrentService = new RecurrentService();
 
     @FXML
     void onSendButtonClick(ActionEvent event) {
@@ -172,6 +172,7 @@ public class NewRecurrentController implements Initializable {
             SceneHandler.getInstance().showMessage("error", "Errore", "Numero di giorni non valido", "Il numero di giorni deve essere un numero");
             return;
         }
+        recurrentService.setAction("insert");
         recurrentService.setPayment(new Ricorrente(fieldName.getText() + " " + fieldSurname.getText(), Double.parseDouble(fieldAmount.getText()), fieldIbanTo.getText(), LocalDate.parse(convertDate(getDate())), Integer.parseInt(fieldNGiorni.getText()), fieldDescr.getText(), BankApplication.getCurrentlyLoggedUser()));
         recurrentService.start();
         recurrentService.setOnSucceeded(e -> {

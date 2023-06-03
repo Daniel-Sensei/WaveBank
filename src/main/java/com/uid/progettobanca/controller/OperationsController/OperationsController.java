@@ -3,7 +3,7 @@ package com.uid.progettobanca.controller.OperationsController;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.ContactsManager;
 import com.uid.progettobanca.model.objects.Contatto;
-import com.uid.progettobanca.model.DAO.ContattiDAO;
+import com.uid.progettobanca.model.services.ContactService;
 import com.uid.progettobanca.view.SceneHandler;
 
 import javafx.event.ActionEvent;
@@ -240,10 +240,17 @@ public class OperationsController implements Initializable {
     void onDeleteClick(ActionEvent event) {
         if (selectedContact != -1) {
             if(SceneHandler.getInstance().showMessage("question", "Conferma", "Conferma eliminazione", "Sei sicuro di voler eliminare il contatto selezionato?").equals("OK")) {
-                ContattiDAO.getInstance().delete(contacts.get(selectedContact));
-                contacts.remove(selectedContact);
-                contactsVBox.getChildren().remove(selectedContact);
-                selectedContact = -1;
+                ContactService contactService = new ContactService();
+                contactService.setAction("delete");
+                contactService.setContact(contacts.get(selectedContact));
+                contactService.start();
+                contactService.setOnSucceeded(e -> {
+                    if((Boolean) e.getSource().getValue()){
+                        contacts.remove(selectedContact);
+                        contactsVBox.getChildren().remove(selectedContact);
+                        selectedContact = -1;
+                    }
+                });
             }
         }
     }

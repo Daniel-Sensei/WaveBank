@@ -58,7 +58,8 @@ public class TransactionManager {
 
         if(transaction.getTipo().equals(("Bonifico"))) {
             if(transaction.getIbanTo().equals(BankApplication.getCurrentlyLoggedIban())) {
-                GetContactService getContactService = new GetContactService("selectByIban");
+                GetContactService getContactService = new GetContactService();
+                getContactService.setAction("selectByIban");
                 getContactService.setIban(transaction.getIbanFrom());
                 getContactService.restart();
                 getContactService.setOnSucceeded(e -> {

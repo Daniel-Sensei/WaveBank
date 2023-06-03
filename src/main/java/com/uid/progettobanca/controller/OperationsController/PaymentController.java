@@ -53,7 +53,8 @@ public class PaymentController implements Initializable {
     @FXML
     void deleteThisRecurrent(MouseEvent event) throws IOException {
         if(SceneHandler.getInstance().showMessage("question", "Conferma","Conferma eliminazione", "Sei sicuro di voler eliminare questo pagamento ricorrente?").equals("OK")){
-            RecurrentService recurrentService = new RecurrentService("delete");
+            RecurrentService recurrentService = new RecurrentService();
+            recurrentService.setAction("delete");
             recurrentService.setPayment(payment);
             recurrentService.start();
             recurrentService.setOnSucceeded(e -> {
