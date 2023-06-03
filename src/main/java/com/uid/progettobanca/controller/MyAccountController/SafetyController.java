@@ -98,7 +98,7 @@ public class SafetyController {
                     });
 
                 } else {
-                    FormUtils.getInstance().validatePasswordField(oldPsw, false, warningWrongPsw);
+                    FormUtils.getInstance().validateTextField(oldPsw, false, warningWrongPsw);
                 }
             }
         });
@@ -112,14 +112,14 @@ public class SafetyController {
 
         newPsw.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
-                FormUtils.getInstance().validatePasswordField(newPsw, FormUtils.getInstance().validatePassword(newPsw.getText()), warningBadPsw);
+                FormUtils.getInstance().validateTextField(newPsw, FormUtils.getInstance().validatePassword(newPsw.getText()), warningBadPsw);
                 sendButton.setDisable(!(confirmPsw.getText().equals(newPsw.getText()) && FormUtils.getInstance().validatePassword(newPsw.getText())));
             }
         });
 
         confirmPsw.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
-                FormUtils.getInstance().validatePasswordField(confirmPsw, confirmPsw.getText().equals(newPsw.getText()), warningDiffPsw);
+                FormUtils.getInstance().validateTextField(confirmPsw, confirmPsw.getText().equals(newPsw.getText()), warningDiffPsw);
                 sendButton.setDisable(!(confirmPsw.getText().equals(newPsw.getText()) && FormUtils.getInstance().validatePassword(newPsw.getText())));
             }
         });

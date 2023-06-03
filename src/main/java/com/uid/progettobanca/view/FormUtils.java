@@ -85,15 +85,6 @@ public class FormUtils {
         return isValid;
     }
 
-    public boolean validatePasswordField(PasswordField textField, Boolean validateFunction, Label warningLabel) {
-
-        String text = textField.getText().trim();
-        boolean isValid = validateFunction;
-        warningLabel.setVisible(!isValid);
-        setTextFieldStyle(textField, isValid);
-
-        return isValid;
-    }
     public boolean validateIban(String iban) {
         // Rimuovi spazi e caratteri speciali dall'IBAN
         String sanitizedIban = iban.replaceAll("\\s+", "").toUpperCase();
