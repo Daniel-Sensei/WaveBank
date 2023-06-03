@@ -40,7 +40,7 @@ public class GetTransactionService extends Service<List<Transazione>> {
                     return TransazioniDAO.getInstance().selectFilteredTransactions(BankApplication.getCurrentlyLoggedIban(), selectedFilters, searchQuery, selectedInOut);
                 }
                 else if(functionName.equals("filtersSpaceTransaction")){
-                    return TransazioniDAO.getInstance().selectAllSpaceTransaction(BankApplication.getCurrentlyLoggedIban(), spaceID);
+                    return TransazioniDAO.getInstance().selectAllSpaceTransaction(spaceID);
                 }
                 return null;
             }

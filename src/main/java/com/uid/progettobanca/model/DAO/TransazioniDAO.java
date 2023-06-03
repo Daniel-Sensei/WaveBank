@@ -107,6 +107,10 @@ public class TransazioniDAO {
 
     public boolean betweenSpaces(String iban, int spaceFrom, int spaceTo, double amount, String commenti) {
         Space from = SpacesDAO.getInstance().selectBySpaceId(spaceFrom);
+        if(from.getSaldo()<amount) {
+            SceneHandler.getInstance().showMessage("error", "Errore", "Saldo insufficiente nello space", "Non hai abbastanza soldi nello space selezionato per effettuare questa operazione");
+            return false;
+        }
         String nomeFrom = from.getNome();
         from.setSaldo(from.getSaldo()-amount);
         Space to = SpacesDAO.getInstance().selectBySpaceId(spaceTo);
@@ -296,7 +300,7 @@ public class TransazioniDAO {
         return transactions;
     }
 
-    public List<Transazione> selectAllSpaceTransaction(String iban, int spaceID) {
+    public List<Transazione> selectAllSpaceTransaction(int spaceID) {
         List<Transazione> transactions = new Stack<>();
         String query = "SELECT * FROM transazioni WHERE (space_from = ? OR space_to = ?) ORDER BY dateTime asc";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -304,12 +308,19 @@ public class TransazioniDAO {
             stmt.setInt(2, spaceID);
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    int fromSpace = rs.getInt("space_from");
-                    int toSpace = rs.getInt("space_to");
+                    int spaceFrom = rs.getInt("space_from");
+                    int spaceTo = rs.getInt("space_to");
                     double amount = rs.getDouble("importo");
 
-                    if (fromSpace == spaceID && toSpace != spaceID) {
+                    if (spaceFrom == spaceID && spaceTo != spaceID) {
                         amount *= -1;
+                    }
+
+                    if(spaceID == spaceFrom && amount > 0){
+                        continue;
+                    }
+                    else if(spaceID == spaceTo && amount < 0){
+                        continue;
                     }
 
                     Transazione transaction = new Transazione(
@@ -317,8 +328,8 @@ public class TransazioniDAO {
                             rs.getString("nome"),
                             rs.getString("iban_from"),
                             rs.getString("iban_to"),
-                            fromSpace,
-                            toSpace,
+                            spaceFrom,
+                            spaceTo,
                             rs.getTimestamp("dateTime").toLocalDateTime(),
                             amount,
                             rs.getString("descrizione"),

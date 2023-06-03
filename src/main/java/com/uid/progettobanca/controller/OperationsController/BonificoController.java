@@ -135,17 +135,24 @@ public class BonificoController implements Initializable {
     @FXML
     void onSendButtonClick(ActionEvent event) {
         double amount = FormUtils.getInstance().formatAmount(fieldAmount.getText());
-        String ibanTo = fieldIbanTo.getText().replace(" ", "").trim();
+
+        Contatto contact = ContattiDAO.getInstance().selectByIBAN(fieldIbanTo.getText());
+
+        boolean exists = contact != null;
 
         //bisogna mettere ContiDao.transazione in un if per bloccare operazione in caso di fondi insufficienti
         int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-        if (TransazioniDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), ibanTo, space, amount)) {
+        if (TransazioniDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, amount)) {
             String nome = fieldName.getText() + " " + fieldSurname.getText();
-            TransazioniDAO.getInstance().insert(new Transazione(nome, BankApplication.getCurrentlyLoggedIban(), ibanTo, space, 0, LocalDateTime.now(), amount, fieldDescr.getText(), "Bonifico", "Altro", ""));
+            int spaceTo = 0;
+            if(exists){
+                spaceTo = SpacesDAO.getInstance().selectAllByIban(contact.getIban()).poll().getSpaceId();
+            }
+            TransazioniDAO.getInstance().insert(new Transazione(nome, BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, spaceTo, LocalDateTime.now(), amount, fieldDescr.getText(), "Bonifico", "Altro", ""));
 
             if (saveContact.isSelected()) {
-                if(ContattiDAO.getInstance().selectByIBAN(ibanTo) == null) {
-                    ContattiDAO.getInstance().insert(new Contatto(fieldName.getText(), fieldSurname.getText(), ibanTo, BankApplication.getCurrentlyLoggedUser()));
+                if(ContattiDAO.getInstance().selectAllByUserID(BankApplication.getCurrentlyLoggedUser()).stream().noneMatch(c -> c.getIban().equals(fieldIbanTo.getText()))) {
+                    ContattiDAO.getInstance().insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedUser()));
                     SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.OPERATIONS_PATH + "operations.fxml");
                 }
             }

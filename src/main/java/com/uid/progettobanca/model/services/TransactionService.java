@@ -13,14 +13,19 @@ public class TransactionService extends Service<Boolean> {
     private String iban_from;
     private String iban_to;
     private int space_from;
+    private int space_to;
     private double amount;
+    private String comments;
 
-    public void setIban_from(String iban_from) {this.iban_from = iban_from;}
-    public void setIban_to(String iban_to) {this.iban_to = iban_to;}
-    public void setSpace_from(int space_from) {this.space_from = space_from;}
+
+    public void setIbanFrom(String iban_from) {this.iban_from = iban_from;}
+    public void setIbanTo(String iban_to) {this.iban_to = iban_to;}
+    public void setSpaceFrom(int space_from) {this.space_from = space_from;}
+    public void setSpaceTo(int space_to) {this.space_to = space_to;}
+    public void setComments(String comments) {this.comments = comments;}
     public void setAmount(double amount) {this.amount = amount;}
-    public void setTransaction(Transazione t) {this.t = t;}
 
+    public void setTransaction(Transazione t) {this.t = t;}
 
     public TransactionService(String action) {this.action = action;}
 
@@ -35,6 +40,7 @@ public class TransactionService extends Service<Boolean> {
                     case "update" -> TransazioniDAO.getInstance().update(t);
                     case "delete" -> TransazioniDAO.getInstance().delete(t);
                     case "transazione" -> TransazioniDAO.getInstance().transazione(iban_from, iban_to, space_from, amount);
+                    case "betweenSpaces" -> TransazioniDAO.getInstance().betweenSpaces(iban_from, space_from, space_to, amount, comments);
                     default -> false;
                 };
             }
