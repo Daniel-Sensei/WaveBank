@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.BonificoController">
+<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.BonificoController">
    <padding>
       <Insets left="200.0" right="200.0" />
    </padding>
@@ -28,8 +28,8 @@
                      <children>
                         <VBox alignment="CENTER_LEFT" spacing="3.0">
                            <children>
-                              <Label styleClass="titleLabel" text="Bonifico SEPA" />
-                              <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="Indietro">
+                              <Label styleClass="titleLabel" text="%bonificoSepa" />
+                              <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="%back">
                                  <graphic>
                                     <ImageView fx:id="back" fitHeight="12.0" fitWidth="12.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
                                  </graphic>
@@ -46,18 +46,18 @@
             <ComboBox fx:id="spacesComboBox" cache="true" promptText="Seleziona uno space" styleClass="spaces-combo-box" />
             <VBox spacing="10.0">
                <children>
-                  <Label styleClass="subtitleLabel" text="A chi lo stai inviando?" />
+                  <Label styleClass="subtitleLabel" text="%aChiLoStaiInviando" />
                   <VBox fillWidth="false" spacing="10.0">
                      <children>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldName" prefHeight="50.0" prefWidth="350.0" promptText="Nome*" />
+                              <TextField fx:id="fieldName" prefHeight="50.0" prefWidth="350.0" promptText="%nome" />
                               <Label fx:id="warningName" style="-fx-text-fill: redColor;" text="Nome non valido*" visible="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldSurname" prefHeight="50.0" prefWidth="350.0" promptText="Cognome*" />
+                              <TextField fx:id="fieldSurname" prefHeight="50.0" prefWidth="350.0" promptText="%cognome" />
                               <Label fx:id="warningSurname" style="-fx-text-fill: redColor;" text="Cognome non valido*" visible="false" />
                            </children>
                         </HBox>
@@ -69,17 +69,17 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldAmount" prefHeight="50.0" prefWidth="350.0" promptText="Importo*" />
+                              <TextField fx:id="fieldAmount" prefHeight="50.0" prefWidth="350.0" promptText="%importoPrompt" />
                               <Label fx:id="warningAmount" style="-fx-text-fill: redColor;" text="Importo non valido*" visible="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldDescr" prefHeight="50.0" prefWidth="350.0" promptText="Causale*" />
+                              <TextField fx:id="fieldDescr" prefHeight="50.0" prefWidth="350.0" promptText="%causale" />
                               <Label fx:id="warningDescr" style="-fx-text-fill: redColor;" text="La causale non può essere vuota*" visible="false" />
                            </children>
                         </HBox>
-                        <CheckBox fx:id="saveContact" mnemonicParsing="false" text="Salva in rubrica">
+                        <CheckBox fx:id="saveContact" mnemonicParsing="false" text="%salvaInRubrica">
                            <VBox.margin>
                               <Insets bottom="20.0" />
                            </VBox.margin>
@@ -87,7 +87,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </CheckBox>
-                        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#onSendButtonClick" prefHeight="40.0" prefWidth="100.0" styleClass="greenButton" text="Invia">
+                        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#onSendButtonClick" prefHeight="40.0" prefWidth="100.0" styleClass="greenButton" text="%Invia">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

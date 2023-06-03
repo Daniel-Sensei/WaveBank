@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.NewRecurrentController">
+<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.NewRecurrentController">
     <padding>
         <Insets left="200.0" right="200.0" />
     </padding>
@@ -28,8 +28,8 @@
                             <children>
                                 <VBox alignment="CENTER_LEFT" spacing="3.0">
                                     <children>
-                                        <Label styleClass="titleLabel" text="Bonifico SEPA" />
-                                        <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="Indietro">
+                                        <Label styleClass="titleLabel" text="%bonificoSepa" />
+                                        <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="%back">
                                             <graphic>
                                                 <ImageView fx:id="back" fitHeight="12.0" fitWidth="12.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                        <rotationAxis>
@@ -48,17 +48,17 @@
                 </AnchorPane>
                 <VBox spacing="10.0">
                     <children>
-                        <Label styleClass="subtitleLabel" text="A chi lo stai inviando?" />
+                        <Label styleClass="subtitleLabel" text="%aChiLoStaiInviando" />
                         <VBox fillWidth="false" spacing="10.0">
                             <children>
-                                <TextField fx:id="fieldName" prefHeight="50.0" prefWidth="350.0" promptText="Nome" />
-                                <TextField fx:id="fieldSurname" prefHeight="50.0" prefWidth="350.0" promptText="Cognome" />
+                                <TextField fx:id="fieldName" prefHeight="50.0" prefWidth="350.0" promptText="%nome" />
+                                <TextField fx:id="fieldSurname" prefHeight="50.0" prefWidth="350.0" promptText="%cognome" />
                                 <TextField fx:id="fieldIbanTo" prefHeight="50.0" prefWidth="350.0" promptText="IBAN" />
                                 <TextField fx:id="fieldAmount" prefHeight="50.0" prefWidth="350.0" promptText="0,00" />
-                                <TextField fx:id="fieldDescr" prefHeight="50.0" prefWidth="350.0" promptText="Causale" />
+                                <TextField fx:id="fieldDescr" prefHeight="50.0" prefWidth="350.0" promptText="%causale" />
                         <HBox prefHeight="50.0" prefWidth="710.0">
                            <children>
-                              <ComboBox fx:id="recurrencyComboBox" onAction="#onAltroSelection" prefHeight="50.0" prefWidth="350.0" promptText="Ricorrenza">
+                              <ComboBox fx:id="recurrencyComboBox" onAction="#onAltroSelection" prefHeight="50.0" prefWidth="350.0" promptText="%Ricorrenza">
                                  <HBox.margin>
                                     <Insets right="5.0" />
                                  </HBox.margin>
@@ -72,12 +72,12 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
                            <children>
-                              <ComboBox fx:id="dayComboBox" prefHeight="50.0" prefWidth="110.0" promptText="Giorno" visibleRowCount="6" HBox.hgrow="ALWAYS" />
-                              <ComboBox fx:id="monthComboBox" prefHeight="50.0" prefWidth="110.0" promptText="Mese" visibleRowCount="6" />
-                              <ComboBox fx:id="yearComboBox" prefHeight="50.0" prefWidth="110.0" promptText="Anno" visibleRowCount="6" />
+                              <ComboBox fx:id="dayComboBox" prefHeight="50.0" prefWidth="110.0" promptText="%Giorno" visibleRowCount="6" HBox.hgrow="ALWAYS" />
+                              <ComboBox fx:id="monthComboBox" prefHeight="50.0" prefWidth="110.0" promptText="%Mese" visibleRowCount="6" />
+                              <ComboBox fx:id="yearComboBox" prefHeight="50.0" prefWidth="110.0" promptText="%Anno" visibleRowCount="6" />
                            </children>
                         </HBox>
-                                <Button fx:id="sendButton" mnemonicParsing="false" onAction="#onSendButtonClick" prefHeight="40.0" prefWidth="100.0" styleClass="greenButton" text="Invia">
+                                <Button fx:id="sendButton" mnemonicParsing="false" onAction="#onSendButtonClick" prefHeight="40.0" prefWidth="100.0" styleClass="greenButton" text="%Invia">
                                     <cursor>
                                         <Cursor fx:constant="HAND" />
                                     </cursor>
