@@ -23,6 +23,11 @@ public class BankApplication extends Application {
     public static void setCurrentlyLoggedMainSpace(int space) {currentlyLoggedMainSpace = space;}
     public static int getCurrentlyLoggedMainSpace() {return currentlyLoggedMainSpace;}
 
+    private static String currentlyLoggedMail = "";
+    public static void setCurrentlyLoggedMail(String mail) {currentlyLoggedMail = mail;}
+    public static String getCurrentlyLoggedMail() {return currentlyLoggedMail;}
+
+
     private void initializeDB(){
         //inizializzazione/creazione DatabaseManager e del relativo db
         try {

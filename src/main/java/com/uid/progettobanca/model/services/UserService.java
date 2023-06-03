@@ -38,7 +38,7 @@ public class UserService extends Service<Boolean> {
                         case "checkAnswer" -> UtentiDAO.getInstance().checkAnswer(email, answer);
                         case "checkPassword" -> UtentiDAO.getInstance().checkPassword(user_id, password);
                         case "login" -> UtentiDAO.getInstance().login(email, password);
-                        case "updatePassword" ->  UtentiDAO.getInstance().updatePassword(UtentiDAO.getInstance().getUserById(BankApplication.getCurrentlyLoggedUser()).getEmail(), password);
+                        case "updatePassword" ->  UtentiDAO.getInstance().updatePassword(email, password);
                         default -> false;
                     };
                 else return false;

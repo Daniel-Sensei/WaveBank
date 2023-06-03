@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
@@ -38,23 +39,11 @@ public class PasswordRecoveryController implements Initializable {
     @FXML
     private Button updatePassword;
 
+    @FXML
+    private ImageView back;
+
     private GetUserService getUserService = new GetUserService();
     private UserService userService = new UserService();
-
-    @FXML
-    void onEmailInserted(ActionEvent event) {
-        getUserService.setAction("selectByEmail");
-        getUserService.setEmail(fieldEmail.getText());
-        getUserService.restart();
-        getUserService.setOnSucceeded(e -> {
-            if(getUserService.getValue() == null)
-                SceneHandler.getInstance().showMessage("error", "Errore", "Errore durante il recupero della domanda", "L'email inserita non è presente nel database.");
-            else question.setText(getUserService.getValue().getDomanda());
-        });
-        getUserService.setOnFailed(e -> {
-            throw new RuntimeException(e.getSource().getException());
-        });
-    }
 
     @FXML
     void onUpdatePasswordClick(ActionEvent event) {
@@ -95,5 +84,24 @@ public class PasswordRecoveryController implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {}
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        GenericController.loadImage(back);
+
+        fieldEmail.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                getUserService.setAction("selectByEmail");
+                getUserService.setEmail(fieldEmail.getText());
+                getUserService.restart();
+                getUserService.setOnSucceeded(e -> {
+                    if (getUserService.getValue() == null)
+                        // da cambiare con la vibrazione del campo
+                        SceneHandler.getInstance().showMessage("error", "Errore", "Errore durante il recupero della domanda", "L'email inserita non è presente nel database.");
+                    else question.setText(getUserService.getValue().getDomanda());
+                });
+                getUserService.setOnFailed(e -> {
+                    throw new RuntimeException(e.getSource().getException());
+                });
+            }
+        });
+    }
 }

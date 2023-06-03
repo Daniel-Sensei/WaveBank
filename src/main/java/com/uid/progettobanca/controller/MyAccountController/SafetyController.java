@@ -81,7 +81,7 @@ public class SafetyController {
             if(event1.getSource().getValue() instanceof Boolean result){
                 if (result) {
                     userService2.setAction("updatePassword");
-                    userService2.setUserId(BankApplication.getCurrentlyLoggedUser());
+                    userService2.setEmail(BankApplication.getCurrentlyLoggedMail());
                     userService2.setPassword(newPsw.getText());
                     userService2.restart();
 

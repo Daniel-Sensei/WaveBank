@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
@@ -97,6 +98,9 @@ public class RegisterFormController implements Initializable {
     @FXML
     private ComboBox<String> yearComboBox;
 
+    @FXML
+    private ImageView back;
+
     private BooleanBinding formValid;
 
     private final String[] domandeDiSicurezza = {
@@ -155,6 +159,7 @@ public class RegisterFormController implements Initializable {
     }
 
     public void initialize(URL location, ResourceBundle resources) {
+        GenericController.loadImage(back);
 
         SceneHandler.getInstance().setScrollSpeed(scrollPane);
         populateComboBoxData();
