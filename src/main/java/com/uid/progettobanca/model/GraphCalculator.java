@@ -8,7 +8,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GraphCalculator {
+
+    private List<Transazione> RemoveOnSameIBAN(List<Transazione> transazioni){
+        List<Transazione> transazioniDaRimuovere = new ArrayList<>();
+        for(Transazione transazione : (List<Transazione>) transazioni){
+            if (transazione.getIbanFrom().equals(transazione.getIbanTo())){
+                transazioniDaRimuovere.add(transazione);
+            }
+        }
+        transazioni.removeAll(transazioniDaRimuovere);
+        return transazioni;
+    }
+
     public ReturnChart MainGraphCalculator(int DaysInterval, List<Transazione> transazioni){
+        transazioni= RemoveOnSameIBAN(transazioni);
         XYChart.Series data = new XYChart.Series();
 
         double baseline=0;
@@ -63,6 +76,7 @@ public class GraphCalculator {
     }
 
     public ReturnChart TagGraphCalculator(int DaysInterval, String tag, List<Transazione> transazioni){
+        transazioni= RemoveOnSameIBAN(transazioni);
         XYChart.Series data = new XYChart.Series<>();
 
         List<Double> DaysValues = new ArrayList<>();
