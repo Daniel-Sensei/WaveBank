@@ -3,6 +3,7 @@ package com.uid.progettobanca.controller.OperationsController;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.ContactsManager;
 import com.uid.progettobanca.model.objects.Contatto;
+import com.uid.progettobanca.view.FormUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -31,7 +32,7 @@ public class ContactController implements Initializable {
         GenericController.loadImage(users);
         contact = ContactsManager.getInstance().getNextContact();
 
-        ibanLabel.setText(contact.getIban());
+        ibanLabel.setText(FormUtils.getInstance().separateIban(contact.getIban()));
         nameLabel.setText(contact.getNome() + " " + contact.getCognome());
     }
 

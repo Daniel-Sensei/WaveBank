@@ -146,6 +146,9 @@ public class BollettinoController implements Initializable {
             SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
             SceneHandler.getInstance().showMessage("info", "Operazione effettuata", "Bollettino pagato", "Il bollettino è stato pagato con successo");
         }
+        else{
+            SceneHandler.getInstance().showMessage("error", "Errore", "Saldo insufficiente", "Non hai abbastanza soldi per effettuare questa operazione");
+        }
     }
 
     @FXML

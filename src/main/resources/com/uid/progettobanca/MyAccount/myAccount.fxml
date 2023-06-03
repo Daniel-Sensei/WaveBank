@@ -135,7 +135,7 @@
                                           <Insets />
                                        </VBox.margin>
                                     </HBox>
-                                    <HBox alignment="CENTER_LEFT" onMouseClicked="#openContacs" prefHeight="75.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox-bottom">
+                                    <HBox alignment="CENTER_LEFT" onMouseClicked="#openContacts" prefHeight="75.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox-bottom">
                                        <children>
                                           <ImageView fx:id="receipt" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                                           <Label text="Contattaci" HBox.hgrow="ALWAYS" />

@@ -23,6 +23,8 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
+import static org.springframework.util.StringUtils.replace;
+
 public class BonificoController implements Initializable {
 
     @FXML
@@ -134,25 +136,26 @@ public class BonificoController implements Initializable {
 
     @FXML
     void onSendButtonClick(ActionEvent event) {
+        //bisogna mettere ContiDao.transazione in un if per bloccare operazione in caso di fondi insufficienti
+        int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
         double amount = FormUtils.getInstance().formatAmount(fieldAmount.getText());
+        String iban = fieldIbanTo.getText().replace(" ", "").trim();
 
-        Contatto contact = ContattiDAO.getInstance().selectByIBAN(fieldIbanTo.getText());
+        Contatto contact = ContattiDAO.getInstance().selectByIBAN(iban);
 
         boolean exists = contact != null;
 
-        //bisogna mettere ContiDao.transazione in un if per bloccare operazione in caso di fondi insufficienti
-        int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-        if (TransazioniDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, amount)) {
+        if (TransazioniDAO.getInstance().transazione(BankApplication.getCurrentlyLoggedIban(), iban, space, amount)) {
             String nome = fieldName.getText() + " " + fieldSurname.getText();
             int spaceTo = 0;
             if(exists){
                 spaceTo = SpacesDAO.getInstance().selectAllByIban(contact.getIban()).poll().getSpaceId();
             }
-            TransazioniDAO.getInstance().insert(new Transazione(nome, BankApplication.getCurrentlyLoggedIban(), fieldIbanTo.getText(), space, spaceTo, LocalDateTime.now(), amount, fieldDescr.getText(), "Bonifico", "Altro", ""));
+            TransazioniDAO.getInstance().insert(new Transazione(nome, BankApplication.getCurrentlyLoggedIban(), iban, space, spaceTo, LocalDateTime.now(), amount, fieldDescr.getText(), "Bonifico", "Altro", ""));
 
             if (saveContact.isSelected()) {
-                if(ContattiDAO.getInstance().selectAllByUserID(BankApplication.getCurrentlyLoggedUser()).stream().noneMatch(c -> c.getIban().equals(fieldIbanTo.getText()))) {
-                    ContattiDAO.getInstance().insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIbanTo.getText(), BankApplication.getCurrentlyLoggedUser()));
+                if(ContattiDAO.getInstance().selectAllByUserID(BankApplication.getCurrentlyLoggedUser()).stream().noneMatch(c -> c.getIban().equals(iban))) {
+                    ContattiDAO.getInstance().insert(new Contatto(fieldName.getText(), fieldSurname.getText(), iban, BankApplication.getCurrentlyLoggedUser()));
                     SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.OPERATIONS_PATH + "operations.fxml");
                 }
             }

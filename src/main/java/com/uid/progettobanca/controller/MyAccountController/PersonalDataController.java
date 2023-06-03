@@ -1,10 +1,6 @@
 package com.uid.progettobanca.controller.MyAccountController;
 
-import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
-import com.uid.progettobanca.model.CardsManager;
-import com.uid.progettobanca.model.DAO.UtentiDAO;
-import com.uid.progettobanca.model.objects.Carta;
 import com.uid.progettobanca.model.objects.Utente;
 import com.uid.progettobanca.model.services.GetUserService;
 import com.uid.progettobanca.view.BackStack;
@@ -14,9 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.List;
-
 public class PersonalDataController {
 
     @FXML

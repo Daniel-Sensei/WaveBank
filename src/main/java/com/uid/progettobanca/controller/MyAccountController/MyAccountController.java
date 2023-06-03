@@ -1,7 +1,6 @@
 package com.uid.progettobanca.controller.MyAccountController;
 
 import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.objects.Utente;
 import com.uid.progettobanca.model.services.GetUserService;
@@ -10,7 +9,6 @@ import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -114,7 +112,7 @@ public class MyAccountController implements Initializable {
 
 
     @FXML
-    void openContacs(MouseEvent event) {
+    void openContacts(MouseEvent event) {
         openGenericPage("contactUs.fxml");
     }
 

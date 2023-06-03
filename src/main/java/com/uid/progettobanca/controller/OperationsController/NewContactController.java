@@ -51,7 +51,8 @@ public class NewContactController implements Initializable {
 
     @FXML
     void onSendButtonClick(ActionEvent event) {
-        ContattiDAO.getInstance().insert(new Contatto(fieldName.getText(), fieldSurname.getText(), fieldIban.getText(), BankApplication.getCurrentlyLoggedUser()));
+        String iban = fieldIban.getText().replace(" ", "").trim();
+        ContattiDAO.getInstance().insert(new Contatto(fieldName.getText(), fieldSurname.getText(), iban, BankApplication.getCurrentlyLoggedUser()));
         SceneHandler.getInstance().showMessage("info", "Aggiunta Contatto", "Contatto aggiunto", "Il contatto è stato aggiunto correttamente.");
         SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
     }

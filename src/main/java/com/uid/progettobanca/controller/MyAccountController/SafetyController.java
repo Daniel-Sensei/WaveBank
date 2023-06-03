@@ -1,18 +1,13 @@
 package com.uid.progettobanca.controller.MyAccountController;
 
 import com.uid.progettobanca.BankApplication;
-import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
-import com.uid.progettobanca.model.CardsManager;
-import com.uid.progettobanca.model.DAO.UtentiDAO;
-import com.uid.progettobanca.model.objects.Carta;
 import com.uid.progettobanca.model.services.UserService;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.image.ImageView;
@@ -21,8 +16,6 @@ import javafx.scene.control.Button;
 
 import java.io.IOException;
 import java.net.URI;
-import java.sql.SQLException;
-import java.util.List;
 
 
 public class SafetyController {
