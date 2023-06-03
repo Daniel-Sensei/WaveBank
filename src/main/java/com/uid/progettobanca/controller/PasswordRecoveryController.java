@@ -94,7 +94,7 @@ public class PasswordRecoveryController implements Initializable {
                 getUserService.restart();
                 getUserService.setOnSucceeded(e -> {
                     if (getUserService.getValue() == null)
-                        // da cambiare con la vibrazione del campo
+                        //TODO: da cambiare con la vibrazione del campo
                         SceneHandler.getInstance().showMessage("error", "Errore", "Errore durante il recupero della domanda", "L'email inserita non è presente nel database.");
                     else question.setText(getUserService.getValue().getDomanda());
                 });
