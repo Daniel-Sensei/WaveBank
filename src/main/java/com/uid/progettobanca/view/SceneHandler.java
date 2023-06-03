@@ -244,7 +244,11 @@ public class SceneHandler {
         switch(type){
             case "error" -> alert = new Alert(Alert.AlertType.ERROR);
             case "info" -> alert = new Alert(Alert.AlertType.INFORMATION);
-            case "question" -> alert = new Alert(Alert.AlertType.CONFIRMATION);
+            case "question" -> {
+                alert = new Alert(Alert.AlertType.CONFIRMATION);
+                //imposta il css del pulsante annulla a secondarybutton
+                alert.getDialogPane().lookupButton(alert.getButtonTypes().get(1)).getStyleClass().add("secondaryButton");
+            }
             default -> alert = new Alert(Alert.AlertType.WARNING);
         }
 
@@ -254,14 +258,15 @@ public class SceneHandler {
 
         //imposta all'alert il css in uso nelle altre pagine
         alert.getDialogPane().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + Settings.CSS_THEME, CSS_PATH + "style.css");
-        //imposta il css del pulsante annulla a secondarybutton
-        if(type.equals("question")) { alert.getDialogPane().lookupButton(alert.getButtonTypes().get(1)).getStyleClass().add("secondaryButton");}
         //imposta il css dello sfondo a background
         alert.getDialogPane().getStyleClass().add("background");
 
         alert.showAndWait();
 
-        return alert.getResult().getText();
+        if(type.equals("question"))
+            return alert.getResult().getText();
+        else
+            return "";
     }
 
     public void addPage(String pageName, Parent page) {

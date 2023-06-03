@@ -1,17 +1,18 @@
 package com.uid.progettobanca.controller.OperationsController;
 
-import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.ContactsManager;
 import com.uid.progettobanca.model.objects.Contatto;
 import com.uid.progettobanca.model.DAO.ContattiDAO;
 import com.uid.progettobanca.view.SceneHandler;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -24,6 +25,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
 
@@ -58,10 +60,13 @@ public class OperationsController implements Initializable {
 
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private ScrollPane scrollPane;
 
     private static int selectedContact = -1;
 
     private ArrayList<ImageView> operationsImages = new ArrayList<>();
+
     private void loadOperationsImages(){
         operationsImages.add(bollettino);
         operationsImages.add(bolloAuto);
@@ -103,59 +108,122 @@ public class OperationsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(operationsImages.isEmpty()){
+        modifyContact.setDisable(true);
+        deleteContact.setDisable(true);
+
+        if (operationsImages.isEmpty()) {
             loadOperationsImages();
         }
         GenericController.loadImages(operationsImages);
 
         try {
             contacts = new ArrayList<>(ContactsManager.getInstance().fillContacts());
-
             int nContacts = ContactsManager.getInstance().getSize();
 
-            final Parent[] lastSelectedContact = {null};
+            final Node[] lastSelectedContact = {null};
 
-            for (int i = 0; i < nContacts; i++) {
-                Parent contact = SceneHandler.getInstance().loadPage(SceneHandler.OPERATIONS_PATH + "contact.fxml");
-                contact.getStyleClass().add("vbox-with-rounded-border-hbox");
-                contactsVBox.getChildren().add(contact);
+            initializeContacts(nContacts, lastSelectedContact);
+            initializeScrollPane(lastSelectedContact);
 
-                final int contactIndex = i;
-                final long DOUBLE_CLICK_TIME_THRESHOLD = 300; // Tempo massimo tra i due click per essere considerato un doppio click
-                final AtomicLong[] lastClickTime = {new AtomicLong()};
-
-                // Gestisci il click sul contatto
-                contact.setOnMouseClicked(event -> {
-                    if (event.getButton() == MouseButton.PRIMARY) {
-                        long currentTime = System.currentTimeMillis();
-                        if (currentTime - lastClickTime[0].get() <= DOUBLE_CLICK_TIME_THRESHOLD) {
-                            openFormBonifico(event);
-                            BonificoController b = SceneHandler.getInstance().getController();
-                            b.setContactData(contacts.get(contactIndex));
-                        } else {
-                            // Click singolo
-                            // Rimuovi la classe di stile dal contatto precedentemente selezionato
-                            if (lastSelectedContact[0] != null) {
-                                lastSelectedContact[0].getStyleClass().remove("contact");
-                            }
-                            // Aggiungi la classe di stile al contatto corrente
-                            contact.getStyleClass().add("contact");
-                            selectedContact = contactIndex;
-                            // Memorizza il contatto corrente come ultimo contatto selezionato
-                            lastSelectedContact[0] = contact;
-                        }
-                        lastClickTime[0].set(currentTime);
-                    }
-                });
-            }
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
+    // Inizializza la lista dei contatti
+    private void initializeContacts(int nContacts, Node[] lastSelectedContact) {
+        try {
+            for (int i = 0; i < nContacts; i++) {
+                Parent contact = SceneHandler.getInstance().loadPage(SceneHandler.OPERATIONS_PATH + "contact.fxml");
+                contact.getStyleClass().add("vbox-with-rounded-border-hbox");
+                contactsVBox.getChildren().add(contact);
+            }
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Inizializza gli eventi del ScrollPane
+    private void initializeScrollPane(Node[] lastSelectedContact) {
+        AtomicBoolean isContactSelected = new AtomicBoolean(false);
+
+        scrollPane.setOnMouseClicked(event -> {
+            handleDeselectContact(isContactSelected, lastSelectedContact);
+
+            isContactSelected.set(false);
+            System.out.println("Click sulla pagina: " + isContactSelected.get());
+        });
+
+        for (var contact : contactsVBox.getChildren()) {
+            handleContactEvents(contact, lastSelectedContact, isContactSelected);
+        }
+    }
+
+
+    // Gestisce gli eventi di un contatto
+    private void handleContactEvents(Node contact, Node[] lastSelectedContact, AtomicBoolean isContactSelected) {
+        final long DOUBLE_CLICK_TIME_THRESHOLD = 300;
+        final AtomicLong[] lastClickTime = {new AtomicLong()};
+
+        contact.setOnMouseEntered(e -> contact.getStyleClass().add("contact"));
+
+        contact.setOnMouseExited(e -> {
+            if (lastSelectedContact[0] != contact) {
+                contact.getStyleClass().remove("contact");
+            }
+        });
+
+        contact.setOnMouseClicked(e -> {
+            if (e.getButton() == MouseButton.PRIMARY) {
+                modifyContact.setDisable(false);
+                deleteContact.setDisable(false);
+                isContactSelected.set(true);
+                System.out.println("Click sul contatto: " + isContactSelected.get());
+
+                long currentTime = System.currentTimeMillis();
+                if (currentTime - lastClickTime[0].get() <= DOUBLE_CLICK_TIME_THRESHOLD) {
+                    openFormBonifico(e);
+                    BonificoController b = SceneHandler.getInstance().getController();
+                    b.setContactData(contacts.get(contactsVBox.getChildren().indexOf(contact)));
+                } else {
+                    handleSingleClick(contact, lastSelectedContact);
+                }
+                lastClickTime[0].set(currentTime);
+            }
+        });
+    }
+
+    // Gestisce il clic singolo su un contatto
+    private void handleSingleClick(Node contact, Node[] lastSelectedContact) {
+        if (lastSelectedContact[0] != null) {
+            lastSelectedContact[0].getStyleClass().clear();
+            lastSelectedContact[0].getStyleClass().add("vbox-with-rounded-border-hbox");
+        }
+        contact.getStyleClass().add("contact");
+        selectedContact = contactsVBox.getChildren().indexOf(contact);
+        lastSelectedContact[0] = contact;
+        System.out.println("Selezionato");
+    }
+
+    // Gestisce la deselezione del contatto
+    private void handleDeselectContact(AtomicBoolean isContactSelected, Node[] lastSelectedContact) {
+        if (!isContactSelected.get() && lastSelectedContact[0] != null) {
+            System.out.println("Deselezionato");
+            lastSelectedContact[0].getStyleClass().clear();
+            lastSelectedContact[0].getStyleClass().add("vbox-with-rounded-border-hbox");
+            lastSelectedContact[0] = null;
+            selectedContact = -1;
+            modifyContact.setDisable(true);
+            deleteContact.setDisable(true);
+        }
+    }
+
+
+
+
     @FXML
     void onNewButtonClick(ActionEvent event) {
-        SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "formNewContact.fxml");
+        SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "formNewContact.fxml");
     }
 
     public static Contatto getSelectedContact(){
