@@ -169,7 +169,7 @@ public class SingleSpacePageController implements Initializable {
                     spaceVbox.getChildren().add(vBox);
                 } else {
                     try {
-                        Parent parent = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().HOME_PATH + "noTransaction.fxml");
+                        Parent parent = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().SPACES_PATH + "noTransaction.fxml");
                         spaceVbox.getChildren().add(parent);
                     } catch (IOException e) {
                         throw new RuntimeException(e);

@@ -51,14 +51,14 @@ public class SpaceTransactionController implements Initializable {
         String iban = BankApplication.getCurrentlyLoggedIban();
 
         if (SpacesManager.getInstance().getTransactionDirection() == "Sx"){
-            TransazioniDAO.getInstance().betweenSpaces(iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), Double.parseDouble(inputSpaceTransactionImport.getText()), description.getText());
-            SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().SPACES_PATH + "singleSpacePage.fxml");
-            BackStack.getInstance().loadPreviousPage();
+            if(TransazioniDAO.getInstance().betweenSpaces(iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), Double.parseDouble(inputSpaceTransactionImport.getText()), description.getText())){
+                SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "singleSpacePage.fxml");
+            }
         }
         else if (SpacesManager.getInstance().getTransactionDirection() == "Dx"){
-            TransazioniDAO.getInstance().betweenSpaces(iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), Double.parseDouble(inputSpaceTransactionImport.getText()), description.getText());
-            SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().SPACES_PATH + "singleSpacePage.fxml");
-            BackStack.getInstance().loadPreviousPage();
+            if(TransazioniDAO.getInstance().betweenSpaces(iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), Double.parseDouble(inputSpaceTransactionImport.getText()), description.getText())){
+                SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "singleSpacePage.fxml");
+            }
         }
     }
 

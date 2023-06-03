@@ -6,16 +6,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="410.0" prefWidth="1280.0" styleClass="vbox-with-rounded-border" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="260.0" prefWidth="1280.0" styleClass="vbox-with-rounded-border" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER" layoutX="141.0" layoutY="82.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../assets/images/noTransaction.png" />
                </image>
             </ImageView>
-            <Label prefWidth="420.0" text="La tua ricerca non ha prodotto nessun risultato. Prova a cambiare i parametri della tua ricerca o ricarica la home attraverso la barra di navigazione." wrapText="true" />
+            <Label prefWidth="420.0" text="Non è presente nessuna operazione coinvolta con lo space selezionato." wrapText="true" />
          </children>
       </VBox>
    </children>
