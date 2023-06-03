@@ -37,6 +37,16 @@ public class GenericController {
             button.setGraphic(imageView);
         }
     }
+    public static void loadImagesButton(String[] names, ArrayList<Button> buttons) {
+        for(int i = 0; i < names.length; i++){
+            Image image = ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + names[i] + ".png");
+            ImageView imageView = new ImageView(image);
+            imageView.setFitHeight(25);
+            imageView.setFitWidth(25);
+            buttons.get(i).setContentDisplay(ContentDisplay.CENTER);
+            buttons.get(i).setGraphic(imageView);
+        }
+    }
     public static void loadImageButton(Button button) {
         //System.out.println(Settings.IMAGE_PATH + button.getId() + ".png");
         Image image = ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + button.getId() + ".png");

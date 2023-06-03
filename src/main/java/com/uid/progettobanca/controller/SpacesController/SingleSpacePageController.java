@@ -64,6 +64,10 @@ public class SingleSpacePageController implements Initializable {
     private List<String> distinctDates = new ArrayList<>();
     @FXML
     private ScrollPane scrollPane;
+    private String imageName[] = {"send", "receive", "trash"};
+    private ArrayList<Button> spaceButtons = new ArrayList<>();
+    @FXML
+    private ImageView back;
 
     @FXML
     private Button statButton;
@@ -104,10 +108,25 @@ public class SingleSpacePageController implements Initializable {
             SpacesManager.getInstance().setTransactionDirection("Sx");
             SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "spaceTransaction.fxml");
     }
+    private void loadSpaceButtons() {
+        spaceButtons.add(sendButton);
+        spaceButtons.add(receiveButton);
+        spaceButtons.add(deleteButton);
+    }
+
+    private void loadSpaceAssets() {
+        SceneHandler.getInstance().setScrollSpeed(scrollPane);
+
+        if (spaceButtons.isEmpty()) {
+            loadSpaceButtons();
+        }
+        GenericController.loadImagesButton(imageName, spaceButtons);
+        GenericController.loadImage(back);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        SceneHandler.getInstance().setScrollSpeed(scrollPane);
+        loadSpaceAssets();
 
         if (SpacesManager.getInstance().getSpacesListSize() == 1) {
             sendButton.setDisable(true);
