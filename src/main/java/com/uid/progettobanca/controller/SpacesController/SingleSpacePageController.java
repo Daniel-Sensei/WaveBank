@@ -74,8 +74,14 @@ public class SingleSpacePageController implements Initializable {
         if(SpacesManager.getInstance().getCurrentSpace().getSpaceId() != BankApplication.getCurrentlyLoggedMainSpace()) {
             SpaceService spaceService = new SpaceService("delete", currentSpace);
             spaceService.restart();
-            SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().SPACES_PATH + "spaces.fxml");
-            BackStack.getInstance().loadPreviousPage();
+            spaceService.setOnSucceeded(e -> {
+                SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().SPACES_PATH + "spaces.fxml");
+                try {
+                    BackStack.getInstance().loadPreviousPage();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
         }
     }
 

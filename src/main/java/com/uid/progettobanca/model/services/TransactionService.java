@@ -29,6 +29,14 @@ public class TransactionService extends Service<Boolean> {
 
     public TransactionService() {}
 
+    public TransactionService(String action, String iban_from, int space_from, int space_to, double amount, String comments) {
+        this.action = action;
+        this.iban_from = iban_from;
+        this.space_from = space_from;
+        this.space_to = space_to;
+        this.amount = amount;
+        this.comments = comments;
+    }
 
     @Override
     protected Task<Boolean> createTask() {

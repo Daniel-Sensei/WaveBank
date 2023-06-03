@@ -5,6 +5,7 @@ import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.SpaceTransactionManager;
 import com.uid.progettobanca.model.SpacesManager;
+import com.uid.progettobanca.model.services.TransactionService;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
@@ -46,21 +47,32 @@ public class SpaceTransactionController implements Initializable {
     @FXML
     private Button spaceTransactionConfirm;
 
+    private void transactionHandler(TransactionService transactionService1){
+        transactionService1.restart();
+        transactionService1.setOnSucceeded(e -> {
+            SpacesManager.getInstance().setCurrentSpace(SpacesManager.getInstance().getCurrentSpace());
+            SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().SPACES_PATH + "singleSpacePage.fxml");
+            try {
+                BackStack.getInstance().loadPreviousPage();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+    }
+
     @FXML
     void confirmTransaction(ActionEvent event) throws SQLException, IOException {
         String iban = BankApplication.getCurrentlyLoggedIban();
+        String task = "betweenSpaces";
+        TransactionService transactionService1 = new TransactionService(task,iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), Double.parseDouble(inputSpaceTransactionImport.getText()), description.getText());
+        TransactionService transactionService2 = new TransactionService(task,iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), Double.parseDouble(inputSpaceTransactionImport.getText()), description.getText());
 
         if (SpacesManager.getInstance().getTransactionDirection() == "Sx"){
-            if(TransazioniDAO.getInstance().betweenSpaces(iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), Double.parseDouble(inputSpaceTransactionImport.getText()), description.getText())){
-                SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "singleSpacePage.fxml");
-            }
+            transactionHandler(transactionService1);
         }
         else if (SpacesManager.getInstance().getTransactionDirection() == "Dx"){
-            if(TransazioniDAO.getInstance().betweenSpaces(iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), Double.parseDouble(inputSpaceTransactionImport.getText()), description.getText())){
-                SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "singleSpacePage.fxml");
-            }
+            transactionHandler(transactionService2);
         }
-        SpacesManager.getInstance().setCurrentSpace(SpacesManager.getInstance().getCurrentSpace());
     }
 
     @FXML
