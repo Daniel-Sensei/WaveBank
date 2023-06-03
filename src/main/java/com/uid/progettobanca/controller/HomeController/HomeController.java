@@ -196,7 +196,6 @@ public class HomeController implements Initializable {
                 //fill dello Stack per gestire dettagli delle transazioni
                 TransactionManager.getInstance().fillTransactionStack(transactions);
                 distinctDates = TransactionManager.getInstance().countDistinctDates(transactions);
-                System.out.println("Distinct dates= " + distinctDates);
                 int nVBox = distinctDates.size();
                 List<String> convertedDates = TransactionManager.getInstance().convertToLocalDates(distinctDates);
                 if (nVBox != 0) {

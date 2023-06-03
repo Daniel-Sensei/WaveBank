@@ -6,6 +6,7 @@ import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -20,8 +21,8 @@ public class StatisticsController {
 
     @FXML
     private VBox chartsList;
-
-
+    @FXML
+    private ScrollPane scrollPane;
     @FXML
     private ImageView back;
 
@@ -35,6 +36,7 @@ public class StatisticsController {
     }
 
     public void initialize() {
+        SceneHandler.getInstance().setScrollSpeed(scrollPane);
         GenericController.loadImage(back);
         ChartsManager.getInstance().fillQueue();
         int nCharts = ChartsManager.getInstance().getSize();
