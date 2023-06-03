@@ -24,8 +24,8 @@
                      <children>
                         <VBox alignment="CENTER_LEFT" spacing="3.0">
                            <children>
-                              <Label styleClass="titleLabel" text="Informazioni Carta" />
-                              <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="Indietro">
+                              <Label styleClass="titleLabel" text="%infoCard" />
+                              <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="%back">
                                  <graphic>
                                     <ImageView fx:id="back" fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true" />
                                  </graphic>
@@ -43,14 +43,14 @@
                <children>
                   <VBox prefWidth="400.0" spacing="3.0">
                      <children>
-                        <Label styleClass="subtitleLabel" text="I tuoi dati" />
+                        <Label styleClass="subtitleLabel" text="%yourData" />
                         <VBox styleClass="vbox-with-rounded-border">
                            <children>
                               <HBox prefHeight="60.0" styleClass="border-bottom">
                                  <children>
                                     <VBox alignment="CENTER_LEFT">
                                        <children>
-                                          <Label text="Codice" />
+                                          <Label text="%code" />
                                           <Label fx:id="cardCode" styleClass="subtitleLabel" text="1234 5678 1234 6543" />
                                        </children>
                                     </VBox>
@@ -76,7 +76,7 @@
                                  <children>
                                     <VBox alignment="CENTER_LEFT">
                                        <children>
-                                          <Label text="Scadenza" />
+                                          <Label text="%expiry" />
                                           <Label fx:id="cardExpiry" styleClass="subtitleLabel" text="05/23" />
                                        </children>
                                     </VBox>
@@ -102,7 +102,7 @@
                                  <children>
                                     <VBox alignment="CENTER_LEFT">
                                        <children>
-                                          <Label text="Stato" />
+                                          <Label text="%status" />
                                           <Label fx:id="cardBlocked" styleClass="subtitleLabel" text="123456" />
                                        </children>
                                     </VBox>
@@ -115,7 +115,7 @@
                                  <children>
                                     <VBox alignment="CENTER_LEFT">
                                        <children>
-                                          <Label text="Tipo" />
+                                          <Label text="%type" />
                                           <Label fx:id="cardType" styleClass="subtitleLabel" text="Virtuale" />
                                        </children>
                                     </VBox>
@@ -131,7 +131,7 @@
                   <ImageView fx:id="cardImage" fitHeight="222.0" fitWidth="435.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
-            <Label styleClass="promptLabel" text="Attenzione: Questa sezione contiene informazioni e dati sensibili relativi alla tua carta di credito. Ti consigliamo di non condividere queste informazioni con nessuno e di utilizzare questa pagina solo in un ambiente sicuro. La Wave Bank non si assume alcuna responsabilità per eventuali perdite o danni causati dall'utilizzo improprio di queste informazioni." textAlignment="CENTER" wrapText="true" />
+            <Label styleClass="promptLabel" text="%infoCardDisclaimer" textAlignment="CENTER" wrapText="true" />
          </children>
       </VBox>
    </children>

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.BolloAutoController">
+<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.BolloAutoController">
    <padding>
       <Insets left="200.0" right="200.0" />
    </padding>
@@ -27,8 +27,8 @@
                      <children>
                         <VBox alignment="CENTER_LEFT" spacing="3.0">
                            <children>
-                              <Label styleClass="titleLabel" text="Bollo Auto" />
-                              <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="Indietro">
+                              <Label styleClass="titleLabel" text="%bolloAuto" />
+                              <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="%back">
                                  <graphic>
                                     <ImageView fx:id="back" fitHeight="12.0" fitWidth="12.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
                                  </graphic>
@@ -45,42 +45,42 @@
             <ComboBox fx:id="spacesComboBox" cache="true" promptText="Seleziona uno space" styleClass="spaces-combo-box" />
             <VBox spacing="10.0">
                <children>
-                  <Label styleClass="subtitleLabel" text="Compilare i seguenti campi" />
+                  <Label styleClass="subtitleLabel" text="%compilaCampi" />
                   <VBox fillWidth="false" spacing="10.0">
                      <children>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldPlate" prefHeight="50.0" prefWidth="350.0" promptText="Targa Veicolo*" />
+                              <TextField fx:id="fieldPlate" prefHeight="50.0" prefWidth="350.0" promptText="%targaVeicolo" />
                               <Label fx:id="warningPlate" style="-fx-text-fill: redColor;" text="Targa non valida*" visible="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldCF" prefHeight="50.0" prefWidth="350.0" promptText="Codice Fiscale o P. IVA*" />
+                              <TextField fx:id="fieldCF" prefHeight="50.0" prefWidth="350.0" promptText="%piva" />
                               <Label fx:id="warningCF" style="-fx-text-fill: redColor;" text="Codice Fiscale o P.IVA non valido*" visible="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldDue" prefHeight="50.0" prefWidth="350.0" promptText="Scadenza (mm/aaaa)*" />
+                              <TextField fx:id="fieldDue" prefHeight="50.0" prefWidth="350.0" promptText="%scadenza" />
                               <Label fx:id="warningDue" style="-fx-text-fill: redColor;" text="Scadenza non valita - Formato(mm/aaaa)*" visible="false" />
                            </children>
                         </HBox>
-                        <ComboBox fx:id="typeComboBox" onAction="#onTypeChoice" prefHeight="50.0" prefWidth="350.0" promptText="Tipologia">
+                        <ComboBox fx:id="typeComboBox" onAction="#onTypeChoice" prefHeight="50.0" prefWidth="350.0" promptText="%tipologia">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
                         </ComboBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="50.0" spacing="5.0">
                            <children>
-                              <Label styleClass="subtitleLabel" text="Importo dovuto: " />
+                              <Label styleClass="subtitleLabel" text="%importoDovuto" />
                               <Label fx:id="amountLabel" styleClass="titleLabel" text="0,00 €" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="20.0" />
                            </VBox.margin>
                         </HBox>
-                        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#onSendButtonClick" prefHeight="40.0" prefWidth="100.0" styleClass="greenButton" text="Invia">
+                        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#onSendButtonClick" prefHeight="40.0" prefWidth="100.0" styleClass="greenButton" text="%Invia">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

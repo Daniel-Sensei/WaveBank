@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.BollettinoController">
+<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.BollettinoController">
    <padding>
       <Insets left="200.0" right="200.0" />
    </padding>
@@ -28,8 +28,8 @@
                      <children>
                         <VBox alignment="CENTER_LEFT" spacing="3.0">
                            <children>
-                              <Label styleClass="titleLabel" text="Bollettino Postale" />
-                              <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="Indietro">
+                              <Label styleClass="titleLabel" text="%bollettinoPostale" />
+                              <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="%back">
                                  <graphic>
                                     <ImageView fx:id="back" fitHeight="12.0" fitWidth="12.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -50,7 +50,7 @@
             <ComboBox fx:id="spacesComboBox" cache="true" promptText="Seleziona uno space" styleClass="spaces-combo-box" />
             <VBox spacing="10.0">
                <children>
-                  <Label styleClass="subtitleLabel" text="A chi lo stai inviando?" />
+                  <Label styleClass="subtitleLabel" text="%aChiLoStaiInviando" />
                   <VBox fillWidth="false" spacing="10.0">
                      <children>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
