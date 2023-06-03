@@ -59,7 +59,7 @@ public class MenuBarController implements Initializable {
     }
 
     private void clearLabelAndBackStack(){
-        BackStack.getInstance().clear();
+        BackStack.getInstance().clearStack();
         //clear delle vecchie icone per impostare quella verde
         GenericController.loadImages(menuBarImages);
         homeLabel.getStyleClass().clear();

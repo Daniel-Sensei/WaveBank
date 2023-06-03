@@ -4,6 +4,7 @@ import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.objects.Transazione;
 import com.uid.progettobanca.model.services.TransactionService;
+import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

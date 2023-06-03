@@ -8,6 +8,7 @@ import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.objects.Transazione;
 import com.uid.progettobanca.model.services.GetSpaceService;
 import com.uid.progettobanca.model.services.TransactionService;
+import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -275,7 +276,8 @@ public class TransactionDetailsController implements Initializable {
 
     @FXML
     private void loadPreviousPage(MouseEvent event) throws IOException {
-        SceneHandler.getInstance().setPage(SceneHandler.HOME_PATH + "home.fxml");
+        //BackStack.getInstance().printStack();
+        BackStack.getInstance().loadPreviousPage();
     }
 
     @FXML
