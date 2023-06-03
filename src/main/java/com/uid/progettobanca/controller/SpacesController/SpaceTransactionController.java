@@ -1,6 +1,8 @@
 package com.uid.progettobanca.controller.SpacesController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.Settings;
+import com.uid.progettobanca.controller.MyAccountController.SettingsController;
 import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.SpaceTransactionManager;
@@ -47,15 +49,15 @@ public class SpaceTransactionController implements Initializable {
     @FXML
     private Button spaceTransactionConfirm;
 
-    private void transactionHandler(TransactionService transactionService1){
-        transactionService1.restart();
-        transactionService1.setOnSucceeded(e -> {
-            SpacesManager.getInstance().setCurrentSpace(SpacesManager.getInstance().getCurrentSpace());
-            SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().SPACES_PATH + "singleSpacePage.fxml");
-            try {
-                BackStack.getInstance().loadPreviousPage();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
+    private void transactionHandler(TransactionService transactionService){
+        transactionService.restart();
+        transactionService.setOnSucceeded(e -> {
+            if (transactionService.getValue()) {
+                SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "spaces.fxml");
+            }
+            else{
+                if (Settings.locale.equals("it")){
+                SceneHandler.getInstance().showMessage("Errore", "Errore", "Errore:","Lo space non ha abbastanza denaro" );}
             }
         });
     }
@@ -77,7 +79,6 @@ public class SpaceTransactionController implements Initializable {
 
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {
-        SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().SPACES_PATH + "singleSpacePage.fxml");
         BackStack.getInstance().loadPreviousPage();
     }
 
