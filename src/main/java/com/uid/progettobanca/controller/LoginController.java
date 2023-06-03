@@ -50,6 +50,8 @@ public class LoginController implements Initializable {
         }
     }
 
+    private GetSpaceService getSpaceService = new GetSpaceService();
+
     @FXML
     void onLoginButtonClick(ActionEvent event) {
         //in questa funzione viene effettuato il login e se va a buon fine viene settato il currentlyLoggedUser
@@ -70,11 +72,11 @@ public class LoginController implements Initializable {
                     String iban = getUserService.getValue().getIban();
                     BankApplication.setCurrentlyLoggedIban(iban);
 
-                    GetSpaceService getSpaceService = new GetSpaceService();
-                    getSpaceService.setAction("selectByIban");
+                    getSpaceService.setAction("selectAllByIban");
                     getSpaceService.setIban(iban);
                     getSpaceService.restart();
                     getSpaceService.setOnSucceeded(e2 -> {
+                        System.out.println(iban);
                         BankApplication.setCurrentlyLoggedMainSpace(getSpaceService.getValue().peek().getSpaceId());
                         SceneHandler.getInstance().init(SceneHandler.getInstance().getStage());
                         RecurrentHandler.getInstance().check(BankApplication.getCurrentlyLoggedUser());

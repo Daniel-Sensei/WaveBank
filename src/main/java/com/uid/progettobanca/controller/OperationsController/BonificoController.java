@@ -178,7 +178,7 @@ public class BonificoController implements Initializable {
 
                 if(exists){
                     GetSpaceService getSpaceService = new GetSpaceService();
-                    getSpaceService.setAction("selectByIban");
+                    getSpaceService.setAction("selectAllByIban");
                     getSpaceService.setIban(contact.get().getIban());
                     getSpaceService.restart();
                     getSpaceService.setOnSucceeded(e1 -> {

@@ -27,7 +27,7 @@ public class GetSpaceService extends Service <Queue<Space>>{
             @Override
             protected Queue<Space> call() throws Exception {
                 return switch(action){
-                    case "allByIban" -> SpacesDAO.getInstance().selectAllByIban(iban);
+                    case "selectAllByIban" -> SpacesDAO.getInstance().selectAllByIban(iban);
                     case "selectBySpaceId" -> {
                         Queue<Space> space = new LinkedList<>();
                         space.add(SpacesDAO.getInstance().selectBySpaceId(space_id));
