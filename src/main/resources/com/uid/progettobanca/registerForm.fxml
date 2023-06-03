@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="470.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.RegisterFormController">
+<ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="470.0" styleClass="background" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.RegisterFormController">
    <content>
       <VBox alignment="CENTER" spacing="20.0">
          <children>
@@ -21,8 +21,8 @@
                <children>
                   <VBox alignment="CENTER_LEFT" spacing="3.0">
                      <children>
-                        <Label styleClass="titleLabel" text="Registrazione" />
-                        <Label fx:id="backLabel" onMouseClicked="#backToLogin" styleClass="subtitleLabel" text="Indietro">
+                        <Label styleClass="titleLabel" text="%registrazione" />
+                        <Label fx:id="backLabel" onMouseClicked="#backToLogin" styleClass="subtitleLabel" text="%indietroRegistrazione">
                            <graphic>
                               <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic>
@@ -36,19 +36,19 @@
             </HBox>
             <VBox spacing="5.0">
                <children>
-                  <Label fx:id="nameLabel" text="Nome*" />
+                  <Label fx:id="nameLabel" text="%nome" />
                   <TextField fx:id="name" prefHeight="35.0" />
                </children>
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <Label fx:id="surnameLabel" text="Cognome*" />
+                  <Label fx:id="surnameLabel" text="%cognome" />
                   <TextField fx:id="surname" prefHeight="35.0" />
                </children>
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <Label fx:id="dateLabel" text="Data di nascita*" />
+                  <Label fx:id="dateLabel" text="%dataDiNascita" />
                   <HBox alignment="CENTER_LEFT" prefHeight="35.0" spacing="10.0">
                      <children>
                         <ComboBox fx:id="dayComboBox" prefHeight="35.0" prefWidth="100.0" promptText="Giorno" visibleRowCount="6" HBox.hgrow="ALWAYS" />
@@ -72,19 +72,19 @@
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <Label fx:id="confirmPasswordLabel" text="Conferma password*" />
+                  <Label fx:id="confirmPasswordLabel" text="%confermaPasswordRegistration" />
                   <PasswordField fx:id="confirmPassword" prefHeight="35.0" />
                </children>
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <Label fx:id="questionLabel" text="Domanda di sicurezza*" wrapText="true" />
+                  <Label fx:id="questionLabel" text="%domandaDiSicurezza" wrapText="true" />
                   <ComboBox fx:id="questions" prefHeight="35.0" prefWidth="350.0" promptText="Selezionare una domanda tra le seguenti" visibleRowCount="5" />
                </children>
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <Label fx:id="answerLabel" text="Risposta*" />
+                  <Label fx:id="answerLabel" text="%risposta" />
                   <TextField fx:id="answer" prefHeight="35.0" />
                </children>
             </VBox>
@@ -103,7 +103,7 @@
                   <Insets bottom="20.0" />
                </VBox.margin>
             </VBox>
-            <Button fx:id="registerButton" mnemonicParsing="false" onAction="#checkRegistration" prefHeight="40.0" prefWidth="100.0" styleClass="tertiaryButton" text="Registrati">
+            <Button fx:id="registerButton" mnemonicParsing="false" onAction="#checkRegistration" prefHeight="40.0" prefWidth="100.0" styleClass="tertiaryButton" text="%registrati">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
@@ -111,7 +111,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label text="Cliccando su Registrati accetti i termini delle nostre condizioni e confermi di aver compreso le nostre politiche per la privacy" textAlignment="CENTER" wrapText="true">
+            <Label text="%registerPolicy" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font>

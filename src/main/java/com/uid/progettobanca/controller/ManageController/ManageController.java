@@ -5,6 +5,7 @@ import com.uid.progettobanca.model.*;
 import com.uid.progettobanca.model.objects.Carta;
 import com.uid.progettobanca.model.objects.Transazione;
 import com.uid.progettobanca.model.objects.Utente;
+import com.uid.progettobanca.model.services.CardService;
 import com.uid.progettobanca.model.services.GetCardService;
 import com.uid.progettobanca.model.services.GetTransactionService;
 import com.uid.progettobanca.model.services.GetUserService;
@@ -84,6 +85,7 @@ public class ManageController {
     GetUserService userService = new GetUserService();
     private GraphCalculator graphCalculator=new GraphCalculator();
     private GetCardService getCardService= new GetCardService();
+    private CardService cardService = new CardService();
     private final GetTransactionService transactionsService = new GetTransactionService("filterAllTransaction", null, null, "");
     public void initialize() {
 
@@ -119,6 +121,20 @@ public class ManageController {
             getCardService.start();    //parte il thread per prendere le carte (se fatto partire prima, potrebbe essere più veloce del thread pecedente e perdere il setonsucceed)
             getCardService.setOnSucceeded(event1 -> {
                 if(event1.getSource().getValue() instanceof List<?> result){
+                    //scorri result e controlla se la data di scadenza è passata, se si, cancella la carta
+
+                    List<Carta> carteScadute = new java.util.ArrayList<>();
+                    for (Carta carta : (List<Carta>) result) {
+                        if(carta.getScadenza().isBefore(java.time.LocalDate.now())){
+                            carteScadute.add(carta);
+                            cardService.setAction("delete");
+                            cardService.setCard(carta);
+                            cardService.restart();
+                            System.out.println("Carta scaduta eliminata");
+                        }
+                    }
+                    result.removeAll(carteScadute);
+
                     CardsManager.getInstance().fillQueue((List<Carta>) result);
                     numcarte=result.size();
                     loadCard();

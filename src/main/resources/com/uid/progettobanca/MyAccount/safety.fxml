@@ -43,84 +43,46 @@
             </AnchorPane>
             <HBox spacing="20.0">
                <children>
-                  <VBox spacing="10.0">
+                  <VBox prefWidth="375.0" spacing="10.0">
                      <children>
                         <Label styleClass="subtitleLabel" text="Modifica password" />
                         <VBox alignment="CENTER_LEFT" spacing="5.0">
                            <children>
-                              <Label text="Vecchia Password" />
-                              <HBox spacing="5.0">
+                              <Label fx:id="oldPswLaebl" text="Vecchia password*" />
+                              <HBox alignment="CENTER_LEFT" spacing="5.0">
                                  <children>
-                                    <PasswordField fx:id="oldPsw" prefHeight="50.0" prefWidth="350.0" promptText="Vecchia password" />
-                                    <Label fx:id="warningWrongPsw" style="-fx-text-fill: redColor;" text="Password errata*" visible="false" />
+                                    <PasswordField fx:id="oldPsw" prefHeight="50.0" prefWidth="400.0" promptText="Vecchia password" />
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="15.0" />
                                  </VBox.margin>
                               </HBox>
-                              <HBox alignment="BOTTOM_LEFT">
-                                 <children>
-                                    <Label text="Nuova Password">
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT">
-                                 <children>
-                                    <PasswordField fx:id="newPsw" prefHeight="50.0" prefWidth="350.0" promptText="Nuova password" />
-                                    <Label fx:id="warningBadPsw" style="-fx-text-fill: redColor;" text="Password non valida*" visible="false" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="BOTTOM_LEFT">
-                                 <children>
-                                    <Label text="Conferma Nuova Password">
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
+                              <Label fx:id="newPswLabel" prefWidth="400.0" text="Nuova password*" wrapText="true" />
                               <HBox alignment="CENTER_LEFT" spacing="5.0">
                                  <children>
-                                    <PasswordField fx:id="confirmPsw" prefHeight="50.0" prefWidth="350.0" promptText="Conferma password" />
-                                    <Label fx:id="warningDiffPsw" style="-fx-text-fill: redColor;" text="Password diverse*" visible="false" />
+                                    <PasswordField fx:id="newPsw" prefHeight="50.0" promptText="Nuova password" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin></PasswordField>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Label fx:id="confirmPswLabel" text="Conferma nuova password*" />
+                              <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                 <children>
+                                    <PasswordField fx:id="confirmPsw" prefHeight="50.0" promptText="Conferma password" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
                            </children>
                            <padding>
-                              <Insets bottom="10.0" right="10.0" top="10.0" />
+                              <Insets bottom="10.0" top="10.0" />
                            </padding>
                         </VBox>
                      </children>
                   </VBox>
                   <HBox HBox.hgrow="ALWAYS" />
-                  <VBox spacing="10.0">
-                     <children>
-                        <Label styleClass="subtitleLabel" text="Altro" />
-                        <VBox alignment="CENTER_LEFT" fillWidth="false" spacing="5.0" styleClass="card">
-                           <children>
-                              <HBox onMouseClicked="#pswGuide" spacing="10.0">
-                                 <children>
-                                    <VBox prefWidth="350.0">
-                                       <children>
-                                          <Label styleClass="subtitleLabel" text="Consigli su come avere una password sicura" />
-                                          <Label text="Leggili un pò!" />
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </VBox>
-                     </children>
-                  </VBox>
                </children>
             </HBox>
             <HBox>

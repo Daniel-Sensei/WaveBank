@@ -131,13 +131,13 @@
                   <HBox HBox.hgrow="ALWAYS" />
                   <VBox>
                      <children>
-                        <Label text="Informazioni sull' uso" />
+                        <Label styleClass="subtitleLabel" text="Informazioni sull'uso" />
                         <VBox prefWidth="400.0" spacing="5.0" styleClass="vbox-with-rounded-border">
                            <children>
                               <Label style="-fx-font-size: 12;" text="&quot;Nonostante le nostre precauzioni, non possiamo garantire la protezione totale dei dati personali dall'accesso non autorizzato o da eventuali tentativi di violazione.La responsabilità di mantenere la sicurezza del proprio ambiente di lavoro, incluso il dispositivo utilizzato, è a carico dell'utente. Le consigliamo di adottare adeguate misure di sicurezza, come l'uso di password complesse e l'aggiornamento regolare dei sistemi operativi e degli antivirus.Ci esoneriamo da ogni responsabilità nel caso in cui i dati personali vengano compromessi a causa di eventi esterni, come violazioni della sicurezza o malware. È importante che l'utente adotti precauzioni per proteggere i propri dati personali e di non condividere informazioni sensibili con terze parti non affidabili.&quot;" wrapText="true" />
                            </children>
                            <padding>
-                              <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>
                         </VBox>
                      </children>

@@ -19,12 +19,12 @@
          <children>
             <VBox>
                <children>
-                  <Label text="Trasferisci" textAlignment="CENTER">
+                  <Label text="%trasferisci" textAlignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="backButton" onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="Indietro">
+                  <Label fx:id="backButton" onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="%indietro">
                      <graphic>
                         <ImageView fitHeight="12.0" fitWidth="12.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -47,11 +47,7 @@
                      <children>
                         <HBox fx:id="firstElement" layoutX="10.0" layoutY="10.0" />
                         <HBox HBox.hgrow="ALWAYS" />
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../assets/images/IconLight/refresh.png" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
                         <HBox fx:id="spaceTransactionBar" HBox.hgrow="ALWAYS" />
                         <HBox fx:id="lastElement" layoutX="10.0" layoutY="10.0" />
                      </children>
@@ -62,7 +58,7 @@
                   <VBox spacing="20.0">
                      <children>
                         <HBox />
-                        <Label styleClass="subtitleLabel" text="Importo (€) (Obbligatorio)">
+                        <Label styleClass="subtitleLabel" text="%importo">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -88,7 +84,7 @@
                   </VBox>
                   <VBox spacing="5.0">
                      <children>
-                        <Label styleClass="subtitleLabel" text="Inserisci una descrizione">
+                        <Label styleClass="subtitleLabel" text="%descrizione">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -98,7 +94,7 @@
                   </VBox>
                </children>
             </VBox>
-            <Button fx:id="spaceTransactionConfirm" mnemonicParsing="false" onAction="#confirmTransaction" styleClass="greenButton" text="Conferma">
+            <Button fx:id="spaceTransactionConfirm" mnemonicParsing="false" onAction="#confirmTransaction" styleClass="greenButton" text="%conferma">
                <font>
                   <Font size="14.0" />
                </font>
