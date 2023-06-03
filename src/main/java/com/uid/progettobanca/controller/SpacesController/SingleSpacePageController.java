@@ -115,10 +115,12 @@ public class SingleSpacePageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadSpaceAssets();
+        if (SpacesManager.getInstance().getCurrentSpace().getSpaceId() == BankApplication.getCurrentlyLoggedMainSpace()){deleteButton.setDisable(true);}
 
         if (SpacesManager.getInstance().getSpacesListSize() == 1) {
             sendButton.setDisable(true);
             receiveButton.setDisable(true);
+
         }
         else{
             sendButton.setDisable(false);

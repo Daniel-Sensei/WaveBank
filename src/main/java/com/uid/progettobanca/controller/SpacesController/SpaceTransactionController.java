@@ -60,6 +60,7 @@ public class SpaceTransactionController implements Initializable {
                 SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "singleSpacePage.fxml");
             }
         }
+        SpacesManager.getInstance().setCurrentSpace(SpacesManager.getInstance().getCurrentSpace());
     }
 
     @FXML
