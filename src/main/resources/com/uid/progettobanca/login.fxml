@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
 
-<AnchorPane prefHeight="720.0" prefWidth="470.0" styleClass="background" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.LoginController">
+<AnchorPane prefHeight="720.0" prefWidth="470.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.LoginController">
    <children>
       <MediaView fx:id="backgroundMediaView" fitHeight="720.0" fitWidth="470.0" layoutX="93.0" layoutY="132.0" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <VBox alignment="TOP_CENTER" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -27,7 +27,7 @@
                <children>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../assets/images/IconDark/users-alt.png" />
+                        <Image url="@../../../assets/images/IconDark/myAccount.png" />
                      </image>
                   </ImageView>
                   <TextField fx:id="emailField" onKeyPressed="#enterPressed" prefHeight="35.0" promptText="Email" styleClass="text-field-login" HBox.hgrow="ALWAYS" />
@@ -37,7 +37,7 @@
                <children>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../assets/images/IconDark/lock.png" />
+                        <Image url="@../../../assets/images/IconDark/fingerprint.png" />
                      </image>
                   </ImageView>
                   <PasswordField fx:id="passwordField" onKeyPressed="#enterPressed" prefHeight="35.0" promptText="Password" styleClass="text-field-login" HBox.hgrow="ALWAYS" />
@@ -52,8 +52,8 @@
                <children>
                   <VBox alignment="CENTER">
                      <children>
-                        <Label text="%nonSeiRegistrato" />
-                        <Label fx:id="registerLabel" onMouseClicked="#openRegisterForm" styleClass="subtitleLabel" text="%registratiOra" underline="true">
+                        <Label style="-fx-text-fill: black;" text="%nonSeiRegistrato" />
+                        <Label fx:id="registerLabel" onMouseClicked="#openRegisterForm" style="-fx-text-fill: black;" styleClass="subtitleLabel" text="%registratiOra" underline="true">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Label>
@@ -62,8 +62,8 @@
                   <HBox HBox.hgrow="ALWAYS" />
                   <VBox alignment="CENTER">
                      <children>
-                        <Label text="%passwordDimenticata" />
-                        <Label fx:id="resetLabel" onMouseClicked="#openResetForm" styleClass="subtitleLabel" text="%reimposta" underline="true">
+                        <Label style="-fx-text-fill: black;" text="%passwordDimenticata" />
+                        <Label fx:id="resetLabel" onMouseClicked="#openResetForm" style="-fx-text-fill: black;" styleClass="subtitleLabel" text="%reimposta" underline="true">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Label>

@@ -34,7 +34,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <Label fx:id="spacesLabel" onMouseClicked="#loadSpaces" text="Spaces">
+            <Label fx:id="spacesLabel" onMouseClicked="#loadSpaces" text="%Spaces">
                <graphic>
                   <ImageView fx:id="spaces" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
@@ -45,7 +45,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <Label fx:id="operationsLabel" onMouseClicked="#loadOperations" styleClass="labelMenu" text="Operazioni">
+            <Label fx:id="operationsLabel" onMouseClicked="#loadOperations" styleClass="labelMenu" text="%operations">
                <graphic>
                   <ImageView fx:id="operations" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
@@ -56,7 +56,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <Label fx:id="manageLabel" onMouseClicked="#loadManage" text="Gestisci">
+            <Label fx:id="manageLabel" onMouseClicked="#loadManage" text="%managePage">
                <graphic>
                   <ImageView fx:id="manage" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
@@ -67,7 +67,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Label>
-            <Label fx:id="myAccountLabel" onMouseClicked="#loadMyAccount" text="Il mio conto">
+            <Label fx:id="myAccountLabel" onMouseClicked="#loadMyAccount" text="%myAccount">
                <graphic>
                   <ImageView fx:id="myAccount" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>

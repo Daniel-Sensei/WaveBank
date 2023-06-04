@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="470.0" styleClass="background" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.RegisterFormController">
+<ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="470.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.RegisterFormController">
    <content>
       <VBox alignment="CENTER" spacing="20.0">
          <children>
@@ -90,13 +90,13 @@
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <Label fx:id="addressLabel" text="Indirizzo di residenza*" />
+                  <Label fx:id="addressLabel" text="%indirizzoResidenza" />
                   <TextField fx:id="address" prefHeight="35.0" />
                </children>
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <Label fx:id="phoneLabel" text="Cellulare*" />
+                  <Label fx:id="phoneLabel" text="%cellulare" />
                   <TextField fx:id="phone" prefHeight="35.0" />
                </children>
                <VBox.margin>
