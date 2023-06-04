@@ -137,6 +137,14 @@ public class ManageController {
 
                     CardsManager.getInstance().fillQueue((List<Carta>) result);
                     numcarte=result.size();
+                    if(numcarte == 1){
+                        back.setDisable(true);
+                        forward.setDisable(true);
+                    }
+                    else{
+                        back.setDisable(false);
+                        forward.setDisable(false);
+                    }
                     loadCard();
                 }
             });
