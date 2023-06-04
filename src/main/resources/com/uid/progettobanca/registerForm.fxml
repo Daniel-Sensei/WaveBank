@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="470.0" styleClass="background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.RegisterFormController">
+<ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="470.0" styleClass="background" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.RegisterFormController">
    <content>
       <VBox alignment="CENTER" spacing="20.0">
          <children>
@@ -22,7 +22,7 @@
                   <VBox alignment="CENTER_LEFT" spacing="3.0">
                      <children>
                         <Label styleClass="titleLabel" text="%registrazione" />
-                        <Label fx:id="backLabel" onMouseClicked="#backToLogin" styleClass="subtitleLabel" text="%indietroRegistrazione">
+                        <Label fx:id="backLabel" onMouseClicked="#backToLogin" styleClass="subtitleLabel" text="%back">
                            <graphic>
                               <ImageView fx:id="back" fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic>

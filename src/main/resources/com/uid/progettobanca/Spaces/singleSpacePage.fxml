@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController.SingleSpacePageController">
+<ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController.SingleSpacePageController">
    <content>
       <VBox fx:id="spaceVbox" alignment="CENTER" spacing="15.0">
          <children>
@@ -26,7 +26,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="backButton" onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="%indietroSingleSpacePage">
+                              <Label fx:id="backButton" onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="%back">
                                  <graphic>
                                     <ImageView fx:id="back" fitHeight="12.0" fitWidth="12.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
                                  </graphic>
