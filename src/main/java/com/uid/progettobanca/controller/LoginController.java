@@ -57,7 +57,7 @@ public class LoginController implements Initializable {
         //in questa funzione viene effettuato il login e se va a buon fine viene settato il currentlyLoggedUser
         UserService userService = new UserService();
         userService.setAction("login");
-        userService.setEmail(emailField.getText());
+        userService.setEmail(emailField.getText().toLowerCase());
         userService.setPassword(passwordField.getText());
         userService.restart();
         userService.setOnSucceeded(e -> {
