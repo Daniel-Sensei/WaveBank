@@ -76,7 +76,11 @@ public class SpaceTransactionController implements Initializable {
             else{
                 if (Settings.locale.equals("it")){
                 SceneHandler.getInstance().showMessage("Errore", "Errore", "Errore:","Lo space non ha abbastanza denaro" );}
+                else{
+                    SceneHandler.getInstance().showMessage("Error", "Error", "Error:","The space doesn't have enough money" );
+                }
             }
+
         });
     }
 
@@ -126,12 +130,18 @@ public class SpaceTransactionController implements Initializable {
 
         inputSpaceTransactionImport.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
+                if (Settings.locale.equals("it"))
                 FormUtils.getInstance().validateTextFieldRegister(amountLabel, inputSpaceTransactionImport, FormUtils.getInstance().validateAmount(inputSpaceTransactionImport.getText()), "Inserire importo*", "Importo non valido*");
+                else
+                    FormUtils.getInstance().validateTextFieldRegister(amountLabel, inputSpaceTransactionImport, FormUtils.getInstance().validateAmount(inputSpaceTransactionImport.getText()), "Insert amount*", "Amount not valid*");
             }
         });
         description.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
-                FormUtils.getInstance().validateTextFieldRegister(descrLabel, description, !description.getText().isEmpty(), "Inserisci una descrizione*", "La descrizione non può essere vuota*");
+                if(Settings.locale.equals("it"))
+                FormUtils.getInstance().validateTextFieldRegister(descrLabel, description, !description.getText().isEmpty(), "Inserire descrizione*", "Descrizione non valida*");
+                else
+                    FormUtils.getInstance().validateTextFieldRegister(descrLabel, description, !description.getText().isEmpty(), "Insert description*", "Description not valid*");
             }
         });
 
@@ -144,7 +154,6 @@ public class SpaceTransactionController implements Initializable {
 
         spaceTransactionConfirm.disableProperty().bind(formValid.not());
     }
-
 }
 
 
