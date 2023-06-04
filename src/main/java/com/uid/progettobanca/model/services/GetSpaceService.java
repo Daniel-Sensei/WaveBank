@@ -1,6 +1,5 @@
 package com.uid.progettobanca.model.services;
 
-import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.SpacesDAO;
 import com.uid.progettobanca.model.objects.Space;
 import javafx.concurrent.Service;
@@ -26,14 +25,14 @@ public class GetSpaceService extends Service <Queue<Space>>{
         return new Task <>() {
             @Override
             protected Queue<Space> call() throws Exception {
+                Queue<Space> space = new LinkedList<>();
                 return switch(action){
                     case "selectAllByIban" -> SpacesDAO.getInstance().selectAllByIban(iban);
                     case "selectBySpaceId" -> {
-                        Queue<Space> space = new LinkedList<>();
                         space.add(SpacesDAO.getInstance().selectBySpaceId(space_id));
                         yield space;
                     }
-                    default -> null;
+                    default -> space;
                 };
             }
         };

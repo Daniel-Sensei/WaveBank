@@ -174,55 +174,61 @@ public class BonificoController implements Initializable {
             if((Boolean) e.getSource().getValue()){
                 String nome = fieldName.getText() + " " + fieldSurname.getText();
 
-                AtomicInteger tempSpace = new AtomicInteger(0);
-
-                if(exists){
-                    GetSpaceService getSpaceService = new GetSpaceService();
-                    getSpaceService.setAction("selectAllByIban");
+                GetSpaceService getSpaceService = new GetSpaceService();
+                getSpaceService.setAction("selectAllByIban");
+                if(exists)
                     getSpaceService.setIban(contact.get().getIban());
-                    getSpaceService.restart();
-                    getSpaceService.setOnSucceeded(e1 -> {
-                        if(e.getSource().getValue() instanceof Queue<?> result) {
+                else
+                    getSpaceService.setIban(iban);
+                getSpaceService.restart();
+                getSpaceService.setOnSucceeded(e1 -> {
+                    if(e1.getSource().getValue() instanceof Queue<?> result) {
+                        int spaceTo = 0;
+                        if(!result.isEmpty()) {
                             Space temp = (Space) result.poll();
-                            tempSpace.set(temp.getSpaceId());
+                            spaceTo = temp.getSpaceId();
                         }
-                    });
-                    getSpaceService.setOnFailed(e1 -> {
-                        throw new RuntimeException(e1.getSource().getException());
-                    });
-                }
-
-                final int spaceTo = tempSpace.get();
-
-                transactionService.setAction("insert");
-                transactionService.setTransaction(new Transazione(nome, BankApplication.getCurrentlyLoggedIban(), iban, space, spaceTo, LocalDateTime.now(), amount, fieldDescr.getText(), "Bonifico", "Altro", ""));
-                transactionService.restart();
-                transactionService.setOnSucceeded(e1 -> {
-                    if ((Boolean) e1.getSource().getValue()) {
-                        if (saveContact.isSelected()) {
-                            getContactService.setAction("allByUser");
-                            getContactService.restart();
-                            getContactService.setOnSucceeded(e2 -> {
-                                if (e2.getSource().getValue() instanceof Queue<?> result) {
-                                    Queue<Contatto> contacts = (Queue<Contatto>) result;
-                                    if (contacts.stream().noneMatch(c -> c.getIban().equals(iban))) {
-                                        System.out.println("sono ultimo if");
-                                        ContactService contactService = new ContactService();
-                                        contactService.setAction("insert");
-                                        contactService.setContact(new Contatto(fieldName.getText(), fieldSurname.getText(), iban, BankApplication.getCurrentlyLoggedUser()));
-                                        SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.OPERATIONS_PATH + "operations.fxml");
-                                    }
+                        transactionService.setAction("insert");
+                        transactionService.setTransaction(new Transazione(nome, BankApplication.getCurrentlyLoggedIban(), iban, space, spaceTo, LocalDateTime.now(), amount, fieldDescr.getText(), "Bonifico", "Altro", ""));
+                        transactionService.restart();
+                        transactionService.setOnSucceeded(e2 -> {
+                            if ((Boolean) e2.getSource().getValue()) {
+                                if (saveContact.isSelected()) {
+                                    getContactService.setAction("allByUser");
+                                    getContactService.restart();
+                                    getContactService.setOnSucceeded(e3 -> {
+                                        if (e3.getSource().getValue() instanceof Queue<?> rs) {
+                                            Queue<Contatto> contacts = (Queue<Contatto>) rs;
+                                            if (contacts.stream().noneMatch(c -> c.getIban().equals(iban))) {
+                                                ContactService contactService = new ContactService();
+                                                contactService.setAction("insert");
+                                                contactService.setContact(new Contatto(fieldName.getText(), fieldSurname.getText(), iban, BankApplication.getCurrentlyLoggedUser()));
+                                                contactService.restart();
+                                                contactService.setOnSucceeded(e4 -> {
+                                                    if ((Boolean) e4.getSource().getValue()) {
+                                                        SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+                                                    }
+                                                });
+                                                contactService.setOnFailed(e4 -> {
+                                                    throw new RuntimeException(e4.getSource().getException());
+                                                });
+                                            }
+                                        }
+                                    });
+                                    getContactService.setOnFailed(e3 -> {
+                                        throw new RuntimeException(e3.getSource().getException());
+                                    });
                                 }
-                            });
-                            getContactService.setOnFailed(e2 -> {
-                                throw new RuntimeException(e2.getSource().getException());
-                            });
-                        }
-                        SceneHandler.getInstance().reloadDynamicPageInHashMap();
-                        SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "transactionSuccess.fxml");
+                                SceneHandler.getInstance().reloadDynamicPageInHashMap();
+                                SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "transactionSuccess.fxml");
+                            }
+                        });
+                        transactionService.setOnFailed(e2 -> {
+                            throw new RuntimeException(e2.getSource().getException());
+                        });
                     }
                 });
-                transactionService.setOnFailed(e1 -> {
+                getSpaceService.setOnFailed(e1 -> {
                     throw new RuntimeException(e1.getSource().getException());
                 });
             }else{
