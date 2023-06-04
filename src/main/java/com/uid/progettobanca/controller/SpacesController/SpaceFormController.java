@@ -1,12 +1,17 @@
 package com.uid.progettobanca.controller.SpacesController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.services.SpaceService;
 import com.uid.progettobanca.view.BackStack;
+import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.ImageUtils;
 import com.uid.progettobanca.view.SceneHandler;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -17,11 +22,13 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class SpaceFormController {
+public class SpaceFormController implements Initializable {
 
     @FXML
     private Button cancel;
@@ -40,15 +47,12 @@ public class SpaceFormController {
 
     @FXML
     private TextField inputSpaceName;
-
-
     @FXML
     private Button spaceCreationConfirm;
-
     @FXML
-    void cancelSpaceForm(ActionEvent event) throws IOException {
-        BackStack.getInstance().loadPreviousPage();
-    }
+    private Label warningName;
+    @FXML
+    private ImageView back;
 
     @FXML
     void createSpace(ActionEvent event) throws SQLException {
@@ -107,6 +111,24 @@ public class SpaceFormController {
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {
         BackStack.getInstance().loadPreviousPage();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        GenericController.loadImage(back);
+
+        spaceCreationConfirm.setDisable(true);
+        inputSpaceName.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
+                FormUtils.getInstance().validateTextField(inputSpaceName, !inputSpaceName.getText().isEmpty(), warningName);
+            }
+        });
+
+        BooleanBinding formValid = Bindings.createBooleanBinding(() ->
+                                !inputSpaceName.getText().isEmpty(),
+                                inputSpaceName.textProperty());
+
+        spaceCreationConfirm.disableProperty().bind(formValid.not());
     }
 }
 

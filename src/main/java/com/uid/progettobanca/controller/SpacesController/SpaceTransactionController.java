@@ -2,6 +2,7 @@ package com.uid.progettobanca.controller.SpacesController;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
+import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.controller.MyAccountController.SettingsController;
 import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.DAO.TransazioniDAO;
@@ -9,7 +10,10 @@ import com.uid.progettobanca.model.SpaceTransactionManager;
 import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.model.services.TransactionService;
 import com.uid.progettobanca.view.BackStack;
+import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,37 +21,51 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SpaceTransactionController implements Initializable {
 
     @FXML
     private Label backButton;
-
+    @FXML
+    private ImageView back;
+    @FXML
+    private ImageView sendSpace;
+    @FXML
+    private ImageView euro;
     @FXML
     private HBox lastElement;
-
-
     @FXML
     private HBox firstElement;
 
     @FXML
     private TextField description;
+    @FXML
+    private Label descrLabel;
+    @FXML
+    private Label amountLabel;
 
     @FXML
     private TextField inputSpaceTransactionImport;
-
     @FXML
     private HBox spaceTransactionBar;
-
     @FXML
     private Button spaceTransactionConfirm;
+    private ArrayList<ImageView> spaceTransactionImages = new ArrayList<>();
+
+    private void loadArray(){
+        spaceTransactionImages.add(back);
+        spaceTransactionImages.add(sendSpace);
+        spaceTransactionImages.add(euro);
+    }
 
     private void transactionHandler(TransactionService transactionService){
         transactionService.restart();
@@ -84,6 +102,11 @@ public class SpaceTransactionController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(spaceTransactionImages.isEmpty()){
+            loadArray();
+        }
+        GenericController.loadImages(spaceTransactionImages);
+
         try{
             Parent comboBox = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().SPACES_PATH + "spaceTransactionComboBox.fxml");
             Parent label = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().SPACES_PATH + "spaceTransactionLabel.fxml");
@@ -97,6 +120,28 @@ public class SpaceTransactionController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        spaceTransactionConfirm.setDisable(true);
+
+        inputSpaceTransactionImport.focusedProperty().addListener((obs, oldValue, newValue) -> {
+            if (!newValue) {
+                FormUtils.getInstance().validateTextFieldRegister(amountLabel, inputSpaceTransactionImport, FormUtils.getInstance().validateAmount(inputSpaceTransactionImport.getText()), "Inserire importo*", "Importo non valido*");
+            }
+        });
+        description.focusedProperty().addListener((obs, oldValue, newValue) -> {
+            if (!newValue) {
+                FormUtils.getInstance().validateTextFieldRegister(descrLabel, description, !description.getText().isEmpty(), "Inserisci una descrizione*", "La descrizione non può essere vuota*");
+            }
+        });
+
+        BooleanBinding formValid = Bindings.createBooleanBinding(() ->
+                                FormUtils.getInstance().validateAmount(inputSpaceTransactionImport.getText()) &&
+                                !description.getText().isEmpty(),
+                                inputSpaceTransactionImport.textProperty(),
+                                description.textProperty()
+        );
+
+        spaceTransactionConfirm.disableProperty().bind(formValid.not());
     }
 
 }

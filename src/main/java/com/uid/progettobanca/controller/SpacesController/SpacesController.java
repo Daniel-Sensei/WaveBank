@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.control.ScrollPane;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,7 +25,8 @@ public class SpacesController implements Initializable {
 
     @FXML
     private FlowPane listOfSpaces;
-
+    @FXML
+    private ScrollPane scrollPane;
     @FXML
     private Label saldo;
 
@@ -39,6 +41,7 @@ public class SpacesController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        SceneHandler.getInstance().setScrollSpeed(scrollPane);
         getSpaceService.setIban(BankApplication.getCurrentlyLoggedIban());
         getSpaceService.setAction("selectAllByIban");
         getSpaceService.restart();

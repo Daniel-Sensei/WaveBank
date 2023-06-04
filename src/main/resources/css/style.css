@@ -519,16 +519,20 @@
 
 .text-field-prova {
     -fx-border-width: 0 0 0 4px; /* Imposta la larghezza del bordo solo per il lato sinistro */
-    -fx-border-color: transparent;
+    -fx-border-color: borderColor;
     /*-fx-transition: -fx-border-color 0.3s;*/
     -fx-background-color: backgroundColor;
     -fx-font-size: 18px;
     -fx-text-fill: textColor;
 }
 
-.text-field-prova:hover,
+.text-field-prova:hover{
+    -fx-border-color: primaryColor;
+}
+
 .text-field-prova:focused {
-    -fx-border-color: #36a18b;
+    -fx-border-width: 0.4 0.4 0.4 4px;
+    -fx-border-color: primaryColor;
 }
 
 .contact{

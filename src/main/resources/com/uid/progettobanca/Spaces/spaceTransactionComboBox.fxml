@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="360.0" spacing="10.0" styleClass="vbox-with-rounded-border" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController.SpaceTransactionComboBoxController">
+<HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="360.0" spacing="10.0" styleClass="vbox-with-rounded-border" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController.SpaceTransactionComboBoxController">
    <children>
       <ImageView fx:id="senderImage" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -18,7 +19,10 @@
       </ImageView>
       <VBox fx:id="transactionDetail" alignment="CENTER_LEFT" spacing="5.0">
          <children>
-            <ComboBox fx:id="spaceSelector" promptText="Seleziona uno space" />
+            <ComboBox fx:id="spaceSelector" promptText="Seleziona uno space" visibleRowCount="4">
+               <cursor>
+                  <Cursor fx:constant="CLOSED_HAND" />
+               </cursor></ComboBox>
             <Label fx:id="Balance" styleClass="spaceTransactionBalanceLabel" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />

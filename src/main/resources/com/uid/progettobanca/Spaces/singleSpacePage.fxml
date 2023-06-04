@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="640.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController.SingleSpacePageController">
+<ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController.SingleSpacePageController">
    <content>
       <VBox fx:id="spaceVbox" alignment="CENTER" spacing="15.0">
          <children>
@@ -49,19 +49,28 @@
                <children>
                   <VBox alignment="CENTER">
                      <children>
-                        <Button fx:id="sendButton" mnemonicParsing="false" onMouseClicked="#transferMoneyToAnotherSpace" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" textAlignment="CENTER" />
+                        <Button fx:id="sendButton" mnemonicParsing="false" onMouseClicked="#transferMoneyToAnotherSpace" prefHeight="50.0" prefWidth="50.0" textAlignment="CENTER">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
                         <Label text="%invia" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0">
                      <children>
-                        <Button fx:id="receiveButton" mnemonicParsing="false" onMouseClicked="#transferMoneyToThisSpace" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" textAlignment="CENTER" />
+                        <Button fx:id="receiveButton" mnemonicParsing="false" onMouseClicked="#transferMoneyToThisSpace" prefHeight="50.0" prefWidth="50.0" textAlignment="CENTER">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
                         <Label text="%ricevi" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0">
                      <children>
-                        <Button fx:id="deleteButton" mnemonicParsing="false" onMouseClicked="#deleteThisSpace" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-border-radius: 100;" styleClass="tertiaryButton" textAlignment="CENTER" />
+                        <Button fx:id="deleteButton" mnemonicParsing="false" onMouseClicked="#deleteThisSpace" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100;" styleClass="tertiaryButton" textAlignment="CENTER">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
                         <Label text="%elimina" />
                      </children>
                   </VBox>
