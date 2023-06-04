@@ -71,14 +71,10 @@ public class SpaceTransactionController implements Initializable {
         transactionService.restart();
         transactionService.setOnSucceeded(e -> {
             if (transactionService.getValue()) {
-                SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "spaces.fxml");
+                SceneHandler.getInstance().createPage(SceneHandler.SPACES_PATH + "spaceTransactionSuccess.fxml");
             }
             else{
-                if (Settings.locale.equals("it")){
-                SceneHandler.getInstance().showMessage("Errore", "Errore", "Errore:","Lo space non ha abbastanza denaro" );}
-                else{
-                    SceneHandler.getInstance().showMessage("Error", "Error", "Error:","The space doesn't have enough money" );
-                }
+                SceneHandler.getInstance().createPage(SceneHandler.SPACES_PATH + "spaceTransactionFailed.fxml");
             }
 
         });
