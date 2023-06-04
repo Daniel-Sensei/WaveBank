@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.OperationsController">
+<AnchorPane fx:id="anchorPane" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.OperationsController">
    <children>
       <ScrollPane fx:id="scrollPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1280.0" styleClass="background">
          <padding>
@@ -26,7 +26,7 @@
                      <children>
                         <HBox alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="840.0">
                            <children>
-                              <Label styleClass="titleLabel" text="Operazioni" />
+                              <Label styleClass="titleLabel" text="%operations" />
                               <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
@@ -36,7 +36,7 @@
                      <children>
                         <VBox spacing="10.0">
                            <children>
-                              <Label styleClass="subtitleLabel" text="Contatti" />
+                              <Label styleClass="subtitleLabel" text="%contatti" />
                               <ScrollPane hbarPolicy="NEVER" prefHeight="240.0" prefWidth="400.0" styleClass="vbox-with-rounded-border">
                                  <content>
                                     <VBox fx:id="contactsVBox" alignment="TOP_CENTER" prefWidth="400.0" />
@@ -44,9 +44,18 @@
                               </ScrollPane>
                               <HBox alignment="CENTER" spacing="20.0">
                                  <children>
-                                    <Button fx:id="newContact" mnemonicParsing="false" onAction="#onNewButtonClick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: primaryColor;" styleClass="tertiaryButton" text="+ Aggiungi" />
-                                    <Button fx:id="modifyContact" mnemonicParsing="false" onAction="#onModifyClick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: quaternaryColor;" styleClass="tertiaryButton" text="Modifica" />
-                                    <Button fx:id="deleteContact" layoutX="220.0" layoutY="10.0" mnemonicParsing="false" onAction="#onDeleteClick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: quaternaryColor;" styleClass="tertiaryButton" text="Elimina" />
+                                    <Button fx:id="newContact" mnemonicParsing="false" onAction="#onNewButtonClick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: primaryColor;" styleClass="tertiaryButton" text="%aggiungi">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></Button>
+                                    <Button fx:id="modifyContact" mnemonicParsing="false" onAction="#onModifyClick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: quaternaryColor;" styleClass="tertiaryButton" text="%modifica">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></Button>
+                                    <Button fx:id="deleteContact" layoutX="220.0" layoutY="10.0" mnemonicParsing="false" onAction="#onDeleteClick" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: quaternaryColor;" styleClass="tertiaryButton" text="%elimina">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></Button>
                                  </children>
                                  <VBox.margin>
                                     <Insets top="25.0" />
@@ -56,13 +65,13 @@
                         </VBox>
                         <VBox spacing="10.0">
                            <children>
-                              <Label styleClass="subtitleLabel" text="Invia" />
+                              <Label styleClass="subtitleLabel" text="%send" />
                               <VBox alignment="TOP_CENTER" prefWidth="400.0" styleClass="vbox-with-rounded-border">
                                  <children>
                                     <HBox fx:id="bonificoHBox" alignment="CENTER_LEFT" onMouseClicked="#openFormBonifico" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                                        <children>
                                           <ImageView fx:id="bonifico" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-                                          <Label text="Bonifico SEPA" />
+                                          <Label text="%bonificoSepa" />
                                        </children>
                                        <padding>
                                           <Insets bottom="10.0" left="20.0" top="10.0" />
@@ -74,7 +83,7 @@
                                     <HBox fx:id="bollettinoHBox" alignment="CENTER_LEFT" onMouseClicked="#openFormBollettino" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                                        <children>
                                           <ImageView fx:id="bollettino" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-                                          <Label text="Bollettino Postale" />
+                                          <Label text="%bollettinoPostale" />
                                        </children>
                                        <padding>
                                           <Insets bottom="10.0" left="20.0" top="10.0" />
@@ -86,7 +95,7 @@
                                     <HBox fx:id="ricaricaTelefonicaHBox" alignment="CENTER_LEFT" onMouseClicked="#openFormRicaricaTelefonica" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                                        <children>
                                           <ImageView fx:id="ricaricaTelefonica" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-                                          <Label text="Ricarica telefonica" />
+                                          <Label text="%ricaricaTelefonica" />
                                        </children>
                                        <padding>
                                           <Insets bottom="10.0" left="20.0" top="10.0" />
@@ -98,7 +107,7 @@
                                     <HBox fx:id="bolloAutoHBox" alignment="CENTER_LEFT" onMouseClicked="#openFormBolloAuto" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                                        <children>
                                           <ImageView fx:id="bolloAuto" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-                                          <Label text="Bollo auto" />
+                                          <Label text="%bolloAuto" />
                                        </children>
                                        <padding>
                                           <Insets bottom="10.0" left="20.0" top="10.0" />
@@ -110,7 +119,7 @@
                                     <HBox fx:id="pagamentiRicorrentiHBox" alignment="CENTER_LEFT" onMouseClicked="#openFormPagamentiRicorrenti" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox">
                                        <children>
                                           <ImageView fx:id="pagamentiRicorrenti" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-                                          <Label text="Pagamenti ricorrenti" />
+                                          <Label text="%pagamentiRicorrenti" />
                                        </children>
                                        <padding>
                                           <Insets bottom="10.0" left="20.0" top="10.0" />

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -15,17 +15,19 @@
             <Image url="@../../../../assets/images/cancel.png" />
          </image>
       </ImageView>
-      <Label styleClass="titleLabel" text="La transazione NON è andata a buon fine." />
-      <Label prefWidth="600.0" text="La transazione non è andata a buon fine. La invitiamo a ricontrollare i dati forniti in fase di pagamentoo. Inoltre, è necessario verificare che il saldo sullo spazio selezionato sia sufficiente per effettuare la transazione." wrapText="true" />
+      <Label styleClass="titleLabel" text="%transazioneFallita" />
+      <Label prefWidth="600.0" text="%transazioneFallitaText" wrapText="true" />
       <HBox alignment="CENTER" prefWidth="600.0" spacing="20.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#loadHome" prefHeight="40.0" prefWidth="200.0" styleClass="tertiaryButton" text="Torna alla Home" />
-            <Button mnemonicParsing="false" onAction="#loadOperations" prefHeight="40.0" prefWidth="200.0" styleClass="tertiaryButton" text="Torna alle Operazioni" />
+            <Button mnemonicParsing="false" onAction="#loadHome" prefHeight="40.0" prefWidth="200.0" styleClass="tertiaryButton" text="%tornaAllaHome">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button mnemonicParsing="false" onAction="#loadOperations" prefHeight="40.0" prefWidth="200.0" styleClass="tertiaryButton" text="%tornaAlleOperazioni">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
          </children>
       </HBox>
    </children>
-   <stylesheets>
-      <URL value="@../../../../css/light.css" />
-      <URL value="@../../../../css/style.css" />
-   </stylesheets>
 </VBox>

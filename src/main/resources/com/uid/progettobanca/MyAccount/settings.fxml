@@ -49,7 +49,10 @@
                            <children>
                               <Label text="%language" />
                               <VBox HBox.hgrow="ALWAYS" />
-                              <ComboBox fx:id="languageComboBox" onAction="#changeLanguage" prefWidth="150.0" promptText="Seleziona lingua" styleClass="combo-box" visibleRowCount="2" />
+                              <ComboBox fx:id="languageComboBox" onAction="#changeLanguage" prefWidth="150.0" promptText="Seleziona lingua" styleClass="combo-box" visibleRowCount="2">
+                                 <cursor>
+                                    <Cursor fx:constant="CLOSED_HAND" />
+                                 </cursor></ComboBox>
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
@@ -59,7 +62,10 @@
                            <children>
                               <Label text="%theme" />
                               <VBox HBox.hgrow="ALWAYS" />
-                              <ComboBox fx:id="themeComboBox" onAction="#changeTheme" prefWidth="150.0" promptText="Seleziona tema" styleClass="combo-box" visibleRowCount="2" />
+                              <ComboBox fx:id="themeComboBox" onAction="#changeTheme" prefWidth="150.0" promptText="Seleziona tema" styleClass="combo-box" visibleRowCount="2">
+                                 <cursor>
+                                    <Cursor fx:constant="CLOSED_HAND" />
+                                 </cursor></ComboBox>
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />

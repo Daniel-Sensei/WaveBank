@@ -6,13 +6,12 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.BollettinoController">
+<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.OperationsController.BollettinoController">
    <padding>
       <Insets left="200.0" right="200.0" />
    </padding>
@@ -31,11 +30,7 @@
                               <Label styleClass="titleLabel" text="%bollettinoPostale" />
                               <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="%back">
                                  <graphic>
-                                    <ImageView fx:id="back" fitHeight="12.0" fitWidth="12.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../assets/images/IconLight/arrow-small-left.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="back" fitHeight="12.0" fitWidth="12.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
                                  </graphic>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -47,7 +42,10 @@
                   </HBox>
                </children>
             </AnchorPane>
-            <ComboBox fx:id="spacesComboBox" cache="true" promptText="Seleziona uno space" styleClass="spaces-combo-box" />
+            <ComboBox fx:id="spacesComboBox" cache="true" promptText="%selezionaUnoSpace" styleClass="spaces-combo-box">
+               <cursor>
+                  <Cursor fx:constant="CLOSED_HAND" />
+               </cursor></ComboBox>
             <VBox spacing="10.0">
                <children>
                   <Label styleClass="subtitleLabel" text="%aChiLoStaiInviando" />
@@ -55,38 +53,56 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldCC" prefHeight="50.0" prefWidth="350.0" promptText="C/C. n. (Conto Corrente Postale)*" />
-                              <Label fx:id="warningCC" style="-fx-text-fill: redColor;" text="C/C deve essere composto da 18 cifre*" visible="false" />
+                              <TextField fx:id="fieldCC" prefHeight="50.0" prefWidth="350.0" promptText="C/C. n. (Conto Corrente Postale)*">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor></TextField>
+                              <Label fx:id="warningCC" style="-fx-text-fill: redColor;" text="%warningCC" visible="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <ComboBox fx:id="tipologiaComboBox" onAction="#onTypeChoice" prefHeight="50.0" prefWidth="350.0" promptText="Tipologia Bollettino*" visibleRowCount="5" />
-                              <Label fx:id="warningTipologia" style="-fx-text-fill: redColor;" text="Selezionare tipologia bollettino*" visible="false" />
+                              <ComboBox fx:id="tipologiaComboBox" onAction="#onTypeChoice" prefHeight="50.0" prefWidth="350.0" promptText="Tipologia Bollettino*" visibleRowCount="5">
+                                 <cursor>
+                                    <Cursor fx:constant="CLOSED_HAND" />
+                                 </cursor></ComboBox>
+                              <Label fx:id="warningTipologia" style="-fx-text-fill: redColor;" text="%warningTipologia" visible="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldCode" prefHeight="50.0" prefWidth="350.0" promptText="Codice Bollettino*" />
-                              <Label fx:id="warningCode" style="-fx-text-fill: redColor;" text="Codice Bollettino deve essere composto da 40 cifre*" visible="false" />
+                              <TextField fx:id="fieldCode" prefHeight="50.0" prefWidth="350.0" promptText="Codice Bollettino*">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor></TextField>
+                              <Label fx:id="warningCode" style="-fx-text-fill: redColor;" text="%warningCodiceBollettino" visible="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldAmount" prefHeight="50.0" prefWidth="350.0" promptText="Importo*" />
-                              <Label fx:id="warningAmount" style="-fx-text-fill: redColor;" text="Importo non valido*" visible="false" />
+                              <TextField fx:id="fieldAmount" prefHeight="50.0" prefWidth="350.0" promptText="Importo*">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor></TextField>
+                              <Label fx:id="warningAmount" style="-fx-text-fill: redColor;" text="%warningImporto" visible="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldRecipient" prefHeight="50.0" prefWidth="350.0" promptText="Intestato a*" />
-                              <Label fx:id="warningRecipient" style="-fx-text-fill: redColor;" text="Intestatario non valido*" visible="false" />
+                              <TextField fx:id="fieldRecipient" prefHeight="50.0" prefWidth="350.0" promptText="Intestato a*">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor></TextField>
+                              <Label fx:id="warningRecipient" style="-fx-text-fill: redColor;" text="%warningIntestatario" visible="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldDescr" prefHeight="50.0" prefWidth="350.0" promptText="Causale*" />
-                              <Label fx:id="warningDescr" style="-fx-text-fill: redColor;" text="La causale non può essere vuota*" visible="false" />
+                              <TextField fx:id="fieldDescr" prefHeight="50.0" prefWidth="350.0" promptText="Causale*">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor></TextField>
+                              <Label fx:id="warningDescr" style="-fx-text-fill: redColor;" text="%warningCausale" visible="false" />
                            </children>
                         </HBox>
                         <Button fx:id="sendButton" mnemonicParsing="false" onAction="#onSendButtonClick" prefHeight="40.0" prefWidth="100.0" styleClass="greenButton" text="Invia">

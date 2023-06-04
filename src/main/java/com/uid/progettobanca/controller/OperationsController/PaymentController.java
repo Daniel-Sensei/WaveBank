@@ -48,8 +48,6 @@ public class PaymentController implements Initializable {
         trash.setVisible(false);
     }
 
-    private final static String CSS_PATH = "/css/" ;
-
     @FXML
     void deleteThisRecurrent(MouseEvent event) throws IOException {
         if(SceneHandler.getInstance().showMessage("question", "Conferma","Conferma eliminazione", "Sei sicuro di voler eliminare questo pagamento ricorrente?").equals("OK")){
@@ -59,8 +57,7 @@ public class PaymentController implements Initializable {
             recurrentService.start();
             recurrentService.setOnSucceeded(e -> {
                 if(e.getSource().getValue() instanceof Boolean){
-                    SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().OPERATIONS_PATH + "formPagamentiRicorrenti.fxml");
-                    SceneHandler.getInstance().setPage(SceneHandler.getInstance().OPERATIONS_PATH + "formPagamentiRicorrenti.fxml");
+                    SceneHandler.getInstance().createPage(SceneHandler.getInstance().OPERATIONS_PATH + "formPagamentiRicorrenti.fxml");
                 }
             });
             recurrentService.setOnFailed(e -> {
@@ -78,6 +75,6 @@ public class PaymentController implements Initializable {
         payment = RecurrentManager.getInstance().getNextPayment();
 
         labelName.setText(payment.getNome());
-        labelNextRenewal.setText("Prossimo Rinnovo: " + payment.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        labelNextRenewal.setText(labelNextRenewal.getText() + ": " + payment.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
 }

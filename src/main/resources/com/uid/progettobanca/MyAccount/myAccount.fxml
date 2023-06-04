@@ -25,7 +25,10 @@
                         <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS" />
                         <VBox alignment="CENTER">
                            <children>
-                              <Button fx:id="logout" mnemonicParsing="false" onAction="#userLogout" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton" />
+                              <Button fx:id="logout" mnemonicParsing="false" onAction="#userLogout" prefHeight="50.0" prefWidth="50.0" styleClass="secondaryButton">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
                               <Label styleClass="button-label" text="%logout" />
                            </children>
                         </VBox>
@@ -56,10 +59,13 @@
                               <VBox alignment="CENTER_LEFT" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Label styleClass="subtitleLabel" text="IBAN:" />
-                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                    <HBox alignment="CENTER_LEFT" spacing="20.0">
                                        <children>
                                           <Label fx:id="ibanLabel" onMouseClicked="#copyIban" text="IT12 3456 1234 1234 4567 1234" />
-                                          <ImageView fx:id="copy" fitHeight="20.0" fitWidth="20.0" onMouseClicked="#copyIban" pickOnBounds="true" preserveRatio="true" />
+                                          <ImageView fx:id="copy" fitHeight="20.0" fitWidth="20.0" onMouseClicked="#copyIban" pickOnBounds="true" preserveRatio="true">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor></ImageView>
                                        </children>
                                     </HBox>
                                  </children>
@@ -134,6 +140,9 @@
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" onMouseClicked="#openContacts" prefHeight="75.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox-bottom">
                                        <children>
@@ -151,6 +160,9 @@
                                        <padding>
                                           <Insets bottom="10.0" left="20.0" top="10.0" />
                                        </padding>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </HBox>
                                  </children>
                               </VBox>
@@ -202,6 +214,9 @@
                                        <padding>
                                           <Insets bottom="10.0" left="20.0" top="10.0" />
                                        </padding>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" onMouseClicked="#openDeleteAccount" prefHeight="75.0" prefWidth="200.0" spacing="10.0" styleClass="vbox-with-rounded-border-hbox-bottom">
                                        <children>
@@ -219,6 +234,9 @@
                                        <padding>
                                           <Insets bottom="10.0" left="20.0" top="10.0" />
                                        </padding>
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
                                     </HBox>
                                  </children>
                               </VBox>

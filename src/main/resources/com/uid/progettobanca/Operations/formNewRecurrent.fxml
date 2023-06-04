@@ -53,40 +53,67 @@
                             <children>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldName" prefHeight="50.0" prefWidth="350.0" promptText="%nome" />
+                              <TextField fx:id="fieldName" prefHeight="50.0" prefWidth="350.0" promptText="%nome">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor></TextField>
                               <Label fx:id="warningName" style="-fx-text-fill: redColor;" text="%warningNome" visible="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldSurname" prefHeight="50.0" prefWidth="350.0" promptText="%cognome" />
+                              <TextField fx:id="fieldSurname" prefHeight="50.0" prefWidth="350.0" promptText="%cognome">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor></TextField>
                               <Label fx:id="warningSurname" style="-fx-text-fill: redColor;" text="%warningCognome" visible="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldIbanTo" prefHeight="50.0" prefWidth="350.0" promptText="IBAN*" />
+                              <TextField fx:id="fieldIbanTo" prefHeight="50.0" prefWidth="350.0" promptText="IBAN*">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor></TextField>
                               <Label fx:id="warningIban" style="-fx-text-fill: redColor;" text="%warningIban" visible="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldAmount" prefHeight="50.0" prefWidth="350.0" promptText="%importoPrompt" />
+                              <TextField fx:id="fieldAmount" prefHeight="50.0" prefWidth="350.0" promptText="%importoPrompt">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor></TextField>
                               <Label fx:id="warningAmount" style="-fx-text-fill: redColor;" text="%warningImporto" visible="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldDescr" prefHeight="50.0" prefWidth="350.0" promptText="%causale" />
+                              <TextField fx:id="fieldDescr" prefHeight="50.0" prefWidth="350.0" promptText="%causale">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor></TextField>
                               <Label fx:id="warningDescr" style="-fx-text-fill: redColor;" text="%warningCausale" visible="false" />
                            </children>
                         </HBox>
-                        <ComboBox fx:id="recurrencyComboBox" onAction="#onAltroSelection" prefHeight="50.0" prefWidth="350.0" promptText="%Ricorrenza" />
+                        <ComboBox fx:id="recurrencyComboBox" onAction="#onAltroSelection" prefHeight="50.0" prefWidth="350.0" promptText="%Ricorrenza">
+                           <cursor>
+                              <Cursor fx:constant="CLOSED_HAND" />
+                           </cursor></ComboBox>
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
                            <children>
-                              <ComboBox fx:id="dayComboBox" prefHeight="40.0" prefWidth="110.0" promptText="%Giorno" visibleRowCount="6" HBox.hgrow="ALWAYS" />
-                              <ComboBox fx:id="monthComboBox" prefHeight="40.0" prefWidth="110.0" promptText="%Mese" visibleRowCount="6" />
-                              <ComboBox fx:id="yearComboBox" prefHeight="40.0" prefWidth="110.0" promptText="%Anno" visibleRowCount="6" />
+                              <ComboBox fx:id="dayComboBox" prefHeight="40.0" prefWidth="110.0" promptText="%Giorno" visibleRowCount="6" HBox.hgrow="ALWAYS">
+                                 <cursor>
+                                    <Cursor fx:constant="CLOSED_HAND" />
+                                 </cursor></ComboBox>
+                              <ComboBox fx:id="monthComboBox" prefHeight="40.0" prefWidth="110.0" promptText="%Mese" visibleRowCount="6">
+                                 <cursor>
+                                    <Cursor fx:constant="CLOSED_HAND" />
+                                 </cursor></ComboBox>
+                              <ComboBox fx:id="yearComboBox" prefHeight="40.0" prefWidth="110.0" promptText="%Anno" visibleRowCount="6">
+                                 <cursor>
+                                    <Cursor fx:constant="CLOSED_HAND" />
+                                 </cursor></ComboBox>
                            </children>
                         </HBox>
                                 <Button fx:id="sendButton" mnemonicParsing="false" onAction="#onSendButtonClick" prefHeight="40.0" prefWidth="100.0" styleClass="greenButton" text="%Invia">

@@ -53,7 +53,7 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></CheckBox>
-                  <Button mnemonicParsing="false" onAction="#deletePressed" prefHeight="40.0" prefWidth="140.0" styleClass="redButton" text="%delete">
+                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deletePressed" prefHeight="40.0" prefWidth="140.0" styleClass="redButton" text="%delete">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>

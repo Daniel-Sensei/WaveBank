@@ -51,7 +51,10 @@
                               <Label fx:id="oldPswLaebl" text="%oldPsw*" />
                               <HBox alignment="CENTER_LEFT" spacing="5.0">
                                  <children>
-                                    <PasswordField fx:id="oldPsw" prefHeight="50.0" prefWidth="400.0" promptText="%oldPsw" />
+                                    <PasswordField fx:id="oldPsw" prefHeight="50.0" prefWidth="400.0" promptText="%oldPsw">
+                                       <cursor>
+                                          <Cursor fx:constant="TEXT" />
+                                       </cursor></PasswordField>
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="15.0" />
@@ -63,7 +66,10 @@
                                     <PasswordField fx:id="newPsw" prefHeight="50.0" promptText="%newPsw" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets />
-                                       </HBox.margin></PasswordField>
+                                       </HBox.margin>
+                                       <cursor>
+                                          <Cursor fx:constant="TEXT" />
+                                       </cursor></PasswordField>
                                  </children>
                                  <VBox.margin>
                                     <Insets bottom="5.0" />
@@ -72,7 +78,10 @@
                               <Label fx:id="confirmPswLabel" text="%confirmPsw*" />
                               <HBox alignment="CENTER_LEFT" spacing="5.0">
                                  <children>
-                                    <PasswordField fx:id="confirmPsw" prefHeight="50.0" promptText="%confirmPsw" HBox.hgrow="ALWAYS" />
+                                    <PasswordField fx:id="confirmPsw" prefHeight="50.0" promptText="%confirmPsw" HBox.hgrow="ALWAYS">
+                                       <cursor>
+                                          <Cursor fx:constant="TEXT" />
+                                       </cursor></PasswordField>
                                  </children>
                               </HBox>
                            </children>

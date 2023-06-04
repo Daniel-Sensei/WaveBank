@@ -52,7 +52,10 @@
                                     <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label text="Campanella Gianluca" />
-                                          <Hyperlink onAction="#email1" styleClass="text-field-transparent" text="cmpglc01r25c616m@studenti.unical.it" underline="true" />
+                                          <Hyperlink onAction="#email1" styleClass="text-field-transparent" text="cmpglc01r25c616m@studenti.unical.it" underline="true">
+                                             <cursor>
+                                                <Cursor fx:constant="OPEN_HAND" />
+                                             </cursor></Hyperlink>
                                        </children>
                                     </VBox>
                                  </children>
@@ -65,7 +68,10 @@
                                     <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label text="Curcio Daniel" />
-                                          <Hyperlink onAction="#email2" styleClass="text-field-transparent" text="crcdnl02e28m208a@studenti.unical.it" underline="true" />
+                                          <Hyperlink onAction="#email2" styleClass="text-field-transparent" text="crcdnl02e28m208a@studenti.unical.it" underline="true">
+                                             <cursor>
+                                                <Cursor fx:constant="OPEN_HAND" />
+                                             </cursor></Hyperlink>
                                        </children>
                                     </VBox>
                                  </children>
@@ -78,7 +84,10 @@
                                     <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label text="Gagliardi Fortunato Andrea" />
-                                          <Hyperlink onAction="#email3" styleClass="text-field-transparent" text="gglftn02e14m208l@studenti.unical.it" underline="true" />
+                                          <Hyperlink onAction="#email3" styleClass="text-field-transparent" text="gglftn02e14m208l@studenti.unical.it" underline="true">
+                                             <cursor>
+                                                <Cursor fx:constant="OPEN_HAND" />
+                                             </cursor></Hyperlink>
                                        </children>
                                     </VBox>
                                  </children>
@@ -91,7 +100,10 @@
                                     <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label text="Gattuso Pietro" />
-                                          <Hyperlink onAction="#email4" styleClass="text-field-transparent" text="gttptr00b21m208d@studenti.unical.it" underline="true" />
+                                          <Hyperlink onAction="#email4" styleClass="text-field-transparent" text="gttptr00b21m208d@studenti.unical.it" underline="true">
+                                             <cursor>
+                                                <Cursor fx:constant="OPEN_HAND" />
+                                             </cursor></Hyperlink>
                                        </children>
                                     </VBox>
                                  </children>

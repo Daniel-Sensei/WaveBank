@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -11,11 +12,14 @@
    </padding>
    <children>
       <ImageView fx:id="tag" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="labelName" text="Label" HBox.hgrow="ALWAYS" />
+      <Label fx:id="labelName" text="Name" HBox.hgrow="ALWAYS" />
       <HBox alignment="CENTER_RIGHT" spacing="10.0" HBox.hgrow="ALWAYS">
          <children>
-            <Label fx:id="labelNextRenewal" layoutX="10.0" layoutY="39.0" text="Prossimo Rinnovo" />
-            <ImageView fx:id="trash" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#deleteThisRecurrent" pickOnBounds="true" preserveRatio="true" visible="false" />
+            <Label fx:id="labelNextRenewal" layoutX="10.0" layoutY="39.0" text="%prossimoRinnovo" />
+            <ImageView fx:id="trash" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#deleteThisRecurrent" pickOnBounds="true" preserveRatio="true" visible="false">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ImageView>
          </children>
       </HBox>
    </children>

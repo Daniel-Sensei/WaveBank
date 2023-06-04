@@ -7,6 +7,7 @@ import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -17,12 +18,8 @@ public class DeleteCardController {
 
     @FXML
     private CheckBox agreeCheck;
-
     @FXML
-    void backPressed(MouseEvent event) {
-
-    }
-
+    private Button deleteButton;
 
     @FXML
     private ImageView back;
@@ -38,6 +35,14 @@ public class DeleteCardController {
 
     public void initialize() {
         GenericController.loadImage(back);
+        deleteButton.setDisable(true);
+        agreeCheck.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                deleteButton.setDisable(false);
+            } else {
+                deleteButton.setDisable(true);
+            }
+        });
     }
 
     @FXML
@@ -50,8 +55,7 @@ public class DeleteCardController {
 
             //setonsucceded event
             CardsManager.getInstance().setPos(0);
-            SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.MANAGE_PATH + "manage.fxml");
-            SceneHandler.getInstance().setPage(SceneHandler.MANAGE_PATH + "manage.fxml");
+            SceneHandler.getInstance().createPage(SceneHandler.MANAGE_PATH + "manage.fxml");
         }
     }
 

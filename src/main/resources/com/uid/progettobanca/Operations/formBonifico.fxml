@@ -43,7 +43,10 @@
                   </HBox>
                </children>
             </AnchorPane>
-            <ComboBox fx:id="spacesComboBox" cache="true" promptText="Seleziona uno space" styleClass="spaces-combo-box" />
+            <ComboBox fx:id="spacesComboBox" cache="true" promptText="Seleziona uno space" styleClass="spaces-combo-box">
+               <cursor>
+                  <Cursor fx:constant="CLOSED_HAND" />
+               </cursor></ComboBox>
             <VBox spacing="10.0">
                <children>
                   <Label styleClass="subtitleLabel" text="%aChiLoStaiInviando" />
@@ -51,31 +54,46 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldName" prefHeight="50.0" prefWidth="350.0" promptText="%nome" />
+                              <TextField fx:id="fieldName" prefHeight="50.0" prefWidth="350.0" promptText="%nome">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor></TextField>
                               <Label fx:id="warningName" style="-fx-text-fill: redColor;" text="%warningNome" visible="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldSurname" prefHeight="50.0" prefWidth="350.0" promptText="%cognome" />
+                              <TextField fx:id="fieldSurname" prefHeight="50.0" prefWidth="350.0" promptText="%cognome">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor></TextField>
                               <Label fx:id="warningSurname" style="-fx-text-fill: redColor;" text="%warningCognome" visible="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldIbanTo" prefHeight="50.0" prefWidth="350.0" promptText="IBAN*" />
+                              <TextField fx:id="fieldIbanTo" prefHeight="50.0" prefWidth="350.0" promptText="IBAN*">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor></TextField>
                               <Label fx:id="warningIban" style="-fx-text-fill: redColor;" text="%warningIban" visible="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldAmount" prefHeight="50.0" prefWidth="350.0" promptText="%importoPrompt" />
+                              <TextField fx:id="fieldAmount" prefHeight="50.0" prefWidth="350.0" promptText="%importoPrompt">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor></TextField>
                               <Label fx:id="warningAmount" style="-fx-text-fill: redColor;" text="%warningImporto" visible="false" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="fieldDescr" prefHeight="50.0" prefWidth="350.0" promptText="%causale" />
+                              <TextField fx:id="fieldDescr" prefHeight="50.0" prefWidth="350.0" promptText="%causale">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor></TextField>
                               <Label fx:id="warningDescr" style="-fx-text-fill: redColor;" text="%warningCausale" visible="false" />
                            </children>
                         </HBox>
