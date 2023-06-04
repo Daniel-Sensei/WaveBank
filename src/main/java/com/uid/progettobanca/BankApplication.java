@@ -1,6 +1,5 @@
 package com.uid.progettobanca;
 
-import com.uid.progettobanca.model.DAO.DatabaseManager;
 import com.uid.progettobanca.model.services.DBService;
 import com.uid.progettobanca.view.SceneHandler;
 
@@ -12,6 +11,7 @@ public class BankApplication extends Application {
 
     //ho inserito qui i currently logged user per poterli usare in tutto il programma
     //spostateli se non vi piace la posizione
+
     private static int currentlyLoggedUser = 0;
     public static void setCurrentlyLoggedUser(int user) {currentlyLoggedUser = user;}
     public static int getCurrentlyLoggedUser() {return currentlyLoggedUser;}
@@ -29,34 +29,24 @@ public class BankApplication extends Application {
     public static String getCurrentlyLoggedMail() {return currentlyLoggedMail;}
 
 
-    private void initializeDB(){
-        //inizializzazione/creazione DatabaseManager e del relativo db
-        DBService dbs = new DBService();
-        dbs.start();
-    }
-
     @Override
     public void start(Stage stage) {
 
-        // inserisco la funzione createDB() per rendere il tutto più pulito e leggibile
-        // attualmente è commentata in attesa che il db sia pronto
-        initializeDB();
+        DBService dbs = new DBService();
+        dbs.restart();
 
-        // alla fine della pagina c'è un commento sull'uso del database
+        dbs.setOnSucceeded(e -> {
+            //qui viene inizializzata la scena principale con menù bar ed home di default
+            SceneHandler.getInstance().createLoginScene(stage);
+        });
 
-        //qui viene inizializzata la scena principale con menù bar ed home di default
-        SceneHandler.getInstance().createLoginScene(stage);
+        dbs.setOnFailed(e -> {
+            throw new RuntimeException(e.getSource().getException());
+        });
 
-        //per mostrare un messaggio di errore basta chiamare questa funzione
-        // si passano 3 parametri: titolo in alto, intestazione e contenuto
-        //SceneHandler.getInstance().showError("Errore", "L'applicazione ha riscontrato un errore durante l'esecuzione", "In realtà no e basta cliccare il pulsante per chiudere questo messaggio");
-
-        //per passare alla pagina che volete bisogna aggiungere una seconda chiamata --> SceneHandler.getInstance().nomeMetodo();
-        //successivamente questa funzione dovrà essere richiamata dal pulsante nella menu-bar
     }
 
     public static void main(String[] args) {
         launch();
     }
-
 }
