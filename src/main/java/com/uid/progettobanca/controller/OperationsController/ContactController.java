@@ -33,7 +33,7 @@ public class ContactController implements Initializable {
         contact = ContactsManager.getInstance().getNextContact();
 
         ibanLabel.setText(FormUtils.getInstance().separateIban(contact.getIban()));
-        nameLabel.setText(contact.getNome() + " " + contact.getCognome());
+        nameLabel.setText(contact.getCognome() + " " + contact.getNome());
     }
 
     @FXML

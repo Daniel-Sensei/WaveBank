@@ -50,7 +50,7 @@ public class NewContactController implements Initializable {
 
     @FXML
     void onSendButtonClick(ActionEvent event) {
-        String iban = fieldIban.getText().replace(" ", "").trim();
+        String iban = fieldIban.getText().replace(" ", "").trim().toUpperCase();
         ContactService contactService = new ContactService();
         contactService.setAction("insert");
         contactService.setContact(new Contatto(fieldName.getText(), fieldSurname.getText(), iban, BankApplication.getCurrentlyLoggedUser()));

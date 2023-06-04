@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefWidth="980.0" styleClass="vbox-with-rounded-border" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.HomeController.FilterSelectionController">
+<VBox prefWidth="980.0" styleClass="vbox-with-rounded-border" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.HomeController.FilterSelectionController">
    <children>
       <AnchorPane>
          <children>

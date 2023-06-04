@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox styleClass="grafico" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.ManageController.SingleChartController">
+<VBox styleClass="grafico" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.ManageController.SingleChartController">
    <children>
       <HBox alignment="CENTER_RIGHT" spacing="10.0">
          <children>

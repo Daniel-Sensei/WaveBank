@@ -50,7 +50,7 @@ public class ContattiDAO {
 
     //restituisce tutte le carte associare ad un utente
     public Queue<Contatto> selectAllByUserID(int user_id) {
-        String query = "SELECT * FROM contatti WHERE user_id = ?";
+        String query = "SELECT * FROM contatti WHERE user_id = ? ORDER BY cognome ASC";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, user_id);
             try (ResultSet rs = stmt.executeQuery()) {

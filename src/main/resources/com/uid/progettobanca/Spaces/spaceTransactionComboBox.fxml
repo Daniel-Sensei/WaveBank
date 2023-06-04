@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="360.0" spacing="10.0" styleClass="vbox-with-rounded-border" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController.SpaceTransactionComboBoxController">
+<HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="360.0" spacing="10.0" styleClass="vbox-with-rounded-border" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController.SpaceTransactionComboBoxController">
    <children>
       <ImageView fx:id="senderImage" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
          <image>
