@@ -10,8 +10,9 @@ public class AccountService extends Service<Boolean> {
     private String action = "";
     private Conto c;
 
-    public AccountService(String action) {this.action = action;}
+    public AccountService() {}
 
+    public void setAction(String action) {this.action = action;}
     public void setAccount(Conto c) {this.c = c;}
 
     @Override

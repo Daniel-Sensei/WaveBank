@@ -1,6 +1,7 @@
 package com.uid.progettobanca;
 
 import com.uid.progettobanca.model.DAO.DatabaseManager;
+import com.uid.progettobanca.model.services.DBService;
 import com.uid.progettobanca.view.SceneHandler;
 
 import javafx.application.Application;
@@ -30,12 +31,8 @@ public class BankApplication extends Application {
 
     private void initializeDB(){
         //inizializzazione/creazione DatabaseManager e del relativo db
-        try {
-            // questo metodo controlla se nella risorse è presente il db ed in caso contrario lo crea
-            DatabaseManager.getInstance().checkAndCreateDatabase();
-        } catch (Exception e) {
-            System.err.println("Error creating database: " + e.getMessage());
-        }
+        DBService dbs = new DBService();
+        dbs.start();
     }
 
     @Override

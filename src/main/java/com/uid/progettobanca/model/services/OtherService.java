@@ -10,10 +10,10 @@ public class OtherService extends Service<Boolean> {
     private String action = "";
     private Altro a;
 
-    public OtherService(String action, Altro a) {
-        this.action = action;
-        this.a = a;
-    }
+    public OtherService() {}
+
+    public void setAction(String action) {this.action = action;}
+    public void setOther(Altro a) {this.a = a;}
 
     @Override
     protected Task<Boolean> createTask() {
