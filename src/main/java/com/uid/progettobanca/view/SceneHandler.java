@@ -14,9 +14,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
-import javafx.stage.Popup;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
+import javafx.stage.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -242,12 +240,21 @@ public class SceneHandler {
     public String showMessage(String type, String pageTitle, String headerMassage, String contentText) {
         Alert alert;
         switch(type){
-            case "error" -> alert = new Alert(Alert.AlertType.ERROR);
-            case "info" -> alert = new Alert(Alert.AlertType.INFORMATION);
+            case "error" -> {
+                alert = new Alert(Alert.AlertType.ERROR);
+                //imposta il css dei pulsanti
+                alert.getDialogPane().lookupButton(alert.getButtonTypes().get(0)).getStyleClass().add("redButton");
+            }
+            case "info" -> {
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                //imposta il css dei pulsanti
+                alert.getDialogPane().lookupButton(alert.getButtonTypes().get(0)).getStyleClass().add("greenButton");
+            }
             case "question" -> {
                 alert = new Alert(Alert.AlertType.CONFIRMATION);
-                //imposta il css del pulsante annulla a secondarybutton
-                alert.getDialogPane().lookupButton(alert.getButtonTypes().get(1)).getStyleClass().add("secondaryButton");
+                //imposta il css dei pulsanti
+                alert.getDialogPane().lookupButton(alert.getButtonTypes().get(0)).getStyleClass().add("greenButton");
+                alert.getDialogPane().lookupButton(alert.getButtonTypes().get(1)).getStyleClass().add("tertiaryButton");
             }
             default -> alert = new Alert(Alert.AlertType.WARNING);
         }
@@ -260,6 +267,11 @@ public class SceneHandler {
         alert.getDialogPane().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + Settings.CSS_THEME, CSS_PATH + "style.css");
         //imposta il css dello sfondo a background
         alert.getDialogPane().getStyleClass().add("background");
+        alert.getDialogPane().setStyle("-fx-padding: 0px 0px 10px 0px;");
+
+        // Centra la finestra di alert rispetto allo stage
+        alert.initOwner(stage);
+        alert.initModality(Modality.WINDOW_MODAL);
 
         alert.showAndWait();
 

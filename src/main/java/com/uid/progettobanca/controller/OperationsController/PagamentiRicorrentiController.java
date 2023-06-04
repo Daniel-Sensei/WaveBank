@@ -34,12 +34,8 @@ public class PagamentiRicorrentiController implements Initializable {
     private VBox paymentsVBOX;
 
     @FXML
-    void loadPreviousPage(MouseEvent event) {
-        try {
-            BackStack.getInstance().loadPreviousPage();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    void loadPreviousPage(MouseEvent event) throws IOException {
+        BackStack.getInstance().loadPreviousPage();
     }
 
     @FXML

@@ -23,7 +23,7 @@
                         <Label styleClass="titleLabel" text="%managePage" />
                         <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#addCardPressed" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: primaryColor;" styleClass="tertiaryButton" text="%add" />
+                              <Button mnemonicParsing="false" onAction="#addCardPressed" prefHeight="40.0" prefWidth="100.0" styleClass="greenButton" text="%add" />
                            </children>
                         </VBox>
                      </children>

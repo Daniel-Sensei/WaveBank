@@ -282,8 +282,20 @@
 }
 
 .greenButton:hover,
-.tertiaryButton:focused {
+.greenButton:focused {
     -fx-background-color: derive(greenButtonColor, 30%);
+    -fx-blend-mode: null;
+}
+
+.redButton {
+    -fx-background-color: redColor;
+    -fx-background-radius: 10px;
+    -fx-font-family: "Roboto Bold";
+}
+
+.redButton:hover,
+.redButton:focused {
+    -fx-background-color: derive(redColor, 30%);
     -fx-blend-mode: null;
 }
 
