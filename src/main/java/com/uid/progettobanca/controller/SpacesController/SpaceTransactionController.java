@@ -126,7 +126,7 @@ public class SpaceTransactionController implements Initializable {
 
         inputSpaceTransactionImport.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
-                if (Settings.locale.equals("it"))
+                if (Settings.locale.getLanguage().equals("it"))
                 FormUtils.getInstance().validateTextFieldRegister(amountLabel, inputSpaceTransactionImport, FormUtils.getInstance().validateAmount(inputSpaceTransactionImport.getText()), "Inserire importo*", "Importo non valido*");
                 else
                     FormUtils.getInstance().validateTextFieldRegister(amountLabel, inputSpaceTransactionImport, FormUtils.getInstance().validateAmount(inputSpaceTransactionImport.getText()), "Insert amount*", "Amount not valid*");
@@ -134,10 +134,10 @@ public class SpaceTransactionController implements Initializable {
         });
         description.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
-                if(Settings.locale.equals("it"))
-                FormUtils.getInstance().validateTextFieldRegister(descrLabel, description, !description.getText().isEmpty(), "Inserire descrizione*", "Descrizione non valida*");
+                if(Settings.locale.getLanguage().equals("it"))
+                FormUtils.getInstance().validateTextFieldRegister(descrLabel, description, !description.getText().isEmpty(), "Inserisci una descrizione*", "Descrizione non valida*");
                 else
-                    FormUtils.getInstance().validateTextFieldRegister(descrLabel, description, !description.getText().isEmpty(), "Insert description*", "Description not valid*");
+                    FormUtils.getInstance().validateTextFieldRegister(descrLabel, description, !description.getText().isEmpty(), "Insert a description*", "Description not valid*");
             }
         });
 
