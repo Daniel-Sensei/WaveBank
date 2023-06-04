@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.MyAccountController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.objects.Utente;
 import com.uid.progettobanca.model.services.GetUserService;
@@ -92,7 +93,12 @@ public class MyAccountController implements Initializable {
     private final static String CSS_PATH = "/css/" ;
     @FXML
     void userLogout(ActionEvent event) {
-        if(SceneHandler.getInstance().showMessage("question", "Conferma","Conferma logout", "Sei sicuro di voler effettuare il logout?").equals("OK")) {
+        Boolean conferma = false;
+        if(Settings.locale.getLanguage().equals("it"))
+            conferma = SceneHandler.getInstance().showMessage("question", "Conferma","Conferma logout", "Sei sicuro di voler effettuare il logout?").equals("OK");
+        else
+            conferma = SceneHandler.getInstance().showMessage("question", "Confirm","Confirm logout", "Are you sure you want to logout?").equals("OK");
+        if(conferma) {
             SceneHandler.getInstance().createLoginScene((Stage) logout.getScene().getWindow());
         }
     }
