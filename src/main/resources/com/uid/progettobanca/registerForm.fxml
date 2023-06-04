@@ -111,7 +111,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label text="%registerPolicy" textAlignment="CENTER" wrapText="true">
+            <Label style="-fx-font-size: 13; -fx-text-fill: promptTextColor;" text="%registerPolicy" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font>
