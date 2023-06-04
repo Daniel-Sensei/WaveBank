@@ -137,7 +137,7 @@ public class LoginController implements Initializable {
 
         // Imposta il video in loop
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.setOnError(() -> handleLoadError());
+        mediaPlayer.setOnError(this::handleLoadError);
 
 
         backgroundMediaView.setMediaPlayer(mediaPlayer);

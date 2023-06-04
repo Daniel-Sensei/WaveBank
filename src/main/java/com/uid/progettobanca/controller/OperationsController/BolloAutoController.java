@@ -191,42 +191,52 @@ public class BolloAutoController implements Initializable {
     private int loadAttempts = 0;
     private static final int MAX_LOAD_ATTEMPTS = 5;
 
-    private void openVideoPlayer() {
-        // Percorso del video da riprodurre
-        String videoPath = ImageUtils.getResourcePath(Settings.VIDEO_PATH + "PirataConRadio.mp4");
+    private final String VIDEO_PATH = ImageUtils.getResourcePath(Settings.VIDEO_PATH + "PirataConRadio.mp4");;
+    private Stage videoStage;
+    private Scene videoScene;
+    private MediaPlayer mediaPlayer;
+    private MediaView mediaView;
 
+    private void openVideoPlayer() {
         // Creazione del media player
-        Media video = new Media(videoPath);
-        MediaPlayer mediaPlayer = new MediaPlayer(video);
+        Media video = new Media(VIDEO_PATH);
+        mediaPlayer = new MediaPlayer(video);
         mediaPlayer.setAutoPlay(true);
 
-        // Creazione della vista media
-        MediaView mediaView = new MediaView(mediaPlayer);
+        // Rimuovi la MediaView precedente se esiste
+        if (mediaView != null) {
+            mediaView.setMediaPlayer(null);
+        }
 
-        mediaPlayer.setOnError(() -> handleLoadError());
+        // Creazione della nuova MediaView
+        mediaView = new MediaView(mediaPlayer);
 
-        // Creazione della finestra
-        Stage videoStage = new Stage();
-        Scene videoScene = new Scene(new StackPane(mediaView), 360, 360);
-        videoStage.setScene(videoScene);
-        videoStage.setResizable(false);
-        videoStage.setTitle("Video Player");
-        videoStage.show();
+        mediaPlayer.setOnError(this::handleLoadError);
 
-        // Riproduzione del video
-        mediaPlayer.play();
+        // Creazione della finestra se non esiste ancora
+        if (videoStage == null) {
+            videoStage = new Stage();
+            videoScene = new Scene(new StackPane(mediaView), 360, 360);
+            videoStage.setScene(videoScene);
+            videoStage.setResizable(false);
+            videoStage.setTitle("Video Player");
 
-        //chiudo la finestra quando il video finisce
-        mediaPlayer.setOnEndOfMedia(() -> {
-            Stage currentStage = (Stage) videoStage.getScene().getWindow();
-            currentStage.close();
-        });
+            // Stoppo il video quando chiudo la finestra
+            videoStage.setOnCloseRequest(event -> {
+                mediaPlayer.stop();
+                videoStage = null;
+            });
+        } else {
+            // Aggiorna il contenuto della scena
+            ((StackPane) videoScene.getRoot()).getChildren().setAll(mediaView);
+        }
 
-        //stoppo il video quando chiudo la finestra
-        videoStage.setOnCloseRequest(event -> {
-            mediaPlayer.stop();
-        });
+        // Mostra la finestra se non è già mostrata
+        if (!videoStage.isShowing()) {
+            videoStage.show();
+        }
     }
+
 
     private void handleLoadError() {
         if (loadAttempts < MAX_LOAD_ATTEMPTS) {
@@ -236,7 +246,12 @@ public class BolloAutoController implements Initializable {
 
             // Riprova il caricamento del video dopo un ritardo
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
-            delay.setOnFinished(event -> initialize(null, null));
+            delay.setOnFinished(event -> {
+                mediaPlayer.stop();
+                mediaPlayer.dispose();
+                mediaPlayer = null;
+                openVideoPlayer();
+            });
             delay.play();
         } else {
             // Numero massimo di tentativi di caricamento raggiunto, gestisci l'errore di caricamento
