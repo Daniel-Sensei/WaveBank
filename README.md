@@ -17,3 +17,11 @@ Online Banking Application
 - Gianpoo
 - Tropy22
 - Tulorolo
+
+# Known Issues
+- [ ] The application is not fully functional
+- [ ] The application is not fully tested
+- [ ] The application is not fully documented
+- [ ] The application is not fully commented
+- [ ] The application is not fully optimized
+- [ ] The application is not fully secure

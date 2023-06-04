@@ -124,6 +124,9 @@ public class SceneHandler {
     }
 
     private <T> T loadRootFromFXML(String resourceName) throws IOException {
+        // se inizia per / la rimuovo
+        if(resourceName.startsWith("/"))
+            resourceName = resourceName.substring(1);
         fxmlLoader = new FXMLLoader(getClass().getResource(RESOURCE_PATH + resourceName));
         fxmlLoader.setResources(ResourceBundle.getBundle("bundle", locale));
         return fxmlLoader.load();
@@ -139,7 +142,7 @@ public class SceneHandler {
         }
     }
 
-    public Parent loadPage(String pageName) throws IOException {
+    public synchronized Parent loadPage(String pageName) throws IOException {
         return loadRootFromFXML(pageName);
     }
 
