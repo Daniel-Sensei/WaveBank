@@ -15,7 +15,7 @@
                   <Image url="@../../../../assets/images/noTransaction.png" />
                </image>
             </ImageView>
-            <Label prefWidth="420.0" text="La tua ricerca non ha prodotto nessun risultato. Prova a cambiare i parametri della tua ricerca o ricarica la home attraverso la barra di navigazione." wrapText="true" />
+            <Label prefWidth="420.0" text="%nessunaTransazione" wrapText="true" />
          </children>
       </VBox>
    </children>

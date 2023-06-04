@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
@@ -18,7 +19,7 @@
                <children>
                   <VBox alignment="CENTER_LEFT" spacing="3.0">
                      <children>
-                        <Label styleClass="titleLabel" text="Filtra" />
+                        <Label styleClass="titleLabel" text="%Filtra" />
                      </children>
                   </VBox>
                </children>
@@ -36,8 +37,11 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" spacing="15.0">
                                  <children>
-                                    <CheckBox fx:id="shopping" mnemonicParsing="false" />
-                                    <Label text="Shopping" />
+                                    <CheckBox fx:id="shopping" mnemonicParsing="false">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></CheckBox>
+                                    <Label text="%Shopping" />
                                  </children>
                                  <padding>
                                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
@@ -45,8 +49,11 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" spacing="15.0">
                                  <children>
-                                    <CheckBox fx:id="benessere" mnemonicParsing="false" />
-                                    <Label text="Benessere" />
+                                    <CheckBox fx:id="benessere" mnemonicParsing="false">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></CheckBox>
+                                    <Label text="%Benessere" />
                                  </children>
                                  <padding>
                                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
@@ -54,8 +61,11 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" spacing="15.0">
                                  <children>
-                                    <CheckBox fx:id="assicurazioneFinanza" mnemonicParsing="false" />
-                                    <Label text="Assicurazione &amp; Finanza" />
+                                    <CheckBox fx:id="assicurazioneFinanza" mnemonicParsing="false">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></CheckBox>
+                                    <Label text="%Assicurazione&amp;Finanza" />
                                  </children>
                                  <padding>
                                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
@@ -63,8 +73,11 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" spacing="15.0">
                                  <children>
-                                    <CheckBox fx:id="intrattenimento" mnemonicParsing="false" />
-                                    <Label text="Intrattenimento" />
+                                    <CheckBox fx:id="intrattenimento" mnemonicParsing="false">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></CheckBox>
+                                    <Label text="%Intrattenimento" />
                                  </children>
                                  <padding>
                                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
@@ -72,8 +85,11 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" spacing="15.0">
                                  <children>
-                                    <CheckBox fx:id="multimediaElettronica" mnemonicParsing="false" />
-                                    <Label text="Multimedia &amp; Elettronica" />
+                                    <CheckBox fx:id="multimediaElettronica" mnemonicParsing="false">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></CheckBox>
+                                    <Label text="%Multimedia&amp;Elettronica" />
                                  </children>
                                  <padding>
                                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
@@ -81,8 +97,11 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" spacing="15.0">
                                  <children>
-                                    <CheckBox fx:id="amiciFamiglia" mnemonicParsing="false" />
-                                    <Label text="Amici &amp; Famiglia" />
+                                    <CheckBox fx:id="amiciFamiglia" mnemonicParsing="false">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></CheckBox>
+                                    <Label text="%Amici&amp;Famiglia" />
                                  </children>
                                  <padding>
                                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
@@ -94,8 +113,11 @@
                            <children>
                               <HBox alignment="CENTER_LEFT" spacing="15.0">
                                  <children>
-                                    <CheckBox fx:id="ciboSpesa" mnemonicParsing="false" />
-                                    <Label text="Cibo &amp; Spesa" />
+                                    <CheckBox fx:id="ciboSpesa" mnemonicParsing="false">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></CheckBox>
+                                    <Label text="%Cibo&amp;Spesa" />
                                  </children>
                                  <padding>
                                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
@@ -103,8 +125,11 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" spacing="15.0">
                                  <children>
-                                    <CheckBox fx:id="viaggi" mnemonicParsing="false" />
-                                    <Label text="Viaggi" />
+                                    <CheckBox fx:id="viaggi" mnemonicParsing="false">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></CheckBox>
+                                    <Label text="%Viaggi" />
                                  </children>
                                  <padding>
                                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
@@ -112,8 +137,11 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" spacing="15.0">
                                  <children>
-                                    <CheckBox fx:id="istruzione" mnemonicParsing="false" />
-                                    <Label text="Istruzione" />
+                                    <CheckBox fx:id="istruzione" mnemonicParsing="false">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></CheckBox>
+                                    <Label text="%Istruzione" />
                                  </children>
                                  <padding>
                                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
@@ -121,8 +149,11 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" spacing="15.0">
                                  <children>
-                                    <CheckBox fx:id="stipendio" mnemonicParsing="false" />
-                                    <Label text="Stipendio" />
+                                    <CheckBox fx:id="stipendio" mnemonicParsing="false">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></CheckBox>
+                                    <Label text="%Stipendio" />
                                  </children>
                                  <padding>
                                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
@@ -130,8 +161,11 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" spacing="15.0">
                                  <children>
-                                    <CheckBox fx:id="salute" mnemonicParsing="false" />
-                                    <Label text="Salute" />
+                                    <CheckBox fx:id="salute" mnemonicParsing="false">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></CheckBox>
+                                    <Label text="%Salute" />
                                  </children>
                                  <padding>
                                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
@@ -139,8 +173,11 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" spacing="15.0">
                                  <children>
-                                    <CheckBox fx:id="altro" mnemonicParsing="false" />
-                                    <Label text="Altro" />
+                                    <CheckBox fx:id="altro" mnemonicParsing="false">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></CheckBox>
+                                    <Label text="%Altro" />
                                  </children>
                                  <padding>
                                     <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
@@ -155,13 +192,16 @@
             <HBox HBox.hgrow="ALWAYS" />
             <VBox prefWidth="275.0" spacing="5.0">
                <children>
-                  <Label styleClass="subtitleLabel" text="Tipo di transazione" />
+                  <Label styleClass="subtitleLabel" text="%TipoTransazione" />
                   <VBox styleClass="vbox-with-rounded-border">
                      <children>
                         <HBox spacing="15.0" styleClass="border-bottom">
                            <children>
-                              <RadioButton fx:id="inOut" mnemonicParsing="false" selected="true" />
-                              <Label text="In entrata e in uscita" />
+                              <RadioButton fx:id="inOut" mnemonicParsing="false" selected="true">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></RadioButton>
+                              <Label text="%Entrata&amp;Uscita" />
                            </children>
                            <padding>
                               <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
@@ -169,8 +209,11 @@
                         </HBox>
                         <HBox spacing="15.0" styleClass="border-bottom">
                            <children>
-                              <RadioButton fx:id="inOnly" mnemonicParsing="false" />
-                              <Label text="Solo in entrata" />
+                              <RadioButton fx:id="inOnly" mnemonicParsing="false">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></RadioButton>
+                              <Label text="%Entrata" />
                            </children>
                            <padding>
                               <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
@@ -178,8 +221,11 @@
                         </HBox>
                         <HBox spacing="15.0">
                            <children>
-                              <RadioButton fx:id="outOnly" mnemonicParsing="false" />
-                              <Label text="Solo in uscita" />
+                              <RadioButton fx:id="outOnly" mnemonicParsing="false">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></RadioButton>
+                              <Label text="%Uscita" />
                            </children>
                            <padding>
                               <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
@@ -190,15 +236,18 @@
                         <Insets bottom="15.0" />
                      </VBox.margin>
                   </VBox>
-                  <Label text="Label" />
+                  <Label text="%cercaNomeTransazione" />
                   <VBox styleClass="vbox-with-rounded-border">
                      <children>
-                        <TextField fx:id="nameTextField" prefHeight="50.0" promptText="Nome Transazione" />
+                        <TextField fx:id="nameTextField" prefHeight="50.0" promptText="%nomeTransazione" />
                      </children>
                   </VBox>
                   <HBox alignment="CENTER_RIGHT">
                      <children>
-                        <Button fx:id="filterSelected" mnemonicParsing="false" onAction="#filterSelectedItems" prefHeight="50.0" prefWidth="150.0" styleClass="greenButton" text="Filtra selezionati" />
+                        <Button fx:id="filterSelected" mnemonicParsing="false" onAction="#filterSelectedItems" prefHeight="50.0" prefWidth="150.0" styleClass="greenButton" text="%filtraSelezionati">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Button>
                      </children>
                      <VBox.margin>
                         <Insets top="15.0" />
