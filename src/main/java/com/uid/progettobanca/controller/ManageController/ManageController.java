@@ -130,7 +130,6 @@ public class ManageController {
                             cardService.setAction("delete");
                             cardService.setCard(carta);
                             cardService.restart();
-                            System.out.println("Carta scaduta eliminata");
                         }
                     }
                     result.removeAll(carteScadute);
@@ -138,12 +137,14 @@ public class ManageController {
                     CardsManager.getInstance().fillQueue((List<Carta>) result);
                     numcarte=result.size();
                     if(numcarte == 1){
-                        back.setDisable(true);
-                        forward.setDisable(true);
+                        back.setVisible(false);
+                        forward.setVisible(false);
+                        cardNumber.setVisible(false);
                     }
                     else{
-                        back.setDisable(false);
-                        forward.setDisable(false);
+                        back.setVisible(true);
+                        forward.setVisible(true);
+                        cardNumber.setVisible(true);
                     }
                     loadCard();
                 }

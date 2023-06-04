@@ -12,6 +12,6 @@
             <Image url="@../../../../assets/images/check.png" />
          </image>
       </ImageView>
-      <Label text="%ibancopied" />
+      <Label text="%cardUnlocked" />
    </children>
 </HBox>

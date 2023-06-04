@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
@@ -56,10 +57,12 @@ public class CardController {
         if(CardsManager.getInstance().getCard().isBloccata()){
             GenericController.loadImageButton("unlock", security);
             blockLabel.setText("Sblocca");
+            SceneHandler.getInstance().showInfoPopup(SceneHandler.MANAGE_PATH + "cardUnlockedPopup.fxml", (Stage) security.getScene().getWindow(), 300, 75);
         }
         else{
             GenericController.loadImageButton(security);
             blockLabel.setText("Blocca");
+            SceneHandler.getInstance().showInfoPopup(SceneHandler.MANAGE_PATH + "cardLockedPopup.fxml", (Stage) security.getScene().getWindow(), 300, 75);
         }
     }
 
