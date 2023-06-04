@@ -87,7 +87,6 @@ public class SingleSpacePageController implements Initializable {
 
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {
-        SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().SPACES_PATH + "spaces.fxml");
         BackStack.getInstance().loadPreviousPage();
     }
 

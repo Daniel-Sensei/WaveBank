@@ -218,6 +218,7 @@ public class BonificoController implements Initializable {
                                 throw new RuntimeException(e2.getSource().getException());
                             });
                         }
+                        SceneHandler.getInstance().reloadDynamicPageInHashMap();
                         SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "transactionSuccess.fxml");
                     }
                 });
