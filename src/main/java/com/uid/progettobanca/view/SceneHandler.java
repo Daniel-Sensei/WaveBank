@@ -27,20 +27,15 @@ public class SceneHandler {
     private static final SceneHandler instance = new SceneHandler();
     private Stage stage;
     private Scene scene;
+
     private static final String separator = File.separator; //il path si adatta ai diversi sistemi operativi
-
-
-    //cambiando il nome della cartella bisogna cambiare anche il riferimento qui dentro
-    public final static String ABSOLUTE_PATH = System.getProperty("user.dir") + separator + "src" + separator + "main" + separator + "resources" + separator + "com" + separator + "uid" + separator + "progettobanca" + separator;
-
-    private final static String CSS_PATH = "/css/" ;
-
-    /**
-     private final static String CSS_PATH = RESOURCE_PATH + "css/";
-     private String theme = "light";
-     **/
+    //public final static String ABSOLUTE_PATH = System.getProperty("user.dir") + separator + "src" + separator + "main" + separator + "resources" + separator + "com" + separator + "uid" + separator + "progettobanca" + separator;
 
     private FXMLLoader fxmlLoader;
+
+    private final static String RESOURCE_PATH = "/com/uid/progettobanca/";
+
+    private final static String CSS_PATH = "/css/" ;
 
     private final static String FONTS_PATH = CSS_PATH + "fonts/";
     public final static String HOME_PATH = "/Home/";
@@ -129,7 +124,7 @@ public class SceneHandler {
     }
 
     private <T> T loadRootFromFXML(String resourceName) throws IOException {
-        fxmlLoader = new FXMLLoader(new File(ABSOLUTE_PATH + resourceName).toURI().toURL());
+        fxmlLoader = new FXMLLoader(getClass().getResource(RESOURCE_PATH + resourceName));
         fxmlLoader.setResources(ResourceBundle.getBundle("bundle", locale));
         return fxmlLoader.load();
     }

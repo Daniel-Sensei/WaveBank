@@ -76,7 +76,6 @@ public class LoginController implements Initializable {
                     getSpaceService.setIban(iban);
                     getSpaceService.restart();
                     getSpaceService.setOnSucceeded(e2 -> {
-                        System.out.println(iban);
                         BankApplication.setCurrentlyLoggedMainSpace(getSpaceService.getValue().peek().getSpaceId());
                         SceneHandler.getInstance().init(SceneHandler.getInstance().getStage());
                         RecurrentHandler.getInstance().check(BankApplication.getCurrentlyLoggedUser());
