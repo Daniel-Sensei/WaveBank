@@ -31,7 +31,7 @@ public class SettingsController implements Initializable {
 
     @FXML
     private ComboBox<String> themeComboBox;
-    private String[] languages = {"Italiano", "Inglese"};
+    private String[] languages = {"Italiano", "English"};
     private String[] themes = {"Chiaro", "Scuro"};
 
     private String theme = Settings.CSS_THEME;
@@ -77,7 +77,7 @@ public class SettingsController implements Initializable {
             SceneHandler.getInstance().changeTheme();
             SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "settings.fxml");
         }
-        else if (choice.equals("Inglese") && !language.equals("EN")){
+        else if (choice.equals("English") && !language.equals("EN")){
             Locale en = new Locale("EN");
             Settings.locale = en;
             SceneHandler.getInstance().changeTheme();
