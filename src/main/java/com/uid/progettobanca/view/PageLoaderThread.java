@@ -28,6 +28,7 @@ public class PageLoaderThread extends Thread {
             SceneHandler.SPACES_PATH + "spaces.fxml",
             SceneHandler.SPACES_PATH + "formCreateSpace.fxml",
     };
+
     @Override
     public void run() {
         //pageNames.addAll(FileManager.getInstance().listFilesInFolder(SceneHandler.ABSOLUTE_PATH, SceneHandler.getInstance().HOME_PATH));
