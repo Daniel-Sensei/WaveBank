@@ -27,7 +27,6 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Queue;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class BonificoController implements Initializable {
