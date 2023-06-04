@@ -40,15 +40,16 @@ public class DatabaseManager {
         }
     }
 
-    public void checkAndCreateDatabase() throws Exception {
+    public boolean checkAndCreateDatabase() throws Exception {
         //controlla se nelle risorse è presente il db ed in caso contrario lo crea
         Path path = Path.of(dbPath);
         if (!Files.exists(path)) {
-            createDatabase(path);
+            return createDatabase(path);
         }
+        return true;
     }
 
-    private void createDatabase(Path path) throws SQLException {
+    private boolean createDatabase(Path path) throws SQLException {
         Connection connection = null;
         Statement statement = null;
 
@@ -101,21 +102,23 @@ public class DatabaseManager {
 
 
             //trigger per controllare che lo space da cui stiamo togliendo i soldi effettivamente sia associato al conto corretto/esista
-            statement.execute("CREATE TRIGGER check_space_from\n" +
-                                    "BEFORE INSERT ON transazioni\n" +
-                                    "FOR EACH ROW\n" +
-                                    "BEGIN\n" +
-                                    "    SELECT RAISE(ABORT, \"Lo space_from non è associato all'iban_from\")\n" +
-                                    "    WHERE NEW.iban_from IN (\n" +
-                                    "        SELECT iban\n" +
-                                    "        FROM conti\n" +
-                                    "        WHERE NOT EXISTS (\n" +
-                                    "            SELECT 1\n" +
-                                    "            FROM spaces\n" +
-                                    "            WHERE iban = NEW.iban_from AND space_id = NEW.space_from\n" +
-                                    "        )\n" +
-                                    "    );\n" +
-                                    "END;");
+            statement.execute("""
+                                CREATE TRIGGER check_space_from
+                                BEFORE INSERT ON transazioni
+                                FOR EACH ROW
+                                BEGIN
+                                    SELECT RAISE(ABORT, "Lo space_from non è associato all'iban_from")
+                                    WHERE NEW.iban_from IN (
+                                        SELECT iban
+                                        FROM conti
+                                        WHERE NOT EXISTS (
+                                            SELECT 1
+                                            FROM spaces
+                                            WHERE iban = NEW.iban_from AND space_id = NEW.space_from
+                                        )
+                                    );
+                                END;
+                                """);
 
             //l'iban dell'azienda non è impostato come chiave esterna in quanto
             //vorrebbe dire che quell'azienda dovrebbe avere un conto aperto da noi
@@ -136,11 +139,12 @@ public class DatabaseManager {
                                     "date DATE not null, nGiorni INTEGER not null, causale VARCHAR not null, " +
                                     "user_id INTEGER NOT NULL, FOREIGN KEY (user_id) REFERENCES utenti(user_id));");
 
-            AltroDAO.getInstance().insert( new Altro("Pirata con Radio", "IT0000000000000000000000000"));
+            return (AltroDAO.getInstance().insert( new Altro("Pirata con Radio", "IT0000000000000000000000000")));
 
         } catch (SQLException e) {
             System.err.println("Error creating database: " + e.getMessage());
             e.printStackTrace();
+            return false;
         }finally {
             if (statement != null) {
                 statement.close();

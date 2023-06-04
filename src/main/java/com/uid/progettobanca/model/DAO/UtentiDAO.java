@@ -148,17 +148,8 @@ public class UtentiDAO {
             try (ResultSet result = stmt.executeQuery()) {
                 if (result.next()) {
                     int user = result.getInt("user_id");
-                    // se la password è corretta, restituisce l'id dell'utente
-                    if (checkPassword(user, password)) {
-                        return true;
-                    } else {
-                        SceneHandler.getInstance().showMessage("error", "Errore Login", "Email o Password Errati", "L'email o la password inseriti non sono corretti, per favore riprovare");
-                        return false;
-                    }
-                } else {
-                    SceneHandler.getInstance().showMessage("error", "Errore Login", "Email o Password Errati", "L'email o la password inseriti non sono corretti, per favore riprovare");
-                    return false;
-                }
+                    return checkPassword(user, password);
+                } else return false;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -176,10 +167,8 @@ public class UtentiDAO {
             try (ResultSet result = stmt.executeQuery()) {
                 if (result.next()) {
                     String storedPassword = result.getString("password");
-                   return BCrypt.checkpw(password, storedPassword);
-                } else {
-                    return false;
-                }
+                    return BCrypt.checkpw(password, storedPassword);
+                } else return false;
             }
         } catch (SQLException e) {
             e.printStackTrace();

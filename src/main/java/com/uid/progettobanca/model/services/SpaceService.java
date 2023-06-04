@@ -1,16 +1,17 @@
 package com.uid.progettobanca.model.services;
 
-import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.SpacesDAO;
 import com.uid.progettobanca.model.objects.Space;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
-public class SpaceService extends Service {
+public class SpaceService extends Service<Boolean> {
     private String action ;
     private Space space;
+
     public SpaceService(String action, String spaceIban, String spaceName, String spaceImage, double spaceBalance, LocalDate spaceCreationDate ){
         Space space1 = new Space(spaceIban, spaceBalance , spaceCreationDate, spaceName, spaceImage);
         this.space = space1;
@@ -23,18 +24,16 @@ public class SpaceService extends Service {
     }
 
     @Override
-    protected Task createTask() {
+    protected Task<Boolean> createTask() {
         return new Task() {
             @Override
             protected Object call() throws Exception {
-                if (action == "insert"){
-                    SpacesDAO.getInstance().insert(space);
-
-                } else if (action == "delete") {
-                    SpacesDAO.getInstance().delete(space);
-
+                if (action.equals("insert")){
+                    return SpacesDAO.getInstance().insert(space);
+                } else if (action.equals("delete")) {
+                    return SpacesDAO.getInstance().delete(space);
                 }
-                return null;
+                return false;
             }
         };
     }

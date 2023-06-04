@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller.ManageController;
 
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.*;
 import com.uid.progettobanca.model.objects.Carta;
@@ -56,12 +57,18 @@ public class CardController {
 
         if(CardsManager.getInstance().getCard().isBloccata()){
             GenericController.loadImageButton("unlock", security);
-            blockLabel.setText("Sblocca");
+            if(Settings.locale.getLanguage().equals("it"))
+                blockLabel.setText("Sblocca");
+            else
+                blockLabel.setText("Unlock");
             SceneHandler.getInstance().showInfoPopup(SceneHandler.MANAGE_PATH + "cardUnlockedPopup.fxml", (Stage) security.getScene().getWindow(), 300, 75);
         }
         else{
             GenericController.loadImageButton(security);
-            blockLabel.setText("Blocca");
+            if(Settings.locale.getLanguage().equals("it"))
+                blockLabel.setText("Blocca");
+            else
+                blockLabel.setText("Block");
             SceneHandler.getInstance().showInfoPopup(SceneHandler.MANAGE_PATH + "cardLockedPopup.fxml", (Stage) security.getScene().getWindow(), 300, 75);
         }
     }

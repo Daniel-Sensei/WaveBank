@@ -4,7 +4,6 @@ import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.objects.Conto;
 import com.uid.progettobanca.model.objects.Space;
 import com.uid.progettobanca.model.objects.Transazione;
-import com.uid.progettobanca.view.SceneHandler;
 
 import java.math.BigInteger;
 import java.sql.*;

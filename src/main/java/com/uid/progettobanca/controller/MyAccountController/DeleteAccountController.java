@@ -2,6 +2,7 @@ package com.uid.progettobanca.controller.MyAccountController;
 
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.services.UserService;
 import com.uid.progettobanca.view.BackStack;
@@ -25,7 +26,12 @@ public class DeleteAccountController {
     private UserService userService = new UserService();
     @FXML
     void deleteAccount(ActionEvent event) {
-        if (SceneHandler.getInstance().showMessage("question", "Conferma","Conferma eliminazione account?", "Sei sicuro di voler eliminare l'account?").equals("OK")) {
+        Boolean controllo = false;
+        if(Settings.locale.getLanguage().equals("it"))
+            controllo = SceneHandler.getInstance().showMessage("question", "Conferma","Conferma eliminazione account?", "Sei sicuro di voler eliminare l'account?").equals("OK");
+        else
+            controllo = SceneHandler.getInstance().showMessage("question", "Confirm","Confirm account deletion?", "Are you sure you want to delete the account?").equals("OK");
+        if (controllo) {
             userService.setPassword(password.getText());
             userService.restart();
             userService.setOnSucceeded(event1 -> {
@@ -35,7 +41,10 @@ public class DeleteAccountController {
                         //elimina account
 
                     } else {
-                        SceneHandler.getInstance().showMessage("error", "Errore", "Password errata", "La password inserita non è corretta");
+                        if(Settings.locale.getLanguage().equals("it"))
+                            SceneHandler.getInstance().showMessage("error", "Errore", "Password errata", "La password inserita non è corretta");
+                        else
+                            SceneHandler.getInstance().showMessage("error", "Error", "Wrong password", "The password entered is incorrect");
                     }
                 }
             });
