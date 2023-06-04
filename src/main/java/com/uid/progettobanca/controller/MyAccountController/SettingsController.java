@@ -2,19 +2,13 @@ package com.uid.progettobanca.controller.MyAccountController;
 
 import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
-import com.uid.progettobanca.controller.MenuBarController;
-import com.uid.progettobanca.view.BackStack;
-import com.uid.progettobanca.view.PageLoaderThread;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -56,13 +50,13 @@ public class SettingsController implements Initializable {
         if(choice.equals("Chiaro") && !theme.equals("light.css")){
             Settings.switchTheme();
             theme = "dark.css";
-            SceneHandler.getInstance().changeTheme();
+            SceneHandler.getInstance().changeThemeLanguage();
             SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "settings.fxml");
         }
         else if(choice.equals("Scuro") && !theme.equals("dark.css")){
             Settings.switchTheme();
             theme = "light.css";
-            SceneHandler.getInstance().changeTheme();
+            SceneHandler.getInstance().changeThemeLanguage();
             SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "settings.fxml");
         }
     }
@@ -74,13 +68,13 @@ public class SettingsController implements Initializable {
         if  (choice.equals("Italiano") && !language.equals("IT")){
             Locale ita = new Locale("IT");
             Settings.locale = ita;
-            SceneHandler.getInstance().changeTheme();
+            SceneHandler.getInstance().changeThemeLanguage();
             SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "settings.fxml");
         }
         else if (choice.equals("English") && !language.equals("EN")){
             Locale en = new Locale("EN");
             Settings.locale = en;
-            SceneHandler.getInstance().changeTheme();
+            SceneHandler.getInstance().changeThemeLanguage();
             SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "settings.fxml");
         }
     }

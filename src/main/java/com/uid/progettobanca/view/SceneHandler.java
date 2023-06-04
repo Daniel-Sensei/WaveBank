@@ -114,8 +114,8 @@ public class SceneHandler {
         createMenuBar();
         createPage(HOME_PATH + "home.fxml");
 
-        PageLoaderThread pageLoaderThread = new PageLoaderThread();
-        pageLoaderThread.start();
+        PageLoaderService pageLoaderService = new PageLoaderService();
+        pageLoaderService.start();
 
 
         this.stage.setScene(scene);
@@ -294,13 +294,13 @@ public class SceneHandler {
          */
     }
 
-    public void changeTheme() {
+    public void changeThemeLanguage() {
         pages.clear();
         this.stage.getScene().getStylesheets().clear();
         this.stage.getScene().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + Settings.CSS_THEME, CSS_PATH + "style.css");
         createMenuBar();
-        PageLoaderThread pageLoaderThread = new PageLoaderThread();
-        pageLoaderThread.start();
+        PageLoaderService pageLoaderService = new PageLoaderService();
+        pageLoaderService.start();
     }
 
     public void showInfoPopup(String popupPageName, Stage popupStage, double popupWidth, double popupHeight){
