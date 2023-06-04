@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.MyAccountController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.services.UserService;
 import com.uid.progettobanca.view.BackStack;
@@ -31,15 +32,6 @@ public class SafetyController {
 
     @FXML
     private Button sendButton;
-
-    @FXML
-    private Label warningWrongPsw;
-
-    @FXML
-    private Label warningDiffPsw;
-
-    @FXML
-    private Label warningBadPsw;
 
     @FXML
     private ImageView back;
@@ -87,7 +79,12 @@ public class SafetyController {
 
                     userService2.setOnSucceeded(event2 -> {
                         if(event2.getSource().getValue() instanceof Boolean){
-                            SceneHandler.getInstance().showMessage("info", "Cambio password", "Cambio password effettuato", "Hai cambiato password!");
+                            if(Settings.locale.getLanguage().equals("IT")){
+                                SceneHandler.getInstance().showMessage("info", "Cambio password", "Cambio password effettuato", "Hai cambiato password!");
+                            }
+                            else{
+                                SceneHandler.getInstance().showMessage("info", "Password change", "Password change completed", "You have changed your password!");
+                            }
                             SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.MY_ACCOUNT_PATH + "safety.fxml");
                             SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "myAccount.fxml");
                         }
@@ -97,7 +94,12 @@ public class SafetyController {
                     });
 
                 } else {
-                    FormUtils.getInstance().validateTextFieldRegister(oldPswLaebl, oldPsw, false, "Vecchia password*", "La password non è corretta");
+                    if(Settings.locale.getLanguage().equals("IT")){
+                        FormUtils.getInstance().validateTextFieldRegister(oldPswLaebl, oldPsw, false, "Vecchia password*", "La password non è corretta");
+                    }
+                    else{
+                        FormUtils.getInstance().validateTextFieldRegister(oldPswLaebl, oldPsw, false, "Old password*", "Password is not correct");
+                    }
                 }
             }
         });
@@ -111,14 +113,24 @@ public class SafetyController {
 
         newPsw.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
-                FormUtils.getInstance().validateTextFieldRegister(newPswLabel, newPsw, FormUtils.getInstance().validatePassword(newPsw.getText()), "Nuova password*", "La password deve contenere almeno 8 caratteri, almeno una lettera minuscola, almeno una lettera maiuscola e un carattere speciale*");
+                if(Settings.locale.getLanguage().equals("IT")){
+                    FormUtils.getInstance().validateTextFieldRegister(newPswLabel, newPsw, FormUtils.getInstance().validatePassword(newPsw.getText()), "Nuova password*", "La password deve contenere almeno 8 caratteri, almeno una lettera minuscola, almeno una lettera maiuscola e un carattere speciale*");
+                }
+                else{
+                    FormUtils.getInstance().validateTextFieldRegister(newPswLabel, newPsw, FormUtils.getInstance().validatePassword(newPsw.getText()), "New password*", "Password must be at least 8 characters long, contain at least one lowercase letter, at least one uppercase letter and a special character*");
+                }
                 sendButton.setDisable(!(confirmPsw.getText().equals(newPsw.getText()) && FormUtils.getInstance().validatePassword(newPsw.getText())));
             }
         });
 
         confirmPsw.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
-                FormUtils.getInstance().validateTextFieldRegister(confirmPswLabel, confirmPsw, confirmPsw.getText().equals(newPsw.getText()), "Conferma nuova password*", "Le password non coincidono*");
+                if(Settings.locale.getLanguage().equals("IT")){
+                    FormUtils.getInstance().validateTextFieldRegister(confirmPswLabel, confirmPsw, confirmPsw.getText().equals(newPsw.getText()), "Conferma nuova password*", "Le password non coincidono*");
+                }
+                else{
+                    FormUtils.getInstance().validateTextFieldRegister(confirmPswLabel, confirmPsw, confirmPsw.getText().equals(newPsw.getText()), "Confirm new password*", "Passwords do not match*");
+                }
                 sendButton.setDisable(!(confirmPsw.getText().equals(newPsw.getText()) && FormUtils.getInstance().validatePassword(newPsw.getText())));
             }
         });
