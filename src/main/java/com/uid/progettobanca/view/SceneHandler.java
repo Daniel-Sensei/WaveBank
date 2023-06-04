@@ -96,33 +96,35 @@ public class SceneHandler {
 
     public void init(Stage stage) {
         //inizializzazione della parte visiva del programma, da modificare all'aggiunta del login
-            this.stage = stage;
-            this.stage.setTitle("Wave Bank");
+        //pulisco pagine caricate precedentemente da altri account se presenti
+        pages.clear();
+        this.stage = stage;
+        this.stage.setTitle("Wave Bank");
 
-            // Ottieni le dimensioni dello schermo
-            double screenWidth = Screen.getPrimary().getVisualBounds().getWidth();
-            double screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
+        // Ottieni le dimensioni dello schermo
+        double screenWidth = Screen.getPrimary().getVisualBounds().getWidth();
+        double screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
 
-            borderPane = new BorderPane();
-            borderPane.getStyleClass().add("root"); /*imposta proprietà root per il font family*/
+        borderPane = new BorderPane();
+        borderPane.getStyleClass().add("root"); /*imposta proprietà root per il font family*/
 
-            scene = new Scene(borderPane, 1280, 720);
-            loadFonts();
+        scene = new Scene(borderPane, 1280, 720);
+        loadFonts();
 
-            createMenuBar();
-            createPage(HOME_PATH + "home.fxml");
+        createMenuBar();
+        createPage(HOME_PATH + "home.fxml");
 
-            PageLoaderThread pageLoaderThread = new PageLoaderThread();
-            pageLoaderThread.start();
+        PageLoaderThread pageLoaderThread = new PageLoaderThread();
+        pageLoaderThread.start();
 
 
-            this.stage.setScene(scene);
-            this.stage.getScene().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + Settings.CSS_THEME, CSS_PATH + "style.css");
-            this.stage.setResizable(false);
-            // Centra la finestra dello stage sulla schermata
-            this.stage.setX((screenWidth - scene.getWidth()) / 2);
-            this.stage.setY((screenHeight - scene.getHeight()) / 2);
-            this.stage.show();
+        this.stage.setScene(scene);
+        this.stage.getScene().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + Settings.CSS_THEME, CSS_PATH + "style.css");
+        this.stage.setResizable(false);
+        // Centra la finestra dello stage sulla schermata
+        this.stage.setX((screenWidth - scene.getWidth()) / 2);
+        this.stage.setY((screenHeight - scene.getHeight()) / 2);
+        this.stage.show();
 
     }
 
