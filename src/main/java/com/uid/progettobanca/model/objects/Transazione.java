@@ -60,8 +60,8 @@ public class Transazione {
     public int getId() {return transactionId;}
     public void setId(int transactionId) {this.transactionId = transactionId;}
 
-    public String getNome() {return nome;}
-    public void setNome(String nome) {this.nome = nome;}
+    public String getName() {return nome;}
+    public void setName(String nome) {this.nome = nome;}
 
     public String getIbanFrom() {return ibanFrom;}
     public void setIbanFrom(String ibanFrom) {this.ibanFrom = ibanFrom;}

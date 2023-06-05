@@ -34,7 +34,7 @@ public class GetContactService extends Service<Queue<Contatto>> {
                     }
                     case "selectByIban" -> {
                         Queue<Contatto> contatto = new LinkedList<>();
-                        contatto.add(ContattiDAO.getInstance().selectByIBAN(iban));
+                        contatto.add(ContattiDAO.getInstance().selectByIban(iban));
                         yield contatto;
                     }
                     default -> null;

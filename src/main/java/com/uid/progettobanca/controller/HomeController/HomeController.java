@@ -30,8 +30,6 @@ import javafx.stage.Window;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class HomeController implements Initializable {
@@ -192,6 +190,15 @@ public class HomeController implements Initializable {
         getTransactionService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof List<?> result){
                 this.transactions = (List<Transazione>) result;
+
+                //TODO; FIXARE scelta both
+                if(!transactions.isEmpty())
+                    if(selectedInOut.equals("iban_from")){
+                        //se il nome che cerco non è a sinistra del - allora rimuovo la transazione
+                        transactions.removeIf(transaction -> transaction.getName().contains("-") && !transaction.getName().substring(0, transaction.getName().indexOf("-")).toLowerCase().contains(searchQuery.toLowerCase()));
+                    } else if (selectedInOut.equals("iban_to")) {
+                        transactions.removeIf(transaction -> transaction.getName().contains("-") && !transaction.getName().substring(transaction.getName().indexOf("-") + 1).toLowerCase().contains(searchQuery.toLowerCase()));
+                    }
 
                 //fill dello Stack per gestire dettagli delle transazioni
                 TransactionManager.getInstance().fillTransactionStack(transactions);

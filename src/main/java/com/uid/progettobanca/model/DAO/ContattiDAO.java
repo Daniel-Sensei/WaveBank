@@ -93,7 +93,7 @@ public class ContattiDAO {
         }
     }
 
-    public Contatto selectByIBAN(String iban) {
+    public Contatto selectByIban(String iban) {
         String query = "SELECT * FROM contatti WHERE iban_to = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, iban);

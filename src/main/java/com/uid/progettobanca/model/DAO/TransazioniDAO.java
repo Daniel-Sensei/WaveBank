@@ -3,7 +3,6 @@ package com.uid.progettobanca.model.DAO;
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.objects.Space;
 import com.uid.progettobanca.model.objects.Transazione;
-import com.uid.progettobanca.view.SceneHandler;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -33,7 +32,7 @@ public class TransazioniDAO {
     public boolean insert(Transazione transazione) {
         String query = "INSERT INTO transazioni (nome, iban_from, iban_to, space_from, space_to, dateTime, importo, descrizione, tipo, tag, commenti) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, transazione.getNome());
+            stmt.setString(1, transazione.getName());
             stmt.setString(2, transazione.getIbanFrom());
             stmt.setString(3, transazione.getIbanTo());
             stmt.setInt(4, transazione.getSpaceFrom());

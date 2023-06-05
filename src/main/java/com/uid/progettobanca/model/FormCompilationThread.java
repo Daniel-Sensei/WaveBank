@@ -72,7 +72,7 @@ public class FormCompilationThread extends Service<PDDocument> {
                     importo.setValue(String.valueOf(transaction.getImporto()));
                     //nome
                     PDTextField nomeTransazione = (PDTextField) acroForm.getField("nomeTransazione");
-                    nomeTransazione.setValue(transaction.getNome());
+                    nomeTransazione.setValue(transaction.getName());
                     //categoria (tag)
                     PDTextField tag = (PDTextField) acroForm.getField("tag");
                     tag.setValue(transaction.getTag());

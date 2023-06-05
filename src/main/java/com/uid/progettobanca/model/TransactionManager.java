@@ -53,34 +53,12 @@ public class TransactionManager {
     public static void setTransactionName(Label transactionName, Transazione transaction) throws SQLException {
         //di default assegno come nome il tipo di transazione
         transactionName.setText(transaction.getTipo());
-
-        transactionName.setText(transaction.getNome());
-
-        if(transaction.getTipo().equals(("Bonifico"))) {
+        transactionName.setText(transaction.getName());
+        if(transaction.getTipo().equals(("Bonifico")) && transaction.getName().contains("-")) {
             if(transaction.getIbanTo().equals(BankApplication.getCurrentlyLoggedIban())) {
-                GetContactService getContactService = new GetContactService();
-                getContactService.setAction("selectByIban");
-                getContactService.setIban(transaction.getIbanFrom());
-                getContactService.restart();
-                getContactService.setOnSucceeded(e -> {
-                    if(e.getSource().getValue() instanceof Queue<?> result){
-                        Contatto contatto = (Contatto) result.poll();
-                        if(contatto != null){
-                            transactionName.setText(contatto.getNome() + " " + contatto.getCognome());
-                        }
-                        else{
-                            GetUserService getUserService = new GetUserService();
-                            getUserService.setAction("selectByIban");
-                            getUserService.setIban(transaction.getIbanFrom());
-                            getUserService.restart();
-                            getUserService.setOnSucceeded(event -> {
-                                if(event.getSource().getValue() instanceof Utente user) {
-                                    transactionName.setText(user.getNome() + " " + user.getCognome());
-                                }
-                            });
-                        }
-                    }
-                });
+                transactionName.setText(transaction.getName().substring(transaction.getName().indexOf("-") + 1));
+            } else {
+                transactionName.setText(transaction.getName().substring(0, transaction.getName().indexOf("-")));
             }
         }
     }

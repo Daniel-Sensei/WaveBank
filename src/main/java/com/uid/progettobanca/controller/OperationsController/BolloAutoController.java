@@ -189,8 +189,6 @@ public class BolloAutoController implements Initializable {
     }
 
     private int loadAttempts = 0;
-    private static final int MAX_LOAD_ATTEMPTS = 5;
-
     private final String VIDEO_PATH = ImageUtils.getResourcePath(Settings.VIDEO_PATH + "PirataConRadio.mp4");;
     private Stage videoStage;
     private Scene videoScene;
@@ -239,6 +237,7 @@ public class BolloAutoController implements Initializable {
 
 
     private void handleLoadError() {
+        final int MAX_LOAD_ATTEMPTS = 5;
         if (loadAttempts < MAX_LOAD_ATTEMPTS) {
             // Incrementa il numero di tentativi di caricamento
             loadAttempts++;
