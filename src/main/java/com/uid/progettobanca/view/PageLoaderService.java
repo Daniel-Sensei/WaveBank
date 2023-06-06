@@ -28,6 +28,7 @@ public class PageLoaderService extends Service {
             //SceneHandler.MANAGE_PATH + "infoCard.fxml",
             //SceneHandler.MANAGE_PATH + "statistics.fxml",
 
+            Settings.MY_ACCOUNT_PATH + "accountDeleted.fxml",
             Settings.MY_ACCOUNT_PATH + "contactUs.fxml",
             Settings.MY_ACCOUNT_PATH + "deleteAccount.fxml",
             Settings.MY_ACCOUNT_PATH + "ibanCopiedPopup.fxml",
