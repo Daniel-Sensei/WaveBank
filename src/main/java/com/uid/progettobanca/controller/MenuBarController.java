@@ -90,7 +90,7 @@ public class MenuBarController implements Initializable {
     void loadHome(MouseEvent event) {
         clearLabelAndBackStack();
         FilterSelectionController.clearMemory();
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().HOME_PATH + "home.fxml");
+        SceneHandler.getInstance().setPage(SceneHandler.getInstance().HOME_PATH + "home.fxml");
         setLabelStyle(homeLabel, "home", home);
     }
 
@@ -112,6 +112,7 @@ public class MenuBarController implements Initializable {
     @FXML
     public void loadOperations(MouseEvent event) {
         clearLabelAndBackStack();
+        //si usa il create page per rimuovere selezione degli utenti
         SceneHandler.getInstance().createPage(SceneHandler.getInstance().OPERATIONS_PATH + "operations.fxml");
         setLabelStyle(operationsLabel, "operations", operations);
     }

@@ -148,7 +148,7 @@ public class BolloAutoController implements Initializable {
         transactionService.setOnSucceeded(e ->{
             if ((Boolean) e.getSource().getValue()) {
                 transactionService.setAction("insert");
-                transactionService.setTransaction(new Transazione("Bollo: "+ fieldPlate.getText(), BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, "Bollo " + typeComboBox.getValue(), "Bollo", "Altro", ""));
+                transactionService.setTransaction(new Transazione("Bollo Auto", BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, "Bollo " + typeComboBox.getValue() + "\nTarga: " + fieldPlate.getText().trim(), "Bollo", "Assicurazione & Finanza", ""));
                 transactionService.restart();
                 transactionService.setOnSucceeded(e1 -> {
                     SceneHandler.getInstance().reloadDynamicPageInHashMap();

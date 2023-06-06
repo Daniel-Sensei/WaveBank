@@ -87,6 +87,7 @@ public class RicaricaTelefonicaController implements Initializable {
         //effetuo la transazione
         double amount = FormUtils.getInstance().formatAmount(amountLabel.getText());
         int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
+        String description = "Operatore: " + providerComboBox.getValue().trim() + "\nNumero: " + fieldPhone.getText().trim();
 
         TransactionService transactionService = new TransactionService();
         transactionService.setAction("transazione");
@@ -98,7 +99,7 @@ public class RicaricaTelefonicaController implements Initializable {
         transactionService.setOnSucceeded(e ->{
             if ((Boolean) e.getSource().getValue()) {
                 transactionService.setAction("insert");
-                transactionService.setTransaction(new Transazione("Ricarica: "+fieldPhone.getText(), BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, fieldPhone.getText().trim(), "Ricarica Telefonica", "Altro", ""));
+                transactionService.setTransaction(new Transazione("Ricarica Telefonica " + providerComboBox.getValue().trim(), BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, description, "Ricarica Telefonica", "Altro", ""));
                 transactionService.restart();
                 transactionService.setOnSucceeded(e1 -> {
                     SceneHandler.getInstance().reloadDynamicPageInHashMap();

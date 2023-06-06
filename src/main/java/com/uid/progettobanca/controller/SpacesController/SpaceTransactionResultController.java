@@ -15,6 +15,7 @@ public class SpaceTransactionResultController {
     @FXML
     void loadSpaces(ActionEvent event) {
         SceneHandler.getInstance().createPage(SceneHandler.SPACES_PATH + "spaces.fxml");
+        SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.HOME_PATH + "home.fxml");
     }
 
 }

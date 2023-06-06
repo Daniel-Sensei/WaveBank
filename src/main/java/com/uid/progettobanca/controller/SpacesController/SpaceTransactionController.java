@@ -71,12 +71,11 @@ public class SpaceTransactionController implements Initializable {
         transactionService.restart();
         transactionService.setOnSucceeded(e -> {
             if (transactionService.getValue()) {
-                SceneHandler.getInstance().createPage(SceneHandler.SPACES_PATH + "spaceTransactionSuccess.fxml");
+                SceneHandler.getInstance().setPage(SceneHandler.SPACES_PATH + "spaceTransactionSuccess.fxml");
             }
             else{
-                SceneHandler.getInstance().createPage(SceneHandler.SPACES_PATH + "spaceTransactionFailed.fxml");
+                SceneHandler.getInstance().setPage(SceneHandler.SPACES_PATH + "spaceTransactionFailed.fxml");
             }
-
         });
     }
 

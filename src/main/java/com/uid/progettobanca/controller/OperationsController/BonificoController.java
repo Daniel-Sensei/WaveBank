@@ -166,10 +166,10 @@ public class BonificoController implements Initializable {
                 transactionService.restart();
                 transactionService.setOnSucceeded(e7 -> {
                     if((Boolean) e7.getSource().getValue()){
-                        String nome = fieldName.getText() + " " + fieldSurname.getText();
+                        String nome = fieldSurname.getText() + " " + fieldName.getText();
                         if(exists) {
                             System.out.println("aggiorno nome");
-                            nome += "-" + utente.get().getNome() + " " + utente.get().getCognome();
+                            nome += "-" + utente.get().getCognome() + " " + utente.get().getNome();
                         }
                         String finalNome = nome;
                         GetSpaceService getSpaceService = new GetSpaceService();

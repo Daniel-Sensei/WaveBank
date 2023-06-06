@@ -139,7 +139,7 @@ public class BollettinoController implements Initializable {
             descr += "Codice: " + fieldCode.getText().trim();
         }
 
-        String finalDescr = descr;
+        String finalDescr = descr + "\n" + "Causale: ";
 
         int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
 
