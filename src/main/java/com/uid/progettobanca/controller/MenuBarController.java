@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -46,6 +47,8 @@ public class MenuBarController implements Initializable {
     @FXML
     private Label myAccountLabel;
     private ArrayList<ImageView> menuBarImages = new ArrayList<>();
+    @FXML
+    private HBox menuBarHBox;
 
     private void loadMenuBarImages(){
         menuBarImages.add(home);

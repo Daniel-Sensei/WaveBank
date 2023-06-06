@@ -378,10 +378,12 @@
 }
 */
 
+/*
 .menu-bar .label:hover > .text,
 .menu-bar .label:focused > .text {
     -fx-fill: greenButtonColor;
 }
+*/
 
 .menu-bar-label > .text{
     -fx-fill: greenButtonColor;
