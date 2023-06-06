@@ -101,7 +101,7 @@ public class ManageController {
             }
         });
         transactionsService.setOnFailed(event -> {
-            throw new RuntimeException(event.getSource().getException());
+            SceneHandler.getInstance().createPage("errorPage.fxml");
         });
 
         GenericController.loadImage(back);
@@ -151,11 +151,11 @@ public class ManageController {
                 }
             });
             getCardService.setOnFailed(event1 -> {
-                throw new RuntimeException(event1.getSource().getException());
+                SceneHandler.getInstance().createPage("errorPage.fxml");
             });
         });
         userService.setOnFailed(event -> {
-            throw new RuntimeException(event.getSource().getException());
+            SceneHandler.getInstance().createPage("errorPage.fxml");
         });
 
     }

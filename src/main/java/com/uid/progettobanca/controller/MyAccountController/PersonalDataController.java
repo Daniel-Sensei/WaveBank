@@ -4,6 +4,7 @@ import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.objects.Utente;
 import com.uid.progettobanca.model.services.GetUserService;
 import com.uid.progettobanca.view.BackStack;
+import com.uid.progettobanca.view.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -60,7 +61,7 @@ public class PersonalDataController {
             }
         });
         getUserService.setOnFailed(event -> {
-            throw new RuntimeException(event.getSource().getException());
+            SceneHandler.getInstance().createPage("errorPage.fxml");
         });
     }
 

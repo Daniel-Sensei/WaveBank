@@ -61,7 +61,7 @@ public class PaymentController implements Initializable {
                 }
             });
             recurringService.setOnFailed(e -> {
-                throw new RuntimeException(e.getSource().getException());
+                SceneHandler.getInstance().createPage("errorPage.fxml");
             });
         }
     }

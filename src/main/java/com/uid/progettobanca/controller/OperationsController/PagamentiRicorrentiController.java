@@ -68,7 +68,7 @@ public class PagamentiRicorrentiController implements Initializable {
             }
         });
         getRecurringService.setOnFailed(event -> {
-            throw new RuntimeException(event.getSource().getException());
+            SceneHandler.getInstance().createPage("errorPage.fxml");
         });
     }
 }

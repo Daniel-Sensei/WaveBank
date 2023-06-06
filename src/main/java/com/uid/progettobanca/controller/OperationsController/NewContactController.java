@@ -64,7 +64,7 @@ public class NewContactController implements Initializable {
             SceneHandler.getInstance().createPage(Settings.OPERATIONS_PATH + "operations.fxml");
         });
         contactService.setOnFailed(e -> {
-            throw new RuntimeException(e.getSource().getException());
+            SceneHandler.getInstance().createPage("errorPage.fxml");
         });
     }
 

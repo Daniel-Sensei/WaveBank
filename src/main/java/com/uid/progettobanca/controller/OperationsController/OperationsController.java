@@ -258,7 +258,7 @@ public class OperationsController implements Initializable {
                     }
                 });
                 contactService.setOnFailed(e -> {
-                    throw new RuntimeException(e.getSource().getException());
+                    SceneHandler.getInstance().createPage("errorPage.fxml");
                 });
             }
         }

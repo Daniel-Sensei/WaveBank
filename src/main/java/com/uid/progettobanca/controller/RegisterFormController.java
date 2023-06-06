@@ -324,15 +324,15 @@ public class RegisterFormController implements Initializable {
                                         SceneHandler.getInstance().setPage("login.fxml");
                                     });
                                     getUserService.setOnFailed(e4 -> {
-                                        throw new RuntimeException(e4.getSource().getException());
+                                        SceneHandler.getInstance().createPage("errorPage.fxml");
                                     });
                                 });
                                 userService.setOnFailed(e3 -> {
-                                    throw new RuntimeException(e3.getSource().getException());
+                                    SceneHandler.getInstance().createPage("errorPage.fxml");
                                 });
                             });
                             newAccountService.setOnFailed(e2 -> {
-                                throw new RuntimeException(e2.getSource().getException());
+                                SceneHandler.getInstance().createPage("errorPage.fxml");
                             });
                         } else {
                             if(Settings.locale.getLanguage().equals("it"))
@@ -342,7 +342,7 @@ public class RegisterFormController implements Initializable {
                         }
                     });
                     userService.setOnFailed(e1 -> {
-                        throw new RuntimeException(e1.getSource().getException());
+                        SceneHandler.getInstance().createPage("errorPage.fxml");
                     });
                 } else {
                     if(Settings.locale.getLanguage().equals("it"))
@@ -350,6 +350,9 @@ public class RegisterFormController implements Initializable {
                     else
                         SceneHandler.getInstance().showMessage("error", "Error", "Registration Failed", "Email already registered");
                 }
+            });
+            userService.setOnFailed(e -> {
+                SceneHandler.getInstance().createPage("errorPage.fxml");
             });
         } else {
             if(Settings.locale.getLanguage().equals("it"))

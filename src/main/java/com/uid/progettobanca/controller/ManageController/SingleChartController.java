@@ -5,6 +5,7 @@ import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.*;
 import com.uid.progettobanca.model.objects.Transazione;
 import com.uid.progettobanca.model.services.GetTransactionService;
+import com.uid.progettobanca.view.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Label;
@@ -75,7 +76,7 @@ public class SingleChartController {
             }
         });
         getTransactionService.setOnFailed(event -> {
-            throw new RuntimeException(event.getSource().getException());
+            SceneHandler.getInstance().createPage("errorPage.fxml");
         });
     }
 

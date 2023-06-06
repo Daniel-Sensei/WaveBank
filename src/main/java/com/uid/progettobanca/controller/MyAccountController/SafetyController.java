@@ -90,7 +90,7 @@ public class SafetyController {
                         }
                     });
                     userService2.setOnFailed(event2 -> {
-                        throw new RuntimeException(event2.getSource().getException());
+                        SceneHandler.getInstance().createPage("errorPage.fxml");
                     });
 
                 } else {
@@ -104,7 +104,7 @@ public class SafetyController {
             }
         });
         userService.setOnFailed(event1 -> {
-            throw new RuntimeException(event1.getSource().getException());
+            SceneHandler.getInstance().createPage("errorPage.fxml");
         });
     }
 

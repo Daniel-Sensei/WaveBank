@@ -162,14 +162,14 @@ public class BollettinoController implements Initializable {
                     }
                 });
                 transactionService.setOnFailed(e1 -> {
-                    throw new RuntimeException(e1.getSource().getException());
+                    SceneHandler.getInstance().createPage("errorPage.fxml");
                 });
             }else{
                 SceneHandler.getInstance().setPage(Settings.OPERATIONS_PATH + "transactionFailed.fxml");
             }
         });
         transactionService.setOnFailed(e -> {
-            throw new RuntimeException(e.getSource().getException());
+            SceneHandler.getInstance().createPage("errorPage.fxml");
         });
     }
 

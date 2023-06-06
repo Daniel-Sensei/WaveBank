@@ -81,11 +81,11 @@ public class LoginController implements Initializable {
                         RecurringHandler.getInstance().check(BankApplication.getCurrentlyLoggedUser());
                     });
                     getSpaceService.setOnFailed(e2 -> {
-                        throw new RuntimeException(e2.getSource().getException());
+                        SceneHandler.getInstance().createPage("errorPage.fxml");
                     });
                 });
                 getUserService.setOnFailed(e1 -> {
-                    throw new RuntimeException(e1.getSource().getException());
+                    SceneHandler.getInstance().createPage("errorPage.fxml");
                 });
             }
             else {
@@ -96,7 +96,7 @@ public class LoginController implements Initializable {
             }
         });
         userService.setOnFailed(e -> {
-            throw new RuntimeException(e.getSource().getException());
+            SceneHandler.getInstance().createPage("errorPage.fxml");
         });
     }
 

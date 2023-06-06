@@ -71,7 +71,7 @@ public class FormCreateCardController {
             }
         });
         cardService.setOnFailed(event -> {
-            System.out.println("errore nella creazione della carta");
+            SceneHandler.getInstance().createPage("errorPage.fxml");
         });
     }
 

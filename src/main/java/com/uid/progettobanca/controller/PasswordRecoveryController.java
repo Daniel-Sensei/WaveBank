@@ -76,7 +76,7 @@ public class PasswordRecoveryController implements Initializable {
                         }
                     });
                     getUserService.setOnFailed(e -> {
-                        throw new RuntimeException(e.getSource().getException());
+                        SceneHandler.getInstance().createPage("errorPage.fxml");
                     });
                 }
             }
@@ -131,7 +131,7 @@ public class PasswordRecoveryController implements Initializable {
                             SceneHandler.getInstance().showMessage("error", "Error", "Error Changing Password", "The password was not updated.");
                 });
                 userService.setOnFailed(e1 -> {
-                    throw new RuntimeException(e1.getSource().getException());
+                    SceneHandler.getInstance().createPage("errorPage.fxml");
                 });
             }
             else
@@ -141,7 +141,7 @@ public class PasswordRecoveryController implements Initializable {
                     SceneHandler.getInstance().showMessage("error", "Error", "Error Checking Answer", "Incorrect answer, please try again.");
         });
         userService.setOnFailed(e -> {
-            throw new RuntimeException(e.getSource().getException());
+            SceneHandler.getInstance().createPage("errorPage.fxml");
         });
     }
 

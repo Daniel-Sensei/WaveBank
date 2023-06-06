@@ -205,38 +205,36 @@ public class BonificoController implements Initializable {
                                                             }
                                                         });
                                                         contactService.setOnFailed(e4 -> {
-                                                            throw new RuntimeException(e4.getSource().getException());
-                                                        });
+                                                            SceneHandler.getInstance().createPage("errorPage.fxml");                                                        });
                                                     }
                                                 }
                                             });
                                             getContactService.setOnFailed(e3 -> {
-                                                throw new RuntimeException(e3.getSource().getException());
-                                            });
+                                                SceneHandler.getInstance().createPage("errorPage.fxml");                                            });
                                         }
                                         SceneHandler.getInstance().reloadDynamicPageInHashMap();
                                         SceneHandler.getInstance().setPage(Settings.OPERATIONS_PATH + "transactionSuccess.fxml");
                                     }
                                 });
                                 transactionService.setOnFailed(e2 -> {
-                                    throw new RuntimeException(e2.getSource().getException());
+                                    SceneHandler.getInstance().createPage("errorPage.fxml");
                                 });
                             }
                         });
                         getSpaceService.setOnFailed(e1 -> {
-                            throw new RuntimeException(e1.getSource().getException());
+                            SceneHandler.getInstance().createPage("errorPage.fxml");
                         });
                     }else{
                         SceneHandler.getInstance().setPage(Settings.OPERATIONS_PATH + "transactionFailed.fxml");
                     }
                 });
                 transactionService.setOnFailed(e7 -> {
-                    throw new RuntimeException(e7.getSource().getException());
+                    SceneHandler.getInstance().createPage("errorPage.fxml");
                 });
             }
         });
         getUserService.setOnFailed(e -> {
-            throw new RuntimeException(e.getSource().getException());
+            SceneHandler.getInstance().createPage("errorPage.fxml");
         });
     }
 
