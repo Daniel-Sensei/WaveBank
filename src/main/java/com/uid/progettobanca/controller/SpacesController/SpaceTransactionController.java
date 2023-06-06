@@ -70,6 +70,7 @@ public class SpaceTransactionController implements Initializable {
     private void transactionHandler(TransactionService transactionService){
         transactionService.restart();
         transactionService.setOnSucceeded(e -> {
+            SceneHandler.getInstance().reloadDynamicPageInHashMap();
             if (transactionService.getValue()) {
                 SceneHandler.getInstance().setPage(SceneHandler.SPACES_PATH + "spaceTransactionSuccess.fxml");
             }
