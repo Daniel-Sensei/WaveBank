@@ -255,7 +255,7 @@ public class RegisterFormController implements Initializable {
                 String iban = newAccountService.getValue();
                 //creo l'utente
                 userService.setAction("insert");
-                userService.setUser(new Utente(name.getText().trim(), surname.getText().trim(), address.getText().trim(), LocalDate.parse(convertDate(getDate())), phone.getText().trim(), email.getText().toLowerCase().trim(), password.getText(), questions.getValue(), answer.getText(), iban));
+                userService.setUser(new Utente(name.getText().trim(), surname.getText().trim(), address.getText().trim(), LocalDate.parse(convertDate(getDate())), phone.getText().trim(), email.getText().toLowerCase().trim(), password.getText(), true, questions.getValue(), answer.getText(), iban));
                 userService.restart();
                 userService.setOnSucceeded(e1 -> {
                     getUserService.setAction("selectByEmail");

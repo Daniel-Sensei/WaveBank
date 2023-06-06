@@ -1,11 +1,7 @@
 package com.uid.progettobanca.model.DAO;
 
-import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.objects.Utente;
-import com.uid.progettobanca.view.SceneHandler;
-
 import java.sql.*;
-
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 
@@ -29,7 +25,7 @@ public class UtentiDAO {
 
     //inserimento tramite oggetto di tipo utente
     public boolean insert (Utente utente) {
-        String query = "INSERT INTO utenti (nome, cognome, indirizzo, dataNascita, telefono, email, password, domanda, risposta, iban) VALUES (?, ?, ?, ?,  ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO utenti (nome, cognome, indirizzo, dataNascita, telefono, email, password, status, domanda, risposta, iban) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, utente.getNome());
             stmt.setString(2, utente.getCognome());
@@ -38,9 +34,10 @@ public class UtentiDAO {
             stmt.setString(5, utente.getTelefono());
             stmt.setString(6, utente.getEmail());
             stmt.setString(7, BCrypt.hashpw(utente.getPassword(), BCrypt.gensalt(12)));
-            stmt.setString(8, utente.getDomanda());
-            stmt.setString(9, BCrypt.hashpw(utente.getRisposta(), BCrypt.gensalt(12)));
-            stmt.setString(10, utente.getIban());
+            stmt.setBoolean(8, utente.getStatus());
+            stmt.setString(9, utente.getDomanda());
+            stmt.setString(10, BCrypt.hashpw(utente.getRisposta(), BCrypt.gensalt(12)));
+            stmt.setString(11, utente.getIban());
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -66,6 +63,7 @@ public class UtentiDAO {
                             result.getString("telefono"),
                             result.getString("email"),
                             result.getString("password"),
+                            result.getBoolean("status"),
                             result.getString("domanda"),
                             result.getString("risposta"),
                             result.getString("iban")
@@ -95,6 +93,7 @@ public class UtentiDAO {
                             result.getString("telefono"),
                             result.getString("email"),
                             result.getString("password"),
+                            result.getBoolean("status"),
                             result.getString("domanda"),
                             result.getString("risposta"),
                             result.getString("iban")
@@ -124,6 +123,7 @@ public class UtentiDAO {
                             result.getString("telefono"),
                             result.getString("email"),
                             result.getString("password"),
+                            result.getBoolean("status"),
                             result.getString("domanda"),
                             result.getString("risposta"),
                             result.getString("iban")
@@ -142,7 +142,7 @@ public class UtentiDAO {
     //cambiare il login in modo che restituisca un booleano ed imposti il bank application logged user
     public boolean login (String email, String password) {
         // cerca l'utente nel database
-        String query = "SELECT user_id FROM utenti WHERE email = ?";
+        String query = "SELECT user_id FROM utenti WHERE email = ? AND status = true";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, email);
             try (ResultSet result = stmt.executeQuery()) {
@@ -237,7 +237,7 @@ public class UtentiDAO {
     //  rimozione:
 
     public boolean delete(Utente utente) {
-        String query = "DELETE FROM utenti WHERE user_id = ?";
+        String query = "UPDATE utenti SET status = false WHERE user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, utente.getUserId());
             stmt.executeUpdate();

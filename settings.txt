@@ -1,0 +1,3 @@
+Language: en
+Theme: dark.css
+Icons: IconDark/

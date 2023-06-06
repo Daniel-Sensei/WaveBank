@@ -73,7 +73,7 @@ public class DatabaseManager {
                                     "nome VARCHAR(50) not null, cognome VARCHAR(50) not null, "+
                                     "indirizzo varchar not null, dataNascita Date not null, "+
                                     "telefono char(14) unique not null, email varchar(319) unique not null, "+
-                                    "password varchar not null, " +
+                                    "password varchar not null, status TINYINT[1] not null," +
                                     "domanda varchar not null, risposta varchar not null, " +
                                     "iban CHAR(27) unique not null, FOREIGN KEY (iban) REFERENCES conti(iban));");
 

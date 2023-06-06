@@ -47,6 +47,8 @@ public class Settings {
             writer.write("Language: " + locale.getLanguage());
             writer.newLine();
             writer.write("Theme: " + CSS_THEME);
+            writer.newLine();
+            writer.write("Icons: " + IMAGE_THEME);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
@@ -77,6 +79,9 @@ public class Settings {
                 String trim = line.substring(line.indexOf(":") + 1).trim();
                 if (line.startsWith("Language:")) {
                     locale = new Locale(trim);
+                } else if (line.startsWith("Icons:")) {
+                    IMAGE_THEME = trim;
+                    IMAGE_PATH = GENERIC_IMAGE_PATH + IMAGE_THEME;
                 } else if (line.startsWith("Theme:")) {
                     CSS_THEME = trim;
                 }
