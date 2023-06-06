@@ -113,7 +113,7 @@ public class ManageController {
         userService.start();
 
 
-
+        CardsManager.getInstance().setPos(0);
         userService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof Utente result){
                 CardsManager.getInstance().setNome(result.getNome());

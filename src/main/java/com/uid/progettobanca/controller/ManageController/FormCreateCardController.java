@@ -35,7 +35,7 @@ public class FormCreateCardController {
     private InsertCardService cardService = new InsertCardService();
     @FXML
     void createPressed(ActionEvent event) {
-        cardService.setCarta(CreateCard.createVirtualcard(dateValue.getValue()));
+        cardService.setCarta(CreateCard.createVirtualCard(dateValue.getValue()));
         cardService.restart();
     }
 

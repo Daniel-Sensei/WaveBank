@@ -7,7 +7,7 @@ import com.uid.progettobanca.model.services.InsertCardService;
 import java.time.LocalDate;
 
 public class CreateCard {
-    public static Carta createVirtualcard(int lasting){
+    public static Carta createVirtualCard(int lasting){
             //crea carta
         Carta carta = new Carta();
         carta.setBloccata(false);
@@ -20,7 +20,7 @@ public class CreateCard {
         return carta;
     }
 
-    public static void createDebitcard(int utente){
+    public static void createDebitCard(int utente){
         //crea carta
         Carta carta = new Carta();
         carta.setNumCarta(RandomNumbers.generateRandomNumbers(16));
@@ -33,5 +33,6 @@ public class CreateCard {
         InsertCardService insertCarteService = new InsertCardService();
         insertCarteService.setCarta(carta);
         insertCarteService.start();
+        System.out.println("Carta di debito creata per utente " + utente);
     }
 }

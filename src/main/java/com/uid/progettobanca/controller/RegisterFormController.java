@@ -212,9 +212,9 @@ public class RegisterFormController implements Initializable {
         confirmPassword.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
                 if(Settings.locale.getLanguage().equals("it")) {
-                    FormUtils.getInstance().validateTextFieldRegister(confirmPasswordLabel, confirmPassword, FormUtils.getInstance().validateConfirmPassword(password.getText(), confirmPassword.getText()), "Conferma password*", "Le password non corrispondono*");
+                    FormUtils.getInstance().validateTextFieldRegister(confirmPasswordLabel, confirmPassword, FormUtils.getInstance().validateConfirmPassword(password.getText(), confirmPassword.getText()), "Conferma Password*", "Le password non corrispondono*");
                 } else {
-                    FormUtils.getInstance().validateTextFieldRegister(confirmPasswordLabel, confirmPassword, FormUtils.getInstance().validateConfirmPassword(password.getText(), confirmPassword.getText()), "Confirm password*", "Passwords do not match*");
+                    FormUtils.getInstance().validateTextFieldRegister(confirmPasswordLabel, confirmPassword, FormUtils.getInstance().validateConfirmPassword(password.getText(), confirmPassword.getText()), "Confirm Password*", "Passwords do not match*");
                 }
             }
         });
@@ -314,7 +314,7 @@ public class RegisterFormController implements Initializable {
                                     getUserService.restart();
                                     getUserService.setOnSucceeded(e4 -> {
                                         //creo la carta di debito
-                                        CreateCard.createDebitcard(getUserService.getValue().getUserId());
+                                        CreateCard.createDebitCard(getUserService.getValue().getUserId());
                                         //avviso dell'avvenuta registrazione
                                         if (Settings.locale.getLanguage().equals("it"))
                                             SceneHandler.getInstance().showMessage("info", "Registrazione", "Registrazione effettuata con successo", "Ora puoi effettuare il login");
