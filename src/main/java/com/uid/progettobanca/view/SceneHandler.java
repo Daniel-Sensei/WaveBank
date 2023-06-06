@@ -119,6 +119,10 @@ public class SceneHandler {
         // Centra la finestra dello stage sulla schermata
         this.stage.setX((screenWidth - scene.getWidth()) / 2);
         this.stage.setY((screenHeight - scene.getHeight()) / 2);
+        this.stage.setOnCloseRequest(e -> {
+            if(showMessage("question", "Chiusura Programma", "Sei sicuro di voler uscire?", "Chiusura programma in corso...").equals("Annulla"))
+                e.consume();
+        });
         this.stage.show();
 
     }
