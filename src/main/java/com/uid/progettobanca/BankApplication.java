@@ -36,6 +36,7 @@ public class BankApplication extends Application {
         dbs.restart();
 
         dbs.setOnSucceeded(e -> {
+            //qui viene caricato il file di settings
             Settings.loadSettings();
             //qui viene inizializzata la scena principale con menù bar ed home di default
             SceneHandler.getInstance().createLoginScene(stage);

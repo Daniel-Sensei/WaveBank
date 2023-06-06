@@ -53,12 +53,12 @@ public class SettingsController implements Initializable {
     }
     @FXML
     void changeTheme(ActionEvent event) {
-        String choice = themeComboBox.getSelectionModel().getSelectedItem();
-        if(choice.equals("Chiaro") && !theme.equals("light.css")){
+        int choice = themeComboBox.getSelectionModel().getSelectedIndex();
+        if(choice == 0 && !theme.equals("light.css")){
             Settings.switchTheme();
             theme = "dark.css";
         }
-        else if(choice.equals("Scuro") && !theme.equals("dark.css")){
+        else if(choice == 1 && !theme.equals("dark.css")){
             Settings.switchTheme();
             theme = "light.css";
         }
@@ -69,7 +69,6 @@ public class SettingsController implements Initializable {
 
     @FXML
     void changeLanguage(ActionEvent event) {
-        Settings.themeChanged = true;
         String choice = languageComboBox.getSelectionModel().getSelectedItem();
         if  (choice.equals("Italiano") && !language.equals("it")){
             Locale ita = new Locale("it");

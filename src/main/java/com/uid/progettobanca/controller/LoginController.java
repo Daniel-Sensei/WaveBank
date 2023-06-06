@@ -71,7 +71,6 @@ public class LoginController implements Initializable {
                     BankApplication.setCurrentlyLoggedUser(getUserService.getValue().getUserId());
                     String iban = getUserService.getValue().getIban();
                     BankApplication.setCurrentlyLoggedIban(iban);
-
                     getSpaceService.setAction("selectAllByIban");
                     getSpaceService.setIban(iban);
                     getSpaceService.restart();

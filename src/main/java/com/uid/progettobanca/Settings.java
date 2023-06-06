@@ -22,7 +22,6 @@ public class Settings {
 
     public static Locale locale = new Locale("IT");
     public static boolean darkTheme = false;
-    public static boolean themeChanged = false;
     public static String CSS_THEME = "light.css";
     public static String IMAGE_THEME = "IconLight/";
 
@@ -79,11 +78,12 @@ public class Settings {
                 String trim = line.substring(line.indexOf(":") + 1).trim();
                 if (line.startsWith("Language:")) {
                     locale = new Locale(trim);
+                } else if (line.startsWith("Theme:")) {
+                    CSS_THEME = trim;
+                    darkTheme = CSS_THEME.equals("dark.css");
                 } else if (line.startsWith("Icons:")) {
                     IMAGE_THEME = trim;
                     IMAGE_PATH = GENERIC_IMAGE_PATH + IMAGE_THEME;
-                } else if (line.startsWith("Theme:")) {
-                    CSS_THEME = trim;
                 }
             }
         } catch (IOException e) {
@@ -104,7 +104,5 @@ public class Settings {
             CSS_THEME = "light.css";
         }
         IMAGE_PATH = "assets/images/" + IMAGE_THEME;
-        themeChanged = true;
     }
-
 }
