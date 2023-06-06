@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="470.0" styleClass="background" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.RegisterFormController">
+<ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="470.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.RegisterFormController">
    <content>
       <VBox alignment="CENTER" spacing="20.0">
          <children>
@@ -51,9 +51,9 @@
                   <Label fx:id="dateLabel" text="%dataDiNascita" />
                   <HBox alignment="CENTER_LEFT" prefHeight="35.0" spacing="10.0">
                      <children>
-                        <ComboBox fx:id="dayComboBox" prefHeight="35.0" prefWidth="100.0" promptText="Giorno" visibleRowCount="6" HBox.hgrow="ALWAYS" />
-                        <ComboBox fx:id="monthComboBox" prefHeight="35.0" prefWidth="100.0" promptText="Mese" visibleRowCount="6" />
-                        <ComboBox fx:id="yearComboBox" prefHeight="35.0" prefWidth="100.0" promptText="Anno" visibleRowCount="6" />
+                        <ComboBox fx:id="dayComboBox" prefHeight="35.0" prefWidth="100.0" promptText="%day" visibleRowCount="6" HBox.hgrow="ALWAYS" />
+                        <ComboBox fx:id="monthComboBox" prefHeight="35.0" prefWidth="100.0" promptText="%month" visibleRowCount="6" />
+                        <ComboBox fx:id="yearComboBox" prefHeight="35.0" prefWidth="100.0" promptText="%year" visibleRowCount="6" />
                      </children>
                   </HBox>
                </children>
@@ -79,7 +79,7 @@
             <VBox spacing="5.0">
                <children>
                   <Label fx:id="questionLabel" text="%domandaDiSicurezza" wrapText="true" />
-                  <ComboBox fx:id="questions" prefHeight="35.0" prefWidth="350.0" promptText="Selezionare una domanda tra le seguenti" visibleRowCount="5" />
+                  <ComboBox fx:id="questions" prefHeight="35.0" prefWidth="350.0" promptText="%selettoreDomanda" visibleRowCount="5" />
                </children>
             </VBox>
             <VBox spacing="5.0">
