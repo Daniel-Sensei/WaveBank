@@ -71,12 +71,12 @@ public class SettingsController implements Initializable {
     void changeLanguage(ActionEvent event) {
         Settings.themeChanged = true;
         String choice = languageComboBox.getSelectionModel().getSelectedItem();
-        if  (choice.equals("Italiano") && !language.equals("IT")){
-            Locale ita = new Locale("IT");
+        if  (choice.equals("Italiano") && !language.equals("it")){
+            Locale ita = new Locale("it");
             Settings.locale = ita;
         }
-        else if (choice.equals("English") && !language.equals("EN")){
-            Locale en = new Locale("EN");
+        else if (choice.equals("English") && !language.equals("en")){
+            Locale en = new Locale("en");
             Settings.locale = en;
         }
         MenuBarController.currentPage = "myAccount";

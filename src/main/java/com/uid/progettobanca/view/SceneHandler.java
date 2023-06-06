@@ -56,6 +56,7 @@ public class SceneHandler {
 
     public void createLoginScene(Stage stage) {
 
+        pages.clear();
         this.stage = stage;
         this.stage.setTitle("Login");
 
@@ -72,7 +73,7 @@ public class SceneHandler {
         createPage( "login.fxml");
 
         this.stage.setScene(scene);
-        this.stage.getScene().getStylesheets().addAll(Settings.CSS_PATH + "fonts.css", Settings.CSS_PATH + Settings.CSS_THEME, Settings.CSS_PATH + "style.css");
+        this.stage.getScene().getStylesheets().addAll(Settings.CSS_PATH + "fonts.css", Settings.CSS_PATH + "light.css", Settings.CSS_PATH + "style.css");
         this.stage.setResizable(false);
         // Centra la finestra dello stage sulla schermata
         this.stage.setX((screenWidth - scene.getWidth()) / 2);

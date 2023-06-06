@@ -10,9 +10,11 @@ import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -22,6 +24,8 @@ public class DeleteAccountController {
     private ImageView back;
     @FXML
     private TextField password;
+    @FXML
+    private Button loginButton;
 
     private UserService userService = new UserService();
     @FXML
@@ -42,7 +46,7 @@ public class DeleteAccountController {
                         userService.setUserId(BankApplication.getCurrentlyLoggedUser());
                         userService.restart();
                         userService.setOnSucceeded(e -> {
-                            //TODO: mostrare un messaggio di avvenuta eliminazione e torno alla pagina di login
+                            SceneHandler.getInstance().setPage(Settings.MY_ACCOUNT_PATH + "accountDeleted.fxml");
                         });
                     } else {
                         if(Settings.locale.getLanguage().equals("it"))
@@ -65,6 +69,11 @@ public class DeleteAccountController {
 
     public void initialize() {
         GenericController.loadImage(back);
+    }
+
+    @FXML
+    void backToLogin(ActionEvent event) {
+        SceneHandler.getInstance().createLoginScene((Stage) loginButton.getScene().getWindow());
     }
 
 }
