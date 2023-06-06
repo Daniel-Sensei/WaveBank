@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller.ManageController;
 
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.*;
 import com.uid.progettobanca.model.objects.Transazione;
@@ -43,8 +44,25 @@ public class SingleChartController {
     void initialize() {
         //chart rappresenta il nome del tag
         chart = ChartsManager.getInstance().getNextChart();
-        chartName.setText(chart);
         setTagImage();
+
+        if(Settings.locale.getLanguage().equals("en"))
+            switch (chart){
+            case "Altro" -> chart = "Other";
+            case "Amici&Famiglia" -> chart = "Friends&Family";
+            case "Benessere" -> chart = "Wellness";
+            case "Cibo&Spesa" -> chart = "Food&Groceries";
+            case "Assicurazione&Finanza" -> chart = "Insurance&Finance";
+            case "Intrattenimento" -> chart = "Entertainment";
+            case "Istruzione" -> chart = "Education";
+            case "Multimedia&Elettronica" -> chart = "Multimedia&Electronics";
+            case "Salute" -> chart = "Health";
+            case "Shopping" -> chart = "Shopping";
+            case "Stipendio" -> chart = "Salary";
+            case "Viaggi" -> chart = "Travel";
+            }
+
+        chartName.setText(chart);
 
         getTransactionService.start();
 
