@@ -68,7 +68,7 @@ public class ModifyContactController implements Initializable {
                     SceneHandler.getInstance().showMessage("info", "Aggiornamento Contatto", "Contatto aggiornato", "Il contatto è stato modificato correttamente.");
                 else
                     SceneHandler.getInstance().showMessage("info", "Contact Update", "Contact updated", "The contact has been successfully modified.");
-                SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+                SceneHandler.getInstance().createPage(Settings.OPERATIONS_PATH + "operations.fxml");
             });
             contactService.setOnFailed(e -> {
                 throw new RuntimeException(e.getSource().getException());

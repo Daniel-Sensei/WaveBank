@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.objects.Transazione;
 import com.uid.progettobanca.model.services.TransactionService;
@@ -103,13 +104,13 @@ public class RicaricaTelefonicaController implements Initializable {
                 transactionService.restart();
                 transactionService.setOnSucceeded(e1 -> {
                     SceneHandler.getInstance().reloadDynamicPageInHashMap();
-                    SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "transactionSuccess.fxml");
+                    SceneHandler.getInstance().setPage(Settings.OPERATIONS_PATH + "transactionSuccess.fxml");
                 });
                 transactionService.setOnFailed(e1 -> {
                     throw new RuntimeException(e1.getSource().getException());
                 });
             } else {
-                SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "transactionFailed.fxml");
+                SceneHandler.getInstance().setPage(Settings.OPERATIONS_PATH + "transactionFailed.fxml");
             }
         });
         transactionService.setOnFailed(e -> {

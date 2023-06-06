@@ -104,7 +104,7 @@ public class MyAccountController implements Initializable {
     }
 
     private void openGenericPage(String pageName){
-        SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + pageName);
+        SceneHandler.getInstance().setPage(Settings.MY_ACCOUNT_PATH + pageName);
     }
 
     @FXML
@@ -139,7 +139,7 @@ public class MyAccountController implements Initializable {
 
         // Imposta la stringa da copiare
         content.putString(BankApplication.getCurrentlyLoggedIban());
-        SceneHandler.getInstance().showInfoPopup(SceneHandler.MY_ACCOUNT_PATH + "ibanCopiedPopup.fxml", (Stage) copy.getScene().getWindow(), 300, 75);
+        SceneHandler.getInstance().showInfoPopup(Settings.MY_ACCOUNT_PATH + "ibanCopiedPopup.fxml", (Stage) copy.getScene().getWindow(), 300, 75);
         // Copia il contenuto negli appunti
         clipboard.setContent(content);
     }

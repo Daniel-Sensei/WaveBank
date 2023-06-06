@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller.OperationsController;
 
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.RecurringManager;
 import com.uid.progettobanca.model.objects.Ricorrente;
@@ -40,7 +41,7 @@ public class PagamentiRicorrentiController implements Initializable {
 
     @FXML
     void onAddNewClick(MouseEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "formNewRecurring.fxml");
+        SceneHandler.getInstance().createPage(Settings.OPERATIONS_PATH + "formNewRecurring.fxml");
     }
 
     GetRecurringService getRecurringService = new GetRecurringService();
@@ -57,7 +58,7 @@ public class PagamentiRicorrentiController implements Initializable {
                 for(int i=0; i<nPayments; i++){
                     Parent payment = null;
                     try {
-                        payment = SceneHandler.getInstance().loadPage(SceneHandler.OPERATIONS_PATH + "recurring.fxml");
+                        payment = SceneHandler.getInstance().loadPage(Settings.OPERATIONS_PATH + "recurring.fxml");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

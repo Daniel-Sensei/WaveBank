@@ -3,20 +3,16 @@ package com.uid.progettobanca.controller;
 import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.HomeController.FilterSelectionController;
 import com.uid.progettobanca.view.BackStack;
-import com.uid.progettobanca.view.ImageUtils;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MenuBarController implements Initializable {
 
@@ -100,21 +96,21 @@ public class MenuBarController implements Initializable {
     void loadHome(MouseEvent event) {
         clearLabelAndBackStack();
         FilterSelectionController.clearMemory();
-        SceneHandler.getInstance().setPage(SceneHandler.HOME_PATH + "home.fxml");
+        SceneHandler.getInstance().setPage(Settings.HOME_PATH + "home.fxml");
         setLabelStyle(homeLabel, "home", home);
     }
 
     @FXML
     void loadManage(MouseEvent event) {
         clearLabelAndBackStack();
-        SceneHandler.getInstance().setPage(SceneHandler.MANAGE_PATH + "manage.fxml");
+        SceneHandler.getInstance().setPage(Settings.MANAGE_PATH + "manage.fxml");
         setLabelStyle(manageLabel, "manage", manage);
     }
 
     @FXML
     void loadMyAccount(MouseEvent event) {
         clearLabelAndBackStack();
-        SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "myAccount.fxml");
+        SceneHandler.getInstance().setPage(Settings.MY_ACCOUNT_PATH + "myAccount.fxml");
         setLabelStyle(myAccountLabel, "myAccount", myAccount);
 
     }
@@ -123,14 +119,14 @@ public class MenuBarController implements Initializable {
     public void loadOperations(MouseEvent event) {
         clearLabelAndBackStack();
         //si usa il create page per rimuovere selezione degli utenti
-        SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+        SceneHandler.getInstance().createPage(Settings.OPERATIONS_PATH + "operations.fxml");
         setLabelStyle(operationsLabel, "operations", operations);
     }
 
     @FXML
     void loadSpaces(MouseEvent event) {
         clearLabelAndBackStack();
-        SceneHandler.getInstance().setPage(SceneHandler.SPACES_PATH + "spaces.fxml");
+        SceneHandler.getInstance().setPage(Settings.SPACES_PATH + "spaces.fxml");
         setLabelStyle(spacesLabel, "spaces", spaces);
     }
 

@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.HomeController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.controller.MenuBarController;
 import com.uid.progettobanca.model.TransactionManager;
@@ -124,7 +125,7 @@ public class HomeController implements Initializable {
         filter.setOnMouseClicked(mouseEvent -> {
             Parent popupContent = null;
             try {
-                popupContent = SceneHandler.getInstance().loadPage(SceneHandler.HOME_PATH + "filterSelection.fxml");
+                popupContent = SceneHandler.getInstance().loadPage(Settings.HOME_PATH + "filterSelection.fxml");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -223,7 +224,7 @@ public class HomeController implements Initializable {
                     homeVbox.getChildren().add(vBox);
                 } else {
                     try {
-                        Parent parent = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().HOME_PATH + "noTransaction.fxml");
+                        Parent parent = SceneHandler.getInstance().loadPage(Settings.HOME_PATH + "noTransaction.fxml");
                         homeVbox.getChildren().add(parent);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -249,20 +250,20 @@ public class HomeController implements Initializable {
     void searchTransactionName(ActionEvent event) {
         HomeController.functionName = "filterSelectedTransaction";
         searchQuery = searchTextField.getText();
-        SceneHandler.getInstance().createPage(SceneHandler.HOME_PATH + "home.fxml");
+        SceneHandler.getInstance().createPage(Settings.HOME_PATH + "home.fxml");
         HomeController.functionName = "filterAllTransaction";
     }
 
     @FXML
     void openOperations(ActionEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+        SceneHandler.getInstance().createPage(Settings.OPERATIONS_PATH + "operations.fxml");
         MenuBarController.currentPage = "operations";
         SceneHandler.getInstance().createMenuBar();
     }
 
     @FXML
     void openStatistics(ActionEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.MANAGE_PATH+ "statistics.fxml");
+        SceneHandler.getInstance().createPage(Settings.MANAGE_PATH+ "statistics.fxml");
         MenuBarController.currentPage = "manage";
         SceneHandler.getInstance().createMenuBar();
     }

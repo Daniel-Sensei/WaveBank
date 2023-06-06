@@ -221,7 +221,7 @@ public class NewRecurringController implements Initializable {
                 }
                 else {
                     System.out.println("Pagamento ricorrente inserito correttamente");
-                    SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "formPagamentiRicorrenti.fxml");
+                    SceneHandler.getInstance().createPage(Settings.OPERATIONS_PATH + "formPagamentiRicorrenti.fxml");
                 }
             }
         });

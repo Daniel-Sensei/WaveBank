@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller.ManageController;
 
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.CreateCard;
 import com.uid.progettobanca.model.services.InsertCardService;
@@ -66,7 +67,7 @@ public class FormCreateCardController {
 
         cardService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof Boolean result){
-                SceneHandler.getInstance().createPage(SceneHandler.MANAGE_PATH + "manage.fxml");
+                SceneHandler.getInstance().createPage(Settings.MANAGE_PATH + "manage.fxml");
             }
         });
         cardService.setOnFailed(event -> {

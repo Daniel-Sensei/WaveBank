@@ -1,5 +1,6 @@
 package com.uid.progettobanca.view;
 
+import com.uid.progettobanca.Settings;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.scene.Parent;
@@ -15,44 +16,44 @@ public class PageLoaderService extends Service {
             //SceneHandler.HOME_PATH + "home.fxml",
             //SceneHandler.MANAGE_PATH + "manage.fxml",
             //SceneHandler.MY_ACCOUNT_PATH + "myAccount.fxml",
-            SceneHandler.HOME_PATH + "commentsSavedPopup.fxml",
-            SceneHandler.HOME_PATH + "filterSelection.fxml",
-            SceneHandler.HOME_PATH + "noTransaction.fxml",
+            Settings.HOME_PATH + "commentsSavedPopup.fxml",
+            Settings.HOME_PATH + "filterSelection.fxml",
+            Settings.HOME_PATH + "noTransaction.fxml",
 
             //SceneHandler.MANAGE_PATH + "card.fxml",
-            SceneHandler.MANAGE_PATH + "cardLockedPopup.fxml",
-            SceneHandler.MANAGE_PATH + "cardUnlockedPopup.fxml",
-            SceneHandler.MANAGE_PATH + "deleteCard.fxml",
-            SceneHandler.MANAGE_PATH + "formCreateCard.fxml",
+            Settings.MANAGE_PATH + "cardLockedPopup.fxml",
+            Settings.MANAGE_PATH + "cardUnlockedPopup.fxml",
+            Settings.MANAGE_PATH + "deleteCard.fxml",
+            Settings.MANAGE_PATH + "formCreateCard.fxml",
             //SceneHandler.MANAGE_PATH + "infoCard.fxml",
             //SceneHandler.MANAGE_PATH + "statistics.fxml",
 
-            SceneHandler.MY_ACCOUNT_PATH + "contactUs.fxml",
-            SceneHandler.MY_ACCOUNT_PATH + "deleteAccount.fxml",
-            SceneHandler.MY_ACCOUNT_PATH + "ibanCopiedPopup.fxml",
+            Settings.MY_ACCOUNT_PATH + "contactUs.fxml",
+            Settings.MY_ACCOUNT_PATH + "deleteAccount.fxml",
+            Settings.MY_ACCOUNT_PATH + "ibanCopiedPopup.fxml",
             //SceneHandler.MY_ACCOUNT_PATH + "personalData.fxml",
-            SceneHandler.MY_ACCOUNT_PATH + "safety.fxml",
-            SceneHandler.MY_ACCOUNT_PATH + "settings.fxml",
+            Settings.MY_ACCOUNT_PATH + "safety.fxml",
+            Settings.MY_ACCOUNT_PATH + "settings.fxml",
 
             //SceneHandler.OPERATIONS_PATH + "contact.fxml",
-            SceneHandler.OPERATIONS_PATH + "formBollettino.fxml",
-            SceneHandler.OPERATIONS_PATH + "formBolloAuto.fxml",
-            SceneHandler.OPERATIONS_PATH + "formBonifico.fxml",
+            Settings.OPERATIONS_PATH + "formBollettino.fxml",
+            Settings.OPERATIONS_PATH + "formBolloAuto.fxml",
+            Settings.OPERATIONS_PATH + "formBonifico.fxml",
             //SceneHandler.OPERATIONS_PATH + "formModifyContact.fxml",
-            SceneHandler.OPERATIONS_PATH + "formNewContact.fxml",
-            SceneHandler.OPERATIONS_PATH + "formNewRecurring.fxml",
+            Settings.OPERATIONS_PATH + "formNewContact.fxml",
+            Settings.OPERATIONS_PATH + "formNewRecurring.fxml",
             //SceneHandler.OPERATIONS_PATH + "formPagamentiRicorrenti.fxml",
-            SceneHandler.OPERATIONS_PATH + "formRicaricaTelefonica.fxml",
-            SceneHandler.OPERATIONS_PATH + "operations.fxml",
+            Settings.OPERATIONS_PATH + "formRicaricaTelefonica.fxml",
+            Settings.OPERATIONS_PATH + "operations.fxml",
             //SceneHandler.OPERATIONS_PATH + "recurring.fxml",
-            SceneHandler.OPERATIONS_PATH + "transactionFailed.fxml",
-            SceneHandler.OPERATIONS_PATH + "transactionSuccess.fxml",
+            Settings.OPERATIONS_PATH + "transactionFailed.fxml",
+            Settings.OPERATIONS_PATH + "transactionSuccess.fxml",
 
             //SceneHandler.SPACES_PATH + "spaces.fxml",
-            SceneHandler.SPACES_PATH + "formCreateSpace.fxml",
-            SceneHandler.SPACES_PATH + "noTransaction.fxml",
-            SceneHandler.SPACES_PATH + "spaceTransactionFailed.fxml",
-            SceneHandler.SPACES_PATH + "spaceTransactionSuccess.fxml",
+            Settings.SPACES_PATH + "formCreateSpace.fxml",
+            Settings.SPACES_PATH + "noTransaction.fxml",
+            Settings.SPACES_PATH + "spaceTransactionFailed.fxml",
+            Settings.SPACES_PATH + "spaceTransactionSuccess.fxml",
     };
 
     @Override

@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller.HomeController;
 
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -199,7 +200,7 @@ public class FilterSelectionController implements Initializable {
         popup.hide();
 
         //Bisogna reimpostare filtro di partenza
-        SceneHandler.getInstance().createPage(SceneHandler.HOME_PATH + "home.fxml");
+        SceneHandler.getInstance().createPage(Settings.HOME_PATH + "home.fxml");
         HomeController.functionName = "filterAllTransaction";
 
     }

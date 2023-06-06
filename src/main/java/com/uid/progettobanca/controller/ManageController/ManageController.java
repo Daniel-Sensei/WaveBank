@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller.ManageController;
 
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.*;
 import com.uid.progettobanca.model.objects.Carta;
@@ -54,12 +55,12 @@ public class ManageController {
 
     @FXML
     void addCardPressed(ActionEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.MANAGE_PATH + "FormCreateCard.fxml");
+        SceneHandler.getInstance().createPage(Settings.MANAGE_PATH + "FormCreateCard.fxml");
     }
 
     @FXML
     void statsPressed(ActionEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.MANAGE_PATH + "statistics.fxml");
+        SceneHandler.getInstance().createPage(Settings.MANAGE_PATH + "statistics.fxml");
     }
 
     @FXML
@@ -164,7 +165,7 @@ public class ManageController {
         cardBox.getChildren().clear();
         Parent card = null;
         try {
-            card = SceneHandler.getInstance().loadPage(SceneHandler.MANAGE_PATH + "card.fxml");
+            card = SceneHandler.getInstance().loadPage(Settings.MANAGE_PATH + "card.fxml");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -35,18 +35,7 @@ public class SceneHandler {
 
     private FXMLLoader fxmlLoader;
 
-    private final static String RESOURCE_PATH = "/com/uid/progettobanca/";
-
-    private final static String CSS_PATH = "/css/" ;
-
-    private final static String FONTS_PATH = CSS_PATH + "fonts/";
-    public final static String HOME_PATH = "/Home/";
-    public final static String MANAGE_PATH = "/Manage/";
-    public final static String OPERATIONS_PATH = "/Operations/";
-    public final static String SPACES_PATH = "/Spaces/";
-    public final static String MY_ACCOUNT_PATH = "/MyAccount/";
-
-    String[] dynamicPages = {HOME_PATH + "home.fxml", MANAGE_PATH + "manage.fxml", SPACES_PATH + "spaces.fxml"};
+    String[] dynamicPages = {Settings.HOME_PATH + "home.fxml", Settings.MANAGE_PATH + "manage.fxml", Settings.SPACES_PATH + "spaces.fxml"};
 
     public static BorderPane borderPane = new BorderPane();
 
@@ -83,7 +72,7 @@ public class SceneHandler {
         createPage( "login.fxml");
 
         this.stage.setScene(scene);
-        this.stage.getScene().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + Settings.CSS_THEME, CSS_PATH + "style.css");
+        this.stage.getScene().getStylesheets().addAll(Settings.CSS_PATH + "fonts.css", Settings.CSS_PATH + Settings.CSS_THEME, Settings.CSS_PATH + "style.css");
         this.stage.setResizable(false);
         // Centra la finestra dello stage sulla schermata
         this.stage.setX((screenWidth - scene.getWidth()) / 2);
@@ -109,14 +98,14 @@ public class SceneHandler {
         loadFonts();
 
         createMenuBar();
-        createPage(HOME_PATH + "home.fxml");
+        createPage(Settings.HOME_PATH + "home.fxml");
 
         PageLoaderService pageLoaderService = new PageLoaderService();
         pageLoaderService.start();
 
 
         this.stage.setScene(scene);
-        this.stage.getScene().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + Settings.CSS_THEME, CSS_PATH + "style.css");
+        this.stage.getScene().getStylesheets().addAll(Settings.CSS_PATH + "fonts.css", Settings.CSS_PATH + Settings.CSS_THEME, Settings.CSS_PATH + "style.css");
         this.stage.setResizable(false);
         // Centra la finestra dello stage sulla schermata
         this.stage.setX((screenWidth - scene.getWidth()) / 2);
@@ -129,6 +118,8 @@ public class SceneHandler {
                 conferma = SceneHandler.getInstance().showMessage("question", "Close App","Confirm App Closure", "Are you sure you want to close the application?").equals("Annulla");
             if(conferma)
                 e.consume();
+            else //salva il tema e la lingua selezionata in un file di configurazione
+                Settings.saveSettings();
         });
         this.stage.show();
 
@@ -138,7 +129,7 @@ public class SceneHandler {
         // se inizia per / la rimuovo
         if(resourceName.startsWith("/"))
             resourceName = resourceName.substring(1);
-        fxmlLoader = new FXMLLoader(getClass().getResource(RESOURCE_PATH + resourceName));
+        fxmlLoader = new FXMLLoader(getClass().getResource(Settings.RESOURCE_PATH + resourceName));
         fxmlLoader.setResources(ResourceBundle.getBundle("bundle", locale));
         return fxmlLoader.load();
     }
@@ -148,7 +139,7 @@ public class SceneHandler {
     }
 
     private void loadFonts() {
-        for (String font : List.of(FONTS_PATH + "Roboto/Roboto-Regular.ttf", FONTS_PATH + "Roboto/Roboto-Bold.ttf", FONTS_PATH + "0crB/OcrB2.ttf")) {
+        for (String font : List.of(Settings.FONTS_PATH + "Roboto/Roboto-Regular.ttf", Settings.FONTS_PATH + "Roboto/Roboto-Bold.ttf", Settings.FONTS_PATH + "0crB/OcrB2.ttf")) {
             Font.loadFont(Objects.requireNonNull(SceneHandler.class.getResource(font)).toExternalForm(), 10);
         }
     }
@@ -247,7 +238,6 @@ public class SceneHandler {
     }
 
 
-
     public String showMessage(String type, String pageTitle, String headerMassage, String contentText) {
         Alert alert;
         switch(type){
@@ -278,7 +268,7 @@ public class SceneHandler {
         alert.setContentText(contentText);
 
         //imposta all'alert il css in uso nelle altre pagine
-        alert.getDialogPane().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + Settings.CSS_THEME, CSS_PATH + "style.css");
+        alert.getDialogPane().getStylesheets().addAll(Settings.CSS_PATH + "fonts.css", Settings.CSS_PATH + Settings.CSS_THEME, Settings.CSS_PATH + "style.css");
         //imposta il css dello sfondo a background
         alert.getDialogPane().getStyleClass().add("background");
         alert.getDialogPane().setStyle("-fx-padding: 0px 0px 10px 0px;");
@@ -309,7 +299,7 @@ public class SceneHandler {
     public void changeThemeLanguage() {
         pages.clear();
         this.stage.getScene().getStylesheets().clear();
-        this.stage.getScene().getStylesheets().addAll(CSS_PATH + "fonts.css", CSS_PATH + Settings.CSS_THEME, CSS_PATH + "style.css");
+        this.stage.getScene().getStylesheets().addAll(Settings.CSS_PATH + "fonts.css", Settings.CSS_PATH + Settings.CSS_THEME, Settings.CSS_PATH + "style.css");
         createMenuBar();
         PageLoaderService pageLoaderService = new PageLoaderService();
         pageLoaderService.start();

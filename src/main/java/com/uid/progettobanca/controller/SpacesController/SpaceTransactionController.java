@@ -3,9 +3,6 @@ package com.uid.progettobanca.controller.SpacesController;
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
-import com.uid.progettobanca.controller.MyAccountController.SettingsController;
-import com.uid.progettobanca.model.DAO.ContiDAO;
-import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.SpaceTransactionManager;
 import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.model.services.TransactionService;
@@ -72,10 +69,10 @@ public class SpaceTransactionController implements Initializable {
         transactionService.setOnSucceeded(e -> {
             SceneHandler.getInstance().reloadDynamicPageInHashMap();
             if (transactionService.getValue()) {
-                SceneHandler.getInstance().setPage(SceneHandler.SPACES_PATH + "spaceTransactionSuccess.fxml");
+                SceneHandler.getInstance().setPage(Settings.SPACES_PATH + "spaceTransactionSuccess.fxml");
             }
             else{
-                SceneHandler.getInstance().setPage(SceneHandler.SPACES_PATH + "spaceTransactionFailed.fxml");
+                SceneHandler.getInstance().setPage(Settings.SPACES_PATH + "spaceTransactionFailed.fxml");
             }
         });
     }
@@ -109,8 +106,8 @@ public class SpaceTransactionController implements Initializable {
         GenericController.loadImages(spaceTransactionImages);
 
         try{
-            Parent comboBox = SceneHandler.getInstance().loadPage(SceneHandler.SPACES_PATH + "spaceTransactionComboBox.fxml");
-            Parent label = SceneHandler.getInstance().loadPage(SceneHandler.SPACES_PATH + "spaceTransactionLabel.fxml");
+            Parent comboBox = SceneHandler.getInstance().loadPage(Settings.SPACES_PATH + "spaceTransactionComboBox.fxml");
+            Parent label = SceneHandler.getInstance().loadPage(Settings.SPACES_PATH + "spaceTransactionLabel.fxml");
             if(SpacesManager.getInstance().getTransactionDirection().equals("Sx")) {
                 firstElement.getChildren().add(comboBox);
                 lastElement.getChildren().add(label);

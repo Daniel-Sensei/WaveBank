@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.HomeController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.FormCompilationThread;
 import com.uid.progettobanca.model.objects.Space;
@@ -13,7 +14,6 @@ import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.effect.BoxBlur;
@@ -33,7 +33,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Queue;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class TransactionDetailsController implements Initializable {
     private Transazione transaction;
@@ -226,7 +225,7 @@ public class TransactionDetailsController implements Initializable {
             TransactionManager.getInstance().putTransaction(transaction);
             Parent popupContent = null;
             try {
-                popupContent = SceneHandler.getInstance().loadPage(SceneHandler.HOME_PATH + "tagSelection.fxml");
+                popupContent = SceneHandler.getInstance().loadPage(Settings.HOME_PATH + "tagSelection.fxml");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -255,7 +254,7 @@ public class TransactionDetailsController implements Initializable {
 
             popup.setOnHidden(event -> {
                 tagHBox.getScene().getRoot().setEffect(null);
-                SceneHandler.getInstance().createPage(SceneHandler.HOME_PATH + "transactionDetails.fxml");
+                SceneHandler.getInstance().createPage(Settings.HOME_PATH + "transactionDetails.fxml");
             });
 
             popup.show(tagHBox.getScene().getWindow());
@@ -275,8 +274,8 @@ public class TransactionDetailsController implements Initializable {
         transactionService.setOnSucceeded(event1 -> {
             if(event1.getSource().getValue() instanceof Boolean result)
                 if(result) {
-                    SceneHandler.getInstance().showInfoPopup(SceneHandler.HOME_PATH + "commentsSavedPopup.fxml", (Stage) saveCommentsButton.getScene().getWindow(), 350, 75);
-                    SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.HOME_PATH + "home.fxml");
+                    SceneHandler.getInstance().showInfoPopup(Settings.HOME_PATH + "commentsSavedPopup.fxml", (Stage) saveCommentsButton.getScene().getWindow(), 350, 75);
+                    SceneHandler.getInstance().reloadPageInHashMap(Settings.HOME_PATH + "home.fxml");
                 }
         });
     }

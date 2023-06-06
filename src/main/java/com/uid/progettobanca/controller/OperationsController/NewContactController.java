@@ -61,7 +61,7 @@ public class NewContactController implements Initializable {
                 SceneHandler.getInstance().showMessage("info", "Aggiunta Contatto", "Contatto aggiunto", "Il contatto è stato aggiunto correttamente.");
             else
                 SceneHandler.getInstance().showMessage("info", "Add Contact", "Contact added", "The contact has been successfully added.");
-            SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+            SceneHandler.getInstance().createPage(Settings.OPERATIONS_PATH + "operations.fxml");
         });
         contactService.setOnFailed(e -> {
             throw new RuntimeException(e.getSource().getException());

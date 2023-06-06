@@ -2,11 +2,7 @@ package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
-import com.uid.progettobanca.model.objects.Contatto;
 import com.uid.progettobanca.model.objects.Transazione;
-import com.uid.progettobanca.model.objects.Utente;
-import com.uid.progettobanca.model.services.GetContactService;
-import com.uid.progettobanca.model.services.GetUserService;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
@@ -97,7 +93,7 @@ public class TransactionManager {
 
         for(int j=0; j<nTransaction; j++){
             try {
-                Parent transaction = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().HOME_PATH + "transaction.fxml");
+                Parent transaction = SceneHandler.getInstance().loadPage(Settings.HOME_PATH + "transaction.fxml");
                 if(j == nTransaction-1){
                     transaction.getStyleClass().add("vbox-with-rounded-border-hbox-bottom");
                 }

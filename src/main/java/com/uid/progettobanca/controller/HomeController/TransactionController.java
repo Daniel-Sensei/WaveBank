@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller.HomeController;
 
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.objects.Transazione;
@@ -56,7 +57,7 @@ public class TransactionController implements Initializable {
     void openTransactionDetails(MouseEvent event) {
         //new TransactionDetailsController(transaction);
         TransactionManager.getInstance().putTransaction(transaction);
-        SceneHandler.getInstance().createPage(SceneHandler.HOME_PATH + "transactionDetails.fxml");
+        SceneHandler.getInstance().createPage(Settings.HOME_PATH + "transactionDetails.fxml");
     }
 
 }

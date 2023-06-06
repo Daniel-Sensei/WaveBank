@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller.ManageController;
 
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.CardOperationsThread;
 import com.uid.progettobanca.model.CardsManager;
@@ -55,7 +56,7 @@ public class DeleteCardController {
 
             //setonsucceded event
             CardsManager.getInstance().setPos(0);
-            SceneHandler.getInstance().createPage(SceneHandler.MANAGE_PATH + "manage.fxml");
+            SceneHandler.getInstance().createPage(Settings.MANAGE_PATH + "manage.fxml");
         }
     }
 

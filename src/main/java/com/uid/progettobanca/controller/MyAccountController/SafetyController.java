@@ -85,8 +85,8 @@ public class SafetyController {
                             else{
                                 SceneHandler.getInstance().showMessage("info", "Password change", "Password change completed", "You have changed your password!");
                             }
-                            SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.MY_ACCOUNT_PATH + "safety.fxml");
-                            SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "myAccount.fxml");
+                            SceneHandler.getInstance().reloadPageInHashMap(Settings.MY_ACCOUNT_PATH + "safety.fxml");
+                            SceneHandler.getInstance().setPage(Settings.MY_ACCOUNT_PATH + "myAccount.fxml");
                         }
                     });
                     userService2.setOnFailed(event2 -> {

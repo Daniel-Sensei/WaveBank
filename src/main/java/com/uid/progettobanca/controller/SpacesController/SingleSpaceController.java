@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller.SpacesController;
 
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.objects.Space;
 import com.uid.progettobanca.model.SpacesManager;
@@ -36,12 +37,12 @@ public class SingleSpaceController implements Initializable {
     @FXML
     void openSpacePage(MouseEvent event) throws IOException {
         SpacesManager.getInstance().setCurrentSpace(space);
-        SceneHandler.getInstance().createPage(SceneHandler.SPACES_PATH + "singleSpacePage.fxml");
+        SceneHandler.getInstance().createPage(Settings.SPACES_PATH + "singleSpacePage.fxml");
     }
 
     @FXML
     void openTransaction(DragEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.SPACES_PATH + "transactionPage.fxml");
+        SceneHandler.getInstance().createPage(Settings.SPACES_PATH + "transactionPage.fxml");
     }
 
     @Override

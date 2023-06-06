@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller.ManageController;
 
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.controller.MenuBarController;
 import com.uid.progettobanca.model.ChartsManager;
@@ -51,7 +52,7 @@ public class StatisticsController {
                 hBox.setPrefWidth(Region.USE_COMPUTED_SIZE);
             }
             try {
-                Parent singleChart = SceneHandler.getInstance().loadPage(SceneHandler.MANAGE_PATH + "singleChart.fxml");
+                Parent singleChart = SceneHandler.getInstance().loadPage(Settings.MANAGE_PATH + "singleChart.fxml");
                 hBox.getChildren().add(singleChart);        //aggiunge il grafico alla riga
             } catch (IOException e) {
                 System.out.println("Initialize chart failed");

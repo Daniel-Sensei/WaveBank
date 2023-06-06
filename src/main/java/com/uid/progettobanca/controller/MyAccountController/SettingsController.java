@@ -35,7 +35,7 @@ public class SettingsController implements Initializable {
 
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {
-        SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "myAccount.fxml");
+        SceneHandler.getInstance().setPage(Settings.MY_ACCOUNT_PATH + "myAccount.fxml");
     }
 
     @Override
@@ -51,17 +51,14 @@ public class SettingsController implements Initializable {
         if(choice.equals("Chiaro") && !theme.equals("light.css")){
             Settings.switchTheme();
             theme = "dark.css";
-            MenuBarController.currentPage = "myAccount";
-            SceneHandler.getInstance().changeThemeLanguage();
-            SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "settings.fxml");
         }
         else if(choice.equals("Scuro") && !theme.equals("dark.css")){
             Settings.switchTheme();
             theme = "light.css";
-            MenuBarController.currentPage = "myAccount";
-            SceneHandler.getInstance().changeThemeLanguage();
-            SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "settings.fxml");
         }
+        MenuBarController.currentPage = "myAccount";
+        SceneHandler.getInstance().changeThemeLanguage();
+        SceneHandler.getInstance().setPage(Settings.MY_ACCOUNT_PATH + "settings.fxml");
     }
 
     @FXML
@@ -71,17 +68,14 @@ public class SettingsController implements Initializable {
         if  (choice.equals("Italiano") && !language.equals("IT")){
             Locale ita = new Locale("IT");
             Settings.locale = ita;
-            MenuBarController.currentPage = "myAccount";
-            SceneHandler.getInstance().changeThemeLanguage();
-            SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "settings.fxml");
         }
         else if (choice.equals("English") && !language.equals("EN")){
             Locale en = new Locale("EN");
             Settings.locale = en;
-            MenuBarController.currentPage = "myAccount";
-            SceneHandler.getInstance().changeThemeLanguage();
-            SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "settings.fxml");
         }
+        MenuBarController.currentPage = "myAccount";
+        SceneHandler.getInstance().changeThemeLanguage();
+        SceneHandler.getInstance().setPage(Settings.MY_ACCOUNT_PATH + "settings.fxml");
     }
 
 }

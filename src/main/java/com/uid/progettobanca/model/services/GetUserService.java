@@ -6,7 +6,6 @@ import com.uid.progettobanca.model.objects.Utente;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
-import java.util.List;
 
 public class GetUserService extends Service<Utente> {
     private String action = "";

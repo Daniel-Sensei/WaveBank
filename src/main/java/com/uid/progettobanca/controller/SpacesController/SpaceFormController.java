@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.SpacesController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.services.SpaceService;
 import com.uid.progettobanca.view.BackStack;
@@ -65,7 +66,7 @@ public class SpaceFormController implements Initializable {
         SpaceService spaceService = new SpaceService(action, iban, nome, image, saldo, data);
         spaceService.restart();
         spaceService.setOnSucceeded(e -> {
-            SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.SPACES_PATH +"spaces.fxml");
+            SceneHandler.getInstance().reloadPageInHashMap(Settings.SPACES_PATH +"spaces.fxml");
             try {
                 BackStack.getInstance().loadPreviousPage();
             } catch (IOException ex) {

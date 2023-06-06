@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.objects.Contatto;
 import com.uid.progettobanca.model.objects.Space;
@@ -22,7 +23,6 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 import java.util.Queue;
 import java.util.ResourceBundle;
@@ -201,7 +201,7 @@ public class BonificoController implements Initializable {
                                                         contactService.restart();
                                                         contactService.setOnSucceeded(e4 -> {
                                                             if ((Boolean) e4.getSource().getValue()) {
-                                                                SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+                                                                SceneHandler.getInstance().reloadPageInHashMap(Settings.OPERATIONS_PATH + "operations.fxml");
                                                             }
                                                         });
                                                         contactService.setOnFailed(e4 -> {
@@ -215,7 +215,7 @@ public class BonificoController implements Initializable {
                                             });
                                         }
                                         SceneHandler.getInstance().reloadDynamicPageInHashMap();
-                                        SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "transactionSuccess.fxml");
+                                        SceneHandler.getInstance().setPage(Settings.OPERATIONS_PATH + "transactionSuccess.fxml");
                                     }
                                 });
                                 transactionService.setOnFailed(e2 -> {
@@ -227,7 +227,7 @@ public class BonificoController implements Initializable {
                             throw new RuntimeException(e1.getSource().getException());
                         });
                     }else{
-                        SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "transactionFailed.fxml");
+                        SceneHandler.getInstance().setPage(Settings.OPERATIONS_PATH + "transactionFailed.fxml");
                     }
                 });
                 transactionService.setOnFailed(e7 -> {

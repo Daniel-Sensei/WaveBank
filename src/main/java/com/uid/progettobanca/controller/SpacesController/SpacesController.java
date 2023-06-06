@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.SpacesController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.services.GetSpaceService;
 import com.uid.progettobanca.model.SpacesManager;
@@ -36,7 +37,7 @@ public class SpacesController implements Initializable {
 
     @FXML
     void createSpaceForm(ActionEvent event) throws IOException {
-        SceneHandler.getInstance().createPage(SceneHandler.SPACES_PATH + "formCreateSpace.fxml");
+        SceneHandler.getInstance().createPage(Settings.SPACES_PATH + "formCreateSpace.fxml");
     }
 
     @Override
@@ -54,7 +55,7 @@ public class SpacesController implements Initializable {
                 SpacesManager.getInstance().fillList(getSpaceService.getValue());
                 int nSpaces = SpacesManager.getInstance().getSize();
                 for (int i = 0; i < nSpaces; i++) {
-                    Parent singleSpace = SceneHandler.getInstance().loadPage(SceneHandler.SPACES_PATH + "singleSpace.fxml");
+                    Parent singleSpace = SceneHandler.getInstance().loadPage(Settings.SPACES_PATH + "singleSpace.fxml");
                     listOfSpaces.getChildren().add(singleSpace);
                 }
             } catch (IOException exception) {

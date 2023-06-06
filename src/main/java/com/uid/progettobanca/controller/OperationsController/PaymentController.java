@@ -57,7 +57,7 @@ public class PaymentController implements Initializable {
             recurringService.start();
             recurringService.setOnSucceeded(e -> {
                 if(e.getSource().getValue() instanceof Boolean){
-                    SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "formPagamentiRicorrenti.fxml");
+                    SceneHandler.getInstance().createPage(Settings.OPERATIONS_PATH + "formPagamentiRicorrenti.fxml");
                 }
             });
             recurringService.setOnFailed(e -> {

@@ -77,7 +77,7 @@ public class OperationsController implements Initializable {
     }
 
     void openGenericForm(String formName){
-        SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + formName);
+        SceneHandler.getInstance().createPage(Settings.OPERATIONS_PATH + formName);
     }
 
     @FXML
@@ -135,7 +135,7 @@ public class OperationsController implements Initializable {
     private void initializeContacts(int nContacts, Node[] lastSelectedContact) {
         try {
             for (int i = 0; i < nContacts; i++) {
-                Parent contact = SceneHandler.getInstance().loadPage(SceneHandler.OPERATIONS_PATH + "contact.fxml");
+                Parent contact = SceneHandler.getInstance().loadPage(Settings.OPERATIONS_PATH + "contact.fxml");
                 contact.getStyleClass().add("vbox-with-rounded-border-hbox");
                 contactsVBox.getChildren().add(contact);
             }
@@ -220,7 +220,7 @@ public class OperationsController implements Initializable {
 
     @FXML
     void onNewButtonClick(ActionEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "formNewContact.fxml");
+        SceneHandler.getInstance().createPage(Settings.OPERATIONS_PATH + "formNewContact.fxml");
     }
 
     public static Contatto getSelectedContact(){
@@ -233,7 +233,7 @@ public class OperationsController implements Initializable {
     @FXML
     void onModifyClick(ActionEvent event) {
         if (selectedContact != -1) {
-            SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "formModifyContact.fxml");
+            SceneHandler.getInstance().createPage(Settings.OPERATIONS_PATH + "formModifyContact.fxml");
         }
     }
 
