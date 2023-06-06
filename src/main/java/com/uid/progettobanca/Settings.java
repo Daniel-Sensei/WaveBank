@@ -50,6 +50,8 @@ public class Settings {
             writer.write("Theme: " + CSS_THEME);
             writer.newLine();
             writer.write("Icons: " + IMAGE_THEME);
+            writer.newLine();
+            writer.write("Send: " + sendButton);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
@@ -86,6 +88,8 @@ public class Settings {
                 } else if (line.startsWith("Icons:")) {
                     IMAGE_THEME = trim;
                     IMAGE_PATH = GENERIC_IMAGE_PATH + IMAGE_THEME;
+                } else if (line.startsWith("Send:")) {
+                    sendButton = trim;
                 }
             }
         } catch (IOException e) {
