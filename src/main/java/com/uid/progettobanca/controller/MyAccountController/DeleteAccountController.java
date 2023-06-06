@@ -24,8 +24,6 @@ public class DeleteAccountController {
     private ImageView back;
     @FXML
     private TextField password;
-    @FXML
-    private Button loginButton;
 
     private UserService userService = new UserService();
     @FXML
@@ -73,9 +71,5 @@ public class DeleteAccountController {
         GenericController.loadImage(back);
     }
 
-    @FXML
-    void backToLogin(ActionEvent event) {
-        SceneHandler.getInstance().createLoginScene((Stage) loginButton.getScene().getWindow());
-    }
 
 }

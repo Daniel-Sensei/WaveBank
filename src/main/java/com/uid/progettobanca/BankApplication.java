@@ -16,7 +16,7 @@ public class BankApplication extends Application {
     public static void setCurrentlyLoggedUser(int user) {currentlyLoggedUser = user;}
     public static int getCurrentlyLoggedUser() {return currentlyLoggedUser;}
 
-    private static String currentlyLoggedIban = null;
+    private static String currentlyLoggedIban = "IT6557741166469259890884056";
     public static void setCurrentlyLoggedIban(String iban) {currentlyLoggedIban = iban;}
     public static String getCurrentlyLoggedIban() {return currentlyLoggedIban;}
 

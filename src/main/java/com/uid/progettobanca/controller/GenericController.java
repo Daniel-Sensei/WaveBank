@@ -3,13 +3,23 @@ package com.uid.progettobanca.controller;
 import java.util.ArrayList;
 
 import com.uid.progettobanca.Settings;
+import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.ImageUtils;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class GenericController {
+    @FXML
+    private Button reloadPage;
+
+    @FXML
+    void reloadPage(ActionEvent event) {
+
+    }
 
     public static void loadImages(ArrayList<ImageView> images) {
         for (ImageView imageView : images) {
