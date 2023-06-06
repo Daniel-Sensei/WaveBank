@@ -4,13 +4,13 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.MyAccountController.DeleteAccountController">
+<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.MyAccountController.DeleteAccountController">
    <padding>
       <Insets left="200.0" right="215.0" />
    </padding>
@@ -47,10 +47,7 @@
                   <Label prefWidth="866.0" styleClass="subtitleLabel" text="%closeAccountDisclaimer" wrapText="true" />
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                      <children>
-                        <TextField fx:id="password" maxWidth="300.0" prefHeight="40.0" promptText="%confirmPassword">
-                           <cursor>
-                              <Cursor fx:constant="TEXT" />
-                           </cursor></TextField>
+                        <PasswordField fx:id="password" maxWidth="300.0" prefHeight="40.0" promptText="%confirmPassword" />
                         <Button mnemonicParsing="false" onAction="#deleteAccount" prefHeight="40.0" styleClass="redButton" text="%closeAccountButton">
                            <padding>
                               <Insets left="20.0" right="20.0" />
