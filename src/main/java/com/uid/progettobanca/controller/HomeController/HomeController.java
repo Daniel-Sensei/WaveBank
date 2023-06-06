@@ -2,6 +2,7 @@ package com.uid.progettobanca.controller.HomeController;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.controller.GenericController;
+import com.uid.progettobanca.controller.MenuBarController;
 import com.uid.progettobanca.model.TransactionManager;
 import com.uid.progettobanca.model.objects.Conto;
 import com.uid.progettobanca.model.services.GetAccountService;
@@ -13,10 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -257,12 +255,16 @@ public class HomeController implements Initializable {
 
     @FXML
     void openOperations(ActionEvent event) {
-        SceneHandler.getInstance().setPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+        SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
+        MenuBarController.currentPage = "operations";
+        SceneHandler.getInstance().createMenuBar();
     }
 
     @FXML
     void openStatistics(ActionEvent event) {
-        SceneHandler.getInstance().setPage(SceneHandler.MANAGE_PATH+ "statistics.fxml");
+        SceneHandler.getInstance().createPage(SceneHandler.MANAGE_PATH+ "statistics.fxml");
+        MenuBarController.currentPage = "manage";
+        SceneHandler.getInstance().createMenuBar();
     }
 
 

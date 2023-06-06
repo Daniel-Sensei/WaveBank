@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.ManageController;
 
 import com.uid.progettobanca.controller.GenericController;
+import com.uid.progettobanca.controller.MenuBarController;
 import com.uid.progettobanca.model.ChartsManager;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.SceneHandler;
@@ -27,11 +28,11 @@ public class StatisticsController {
     private ImageView back;
 
     @FXML
-    void loadPreviousPage(MouseEvent event) {
-        try {
-            BackStack.getInstance().loadPreviousPage();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    void loadPreviousPage(MouseEvent event) throws IOException {
+        BackStack.getInstance().loadPreviousPage();
+        if(BackStack.getInstance().peek().equals("/Home/home.fxml")){
+            MenuBarController.currentPage = "home";
+            SceneHandler.getInstance().createMenuBar();
         }
     }
 

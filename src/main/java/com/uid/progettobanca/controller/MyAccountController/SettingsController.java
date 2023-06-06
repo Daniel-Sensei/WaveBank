@@ -2,6 +2,7 @@ package com.uid.progettobanca.controller.MyAccountController;
 
 import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
+import com.uid.progettobanca.controller.MenuBarController;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,12 +51,14 @@ public class SettingsController implements Initializable {
         if(choice.equals("Chiaro") && !theme.equals("light.css")){
             Settings.switchTheme();
             theme = "dark.css";
+            MenuBarController.currentPage = "myAccount";
             SceneHandler.getInstance().changeThemeLanguage();
             SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "settings.fxml");
         }
         else if(choice.equals("Scuro") && !theme.equals("dark.css")){
             Settings.switchTheme();
             theme = "light.css";
+            MenuBarController.currentPage = "myAccount";
             SceneHandler.getInstance().changeThemeLanguage();
             SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "settings.fxml");
         }
@@ -68,12 +71,14 @@ public class SettingsController implements Initializable {
         if  (choice.equals("Italiano") && !language.equals("IT")){
             Locale ita = new Locale("IT");
             Settings.locale = ita;
+            MenuBarController.currentPage = "myAccount";
             SceneHandler.getInstance().changeThemeLanguage();
             SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "settings.fxml");
         }
         else if (choice.equals("English") && !language.equals("EN")){
             Locale en = new Locale("EN");
             Settings.locale = en;
+            MenuBarController.currentPage = "myAccount";
             SceneHandler.getInstance().changeThemeLanguage();
             SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "settings.fxml");
         }

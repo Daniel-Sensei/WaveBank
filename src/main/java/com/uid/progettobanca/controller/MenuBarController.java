@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 
 public class MenuBarController implements Initializable {
 
+    public static String currentPage = "home";
     @FXML
     private ImageView home;
 
@@ -75,10 +76,19 @@ public class MenuBarController implements Initializable {
             loadMenuBarImages();
         }
         GenericController.loadImages(menuBarImages);
-        if(Settings.themeChanged == false)
+
+        if(currentPage.equals("home"))
             setLabelStyle(homeLabel, "home", home);
-        else
+        else if(currentPage.equals("spaces"))
+            setLabelStyle(spacesLabel, "spaces", spaces);
+        else if(currentPage.equals("operations"))
+            setLabelStyle(operationsLabel, "operations", operations);
+        else if(currentPage.equals("manage"))
+            setLabelStyle(manageLabel, "manage", manage);
+        else if(currentPage.equals("myAccount"))
             setLabelStyle(myAccountLabel, "myAccount", myAccount);
+        else
+            setLabelStyle(homeLabel, "home", home);
     }
 
     private void setLabelStyle(Label label, String name, ImageView imageView){
