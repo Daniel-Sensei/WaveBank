@@ -1,9 +1,9 @@
 package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.controller.GenericController;
-import com.uid.progettobanca.model.RecurrentManager;
+import com.uid.progettobanca.model.RecurringManager;
 import com.uid.progettobanca.model.objects.Ricorrente;
-import com.uid.progettobanca.model.services.GetRecurrentsService;
+import com.uid.progettobanca.model.services.GetRecurringService;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.fxml.FXML;
@@ -40,24 +40,24 @@ public class PagamentiRicorrentiController implements Initializable {
 
     @FXML
     void onAddNewClick(MouseEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "formNewRecurrent.fxml");
+        SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "formNewRecurring.fxml");
     }
 
-    GetRecurrentsService getRecurrentsService = new GetRecurrentsService();
+    GetRecurringService getRecurringService = new GetRecurringService();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         GenericController.loadImage(back);
         GenericController.loadImage(add);
-        getRecurrentsService.start();
-        getRecurrentsService.setOnSucceeded(event -> {
+        getRecurringService.start();
+        getRecurringService.setOnSucceeded(event -> {
             if (event.getSource().getValue() instanceof Queue<?> queue) {
-                RecurrentManager.getInstance().fillPayments((Queue<Ricorrente>) queue);
-                int nPayments = RecurrentManager.getInstance().getSize();
+                RecurringManager.getInstance().fillPayments((Queue<Ricorrente>) queue);
+                int nPayments = RecurringManager.getInstance().getSize();
                 for(int i=0; i<nPayments; i++){
                     Parent payment = null;
                     try {
-                        payment = SceneHandler.getInstance().loadPage(SceneHandler.OPERATIONS_PATH + "recurrent.fxml");
+                        payment = SceneHandler.getInstance().loadPage(SceneHandler.OPERATIONS_PATH + "recurring.fxml");
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -66,7 +66,7 @@ public class PagamentiRicorrentiController implements Initializable {
                 }
             }
         });
-        getRecurrentsService.setOnFailed(event -> {
+        getRecurringService.setOnFailed(event -> {
             throw new RuntimeException(event.getSource().getException());
         });
     }

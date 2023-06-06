@@ -100,21 +100,21 @@ public class MenuBarController implements Initializable {
     void loadHome(MouseEvent event) {
         clearLabelAndBackStack();
         FilterSelectionController.clearMemory();
-        SceneHandler.getInstance().setPage(SceneHandler.getInstance().HOME_PATH + "home.fxml");
+        SceneHandler.getInstance().setPage(SceneHandler.HOME_PATH + "home.fxml");
         setLabelStyle(homeLabel, "home", home);
     }
 
     @FXML
     void loadManage(MouseEvent event) {
         clearLabelAndBackStack();
-        SceneHandler.getInstance().setPage(SceneHandler.getInstance().MANAGE_PATH + "manage.fxml");
+        SceneHandler.getInstance().setPage(SceneHandler.MANAGE_PATH + "manage.fxml");
         setLabelStyle(manageLabel, "manage", manage);
     }
 
     @FXML
     void loadMyAccount(MouseEvent event) {
         clearLabelAndBackStack();
-        SceneHandler.getInstance().setPage(SceneHandler.getInstance().MY_ACCOUNT_PATH + "myAccount.fxml");
+        SceneHandler.getInstance().setPage(SceneHandler.MY_ACCOUNT_PATH + "myAccount.fxml");
         setLabelStyle(myAccountLabel, "myAccount", myAccount);
 
     }
@@ -123,14 +123,14 @@ public class MenuBarController implements Initializable {
     public void loadOperations(MouseEvent event) {
         clearLabelAndBackStack();
         //si usa il create page per rimuovere selezione degli utenti
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().OPERATIONS_PATH + "operations.fxml");
+        SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
         setLabelStyle(operationsLabel, "operations", operations);
     }
 
     @FXML
     void loadSpaces(MouseEvent event) {
         clearLabelAndBackStack();
-        SceneHandler.getInstance().setPage(SceneHandler.getInstance().SPACES_PATH + "spaces.fxml");
+        SceneHandler.getInstance().setPage(SceneHandler.SPACES_PATH + "spaces.fxml");
         setLabelStyle(spacesLabel, "spaces", spaces);
     }
 

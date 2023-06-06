@@ -40,11 +40,11 @@ public class PageLoaderService extends Service {
             SceneHandler.OPERATIONS_PATH + "formBonifico.fxml",
             //SceneHandler.OPERATIONS_PATH + "formModifyContact.fxml",
             SceneHandler.OPERATIONS_PATH + "formNewContact.fxml",
-            SceneHandler.OPERATIONS_PATH + "formNewRecurrent.fxml",
+            SceneHandler.OPERATIONS_PATH + "formNewRecurring.fxml",
             //SceneHandler.OPERATIONS_PATH + "formPagamentiRicorrenti.fxml",
             SceneHandler.OPERATIONS_PATH + "formRicaricaTelefonica.fxml",
             SceneHandler.OPERATIONS_PATH + "operations.fxml",
-            //SceneHandler.OPERATIONS_PATH + "recurrent.fxml",
+            //SceneHandler.OPERATIONS_PATH + "recurring.fxml",
             SceneHandler.OPERATIONS_PATH + "transactionFailed.fxml",
             SceneHandler.OPERATIONS_PATH + "transactionSuccess.fxml",
 

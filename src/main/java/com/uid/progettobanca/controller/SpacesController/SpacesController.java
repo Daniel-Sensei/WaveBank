@@ -36,7 +36,7 @@ public class SpacesController implements Initializable {
 
     @FXML
     void createSpaceForm(ActionEvent event) throws IOException {
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "formCreateSpace.fxml");
+        SceneHandler.getInstance().createPage(SceneHandler.SPACES_PATH + "formCreateSpace.fxml");
     }
 
     @Override
@@ -54,7 +54,7 @@ public class SpacesController implements Initializable {
                 SpacesManager.getInstance().fillList(getSpaceService.getValue());
                 int nSpaces = SpacesManager.getInstance().getSize();
                 for (int i = 0; i < nSpaces; i++) {
-                    Parent singleSpace = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().SPACES_PATH + "singleSpace.fxml");
+                    Parent singleSpace = SceneHandler.getInstance().loadPage(SceneHandler.SPACES_PATH + "singleSpace.fxml");
                     listOfSpaces.getChildren().add(singleSpace);
                 }
             } catch (IOException exception) {

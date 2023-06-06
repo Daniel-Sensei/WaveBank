@@ -1,18 +1,13 @@
 package com.uid.progettobanca.controller.OperationsController;
 
-import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
-import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.model.objects.Ricorrente;
-import com.uid.progettobanca.model.RecurrentManager;
-import com.uid.progettobanca.model.services.RecurrentService;
-import com.uid.progettobanca.model.services.SpaceService;
-import com.uid.progettobanca.view.BackStack;
+import com.uid.progettobanca.model.RecurringManager;
+import com.uid.progettobanca.model.services.RecurringService;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -49,18 +44,23 @@ public class PaymentController implements Initializable {
     }
 
     @FXML
-    void deleteThisRecurrent(MouseEvent event) throws IOException {
-        if(SceneHandler.getInstance().showMessage("question", "Conferma","Conferma eliminazione", "Sei sicuro di voler eliminare questo pagamento ricorrente?").equals("OK")){
-            RecurrentService recurrentService = new RecurrentService();
-            recurrentService.setAction("delete");
-            recurrentService.setPayment(payment);
-            recurrentService.start();
-            recurrentService.setOnSucceeded(e -> {
+    void deleteThisRecurring(MouseEvent event) throws IOException {
+        boolean conferma;
+        if(Settings.locale.getLanguage().equals("it"))
+            conferma = SceneHandler.getInstance().showMessage("question", "Conferma","Conferma eliminazione", "Sei sicuro di voler eliminare questo pagamento ricorrente?").equals("OK");
+        else
+            conferma = SceneHandler.getInstance().showMessage("question", "Confirmation", "Confirm Deletion", "Are you sure you want to delete this recurring payment?").equals("OK");
+        if(conferma){
+            RecurringService recurringService = new RecurringService();
+            recurringService.setAction("delete");
+            recurringService.setPayment(payment);
+            recurringService.start();
+            recurringService.setOnSucceeded(e -> {
                 if(e.getSource().getValue() instanceof Boolean){
-                    SceneHandler.getInstance().createPage(SceneHandler.getInstance().OPERATIONS_PATH + "formPagamentiRicorrenti.fxml");
+                    SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "formPagamentiRicorrenti.fxml");
                 }
             });
-            recurrentService.setOnFailed(e -> {
+            recurringService.setOnFailed(e -> {
                 throw new RuntimeException(e.getSource().getException());
             });
         }
@@ -72,7 +72,7 @@ public class PaymentController implements Initializable {
         GenericController.loadImage(trash);
         GenericController.loadImage("pagamentiRicorrenti", tag);
 
-        payment = RecurrentManager.getInstance().getNextPayment();
+        payment = RecurringManager.getInstance().getNextPayment();
 
         labelName.setText(payment.getNome());
         labelNextRenewal.setText(labelNextRenewal.getText() + ": " + payment.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));

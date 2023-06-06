@@ -8,9 +8,9 @@ import javafx.concurrent.Task;
 
 import java.util.Queue;
 
-public class GetRecurrentsService extends Service<Queue<Ricorrente>> {
+public class GetRecurringService extends Service<Queue<Ricorrente>> {
 
-    public GetRecurrentsService() {}
+    public GetRecurringService() {}
 
     @Override
     protected Task<Queue<Ricorrente>> createTask() {

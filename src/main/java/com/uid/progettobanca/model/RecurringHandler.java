@@ -2,31 +2,28 @@ package com.uid.progettobanca.model;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.objects.Ricorrente;
-import com.uid.progettobanca.model.DAO.RicorrentiDAO;
-import com.uid.progettobanca.model.DAO.TransazioniDAO;
 import com.uid.progettobanca.model.objects.Transazione;
-import com.uid.progettobanca.model.services.GetRecurrentsService;
-import com.uid.progettobanca.model.services.RecurrentService;
+import com.uid.progettobanca.model.services.GetRecurringService;
+import com.uid.progettobanca.model.services.RecurringService;
 import com.uid.progettobanca.model.services.TransactionService;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Queue;
 
-public class RecurrentHandler {
+public class RecurringHandler {
 
-    private RecurrentHandler() {}
+    private RecurringHandler() {}
 
-    private static RecurrentHandler instance = null;
+    private static RecurringHandler instance = null;
 
-    public static RecurrentHandler getInstance(){
+    public static RecurringHandler getInstance(){
         if (instance == null) {
-            instance = new RecurrentHandler();
+            instance = new RecurringHandler();
         }
         return instance;
     }
     private final TransactionService transactionService = new TransactionService();
-    private final GetRecurrentsService grs = new GetRecurrentsService();
+    private final GetRecurringService grs = new GetRecurringService();
 
     public void check(int user_id){
         // prendo tutti i pagamenti ricorrenti
@@ -61,7 +58,7 @@ public class RecurrentHandler {
                                 transactionService.restart();
                                 transactionService.setOnSucceeded(e2 -> {
                                     p.setDate(due.plusDays(p.getNGiorni()));
-                                    RecurrentService rs = new RecurrentService();
+                                    RecurringService rs = new RecurringService();
                                     rs.setAction("update");
                                     rs.setPayment(p);
                                     rs.restart();

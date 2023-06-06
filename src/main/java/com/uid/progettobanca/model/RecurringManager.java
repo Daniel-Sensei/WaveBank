@@ -1,19 +1,17 @@
 package com.uid.progettobanca.model;
 
-import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.objects.Ricorrente;
 
-import java.sql.SQLException;
 import java.util.Queue;
 
-public class RecurrentManager {
-    private static RecurrentManager instance = null;
+public class RecurringManager {
+    private static RecurringManager instance = null;
 
-    private RecurrentManager() {}
+    private RecurringManager() {}
 
-    public static RecurrentManager getInstance() {
+    public static RecurringManager getInstance() {
         if (instance == null) {
-            instance = new RecurrentManager();
+            instance = new RecurringManager();
         }
         return instance;
     }

@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.objects.Contatto;
 import com.uid.progettobanca.model.services.ContactService;
@@ -56,7 +57,10 @@ public class NewContactController implements Initializable {
         contactService.setContact(new Contatto(fieldName.getText(), fieldSurname.getText(), iban, BankApplication.getCurrentlyLoggedUser()));
         contactService.start();
         contactService.setOnSucceeded(e -> {
-            SceneHandler.getInstance().showMessage("info", "Aggiunta Contatto", "Contatto aggiunto", "Il contatto è stato aggiunto correttamente.");
+            if(Settings.locale.getLanguage().equals("it"))
+                SceneHandler.getInstance().showMessage("info", "Aggiunta Contatto", "Contatto aggiunto", "Il contatto è stato aggiunto correttamente.");
+            else
+                SceneHandler.getInstance().showMessage("info", "Add Contact", "Contact added", "The contact has been successfully added.");
             SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
         });
         contactService.setOnFailed(e -> {

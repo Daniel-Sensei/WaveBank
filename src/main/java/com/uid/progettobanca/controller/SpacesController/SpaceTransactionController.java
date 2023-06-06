@@ -109,12 +109,12 @@ public class SpaceTransactionController implements Initializable {
         GenericController.loadImages(spaceTransactionImages);
 
         try{
-            Parent comboBox = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().SPACES_PATH + "spaceTransactionComboBox.fxml");
-            Parent label = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().SPACES_PATH + "spaceTransactionLabel.fxml");
-            if(SpacesManager.getInstance().getTransactionDirection() == "Sx") {
+            Parent comboBox = SceneHandler.getInstance().loadPage(SceneHandler.SPACES_PATH + "spaceTransactionComboBox.fxml");
+            Parent label = SceneHandler.getInstance().loadPage(SceneHandler.SPACES_PATH + "spaceTransactionLabel.fxml");
+            if(SpacesManager.getInstance().getTransactionDirection().equals("Sx")) {
                 firstElement.getChildren().add(comboBox);
                 lastElement.getChildren().add(label);
-            } else if (SpacesManager.getInstance().getTransactionDirection() == "Dx"){
+            } else if (SpacesManager.getInstance().getTransactionDirection().equals("Dx")){
                 firstElement.getChildren().add(label);
                 lastElement.getChildren().add(comboBox);
             }
@@ -127,7 +127,7 @@ public class SpaceTransactionController implements Initializable {
         inputSpaceTransactionImport.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
                 if (Settings.locale.getLanguage().equals("it"))
-                FormUtils.getInstance().validateTextFieldRegister(amountLabel, inputSpaceTransactionImport, FormUtils.getInstance().validateAmount(inputSpaceTransactionImport.getText()), "Inserire importo*", "Importo non valido*");
+                    FormUtils.getInstance().validateTextFieldRegister(amountLabel, inputSpaceTransactionImport, FormUtils.getInstance().validateAmount(inputSpaceTransactionImport.getText()), "Inserire importo*", "Importo non valido*");
                 else
                     FormUtils.getInstance().validateTextFieldRegister(amountLabel, inputSpaceTransactionImport, FormUtils.getInstance().validateAmount(inputSpaceTransactionImport.getText()), "Insert amount*", "Amount not valid*");
             }
@@ -135,7 +135,7 @@ public class SpaceTransactionController implements Initializable {
         description.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
                 if(Settings.locale.getLanguage().equals("it"))
-                FormUtils.getInstance().validateTextFieldRegister(descrLabel, description, !description.getText().isEmpty(), "Inserisci una descrizione*", "Descrizione non valida*");
+                    FormUtils.getInstance().validateTextFieldRegister(descrLabel, description, !description.getText().isEmpty(), "Inserisci una descrizione*", "Descrizione non valida*");
                 else
                     FormUtils.getInstance().validateTextFieldRegister(descrLabel, description, !description.getText().isEmpty(), "Insert a description*", "Description not valid*");
             }

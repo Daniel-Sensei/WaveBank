@@ -1,9 +1,10 @@
 package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.BankApplication;
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.objects.Ricorrente;
-import com.uid.progettobanca.model.services.RecurrentService;
+import com.uid.progettobanca.model.services.RecurringService;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.FormUtils;
 import com.uid.progettobanca.view.SceneHandler;
@@ -22,7 +23,7 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
-public class NewRecurrentController implements Initializable {
+public class NewRecurringController implements Initializable {
 
     private final String[] ricorrenza = {"Settimanale", "Mensile", "Bimestrale", "Trimestrale", "Semestrale", "Annuale"};
 
@@ -74,7 +75,7 @@ public class NewRecurrentController implements Initializable {
 
     @FXML
     private Label warningSurname;
-    RecurrentService recurrentService = new RecurrentService();
+    RecurringService recurringService = new RecurringService();
 
     private void populateComboBoxData() {
         // Popola la ComboBox dei giorni
@@ -198,19 +199,25 @@ public class NewRecurrentController implements Initializable {
 
         //controllo che la data sia valida (non puo essere precedente a oggi)
         if(LocalDate.parse(convertDate(getDate())).isBefore(LocalDate.now())) {
-            SceneHandler.getInstance().showMessage("error", "Errore", "Data non valida", "La data deve essere successiva ad oggi");
+            if(Settings.locale.getLanguage().equals("it"))
+                SceneHandler.getInstance().showMessage("error", "Errore", "Data non valida", "La data deve essere successiva ad oggi");
+            else
+                SceneHandler.getInstance().showMessage("error", "Error", "Invalid Date", "The date must be later than today");
             return;
         }
         double amount = FormUtils.getInstance().formatAmount(fieldAmount.getText());
         String iban = fieldIbanTo.getText().replace(" ", "").trim();
 
-        recurrentService.setAction("insert");
-        recurrentService.setPayment(new Ricorrente(fieldName.getText().trim() + " " + fieldSurname.getText().trim(), amount, iban, LocalDate.parse(convertDate(getDate())), numDays, fieldDescr.getText().trim(), BankApplication.getCurrentlyLoggedUser()));
-        recurrentService.start();
-        recurrentService.setOnSucceeded(e -> {
+        recurringService.setAction("insert");
+        recurringService.setPayment(new Ricorrente(fieldName.getText().trim() + " " + fieldSurname.getText().trim(), amount, iban, LocalDate.parse(convertDate(getDate())), numDays, fieldDescr.getText().trim(), BankApplication.getCurrentlyLoggedUser()));
+        recurringService.start();
+        recurringService.setOnSucceeded(e -> {
             if(e.getSource().getValue() instanceof Boolean result){
                 if(!result){
-                    SceneHandler.getInstance().showMessage("error", "Errore", "Errore", "Errore nell'inserimento del pagamento ricorrente");
+                    if(Settings.locale.getLanguage().equals("it"))
+                        SceneHandler.getInstance().showMessage("error", "Errore", "Errore", "Errore nell'inserimento del pagamento ricorrente");
+                    else
+                        SceneHandler.getInstance().showMessage("error", "Error", "Error", "Error in inserting recurring payment");
                 }
                 else {
                     System.out.println("Pagamento ricorrente inserito correttamente");
@@ -218,7 +225,7 @@ public class NewRecurrentController implements Initializable {
                 }
             }
         });
-        recurrentService.setOnFailed(e -> {
+        recurringService.setOnFailed(e -> {
             throw new RuntimeException(e.getSource().getException());
         });
     }

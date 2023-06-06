@@ -5,12 +5,12 @@ import com.uid.progettobanca.model.objects.Ricorrente;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
-public class RecurrentService extends Service<Boolean> {
+public class RecurringService extends Service<Boolean> {
 
     private String action = "";
     private Ricorrente r;
 
-    public RecurrentService() {}
+    public RecurringService() {}
 
     public void setAction(String action) {this.action = action;}
     public void setPayment(Ricorrente r) {this.r = r;}

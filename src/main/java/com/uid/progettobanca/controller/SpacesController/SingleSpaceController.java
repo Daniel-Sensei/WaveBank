@@ -36,12 +36,12 @@ public class SingleSpaceController implements Initializable {
     @FXML
     void openSpacePage(MouseEvent event) throws IOException {
         SpacesManager.getInstance().setCurrentSpace(space);
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "singleSpacePage.fxml");
+        SceneHandler.getInstance().createPage(SceneHandler.SPACES_PATH + "singleSpacePage.fxml");
     }
 
     @FXML
     void openTransaction(DragEvent event) {
-        SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "transactionPage.fxml");
+        SceneHandler.getInstance().createPage(SceneHandler.SPACES_PATH + "transactionPage.fxml");
     }
 
     @Override

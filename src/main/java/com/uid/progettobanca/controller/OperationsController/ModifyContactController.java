@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller.OperationsController;
 
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.objects.Contatto;
 import com.uid.progettobanca.model.services.ContactService;
@@ -63,7 +64,10 @@ public class ModifyContactController implements Initializable {
             contactService.setContact(contatto);
             contactService.start();
             contactService.setOnSucceeded(e -> {
-                SceneHandler.getInstance().showMessage("info", "Aggiornamento Contatto", "Contatto aggiornato", "Il contatto è stato modificato correttamente.");
+                if(Settings.locale.getLanguage().equals("it"))
+                    SceneHandler.getInstance().showMessage("info", "Aggiornamento Contatto", "Contatto aggiornato", "Il contatto è stato modificato correttamente.");
+                else
+                    SceneHandler.getInstance().showMessage("info", "Contact Update", "Contact updated", "The contact has been successfully modified.");
                 SceneHandler.getInstance().createPage(SceneHandler.OPERATIONS_PATH + "operations.fxml");
             });
             contactService.setOnFailed(e -> {

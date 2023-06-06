@@ -75,7 +75,7 @@ public class SingleSpacePageController implements Initializable {
             SpaceService spaceService = new SpaceService("delete", currentSpace);
             spaceService.restart();
             spaceService.setOnSucceeded(e -> {
-                SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.getInstance().SPACES_PATH + "spaces.fxml");
+                SceneHandler.getInstance().reloadPageInHashMap(SceneHandler.SPACES_PATH + "spaces.fxml");
                 try {
                     BackStack.getInstance().loadPreviousPage();
                 } catch (IOException ex) {
@@ -93,13 +93,13 @@ public class SingleSpacePageController implements Initializable {
     @FXML
     void transferMoneyToAnotherSpace(MouseEvent event) {
             SpacesManager.getInstance().setTransactionDirection("Dx");
-            SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "spaceTransaction.fxml");
+            SceneHandler.getInstance().createPage(SceneHandler.SPACES_PATH + "spaceTransaction.fxml");
     }
 
     @FXML
     void transferMoneyToThisSpace(MouseEvent event) {
             SpacesManager.getInstance().setTransactionDirection("Sx");
-            SceneHandler.getInstance().createPage(SceneHandler.getInstance().SPACES_PATH + "spaceTransaction.fxml");
+            SceneHandler.getInstance().createPage(SceneHandler.SPACES_PATH + "spaceTransaction.fxml");
     }
     private void loadSpaceButtons() {
         spaceButtons.add(sendButton);
@@ -176,7 +176,7 @@ public class SingleSpacePageController implements Initializable {
                     spaceVbox.getChildren().add(vBox);
                 } else {
                     try {
-                        Parent parent = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().SPACES_PATH + "noTransaction.fxml");
+                        Parent parent = SceneHandler.getInstance().loadPage(SceneHandler.SPACES_PATH + "noTransaction.fxml");
                         spaceVbox.getChildren().add(parent);
                     } catch (IOException e) {
                         throw new RuntimeException(e);

@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller;
 
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.model.objects.Utente;
 import com.uid.progettobanca.model.CreateCard;
 import com.uid.progettobanca.model.services.GetUserService;
@@ -264,7 +265,10 @@ public class RegisterFormController implements Initializable {
                         //creo la carta di debito
                         CreateCard.createDebitcard(getUserService.getValue().getUserId());
                         //avviso dell'avvenuta registrazione
-                        SceneHandler.getInstance().showMessage("info", "Registrazione", "Registrazione effettuata con successo", "Ora puoi effettuare il login");
+                        if(Settings.locale.getLanguage().equals("it"))
+                            SceneHandler.getInstance().showMessage("info", "Registrazione", "Registrazione effettuata con successo", "Ora puoi effettuare il login");
+                        else
+                            SceneHandler.getInstance().showMessage("info", "Registration", "Registration Successful", "You can now proceed with login");
                         //torno alla pagina di login
                         SceneHandler.getInstance().setPage("login.fxml");
                     });
@@ -281,7 +285,10 @@ public class RegisterFormController implements Initializable {
             });
         }
         else {
-            SceneHandler.getInstance().showMessage("error", "Errore", "Registrazione fallita", "Devi avere almeno 18 anni per registrarti");
+            if(Settings.locale.getLanguage().equals("it"))
+                SceneHandler.getInstance().showMessage("error", "Errore", "Registrazione fallita", "Devi avere almeno 18 anni per registrarti");
+            else
+                SceneHandler.getInstance().showMessage("error", "Error", "Registration Failed", "You must be at least 18 years old to register");
         }
     }
 

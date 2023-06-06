@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller.OperationsController;
 
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.ContactsManager;
 import com.uid.progettobanca.model.objects.Contatto;
@@ -239,7 +240,12 @@ public class OperationsController implements Initializable {
     @FXML
     void onDeleteClick(ActionEvent event) {
         if (selectedContact != -1) {
-            if(SceneHandler.getInstance().showMessage("question", "Conferma", "Conferma eliminazione", "Sei sicuro di voler eliminare il contatto selezionato?").equals("OK")) {
+            boolean conferma;
+            if(Settings.locale.getLanguage().equals("it"))
+                conferma = SceneHandler.getInstance().showMessage("question", "Conferma", "Conferma eliminazione", "Sei sicuro di voler eliminare il contatto selezionato?").equals("OK");
+            else
+                conferma = SceneHandler.getInstance().showMessage("question", "Confirmation", "Confirm Deletion", "Are you sure you want to delete the selected contact?").equals("OK");
+            if(conferma){
                 ContactService contactService = new ContactService();
                 contactService.setAction("delete");
                 contactService.setContact(contacts.get(selectedContact));

@@ -51,7 +51,7 @@ public class StatisticsController {
                 hBox.setPrefWidth(Region.USE_COMPUTED_SIZE);
             }
             try {
-                Parent singleChart = SceneHandler.getInstance().loadPage(SceneHandler.getInstance().MANAGE_PATH + "singleChart.fxml");
+                Parent singleChart = SceneHandler.getInstance().loadPage(SceneHandler.MANAGE_PATH + "singleChart.fxml");
                 hBox.getChildren().add(singleChart);        //aggiunge il grafico alla riga
             } catch (IOException e) {
                 System.out.println("Initialize chart failed");

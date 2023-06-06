@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller;
 
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.model.services.GetUserService;
 import com.uid.progettobanca.model.services.UserService;
 import com.uid.progettobanca.view.FormUtils;
@@ -118,17 +119,26 @@ public class PasswordRecoveryController implements Initializable {
                 userService.restart();
                 userService.setOnSucceeded(e1 -> {
                     if (userService.getValue()) {
-                        SceneHandler.getInstance().showMessage("info", "Password", "Password aggiornata", "La password è stata aggiornata con successo.");
+                        if(Settings.locale.getLanguage().equals("it"))
+                            SceneHandler.getInstance().showMessage("info", "Aggiornamento Password", "Password aggiornata", "La password è stata aggiornata con successo.");
+                        else
+                            SceneHandler.getInstance().showMessage("info", "Password Update", "Password Updated", "The password has been successfully updated.");
                         SceneHandler.getInstance().setPage("login.fxml");
                     } else
-                        SceneHandler.getInstance().showMessage("error", "Errore", "Errore durante il cambio della password", "La password non è stata aggiornata.");
+                        if(Settings.locale.getLanguage().equals("it"))
+                            SceneHandler.getInstance().showMessage("error", "Errore", "Errore durante il cambio della password", "La password non è stata aggiornata.");
+                        else
+                            SceneHandler.getInstance().showMessage("error", "Error", "Error Changing Password", "The password was not updated.");
                 });
                 userService.setOnFailed(e1 -> {
                     throw new RuntimeException(e1.getSource().getException());
                 });
             }
             else
-                SceneHandler.getInstance().showMessage("error", "Errore", "Errore durante il controllo della risposta", "Risposta errata, riprova.");
+                if(Settings.locale.getLanguage().equals("it"))
+                    SceneHandler.getInstance().showMessage("error", "Errore", "Errore durante il controllo della risposta", "Risposta errata, riprova.");
+                else
+                    SceneHandler.getInstance().showMessage("error", "Error", "Error Checking Answer", "Incorrect answer, please try again.");
         });
         userService.setOnFailed(e -> {
             throw new RuntimeException(e.getSource().getException());

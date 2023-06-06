@@ -2,7 +2,7 @@ package com.uid.progettobanca.controller;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
-import com.uid.progettobanca.model.RecurrentHandler;
+import com.uid.progettobanca.model.RecurringHandler;
 import com.uid.progettobanca.model.services.GetSpaceService;
 import com.uid.progettobanca.model.services.GetUserService;
 import com.uid.progettobanca.model.services.UserService;
@@ -78,7 +78,7 @@ public class LoginController implements Initializable {
                     getSpaceService.setOnSucceeded(e2 -> {
                         BankApplication.setCurrentlyLoggedMainSpace(getSpaceService.getValue().peek().getSpaceId());
                         SceneHandler.getInstance().init(SceneHandler.getInstance().getStage());
-                        RecurrentHandler.getInstance().check(BankApplication.getCurrentlyLoggedUser());
+                        RecurringHandler.getInstance().check(BankApplication.getCurrentlyLoggedUser());
                     });
                     getSpaceService.setOnFailed(e2 -> {
                         throw new RuntimeException(e2.getSource().getException());
@@ -89,7 +89,10 @@ public class LoginController implements Initializable {
                 });
             }
             else {
-                SceneHandler.getInstance().showMessage("error", "Errore", "Credenziali errate", "Le credenziali inserite non sono corrette");
+                if(Settings.locale.getLanguage().equals("it"))
+                    SceneHandler.getInstance().showMessage("error", "Errore", "Credenziali errate", "Le credenziali inserite non sono corrette");
+                else
+                    SceneHandler.getInstance().showMessage("error", "Error", "Incorrect credentials", "The credentials entered are incorrect");
             }
         });
         userService.setOnFailed(e -> {
