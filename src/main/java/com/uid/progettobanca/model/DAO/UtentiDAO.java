@@ -142,9 +142,10 @@ public class UtentiDAO {
     //cambiare il login in modo che restituisca un booleano ed imposti il bank application logged user
     public boolean login (String email, String password) {
         // cerca l'utente nel database
-        String query = "SELECT user_id FROM utenti WHERE email = ? AND status = true";
+        String query = "SELECT user_id FROM utenti WHERE email = ? AND status = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, email);
+            stmt.setBoolean(2, true);
             try (ResultSet result = stmt.executeQuery()) {
                 if (result.next()) {
                     int user = result.getInt("user_id");
@@ -187,6 +188,34 @@ public class UtentiDAO {
                 } else {
                     return false;
                 }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // funzione che controlla se il numero di telefono è già utilizzato
+    public boolean checkPhone(String telefono) {
+        String query = "SELECT * FROM utenti WHERE telefono = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, telefono);
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // funzione che controlla se l'email è già utilizzata
+    public boolean checkEmail(String email) {
+        String query = "SELECT * FROM utenti WHERE email = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, email);
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -237,10 +266,13 @@ public class UtentiDAO {
     //  rimozione:
 
     public boolean delete(int user_id) {
-        String query = "UPDATE utenti SET status = false WHERE user_id = ?";
+        System.out.println("Eliminazione utente: " + user_id + " in corso...");
+        String query = "UPDATE utenti SET status = ? WHERE user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, user_id);
+            stmt.setBoolean(1, false);
+            stmt.setInt(2, user_id);
             stmt.executeUpdate();
+            System.out.println("Utente eliminato");
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

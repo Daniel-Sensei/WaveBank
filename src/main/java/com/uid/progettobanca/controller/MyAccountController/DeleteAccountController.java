@@ -38,22 +38,22 @@ public class DeleteAccountController {
             userService.setUserId(BankApplication.getCurrentlyLoggedUser());
             userService.setPassword(password.getText());
             userService.restart();
-            userService.setOnSucceeded(event1 -> {
-                if (event1.getSource().getValue() instanceof Boolean result) {
-                    if (result) {
-                        UserService userService = new UserService();
-                        userService.setAction("delete");
-                        userService.setUserId(BankApplication.getCurrentlyLoggedUser());
-                        userService.restart();
-                        userService.setOnSucceeded(e -> {
+            userService.setOnSucceeded(e -> {
+                if ((Boolean) e.getSource().getValue()) {
+                    UserService userService = new UserService();
+                    userService.setAction("delete");
+                    userService.restart();
+                    userService.setOnSucceeded(e1 -> {
+                        if((Boolean) e1.getSource().getValue())
                             SceneHandler.getInstance().setPage(Settings.MY_ACCOUNT_PATH + "accountDeleted.fxml");
-                        });
-                    } else {
-                        if(Settings.locale.getLanguage().equals("it"))
-                            SceneHandler.getInstance().showMessage("error", "Errore", "Password errata", "La password inserita non è corretta");
                         else
-                            SceneHandler.getInstance().showMessage("error", "Error", "Wrong password", "The password entered is incorrect");
-                    }
+                            System.out.println("Errore");
+                    });
+                } else {
+                    if(Settings.locale.getLanguage().equals("it"))
+                        SceneHandler.getInstance().showMessage("error", "Errore", "Password errata", "La password inserita non è corretta");
+                    else
+                        SceneHandler.getInstance().showMessage("error", "Error", "Wrong password", "The password entered is incorrect");
                 }
             });
         }

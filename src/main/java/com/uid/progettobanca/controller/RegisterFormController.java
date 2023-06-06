@@ -288,42 +288,70 @@ public class RegisterFormController implements Initializable {
         LocalDate referenceDate = LocalDate.now().minusYears(18);
         LocalDate date = LocalDate.parse(convertDate(getDate()));
         if(date.isBefore(referenceDate) || date.equals(referenceDate)) {
-            //creo il conto
-            newAccountService.restart();
-            newAccountService.setOnSucceeded(e -> {
-                String iban = newAccountService.getValue();
-                //creo l'utente
-                userService.setAction("insert");
-                userService.setUser(new Utente(name.getText().trim(), surname.getText().trim(), address.getText().trim(), LocalDate.parse(convertDate(getDate())), phone.getText().trim(), email.getText().toLowerCase().trim(), password.getText(), true, questions.getValue(), answer.getText(), iban));
-                userService.restart();
-                userService.setOnSucceeded(e1 -> {
-                    getUserService.setAction("selectByEmail");
-                    getUserService.setEmail(email.getText().toLowerCase().trim());
-                    getUserService.restart();
-                    getUserService.setOnSucceeded(e2 -> {
-                        //creo la carta di debito
-                        CreateCard.createDebitcard(getUserService.getValue().getUserId());
-                        //avviso dell'avvenuta registrazione
-                        if(Settings.locale.getLanguage().equals("it"))
-                            SceneHandler.getInstance().showMessage("info", "Registrazione", "Registrazione effettuata con successo", "Ora puoi effettuare il login");
-                        else
-                            SceneHandler.getInstance().showMessage("info", "Registration", "Registration Successful", "You can now proceed with login");
-                        //torno alla pagina di login
-                        SceneHandler.getInstance().setPage("login.fxml");
+            //controllo se l'utente è già registrato
+            userService.setAction("checkEmail");
+            userService.setEmail(email.getText().toLowerCase().trim());
+            userService.restart();
+            userService.setOnSucceeded(e -> {
+                if(!(Boolean) e.getSource().getValue()) {
+                    userService.setAction("checkPhone");
+                    userService.setPhone(phone.getText().trim());
+                    userService.restart();
+                    userService.setOnSucceeded(e1 -> {
+                        if(!(Boolean) e1.getSource().getValue()) {
+
+                            //creo il conto
+                            newAccountService.restart();
+                            newAccountService.setOnSucceeded(e2 -> {
+                                String iban = newAccountService.getValue();
+                                //creo l'utente
+                                userService.setAction("insert");
+                                userService.setUser(new Utente(name.getText().trim(), surname.getText().trim(), address.getText().trim(), LocalDate.parse(convertDate(getDate())), phone.getText().trim(), email.getText().toLowerCase().trim(), password.getText(), true, questions.getValue(), answer.getText(), iban));
+                                userService.restart();
+                                userService.setOnSucceeded(e3 -> {
+                                    getUserService.setAction("selectByEmail");
+                                    getUserService.setEmail(email.getText().toLowerCase().trim());
+                                    getUserService.restart();
+                                    getUserService.setOnSucceeded(e4 -> {
+                                        //creo la carta di debito
+                                        CreateCard.createDebitcard(getUserService.getValue().getUserId());
+                                        //avviso dell'avvenuta registrazione
+                                        if (Settings.locale.getLanguage().equals("it"))
+                                            SceneHandler.getInstance().showMessage("info", "Registrazione", "Registrazione effettuata con successo", "Ora puoi effettuare il login");
+                                        else
+                                            SceneHandler.getInstance().showMessage("info", "Registration", "Registration Successful", "You can now proceed with login");
+                                        //torno alla pagina di login
+                                        SceneHandler.getInstance().setPage("login.fxml");
+                                    });
+                                    getUserService.setOnFailed(e4 -> {
+                                        throw new RuntimeException(e4.getSource().getException());
+                                    });
+                                });
+                                userService.setOnFailed(e3 -> {
+                                    throw new RuntimeException(e3.getSource().getException());
+                                });
+                            });
+                            newAccountService.setOnFailed(e2 -> {
+                                throw new RuntimeException(e2.getSource().getException());
+                            });
+                        } else {
+                            if(Settings.locale.getLanguage().equals("it"))
+                                SceneHandler.getInstance().showMessage("error", "Errore", "Registrazione fallita", "Numero di telefono già registrato");
+                            else
+                                SceneHandler.getInstance().showMessage("error", "Error", "Registration Failed", "Phone number already registered");
+                        }
                     });
-                    getUserService.setOnFailed(e2 -> {
-                        throw new RuntimeException(e2.getSource().getException());
+                    userService.setOnFailed(e1 -> {
+                        throw new RuntimeException(e1.getSource().getException());
                     });
-                });
-                userService.setOnFailed(e1 -> {
-                    throw new RuntimeException(e1.getSource().getException());
-                });
+                } else {
+                    if(Settings.locale.getLanguage().equals("it"))
+                        SceneHandler.getInstance().showMessage("error", "Errore", "Registrazione fallita", "Email già registrata");
+                    else
+                        SceneHandler.getInstance().showMessage("error", "Error", "Registration Failed", "Email already registered");
+                }
             });
-            newAccountService.setOnFailed(e -> {
-                throw new RuntimeException(e.getSource().getException());
-            });
-        }
-        else {
+        } else {
             if(Settings.locale.getLanguage().equals("it"))
                 SceneHandler.getInstance().showMessage("error", "Errore", "Registrazione fallita", "Devi avere almeno 18 anni per registrarti");
             else
