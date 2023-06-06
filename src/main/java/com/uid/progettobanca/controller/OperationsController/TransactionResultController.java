@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller.OperationsController;
 
 import com.uid.progettobanca.Settings;
+import com.uid.progettobanca.controller.HomeController.HomeController;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ public class TransactionResultController {
 
     @FXML
     void reloadHome(ActionEvent event) {
+        HomeController.searchQuery = "";
         SceneHandler.getInstance().createPage(Settings.HOME_PATH + "home.fxml");
     }
 

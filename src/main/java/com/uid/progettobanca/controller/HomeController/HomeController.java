@@ -177,7 +177,7 @@ public class HomeController implements Initializable {
         }
 
         searchTextField.setText(searchQuery);
-        if (!FilterSelectionController.memoryFilters.isEmpty() || !FilterSelectionController.memoryRadioButton.equals("both")){
+        if (functionName.equals("filterSelectedTransaction")){
             GenericController.loadImageButton("filterSelected", filter);
         }
 
