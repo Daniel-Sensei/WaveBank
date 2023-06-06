@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,7 +28,9 @@ public class SettingsController implements Initializable {
     @FXML
     private ComboBox<String> themeComboBox;
     private String[] languages = {"Italiano", "English"};
-    private String[] themes = {"Chiaro", "Scuro"};
+
+    private String[] themesITA = {"Chiaro", "Scuro"};
+    private String[] themesENG = {"Light", "Dark"};
 
     private String theme = Settings.CSS_THEME;
 
@@ -41,7 +44,11 @@ public class SettingsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         languageComboBox.getItems().addAll(languages);
-        themeComboBox.getItems().addAll(themes);
+
+        if(Settings.locale.getLanguage().equals("it"))
+            themeComboBox.getItems().addAll(themesITA);
+        else
+            themeComboBox.getItems().addAll(themesENG);
 
         GenericController.loadImage(back);
     }

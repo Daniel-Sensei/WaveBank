@@ -91,6 +91,7 @@ public class MyAccountController implements Initializable {
     }
 
     private final static String CSS_PATH = "/css/" ;
+
     @FXML
     void userLogout(ActionEvent event) {
         Boolean conferma = false;
