@@ -34,7 +34,7 @@ public class UserService extends Service<Boolean> {
                     return switch (action) {
                         case "insert" -> UtentiDAO.getInstance().insert(u);
                         case "update" -> UtentiDAO.getInstance().update(u);
-                        case "delete" -> UtentiDAO.getInstance().delete(u);
+                        case "delete" -> UtentiDAO.getInstance().delete(user_id);
                         case "checkAnswer" -> UtentiDAO.getInstance().checkAnswer(email, answer);
                         case "checkPassword" -> UtentiDAO.getInstance().checkPassword(user_id, password);
                         case "login" -> UtentiDAO.getInstance().login(email, password);

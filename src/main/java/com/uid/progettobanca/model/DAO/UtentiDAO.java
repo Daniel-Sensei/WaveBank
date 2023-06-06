@@ -236,10 +236,10 @@ public class UtentiDAO {
 
     //  rimozione:
 
-    public boolean delete(Utente utente) {
+    public boolean delete(int user_id) {
         String query = "UPDATE utenti SET status = false WHERE user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, utente.getUserId());
+            stmt.setInt(1, user_id);
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
