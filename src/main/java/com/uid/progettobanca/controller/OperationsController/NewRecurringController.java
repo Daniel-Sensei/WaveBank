@@ -26,6 +26,7 @@ import java.util.ResourceBundle;
 public class NewRecurringController implements Initializable {
 
     private final String[] ricorrenza = {"Settimanale", "Mensile", "Bimestrale", "Trimestrale", "Semestrale", "Annuale"};
+    private final String[] recurrence = {"Weekly", "Monthly", "Bimonthly", "Quarterly", "Semi-annually", "Annually"};
 
     @FXML
     private TextField fieldAmount;
@@ -122,7 +123,10 @@ public class NewRecurringController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         populateComboBoxData();
         GenericController.loadImage(back);
-        recurrencyComboBox.getItems().addAll(ricorrenza);
+        if(Settings.locale.getLanguage().equals("it"))
+            recurrencyComboBox.getItems().addAll(ricorrenza);
+        else
+            recurrencyComboBox.getItems().addAll(recurrence);
 
         fieldIbanTo.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField

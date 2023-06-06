@@ -38,7 +38,8 @@ import java.util.ResourceBundle;
 
 public class BolloAutoController implements Initializable {
 
-    private final String[] tipologia = {"Autoveicolo", "Motoveicolo", "Rimorchio"};
+    private final String[] tipo = {"Autoveicolo", "Motoveicolo", "Rimorchio"};
+    private final String[] type = {"Car", "Motorcycle", "Trailer"};
 
     @FXML
     private TextField fieldCF;
@@ -105,7 +106,12 @@ public class BolloAutoController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
         GenericController.loadImage(back);
-        typeComboBox.getItems().addAll(tipologia);
+
+        if(Settings.locale.getLanguage().equals("it"))
+            typeComboBox.getItems().addAll(tipo);
+        else
+            typeComboBox.getItems().addAll(type);
+
         try {
             FormUtils.getInstance().fillSpacesComboBox(spacesComboBox);
         } catch (SQLException e) {
