@@ -10,6 +10,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
@@ -120,7 +122,12 @@ public class SceneHandler {
         this.stage.setX((screenWidth - scene.getWidth()) / 2);
         this.stage.setY((screenHeight - scene.getHeight()) / 2);
         this.stage.setOnCloseRequest(e -> {
-            if(showMessage("question", "Chiusura Programma", "Sei sicuro di voler uscire?", "Chiusura programma in corso...").equals("Annulla"))
+            boolean conferma;
+            if(Settings.locale.getLanguage().equals("it"))
+                conferma = SceneHandler.getInstance().showMessage("question", "Chiusura App","Conferma Chiusura App", "Sei sicuro di voler chiudere l'applicazione?").equals("Annulla");
+            else
+                conferma = SceneHandler.getInstance().showMessage("question", "Close App","Confirm App Closure", "Are you sure you want to close the application?").equals("Annulla");
+            if(conferma)
                 e.consume();
         });
         this.stage.show();
@@ -258,6 +265,9 @@ public class SceneHandler {
                 alert = new Alert(Alert.AlertType.CONFIRMATION);
                 //imposta il css dei pulsanti
                 alert.getDialogPane().lookupButton(alert.getButtonTypes().get(0)).getStyleClass().add("greenButton");
+                if(Settings.locale.getLanguage().equals("en"))
+                    alert.getButtonTypes().set(1, new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE));
+                            //getDialogPane().lookupButton(alert.getButtonTypes().get(1)).setText("Cancel");
                 alert.getDialogPane().lookupButton(alert.getButtonTypes().get(1)).getStyleClass().add("tertiaryButton");
             }
             default -> alert = new Alert(Alert.AlertType.WARNING);
