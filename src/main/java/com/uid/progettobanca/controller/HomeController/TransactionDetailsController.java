@@ -27,7 +27,6 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -150,6 +149,9 @@ public class TransactionDetailsController implements Initializable {
                         setSpaceLabelImage();
                     }
                 });
+                getSpaceService.setOnFailed(e -> {
+                    SceneHandler.getInstance().createPage("errorPage.fxml");
+                });
                 amountLabel.setText(df.format(transaction.getImporto()) + " €");
             } else {
                 fromToLabel.setText("A");
@@ -160,6 +162,9 @@ public class TransactionDetailsController implements Initializable {
                         space = (Space) result.poll();
                         setSpaceLabelImage();
                     }
+                });
+                getSpaceService.setOnFailed(e -> {
+                    SceneHandler.getInstance().createPage("errorPage.fxml");
                 });
                 amountLabel.setText("+" + df.format(transaction.getImporto()) + " €");
             }
@@ -172,6 +177,9 @@ public class TransactionDetailsController implements Initializable {
                     space = (Space) result.poll();
                     setSpaceLabelImage();
                 }
+            });
+            getSpaceService.setOnFailed(e -> {
+                SceneHandler.getInstance().createPage("errorPage.fxml");
             });
             if(transaction.getImporto() < 0){
                 fromToLabel.setText("Da");
@@ -210,11 +218,7 @@ public class TransactionDetailsController implements Initializable {
             GenericController.loadImage("altro", typeImage);
         }
 
-        try {
-            TransactionManager.getInstance().setTransactionName(transactionName, transaction);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        TransactionManager.getInstance().setTransactionName(transactionName, transaction);
 
         changeTag();
 
@@ -264,7 +268,7 @@ public class TransactionDetailsController implements Initializable {
     }
 
     @FXML
-    void saveComments(ActionEvent event) throws SQLException {
+    void saveComments(ActionEvent event) {
         transaction.setCommenti(commentsArea.getText());
         TransactionService transactionService = new TransactionService();
         transactionService.setAction("update");
@@ -277,6 +281,9 @@ public class TransactionDetailsController implements Initializable {
                     SceneHandler.getInstance().showInfoPopup(Settings.HOME_PATH + "commentsSavedPopup.fxml", (Stage) saveCommentsButton.getScene().getWindow(), 350, 75);
                     SceneHandler.getInstance().reloadPageInHashMap(Settings.HOME_PATH + "home.fxml");
                 }
+        });
+        transactionService.setOnFailed(event1 -> {
+            SceneHandler.getInstance().createPage("errorPage.fxml");
         });
     }
 
@@ -298,6 +305,9 @@ public class TransactionDetailsController implements Initializable {
             }
         });
         formThread.start(); // Avvia il FormCompilationThread
+        formThread.setOnFailed(event1 -> {
+            SceneHandler.getInstance().createPage("errorPage.fxml");
+        });
 
     }
 

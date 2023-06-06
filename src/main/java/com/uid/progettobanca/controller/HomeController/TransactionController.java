@@ -45,12 +45,8 @@ public class TransactionController implements Initializable {
             amountLabel.setText("+" + df.format(transaction.getImporto()) + " €");
         }
 
-        try {
-            TransactionManager.getInstance().setTransactionName(transactionLabel, transaction);
-            setTagImage(transaction.getTag());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        TransactionManager.getInstance().setTransactionName(transactionLabel, transaction);
+        setTagImage(transaction.getTag());
     }
 
     @FXML

@@ -14,7 +14,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Popup;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -79,7 +78,7 @@ public class TagSelectionController implements Initializable {
     }
 
 
-    private void setGenericTag(String tag) throws SQLException {
+    private void setGenericTag(String tag) {
         transaction.setTag(tag);
 
         TransactionService transactionService = new TransactionService();
@@ -101,69 +100,68 @@ public class TagSelectionController implements Initializable {
         });
 
         transactionService.setOnFailed(e -> {
-            //genera eccezione runtime
-            throw new RuntimeException(e.getSource().getException());
+            SceneHandler.getInstance().createPage("errorPage.fxml");
         });
 
     }
     @FXML
-    void setAltro(MouseEvent event) throws SQLException {
+    void setAltro(MouseEvent event) {
         setGenericTag("Altro");
 
     }
 
     @FXML
-    void setAmiciFamiglia(MouseEvent event) throws SQLException {
+    void setAmiciFamiglia(MouseEvent event) {
         setGenericTag("Amici & Famiglia");
     }
 
     @FXML
-    void setBenessere(MouseEvent event) throws SQLException {
+    void setBenessere(MouseEvent event) {
         setGenericTag("Benessere");
     }
 
     @FXML
-    void setCibo(MouseEvent event) throws SQLException {
+    void setCibo(MouseEvent event) {
         setGenericTag("Cibo & Spesa");
     }
 
     @FXML
-    void setFinanza(MouseEvent event) throws SQLException {
+    void setFinanza(MouseEvent event) {
         setGenericTag("Assicurazione & Finanza");
     }
 
     @FXML
-    void setIntrattenimento(MouseEvent event) throws SQLException {
+    void setIntrattenimento(MouseEvent event) {
         setGenericTag("Intrattenimento");
     }
 
     @FXML
-    void setIstruzione(MouseEvent event) throws SQLException {
+    void setIstruzione(MouseEvent event) {
         setGenericTag("Istruzione");
     }
 
     @FXML
-    void setMultimedia(MouseEvent event) throws SQLException {
+    void setMultimedia(MouseEvent event) {
         setGenericTag("Multimedia & Elettronica");
     }
 
     @FXML
-    void setSalute(MouseEvent event) throws SQLException {
+    void setSalute(MouseEvent event) {
         setGenericTag("Salute");
     }
 
     @FXML
-    void setShopping(MouseEvent event) throws SQLException {
+    void setShopping(MouseEvent event) {
         setGenericTag("Shopping");
     }
 
     @FXML
-    void setStipendio(MouseEvent event) throws SQLException {
+    void setStipendio(MouseEvent event) {
         setGenericTag("Stipendio");
     }
 
     @FXML
-    void setViaggi(MouseEvent event) throws SQLException {
+    void setViaggi(MouseEvent event) {
         setGenericTag("Viaggi");
     }
 

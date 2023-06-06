@@ -46,7 +46,7 @@ public class TransactionManager {
         transactionsStack.push(transazione);
     }
 
-    public void setTransactionName(Label transactionName, Transazione transaction) throws SQLException {
+    public void setTransactionName(Label transactionName, Transazione transaction){
         //di default assegno come nome il tipo di transazione
         transactionName.setText(transaction.getTipo());
         transactionName.setText(transaction.getName());

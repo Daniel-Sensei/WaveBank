@@ -234,7 +234,7 @@ public class HomeController implements Initializable {
         });
 
         getTransactionService.setOnFailed(event -> {
-            throw new RuntimeException(event.getSource().getException());
+            SceneHandler.getInstance().createPage("errorPage.fxml");
         });
 
     }
