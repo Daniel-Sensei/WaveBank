@@ -75,6 +75,10 @@ public class SpaceTransactionController implements Initializable {
                 SceneHandler.getInstance().setPage(Settings.SPACES_PATH + "spaceTransactionFailed.fxml");
             }
         });
+
+        transactionService.setOnFailed(e2 -> {
+            throw new RuntimeException(e2.getSource().getException());
+        });
     }
 
     @FXML

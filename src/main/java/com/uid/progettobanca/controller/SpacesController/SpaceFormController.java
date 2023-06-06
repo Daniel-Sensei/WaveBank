@@ -73,6 +73,9 @@ public class SpaceFormController implements Initializable {
                 throw new RuntimeException(ex);
             }
         });
+        spaceService.setOnFailed(e2 -> {
+            throw new RuntimeException(e2.getSource().getException());
+        });
     }
 
     private void setIMageProperties(ImageView paint, Image image){
