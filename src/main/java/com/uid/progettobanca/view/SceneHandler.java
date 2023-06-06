@@ -116,7 +116,7 @@ public class SceneHandler {
             if(Settings.locale.getLanguage().equals("it"))
                 conferma = SceneHandler.getInstance().showMessage("question", "Chiusura App","Conferma Chiusura App", "Sei sicuro di voler chiudere l'applicazione?").equals("Annulla");
             else
-                conferma = SceneHandler.getInstance().showMessage("question", "Close App","Confirm App Closure", "Are you sure you want to close the application?").equals("Annulla");
+                conferma = SceneHandler.getInstance().showMessage("question", "Close App","Confirm App Closure", "Are you sure you want to close the application?").equals("Cancel");
             if(conferma)
                 e.consume();
             else //salva il tema e la lingua selezionata in un file di configurazione

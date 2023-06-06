@@ -1,5 +1,6 @@
 package com.uid.progettobanca.controller.ManageController;
 
+import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
 import com.uid.progettobanca.model.CardsManager;
 import com.uid.progettobanca.view.BackStack;
@@ -56,16 +57,33 @@ public class InfoCardController {
         String formattedDate = CardsManager.getInstance().getCard().getScadenza().format(formatter);
         cardExpiry.setText(formattedDate);
         cardPin.setText(CardsManager.getInstance().getCard().getPin());
-        cardType.setText(CardsManager.getInstance().getCard().getTipo());
         if(CardsManager.getInstance().getCard().getTipo().equals("Debito")){
             GenericController.setCardImage("card", cardImage);
+            if(Settings.locale.getLanguage().equals("it")) {
+                cardType.setText("Debito");
+            } else {
+                cardType.setText("Debit");
+            }
         } else if (CardsManager.getInstance().getCard().getTipo().equals("Virtuale")) {
             GenericController.setCardImage("virtualcard", cardImage);
+            if(Settings.locale.getLanguage().equals("it")) {
+                cardType.setText("Virtuale");
+            } else {
+                cardType.setText("Virtual");
+            }
         }
         if(CardsManager.getInstance().getCard().isBloccata()){
-            cardBlocked.setText("Bloccata");
+            if(Settings.locale.getLanguage().equals("it")) {
+                cardBlocked.setText("Bloccata");
+            } else {
+                cardBlocked.setText("Blocked");
+            }
         } else {
-            cardBlocked.setText("Non bloccata");
+            if(Settings.locale.getLanguage().equals("it")) {
+                cardBlocked.setText("Non bloccata");
+            } else {
+                cardBlocked.setText("Unblocked");
+            }
         }
     }
 }
