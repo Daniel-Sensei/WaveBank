@@ -1,3 +1,3 @@
-Language: en
-Theme: light.css
-Icons: IconLight/
+Language: it
+Theme: dark.css
+Icons: IconDark/
