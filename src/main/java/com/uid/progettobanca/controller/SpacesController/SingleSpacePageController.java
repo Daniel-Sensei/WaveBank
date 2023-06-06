@@ -126,7 +126,6 @@ public class SingleSpacePageController implements Initializable {
         if (SpacesManager.getInstance().getSpacesListSize() == 1) {
             sendButton.setDisable(true);
             receiveButton.setDisable(true);
-
         }
         else{
             sendButton.setDisable(false);
@@ -185,7 +184,6 @@ public class SingleSpacePageController implements Initializable {
                 }
             }
         });
-
         getTransactionService.setOnFailed(event -> {
             throw new RuntimeException(event.getSource().getException());
         });
