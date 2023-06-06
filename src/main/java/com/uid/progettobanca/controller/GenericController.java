@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.ImageUtils;
+import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,11 +15,13 @@ import javafx.scene.image.ImageView;
 
 public class GenericController {
     @FXML
-    private Button reloadPage;
+    private Button reloadPageButton;
 
     @FXML
     void reloadPage(ActionEvent event) {
-
+        BackStack.getInstance().popTitle();
+        String pageName = BackStack.getInstance().peek();
+        SceneHandler.getInstance().createPage(pageName);
     }
 
     public static void loadImages(ArrayList<ImageView> images) {
