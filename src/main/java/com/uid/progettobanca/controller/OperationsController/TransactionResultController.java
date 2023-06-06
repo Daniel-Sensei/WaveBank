@@ -12,6 +12,7 @@ public class TransactionResultController {
     @FXML
     void loadHome(ActionEvent event) {
         MenuBarController.currentPage = "home";
+        SceneHandler.getInstance().createMenuBar();
         SceneHandler.getInstance().setPage(Settings.HOME_PATH + "home.fxml");
     }
 
