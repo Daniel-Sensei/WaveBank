@@ -79,7 +79,7 @@ public class SafetyController {
 
                     userService2.setOnSucceeded(event2 -> {
                         if(event2.getSource().getValue() instanceof Boolean){
-                            if(Settings.locale.getLanguage().equals("IT")){
+                            if(Settings.locale.getLanguage().equals("it")){
                                 SceneHandler.getInstance().showMessage("info", "Cambio password", "Cambio password effettuato", "Hai cambiato password!");
                             }
                             else{
@@ -94,7 +94,7 @@ public class SafetyController {
                     });
 
                 } else {
-                    if(Settings.locale.getLanguage().equals("IT")){
+                    if(Settings.locale.getLanguage().equals("it")){
                         FormUtils.getInstance().validateTextFieldRegister(oldPswLaebl, oldPsw, false, "Vecchia password*", "La password non è corretta");
                     }
                     else{
@@ -113,7 +113,7 @@ public class SafetyController {
 
         newPsw.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
-                if(Settings.locale.getLanguage().equals("IT")){
+                if(Settings.locale.getLanguage().equals("it")){
                     FormUtils.getInstance().validateTextFieldRegister(newPswLabel, newPsw, FormUtils.getInstance().validatePassword(newPsw.getText()), "Nuova password*", "La password deve contenere almeno 8 caratteri, almeno una lettera minuscola, almeno una lettera maiuscola e un carattere speciale*");
                 }
                 else{
@@ -125,11 +125,11 @@ public class SafetyController {
 
         confirmPsw.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
-                if(Settings.locale.getLanguage().equals("IT")){
-                    FormUtils.getInstance().validateTextFieldRegister(confirmPswLabel, confirmPsw, confirmPsw.getText().equals(newPsw.getText()), "Conferma nuova password*", "Le password non coincidono*");
+                if(Settings.locale.getLanguage().equals("it")){
+                    FormUtils.getInstance().validateTextFieldRegister(confirmPswLabel, confirmPsw, confirmPsw.getText().equals(newPsw.getText()), "Conferma password*", "Le password non coincidono*");
                 }
                 else{
-                    FormUtils.getInstance().validateTextFieldRegister(confirmPswLabel, confirmPsw, confirmPsw.getText().equals(newPsw.getText()), "Confirm new password*", "Passwords do not match*");
+                    FormUtils.getInstance().validateTextFieldRegister(confirmPswLabel, confirmPsw, confirmPsw.getText().equals(newPsw.getText()), "Confirm password*", "Passwords do not match*");
                 }
                 sendButton.setDisable(!(confirmPsw.getText().equals(newPsw.getText()) && FormUtils.getInstance().validatePassword(newPsw.getText())));
             }
