@@ -36,6 +36,8 @@ public class DeleteAccountController {
         else
             controllo = SceneHandler.getInstance().showMessage("question", "Confirm","Confirm account deletion?", "Are you sure you want to delete the account?").equals("OK");
         if (controllo) {
+            userService.setAction("checkPassword");
+            userService.setUserId(BankApplication.getCurrentlyLoggedUser());
             userService.setPassword(password.getText());
             userService.restart();
             userService.setOnSucceeded(event1 -> {
