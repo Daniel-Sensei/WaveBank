@@ -74,6 +74,7 @@ public class MyAccountController implements Initializable {
     private ImageView receipt;
 
     private ArrayList<ImageView> myAccountImages = new ArrayList<>();
+
     private void loadMyAccountImages(){
         myAccountImages.add(cross);
         myAccountImages.add(data);
@@ -90,11 +91,9 @@ public class MyAccountController implements Initializable {
         myAccountImages.add(copy);
     }
 
-    private final static String CSS_PATH = "/css/" ;
-
     @FXML
     void userLogout(ActionEvent event) {
-        Boolean conferma = false;
+        boolean conferma;
         if(Settings.locale.getLanguage().equals("it"))
             conferma = SceneHandler.getInstance().showMessage("question", "Conferma","Conferma logout", "Sei sicuro di voler effettuare il logout?").equals("OK");
         else
