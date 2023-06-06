@@ -84,13 +84,21 @@ public class NewRecurringController implements Initializable {
         for (int giorno = 1; giorno <= 31; giorno++) {
             dayComboBox.getItems().add(String.valueOf(giorno));
         }
-
+        String[] mesi;
         // Popola la ComboBox dei mesi
-        monthComboBox.getItems().clear();
-        String[] mesi = {
-                "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
-                "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"
-        };
+        if(Settings.locale.getLanguage().equals("it")) {
+            monthComboBox.getItems().clear();
+            mesi = new String[] {
+                    "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
+                    "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"
+            };
+        } else {
+            monthComboBox.getItems().clear();
+            mesi = new String[]{
+                    "January", "February", "March", "April", "May", "June",
+                    "July", "August", "Septemper", "October", "November", "December"
+            };
+        }
         for (String mese : mesi) {
             monthComboBox.getItems().add(mese);
         }
