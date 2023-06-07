@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="360.0" spacing="10.0" styleClass="vbox-with-rounded-border" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController.SpaceTransactionLabelController">
+<HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="360.0" spacing="10.0" styleClass="vbox-with-rounded-border" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController.SpaceTransactionLabelController">
    <children>
       <ImageView fx:id="receiverImage" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -18,7 +18,7 @@
       </ImageView>
       <VBox fx:id="spaceReciever" alignment="CENTER_LEFT" spacing="5.0">
          <children>
-            <Label fx:id="receiverName" styleClass="spaceTransactionNameLabel" text="This space">
+            <Label fx:id="receiverName" style="-fx-font-size: 15;" text="This space">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

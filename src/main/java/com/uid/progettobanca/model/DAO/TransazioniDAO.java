@@ -112,7 +112,7 @@ public class TransazioniDAO {
         String nomeTo = to.getNome();
         to.setSaldo(to.getSaldo()+amount);
         // creo la transazione di spostamento
-        Transazione t = new Transazione("Trasferimento tra spaces da "+nomeFrom+" a "+nomeTo, iban, iban, spaceFrom, spaceTo, LocalDateTime.now(), amount, "Da "+nomeFrom+" a "+nomeTo, "Trasferimento tra spaces", "altro", commenti);
+        Transazione t = new Transazione("Trasferimento tra spaces da "+nomeFrom+" a "+nomeTo, iban, iban, spaceFrom, spaceTo, LocalDateTime.now(), amount, commenti, "Trasferimento tra spaces", "altro", "");
         //inserisco la positiva
         insert(t);
         // inverto l'importo e inserisco la negativa

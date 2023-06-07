@@ -3,18 +3,18 @@
     -fx-background-color: transparent;
 }
 
-/* se definisco il background direttamente sopra lo sovrascrive anche alle etichette e caselle di testo, quindi dobbiamo fare una classe apposita per lo sfondo */
+/* BACKGROUND */
+
 .background {
     -fx-background-color: backgroundColor;
 }
 
 /* LABELS */
+
 .label {
     -fx-background-color: transparent;
-    /*-fx-font-weight: bold;*/
     -fx-font-size: 14px;
 }
-
 
 .BankTitleLabel {
     -fx-font-family: "Roboto Bold";
@@ -29,14 +29,6 @@
 .subtitleLabel {
     -fx-font-size: 14px;
     -fx-font-family: "Roboto Bold";
-}
-
-.spaceTransactionNameLabel {
-    -fx-font-size: 15px;
-}
-
-.spaceTransactionBalanceLabel {
-    -fx-font-size: 16px;
 }
 
 .promptLabel{
@@ -99,14 +91,12 @@
     -fx-background-color: borderColor;
 }
 
-
 .scroll-bar:horizontal .thumb:hover,
 .scroll-bar:vertical .thumb:hover{
     -fx-background-color: accentColor;
 }
 
 /* COMBO BOX */
-
 
 .combo-box {
     -fx-background-color: secondaryColor;
@@ -141,7 +131,6 @@
 .spaces-combo-box .arrow-button{
     -fx-background-color: backgroundColor;
 }
-
 
 /* SLIDER */
 
@@ -179,7 +168,6 @@
     -fx-text-fill: textColor;
 }
 
-
 .text-field:focused {
     -fx-border-color: greenButtonColor;
 }
@@ -191,11 +179,20 @@
     -fx-font-family: "Roboto Bold";
 }
 
-
 .text-field-login:focused{
     -fx-border-color: primaryColor;
 }
 
+/* TEXT FIELD TRANSPARENT */
+
+.text-field-transparent {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 0 0px;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-text-fill: textColor;
+    -fx-padding: 0 0 0 0;
+}
 
 /* TEXT AREA */
 
@@ -209,13 +206,21 @@
     -fx-padding: 0px 0px 0px -9px;
 }
 
-/*
-.text-area:hover,
-.text-area:focused {
+/* COMMENTS TEXT-AREA */
+.comments{
+    -fx-background-color: transparent;
+    -fx-border-radius: 5px;
     -fx-border-width: 1px;
-    -fx-border-color: greenButtonColor;
+    -fx-border-color: borderColor;
+    -fx-font-size: 13px;
+    -fx-text-fill: textColor;
+    -fx-padding: 0px 0px 0px -9px;
 }
-*/
+
+.comments:hover,
+.comments:focused{
+    -fx-border-color: primaryColor;
+}
 
 /* TEXT */
 
@@ -241,7 +246,6 @@
     -fx-background-color: derive(shade1, 30%);
 }
 
-
 .secondaryButton {
     -fx-background-color: backgroundColor;
     -fx-border-color: borderColor;
@@ -263,7 +267,6 @@
     -fx-background-color: quaternaryColor;
     -fx-background-radius: 10px;
 }
-
 
 .tertiaryButton:hover,
 .tertiaryButton:focused {
@@ -360,6 +363,7 @@
 }
 
 /* MENU BAR */
+
 .menu-bar {
     -fx-background-color: secondaryColor;
 }
@@ -369,21 +373,6 @@
     -fx-font-size: 18px;
     -fx-fill: textColor;
 }
-
-/*
-.menu-bar .label:hover,
-.menu-bar .label:focused {
-    -fx-background-color: shade1;
-    -fx-background-radius: 10px;
-}
-*/
-
-/*
-.menu-bar .label:hover > .text,
-.menu-bar .label:focused > .text {
-    -fx-fill: greenButtonColor;
-}
-*/
 
 .menu-bar-label > .text{
     -fx-fill: greenButtonColor;
@@ -423,7 +412,7 @@
 
 .vbox-with-rounded-border-hbox:hover,
 .vbox-with-rounded-border-hbox:focused{
-    -fx-background-color: shade2; /*OPPURE SI PUO METTERE shade2*/
+    -fx-background-color: shade2;
     -fx-border-width: 0 0 0px 4px; /* Imposta la larghezza del bordo solo per il lato sinistro */
     -fx-border-color: #36a18b;
     -fx-transition: -fx-border-color 0.6s;
@@ -431,7 +420,7 @@
 
 .vbox-with-rounded-border-hbox-bottom:hover,
 .vbox-with-rounded-border-hbox-bottom:focused{
-    -fx-background-color: shade2; /*OPPURE SI PUO METTERE shade2*/
+    -fx-background-color: shade2;
     -fx-border-width: 0 0 0 4px; /* Imposta la larghezza del bordo solo per il lato sinistro */
     -fx-border-color: #36a18b;
     -fx-transition: -fx-border-color 0.6s;
@@ -465,31 +454,25 @@
 
 .card-hbox:hover,
 .card-hbox:focused{
-    -fx-background-color: shade2; /*OPPURE SI PUO METTERE shade2*/
+    -fx-background-color: shade2;
 }
 
-
-
-
-/* ------------------- TEST ------------------- */
-
-
-/* GRAFICO FORTU */
+/* GRAFICO */
 .grafico{
-    -fx-background-color: secondaryColor; /* Colore di sfondo della VBox */
-    -fx-background-radius: 4px; /* Raggio dei bordi per rendere la VBox tondeggiante */
+    -fx-background-color: secondaryColor;
+    -fx-background-radius: 4px;
     -fx-border-radius: 4px;
     -fx-border-color: borderColor;
     -fx-border-width: 0.4px;
 }
 
-/* CARD FORTUNATO */
+/* CARD */
 
 .card{
     -fx-background-color: secondaryColor;
     -fx-border-radius: 10px;
     -fx-background-radius: 10px;
-    -fx-border-color: borderColor; /* da salvare nel light.css */
+    -fx-border-color: borderColor;
     -fx-border-width: 0.4px;
 }
 
@@ -499,11 +482,10 @@
     -fx-background-radius: 10px;
     -fx-border-width: 0 0 1px 0;
     -fx-border-color: borderColor;
-    /* Imposta il colore del bordo su bianco */
-    /* Imposta la larghezza del bordo a 1px */
 }
 
-/*chart fortu*/
+/* CHARTS */
+
 .chart{
     -fx-background-color: secondaryColor;
     -fx-legend-visible: false;
@@ -517,106 +499,8 @@
     -fx-stroke: primaryColor;
 }
 
-/* TEST PIETRO */
-
-.text-field-prova {
-    -fx-border-width: 0 0 0 4px; /* Imposta la larghezza del bordo solo per il lato sinistro */
-    -fx-border-color: borderColor;
-    /*-fx-transition: -fx-border-color 0.3s;*/
-    -fx-background-color: backgroundColor;
-    -fx-font-size: 18px;
-    -fx-text-fill: textColor;
-}
-
-.text-field-prova:hover{
-    -fx-border-color: primaryColor;
-}
-
-.text-field-prova:focused {
-    -fx-border-width: 0.4 0.4 0.4 4px;
-    -fx-border-color: primaryColor;
-}
+/* CONTACT SELECTED */
 
 .contact{
     -fx-background-color: shade2;
-}
-
-/* DATE PICKER */
-
-.date-picker {
-    -fx-background-color: transparent;
-}
-
-.date-picker > .arrow-button {
-    -fx-background-color: transparent;
-}
-
-.date-picker > .arrow-button > .arrow {
-    -fx-shape: "M 0 0 L 5 5 L 0 10 Z";
-    -fx-background-color: linear-gradient(to bottom, -fx-background -10%, -fx-background);
-}
-
-.date-picker > .text-field {
-    -fx-pref-width: 150px;
-    -fx-background-color: #f5f5f5;
-    -fx-background-radius: 5px;
-    -fx-border-color: #ddd;
-    -fx-border-radius: 5px;
-    -fx-padding: 3px 5px;
-    -fx-font-size: 12px;
-}
-
-.date-picker-popup {
-    -fx-background-color: #f5f5f5;
-    -fx-border-color: #ddd;
-    -fx-border-radius: 5px;
-    -fx-padding: 5px;
-}
-
-.date-picker-popup > .month-year-pane > .month-year-label {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-}
-
-.date-picker-popup > .month-year-pane > .arrow-button {
-    -fx-padding: 0;
-}
-
-.date-picker-popup > .month-year-pane > .arrow-button > .arrow {
-    -fx-background-color: transparent;
-}
-
-.date-picker-popup > .month-year-pane > .arrow-button > .arrow > .arrow-shape {
-    -fx-shape: "M 0 0 L 5 5 L 0 10 Z";
-    -fx-fill: -fx-text-base-color;
-}
-
-.date-picker-popup > .calendar {
-    -fx-background-color: transparent;
-}
-
-.date-picker-popup > .calendar > .day-cell {
-    -fx-pref-width: 30px;
-    -fx-pref-height: 30px;
-    -fx-alignment: CENTER;
-}
-
-.date-picker-popup > .calendar > .day-cell > .label {
-    -fx-font-size: 12px;
-}
-
-.date-picker-popup > .calendar > .day-cell:selected {
-    -fx-background-color: #00aacc;
-    -fx-text-fill: white;
-}
-
-/* text field trasparente */
-.text-field-transparent {
-    -fx-background-color: transparent;
-    -fx-border-width: 0 0 0 0px; /* Imposta la larghezza del bordo solo per il lato sinistro */
-    -fx-border-color: transparent;
-    /*-fx-transition: -fx-border-color 0.3s;*/
-    -fx-font-size: 14px;
-    -fx-text-fill: textColor;
-    -fx-padding: 0 0 0 0;
 }
