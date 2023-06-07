@@ -15,17 +15,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 
+/*
+ *   Controller used by all the other controllers to load images
+ *   You can use various function depending on the type of object you want to load (ImageView, Button, ...)
+ *   It is aldo possibile to load multiple images at once
+ */
 public class GenericController {
-    @FXML
-    private Button reloadPageButton;
 
-    @FXML
-    void reloadPage(ActionEvent event) {
-        BackStack.getInstance().popTitle();
-        String pageName = BackStack.getInstance().peek();
-        SceneHandler.getInstance().createPage(pageName);
+    // Load images in ImageView
+    public static void loadImage(ImageView imageView){
+        imageView.setImage(ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + imageView.getId() + ".png"));
     }
-
+    public static void loadImage(String name, ImageView imageView){
+        imageView.setImage(ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + name + ".png"));
+    }
     public static void loadImages(ArrayList<ImageView> images) {
         for (ImageView imageView : images) {
             imageView.setImage(ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + imageView.getId() + ".png"));
@@ -36,11 +39,15 @@ public class GenericController {
             images.get(i).setImage(ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + names[i] + ".png"));
         }
     }
-    public static void loadImage(ImageView imageView){
-        imageView.setImage(ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + imageView.getId() + ".png"));
-    }
-    public static void loadImage(String name, ImageView imageView){
-        imageView.setImage(ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + name + ".png"));
+
+    //Load images in Button
+    public static void loadImageButton(Button button) {
+        Image image = ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + button.getId() + ".png");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(25);
+        imageView.setFitWidth(25);
+        button.setContentDisplay(ContentDisplay.CENTER);
+        button.setGraphic(imageView);
     }
     public static void loadImagesButton(ArrayList<Button> buttons) {
         for(Button button : buttons){
@@ -57,14 +64,6 @@ public class GenericController {
             buttons.get(i).setGraphic(imageView);
         }
     }
-    public static void loadImageButton(Button button) {
-        Image image = ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + button.getId() + ".png");
-        ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(25);
-        imageView.setFitWidth(25);
-        button.setContentDisplay(ContentDisplay.CENTER);
-        button.setGraphic(imageView);
-    }
     public static void loadImageButton(String imageName, Button button) {
         Image image = ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + imageName + ".png");
         ImageView imageView = new ImageView(image);
@@ -74,18 +73,10 @@ public class GenericController {
         button.setGraphic(imageView);
     }
 
+    //Load images in Spaces
     public static void setSpaceImage(String name, ImageView imageView){
         imageView.setImage(ImageUtils.loadImageFromResource(Settings.SPACE_IMAGE_PATH + name));
     }
-
-    public static void setCardImage(String name, ImageView imageView){
-        imageView.setImage(ImageUtils.loadImageFromResource(Settings.CARDS_IMAGE_PATH + name + ".png"));
-    }
-
-    public static void setMenuBarImage(String name, ImageView imageView){
-        imageView.setImage(ImageUtils.loadImageFromResource(Settings.MENU_BAR_IMAGE_PATH + name + ".png"));
-    }
-
     private static void setIMageProperties(ImageView paint, Image image, FlowPane listOfImage, ImageView imagePicked){
         paint.setFitHeight(90);
         paint.setFitWidth(90);
@@ -95,7 +86,6 @@ public class GenericController {
             imagePicked.setImage(image);
         });
     }
-
     public static void openImageFlowPane(FlowPane listOfImage, ImageView imagePicked, List<Image> images){
         listOfImage.getChildren().clear();
         try{
@@ -114,4 +104,24 @@ public class GenericController {
             throw new RuntimeException(e);
         }
     }
+
+    //Load images in Cards
+    public static void setCardImage(String name, ImageView imageView){
+        imageView.setImage(ImageUtils.loadImageFromResource(Settings.CARDS_IMAGE_PATH + name + ".png"));
+    }
+
+    //Load images in MenuBar
+    public static void setMenuBarImage(String name, ImageView imageView){
+        imageView.setImage(ImageUtils.loadImageFromResource(Settings.MENU_BAR_IMAGE_PATH + name + ".png"));
+    }
+
+    //reload used by errorPage
+    @FXML
+    void reloadPage(ActionEvent event) {
+        BackStack.getInstance().popTitle();
+        String pageName = BackStack.getInstance().peek();
+        SceneHandler.getInstance().createPage(pageName);
+    }
+
+
 }

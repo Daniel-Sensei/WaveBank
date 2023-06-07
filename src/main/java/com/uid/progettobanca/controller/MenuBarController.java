@@ -16,39 +16,29 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MenuBarController implements Initializable {
-
-    public static String currentPage = "home";
     @FXML
     private ImageView home;
-
     @FXML
     private Label homeLabel;
-
     @FXML
     private ImageView manage;
-
     @FXML
     private Label manageLabel;
-
     @FXML
     private ImageView myAccount;
-
     @FXML
     private ImageView operations;
-
     @FXML
     private Label operationsLabel;
-
     @FXML
     private ImageView spaces;
-
     @FXML
     private Label spacesLabel;
     @FXML
     private Label myAccountLabel;
     private ArrayList<ImageView> menuBarImages = new ArrayList<>();
-    @FXML
-    private HBox menuBarHBox;
+    //used to know which page is currently loaded and set the correct style
+    public static String currentPage = "home";
 
     private void loadMenuBarImages(){
         menuBarImages.add(home);
@@ -59,8 +49,9 @@ public class MenuBarController implements Initializable {
     }
 
     private void clearLabelAndBackStack(){
+        //clear the back stack when a new page is loaded from the menu bar
         BackStack.getInstance().clearStack();
-        //clear delle vecchie icone per impostare quella verde
+
         GenericController.loadImages(menuBarImages);
         homeLabel.getStyleClass().clear();
         spacesLabel.getStyleClass().clear();
@@ -76,6 +67,7 @@ public class MenuBarController implements Initializable {
         }
         GenericController.loadImages(menuBarImages);
 
+        //set the correct style for the current page
         if(currentPage.equals("home"))
             setLabelStyle(homeLabel, "home", home);
         else if(currentPage.equals("spaces"))
@@ -95,42 +87,36 @@ public class MenuBarController implements Initializable {
         GenericController.setMenuBarImage(name, imageView);
     }
 
+    //listener for the menu bar
     @FXML
     void loadHome(MouseEvent event) {
-        clearLabelAndBackStack();
+        //clear the memory of the filter selection when home is loaded from the menu bar
         FilterSelectionController.clearMemory();
-        SceneHandler.getInstance().setPage(Settings.HOME_PATH + "home.fxml");
-        setLabelStyle(homeLabel, "home", home);
+
+        loadMenuBarPage(Settings.HOME_PATH + "home.fxml", "home", homeLabel, home);
     }
-
-    @FXML
-    void loadManage(MouseEvent event) {
-        clearLabelAndBackStack();
-        SceneHandler.getInstance().setPage(Settings.MANAGE_PATH + "manage.fxml");
-        setLabelStyle(manageLabel, "manage", manage);
-    }
-
-    @FXML
-    void loadMyAccount(MouseEvent event) {
-        clearLabelAndBackStack();
-        SceneHandler.getInstance().setPage(Settings.MY_ACCOUNT_PATH + "myAccount.fxml");
-        setLabelStyle(myAccountLabel, "myAccount", myAccount);
-
-    }
-
-    @FXML
-    public void loadOperations(MouseEvent event) {
-        clearLabelAndBackStack();
-        //si usa il create page per rimuovere selezione degli utenti
-        SceneHandler.getInstance().createPage(Settings.OPERATIONS_PATH + "operations.fxml");
-        setLabelStyle(operationsLabel, "operations", operations);
-    }
-
     @FXML
     void loadSpaces(MouseEvent event) {
+        loadMenuBarPage(Settings.SPACES_PATH + "spaces.fxml", "spaces", spacesLabel, spaces);
+    }
+    @FXML
+    void loadOperations(MouseEvent event) {
+        loadMenuBarPage(Settings.OPERATIONS_PATH + "operations.fxml", "operations", operationsLabel, operations);
+    }
+    @FXML
+    void loadManage(MouseEvent event) {
+        loadMenuBarPage(Settings.MANAGE_PATH + "manage.fxml", "manage", manageLabel, manage);
+    }
+    @FXML
+    void loadMyAccount(MouseEvent event) {
+        loadMenuBarPage(Settings.MY_ACCOUNT_PATH + "myAccount.fxml", "myAccount", myAccountLabel, myAccount);
+    }
+
+    //load the page from the menu bar
+    private void loadMenuBarPage(String pageName, String currentPage, Label label, ImageView imageView){
         clearLabelAndBackStack();
-        SceneHandler.getInstance().setPage(Settings.SPACES_PATH + "spaces.fxml");
-        setLabelStyle(spacesLabel, "spaces", spaces);
+        SceneHandler.getInstance().setPage(pageName);
+        setLabelStyle(label, currentPage, imageView);
     }
 
 }

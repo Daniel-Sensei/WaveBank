@@ -22,7 +22,7 @@
                   <VBox alignment="CENTER_LEFT" spacing="3.0">
                      <children>
                         <Label styleClass="titleLabel" text="%registrazione" />
-                        <Label fx:id="backLabel" onMouseClicked="#backToLogin" styleClass="subtitleLabel" text="%back">
+                        <Label onMouseClicked="#backToLogin" styleClass="subtitleLabel" text="%back">
                            <graphic>
                               <ImageView fx:id="back" fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic>
@@ -48,7 +48,7 @@
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <Label fx:id="dateLabel" text="%dataDiNascita" />
+                  <Label text="%dataDiNascita" />
                   <HBox alignment="CENTER_LEFT" prefHeight="35.0" spacing="10.0">
                      <children>
                         <ComboBox fx:id="dayComboBox" prefHeight="35.0" prefWidth="100.0" promptText="%day" visibleRowCount="6" HBox.hgrow="ALWAYS" />
@@ -78,7 +78,7 @@
             </VBox>
             <VBox spacing="5.0">
                <children>
-                  <Label fx:id="questionLabel" text="%domandaDiSicurezza" wrapText="true" />
+                  <Label text="%domandaDiSicurezza" wrapText="true" />
                   <ComboBox fx:id="questions" prefHeight="35.0" prefWidth="350.0" promptText="%selettoreDomanda" visibleRowCount="5" />
                </children>
             </VBox>

@@ -22,8 +22,6 @@ import java.util.ResourceBundle;
 
 public class PasswordRecoveryController implements Initializable {
     @FXML
-    private Label backLabel;
-    @FXML
     private Label emailLabel;
     @FXML
     private Label passwordLabel;
@@ -44,6 +42,7 @@ public class PasswordRecoveryController implements Initializable {
     @FXML
     private ImageView back;
 
+    // Services variables
     private GetUserService getUserService = new GetUserService();
     private UserService userService = new UserService();
     private boolean emailInDB = true;
@@ -51,7 +50,19 @@ public class PasswordRecoveryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         GenericController.loadImage(back);
+
+        // Bindings start
         fieldAnswer.setDisable(true);
+
+        String questionText;
+        if(Settings.locale.getLanguage().equals("it")){
+            questionText = "Compila il campo Email per visualizzare la domanda di sicurezza";
+        }
+        else if(Settings.locale.getLanguage().equals("en")){
+            questionText = "Fill the Email field to show the security question";
+        } else {
+            questionText = "";
+        }
 
         fieldEmail.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
@@ -62,17 +73,21 @@ public class PasswordRecoveryController implements Initializable {
                     getUserService.setOnSucceeded(e -> {
                         if (getUserService.getValue() == null) {
                             emailInDB = false;
-                            question.setText("Compila il campo Email per visualizzare la domanda di sicurezza");
+                            question.setText(questionText);
                             fieldAnswer.setText("");
                             fieldAnswer.setDisable(true);
                         }
                         else {
+                            // set question to restore password
                             fieldAnswer.setDisable(false);
                             question.setText(getUserService.getValue().getDomanda() + "*");
                             emailInDB = true;
                         }
                         if(!emailInDB){
-                            FormUtils.getInstance().validateTextFieldRegister(emailLabel, fieldEmail, false, "Email*", "Email non presente nel sistema*");
+                            if(Settings.locale.getLanguage().equals("it"))
+                                FormUtils.getInstance().validateTextFieldRegister(emailLabel, fieldEmail, false, "Email*", "Email non presente nel sistema*");
+                            else if(Settings.locale.getLanguage().equals("en"))
+                                FormUtils.getInstance().validateTextFieldRegister(emailLabel, fieldEmail, false, "Email*", "Email not present in the system*");
                         }
                     });
                     getUserService.setOnFailed(e -> {
@@ -84,13 +99,19 @@ public class PasswordRecoveryController implements Initializable {
 
         fieldPassword.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
-                FormUtils.getInstance().validateTextFieldRegister(passwordLabel, fieldPassword, FormUtils.getInstance().validatePassword(fieldPassword.getText()), "Nuova Password*", "La password deve contenere almeno 8 caratteri, almeno una lettera minuscola, almeno una lettera maiuscola e un carattere speciale*");
+                if (Settings.locale.getLanguage().equals("it"))
+                    FormUtils.getInstance().validateTextFieldRegister(passwordLabel, fieldPassword, FormUtils.getInstance().validatePassword(fieldPassword.getText()), "Nuova Password*", "La password deve contenere almeno 8 caratteri, almeno una lettera minuscola, almeno una lettera maiuscola e un carattere speciale*");
+                else if (Settings.locale.getLanguage().equals("en"))
+                    FormUtils.getInstance().validateTextFieldRegister(passwordLabel, fieldPassword, FormUtils.getInstance().validatePassword(fieldPassword.getText()), "New Password*", "The password must contain at least 8 characters, at least one lowercase letter, at least one uppercase letter and a special character*");
             }
         });
 
         confirmPassword.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
-                FormUtils.getInstance().validateTextFieldRegister(confirmPasswordLabel, confirmPassword, FormUtils.getInstance().validateConfirmPassword(fieldPassword.getText(), confirmPassword.getText()), "Conferma Password*", "Le password non corrispondono*");
+                if (Settings.locale.getLanguage().equals("it"))
+                    FormUtils.getInstance().validateTextFieldRegister(confirmPasswordLabel, confirmPassword, FormUtils.getInstance().validateConfirmPassword(fieldPassword.getText(), confirmPassword.getText()), "Conferma Password*", "Le password non corrispondono*");
+                else if (Settings.locale.getLanguage().equals("en"))
+                    FormUtils.getInstance().validateTextFieldRegister(confirmPasswordLabel, confirmPassword, FormUtils.getInstance().validateConfirmPassword(fieldPassword.getText(), confirmPassword.getText()), "Confirm Password*", "Passwords do not match*");
             }
         });
 
@@ -111,23 +132,25 @@ public class PasswordRecoveryController implements Initializable {
         userService.setEmail(fieldEmail.getText().toLowerCase().trim());
         userService.setAnswer(fieldAnswer.getText());
         userService.restart();
+
         userService.setOnSucceeded(e -> {
             if (userService.getValue()) {
                 userService.setAction("updatePassword");
                 userService.setEmail(fieldEmail.getText().toLowerCase().trim());
                 userService.setPassword(fieldPassword.getText());
                 userService.restart();
+
                 userService.setOnSucceeded(e1 -> {
                     if (userService.getValue()) {
                         if(Settings.locale.getLanguage().equals("it"))
                             SceneHandler.getInstance().showMessage("info", "Aggiornamento Password", "Password aggiornata", "La password è stata aggiornata con successo.");
-                        else
+                        else if (Settings.locale.getLanguage().equals("en"))
                             SceneHandler.getInstance().showMessage("info", "Password Update", "Password Updated", "The password has been successfully updated.");
                         SceneHandler.getInstance().setPage("login.fxml");
                     } else
                         if(Settings.locale.getLanguage().equals("it"))
                             SceneHandler.getInstance().showMessage("error", "Errore", "Errore durante il cambio della password", "La password non è stata aggiornata.");
-                        else
+                        else if (Settings.locale.getLanguage().equals("en"))
                             SceneHandler.getInstance().showMessage("error", "Error", "Error Changing Password", "The password was not updated.");
                 });
                 userService.setOnFailed(e1 -> {
@@ -137,7 +160,7 @@ public class PasswordRecoveryController implements Initializable {
             else
                 if(Settings.locale.getLanguage().equals("it"))
                     SceneHandler.getInstance().showMessage("error", "Errore", "Errore durante il controllo della risposta", "Risposta errata, riprova.");
-                else
+                else if (Settings.locale.getLanguage().equals("en"))
                     SceneHandler.getInstance().showMessage("error", "Error", "Error Checking Answer", "Incorrect answer, please try again.");
         });
         userService.setOnFailed(e -> {

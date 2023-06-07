@@ -182,7 +182,7 @@ public class HomeController implements Initializable {
         }
 
         searchTextField.setText(searchQuery);
-        if (functionName.equals("filterSelectedTransaction")){
+        if (!functionName.equals("filterAllTransaction") && (!selectedFilters.isEmpty() || !selectedInOut.equals("both") || !searchQuery.isEmpty())) {
             GenericController.loadImageButton("filterSelected", filter);
         }
 

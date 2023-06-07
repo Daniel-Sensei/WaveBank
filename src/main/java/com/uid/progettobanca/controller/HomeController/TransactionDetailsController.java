@@ -186,7 +186,6 @@ public class TransactionDetailsController implements Initializable {
         commentsArea.setText(transaction.getCommenti());
         descriptionLabel.setText(transaction.getDescrizione());
         typeLabel.setText(transaction.getTipo());
-
         if (typeLabel.getText().equals("Bonifico")){
             GenericController.loadImage("bonifico", typeImage);
         }
@@ -205,7 +204,6 @@ public class TransactionDetailsController implements Initializable {
         else{
             GenericController.loadImage("altro", typeImage);
         }
-
         TransactionManager.getInstance().setTransactionName(transactionName, transaction);
 
         changeTag();
@@ -214,6 +212,7 @@ public class TransactionDetailsController implements Initializable {
 
     private void changeTag() {
         tagHBox.setOnMouseClicked(mouseEvent -> {
+            //put transaction in the Stack in TransactionManager
             TransactionManager.getInstance().putTransaction(transaction);
             Parent popupContent = null;
             try {
@@ -235,16 +234,18 @@ public class TransactionDetailsController implements Initializable {
             double centerX = parentX + parentWidth / 2;
             double centerY = parentY + parentHeight / 2;
 
+            // uses size of popUp to determine offset
             popup.setX(centerX - 400 / 2);
             popup.setY(centerY - 600 / 2);
 
             BoxBlur blur = new BoxBlur(10, 10, 2); //ultimo parametro imposta intensità sfocatura
 
-            // Imposta l'effetto sfocatura sulla scena
+            // set blur effect
             tagHBox.getScene().setFill(Color.TRANSPARENT);
             tagHBox.getScene().getRoot().setEffect(blur);
 
             popup.setOnHidden(event -> {
+                // remove blur effect
                 tagHBox.getScene().getRoot().setEffect(null);
                 SceneHandler.getInstance().createPage(Settings.HOME_PATH + "transactionDetails.fxml");
             });
@@ -276,15 +277,7 @@ public class TransactionDetailsController implements Initializable {
     }
 
     @FXML
-    private void loadPreviousPage(MouseEvent event) throws IOException {
-        //BackStack.getInstance().printStack();
-        BackStack.getInstance().loadPreviousPage();
-    }
-
-    @FXML
     void saveTransactionPDF(MouseEvent event) throws IOException {
-        //Transazione transaction = TransactionManager.getInstance().getNextTransaction();
-
         FormCompilationThread formThread = new FormCompilationThread(transaction);
         formThread.setOnSucceeded(event1 -> {
             if(event1.getSource().getValue() instanceof PDDocument document){
@@ -294,9 +287,8 @@ public class TransactionDetailsController implements Initializable {
         });
         formThread.start(); // Avvia il FormCompilationThread
         formThread.setOnFailed(event1 -> {
-            SceneHandler.getInstance().createPage("errorPage.fxml");
+            throw new RuntimeException(event1.getSource().getException());
         });
-
     }
 
     private void saveDocumentWithFileChooser(PDDocument document) {
@@ -309,7 +301,6 @@ public class TransactionDetailsController implements Initializable {
             try {
                 document.save(file);
                 document.close();
-                // Aggiungi ulteriori azioni post-salvataggio se necessario
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -322,5 +313,10 @@ public class TransactionDetailsController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @FXML
+    private void loadPreviousPage(MouseEvent event) throws IOException {
+        BackStack.getInstance().loadPreviousPage();
     }
 }
