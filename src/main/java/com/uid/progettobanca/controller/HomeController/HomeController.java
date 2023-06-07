@@ -196,10 +196,11 @@ public class HomeController implements Initializable {
                 this.transactions = (List<Transazione>) result;
                 if(!transactions.isEmpty())
                     if(selectedInOut.equals("iban_from")){
-                        //if the name I'm looking for is not on the left of the "-" then I remove the transaction
                         transactions.removeIf(transaction -> transaction.getName().contains("-") && !transaction.getName().substring(0, transaction.getName().indexOf("-")).toLowerCase().contains(searchQuery.toLowerCase()));
                     } else if (selectedInOut.equals("iban_to")) {
                         transactions.removeIf(transaction -> transaction.getName().contains("-") && !transaction.getName().substring(transaction.getName().indexOf("-") + 1).toLowerCase().contains(searchQuery.toLowerCase()));
+                    } else {
+                        transactions.removeIf(transaction -> transaction.getName().contains("-") && (transaction.getName().substring(transaction.getName().indexOf("-")+1).toLowerCase().contains(searchQuery.toLowerCase()) ^ transaction.getName().substring(0, transaction.getName().indexOf("-")).toLowerCase().contains(searchQuery.toLowerCase())) && (transaction.getIbanFrom().equals(BankApplication.getCurrentlyLoggedIban())^transaction.getIbanTo().equals(BankApplication.getCurrentlyLoggedIban())));
                     }
 
                 /*
