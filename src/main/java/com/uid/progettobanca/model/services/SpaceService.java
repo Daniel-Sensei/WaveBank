@@ -28,14 +28,15 @@ public class SpaceService extends Service<Boolean> {
         return new Task() {
             @Override
             protected Object call() throws Exception {
-                if (action.equals("insert")){
+                if (action.equals("insert")) {
                     return SpacesDAO.getInstance().insert(space);
                 } else if (action.equals("delete")) {
                     return SpacesDAO.getInstance().delete(space);
+                } else if (action.equals("update")) {
+                    return SpacesDAO.getInstance().update(space);
                 }
                 return false;
             }
-        };
+            };
+        }
     }
-
-}

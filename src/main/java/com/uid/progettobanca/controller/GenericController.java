@@ -1,6 +1,7 @@
 package com.uid.progettobanca.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.view.BackStack;
@@ -12,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 
 public class GenericController {
     @FXML
@@ -42,12 +44,7 @@ public class GenericController {
     }
     public static void loadImagesButton(ArrayList<Button> buttons) {
         for(Button button : buttons){
-            Image image = ImageUtils.loadImageFromResource(Settings.IMAGE_PATH + button.getId() + ".png");
-            ImageView imageView = new ImageView(image);
-            imageView.setFitHeight(25);
-            imageView.setFitWidth(25);
-            button.setContentDisplay(ContentDisplay.CENTER);
-            button.setGraphic(imageView);
+            loadImageButton(button);
         }
     }
     public static void loadImagesButton(String[] names, ArrayList<Button> buttons) {
@@ -89,4 +86,32 @@ public class GenericController {
         imageView.setImage(ImageUtils.loadImageFromResource(Settings.MENU_BAR_IMAGE_PATH + name + ".png"));
     }
 
+    private static void setIMageProperties(ImageView paint, Image image, FlowPane listOfImage, ImageView imagePicked){
+        paint.setFitHeight(90);
+        paint.setFitWidth(90);
+        paint.setOnMouseClicked(e -> {
+            listOfImage.getChildren().clear();
+            listOfImage.getChildren().add(imagePicked);
+            imagePicked.setImage(image);
+        });
+    }
+
+    public static void openImageFlowPane(FlowPane listOfImage, ImageView imagePicked, List<Image> images){
+        listOfImage.getChildren().clear();
+        try{
+            ImageView image = new ImageView(imagePicked.getImage());
+            GenericController.setIMageProperties(image, imagePicked.getImage(),listOfImage, imagePicked);
+            listOfImage.getChildren().add(image);
+
+            for(var el : images) {
+                if(!el.equals(imagePicked.getImage())) {
+                    ImageView imageView = new ImageView(el);
+                    GenericController.setIMageProperties(imageView, el, listOfImage, imagePicked);
+                    listOfImage.getChildren().add(imageView);
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

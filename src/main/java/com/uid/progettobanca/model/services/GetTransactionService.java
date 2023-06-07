@@ -28,6 +28,11 @@ public class GetTransactionService extends Service<List<Transazione>> {
         this.spaceID = spaceID;
     }
 
+    public GetTransactionService(String functionName){
+        this.functionName = functionName;
+    }
+
+
     @Override
     protected Task<List<Transazione>> createTask() {
         return new Task() {

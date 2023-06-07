@@ -26,7 +26,6 @@ import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Random;
@@ -84,35 +83,10 @@ public class SpaceFormController implements Initializable {
         });
     }
 
-    private void setIMageProperties(ImageView paint, Image image){
-        paint.setFitHeight(90);
-        paint.setFitWidth(90);
-        paint.setOnMouseClicked(e -> {
-            listOfImage.getChildren().clear();
-            listOfImage.getChildren().add(imagePicked);
-            imagePicked.setImage(image);
-        });
-    }
-
 
     @FXML
     void openImageList(MouseEvent event) {
-        listOfImage.getChildren().clear();
-        try{
-            ImageView image = new ImageView(imagePicked.getImage());
-            setIMageProperties(image, imagePicked.getImage());
-            listOfImage.getChildren().add(image);
-
-            for(var el : images) {
-                if(!el.equals(imagePicked.getImage())) {
-                    ImageView imageView = new ImageView(el);
-                    setIMageProperties(imageView, el);
-                    listOfImage.getChildren().add(imageView);
-                }
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        GenericController.openImageFlowPane(listOfImage, imagePicked, images);
     }
 
     @FXML
@@ -135,6 +109,10 @@ public class SpaceFormController implements Initializable {
         GenericController.loadImage(back);
 
         spaceCreationConfirm.setDisable(true);
+        checkTextField(inputSpaceName, warningName, spaceCreationConfirm);
+    }
+
+    public static void checkTextField(TextField inputSpaceName, Label warningName, Button spaceCreationConfirm) {
         inputSpaceName.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
                 FormUtils.getInstance().validateTextField(inputSpaceName, !inputSpaceName.getText().isEmpty(), warningName);

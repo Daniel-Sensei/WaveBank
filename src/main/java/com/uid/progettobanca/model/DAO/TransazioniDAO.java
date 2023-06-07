@@ -378,11 +378,12 @@ public class TransazioniDAO {
 
     // aggiornamento limitato a descrizione, tag e commenti tramite oggetto di tipo transazione
     public boolean update(Transazione transazione) {
-        String query = "UPDATE transazioni SET tag = ?, commenti = ? WHERE transaction_id = ?;";
+        String query = "UPDATE transazioni SET tag = ?, commenti = ?, nome = ? WHERE transaction_id = ?;";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, transazione.getTag());
             stmt.setString(2, transazione.getCommenti());
-            stmt.setInt(3, transazione.getId());
+            stmt.setString(3, transazione.getName());
+            stmt.setInt(4, transazione.getId());
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
