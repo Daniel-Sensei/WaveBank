@@ -113,11 +113,17 @@ public class EditSpaceController implements Initializable {
                                 }
                             }
                         });
+                        transactionService.setOnFailed(e2 -> {
+                            SceneHandler.getInstance().setPage("errorPage.fxml");
+                        });
                     }
                 }
             });
+            getTransactionService.setOnFailed(e1 -> {
+                SceneHandler.getInstance().setPage("errorPage.fxml");
+            });
         });
-        spaceService.setOnFailed(e2 -> {
+        spaceService.setOnFailed(e -> {
             SceneHandler.getInstance().setPage("errorPage.fxml");
         });
     }
