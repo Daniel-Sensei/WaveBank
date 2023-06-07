@@ -21,7 +21,7 @@
                   <Insets />
                </VBox.margin>
                <children>
-                  <Label styleClass="titleLabel" text="%CreaNuovoSpace" textAlignment="CENTER">
+                  <Label styleClass="titleLabel" text="%modificaSpace" textAlignment="CENTER">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -40,7 +40,7 @@
                <children>
                   <VBox spacing="2.0">
                      <children>
-                        <Label styleClass="subtitleLabel" text="Clicca qui per selezionare l'immagine" />
+                        <Label styleClass="subtitleLabel" text="%cliccaQui" />
                         <HBox>
                            <children>
                               <FlowPane fx:id="listOfImage" hgap="10.0" prefWrapLength="800.0" vgap="10.0">
@@ -54,7 +54,7 @@
                   </VBox>
                   <VBox spacing="2.0">
                      <children>
-                        <Label styleClass="subtitleLabel" text="%nomeSpace">
+                        <Label styleClass="subtitleLabel" text="%nomeModificaSpace">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -78,7 +78,7 @@
             </VBox>
             <HBox spacing="60.0">
                <children>
-                  <Button fx:id="editSpaceButton" mnemonicParsing="false" onAction="#updateSpace" prefHeight="40.0" styleClass="greenButton" text="%BottoneAccettaCreazioneSpace">
+                  <Button fx:id="editSpaceButton" mnemonicParsing="false" onAction="#updateSpace" prefHeight="40.0" styleClass="greenButton" text="%BottoneAccettaModificaSpace">
                      <font>
                         <Font size="14.0" />
                      </font>

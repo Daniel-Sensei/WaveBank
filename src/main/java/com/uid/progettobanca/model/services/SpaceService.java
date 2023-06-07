@@ -6,7 +6,6 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class SpaceService extends Service<Boolean> {
     private String action ;
