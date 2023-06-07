@@ -35,73 +35,52 @@ import java.util.ResourceBundle;
 
 public class TransactionDetailsController implements Initializable {
     private Transazione transaction;
-
     @FXML
     private Label amountLabel;
-
-    @FXML
-    private Label backLabel;
-
     @FXML
     private Label categoryLabel;
-
     @FXML
     private ImageView comment;
-
     @FXML
     private TextArea commentsArea;
-
     @FXML
     private Label dateLabel;
-
     @FXML
     private Label descriptionLabel;
-
     @FXML
     private ImageView document;
-
     @FXML
     private ImageView info;
-
     @FXML
     private Button saveCommentsButton;
-
     @FXML
     private ImageView spaceImage;
-
     @FXML
     private Label spaceLabel;
-
     @FXML
     private ImageView tagImage;
     @FXML
     private ImageView back;
-
     @FXML
     private Label transactionName;
-
     @FXML
     private ImageView typeImage;
     @FXML
     private ImageView forward;
-
     @FXML
     private ImageView forward1;
-
     @FXML
     private Label typeLabel;
     @FXML
     private Label fromToLabel;
-
-    DecimalFormat df = new DecimalFormat("#0.00");
-
-    private ArrayList<ImageView> transactionDetailsImages = new ArrayList<>();
-    private Space space = null;
-    private GetSpaceService getSpaceService = new GetSpaceService();
-
-
     @FXML
     private HBox tagHBox;
+    DecimalFormat df = new DecimalFormat("#0.00");
+    private ArrayList<ImageView> transactionDetailsImages = new ArrayList<>();
+
+    // Spaces variables
+    private Space space = null;
+    private GetSpaceService getSpaceService = new GetSpaceService();
 
     private void loadTransactionDetailsImages(){
         transactionDetailsImages.add(comment);
@@ -111,17 +90,19 @@ public class TransactionDetailsController implements Initializable {
         transactionDetailsImages.add(forward);
         transactionDetailsImages.add(forward1);
     }
+
     private void setTagImage(String tag){
-        //rimuovi spazi da tag
         tag = tag.replaceAll("\\s+","");
         GenericController.loadImage(tag, tagImage);
     }
+
     private void setSpaceLabelImage(){
         if(space != null) {
             spaceLabel.setText(space.getNome());
             GenericController.setSpaceImage(space.getImage(), spaceImage);
         }
         else {
+            // use default space if space is deleted
             spaceLabel.setText("Space eliminato");
             GenericController.setSpaceImage("wallet.png", spaceImage);
         }
@@ -135,9 +116,16 @@ public class TransactionDetailsController implements Initializable {
         }
         GenericController.loadImages(transactionDetailsImages);
 
+        // get transaction from the Stack in TransactionManager
+        // previously pushed by TransactionController
         transaction = TransactionManager.getInstance().getNextTransaction();
 
         getSpaceService.setAction("selectBySpaceId");
+        /*
+        * "IF" used to manage various type of transaction
+        * IF spaceTo is 0, the transaction is an operation like "Ricarica Telefonica, Bollettino, ecc..."
+        * ELSE the transaction is a normal transaction between spaces or "Bonifico"
+         */
         if(transaction.getSpaceTo() != 0) {
             if (transaction.getImporto() < 0) {
                 fromToLabel.setText("Da");
@@ -191,13 +179,13 @@ public class TransactionDetailsController implements Initializable {
             }
         }
 
+        //set all the details of the transaction
         categoryLabel.setText(transaction.getTag());
         setTagImage(transaction.getTag());
         dateLabel.setText(transaction.getDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm")));
         commentsArea.setText(transaction.getCommenti());
         descriptionLabel.setText(transaction.getDescrizione());
         typeLabel.setText(transaction.getTipo());
-
 
         if (typeLabel.getText().equals("Bonifico")){
             GenericController.loadImage("bonifico", typeImage);

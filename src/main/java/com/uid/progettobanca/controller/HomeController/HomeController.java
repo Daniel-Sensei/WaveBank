@@ -32,45 +32,43 @@ import java.text.DecimalFormat;
 import java.util.*;
 
 public class HomeController implements Initializable {
-
+    @FXML
+    private ScrollPane scrollPane;
     @FXML
     private Button filter;
-
-
     @FXML
     private ImageView search;
     @FXML
     private Button searchButton;
-
     @FXML
     private Button send;
     @FXML
     private VBox homeVbox;
     @FXML
     private Label balanceLabel;
-
     @FXML
     private Button statistics;
     private ArrayList<Button> homeButtons = new ArrayList<>();
     private ArrayList<Button> allHomeButtons = new ArrayList<>();
     private ArrayList<ImageView> homeImages = new ArrayList<>();
-
-    DecimalFormat df = new DecimalFormat("#0.00");
-
-    public static String functionName = "filterAllTransaction";
-    @FXML
-    private ScrollPane scrollPane;
     private List<Transazione> transactions = new ArrayList<>();
     private List<String> distinctDates = new ArrayList<>();
 
-    public static List<String> selectedFilters = new ArrayList<>();
+    //Decimal format
+    DecimalFormat df = new DecimalFormat("#0.00");
+
+    //Filter variables
+    public static String functionName = "filterAllTransaction";
     public static String selectedInOut = "both";
+    public static List<String> selectedFilters = new ArrayList<>();
     @FXML
     private TextField searchTextField;
     public static String searchQuery = "";
 
+    //Service variables
     GetAccountService getAccountService = new GetAccountService();
 
+    //used to remove focus from buttons
     public void addFocusRemovalListenerToButtons() {
         for (Button button : allHomeButtons) {
             button.addEventHandler(MouseEvent.MOUSE_RELEASED, event -> {
@@ -94,31 +92,6 @@ public class HomeController implements Initializable {
 
     private void loadHomeImages(){
         homeImages.add(search);
-    }
-
-
-    private void loadHomeAssets(){
-        SceneHandler.getInstance().setScrollSpeed(scrollPane);
-
-        if(homeButtons.isEmpty() || allHomeButtons.isEmpty()){
-            loadHomeButtons();
-            loadAllHomeButtons();
-        }
-        if(homeImages.isEmpty()){
-            loadHomeImages();
-        }
-
-        GenericController.loadImages(homeImages);
-        GenericController.loadImagesButton(homeButtons);
-        addFocusRemovalListenerToButtons();
-        getAccountService.setIban(BankApplication.getCurrentlyLoggedIban());
-        getAccountService.restart();
-        getAccountService.setOnSucceeded(event -> {
-            if(event.getSource().getValue() instanceof Conto result)
-                balanceLabel.setText(df.format(result.getSaldo()) + " €");
-        });
-
-        createFilterPopUp();
     }
 
     private void createFilterPopUp(){
@@ -163,13 +136,45 @@ public class HomeController implements Initializable {
 
     }
 
+    /*
+    *   This method is used to load all the assets of the home page (buttons, images, popUp, etc...)
+    *   It is called when the home page is loaded
+     */
+    private void loadHomeAssets(){
+        SceneHandler.getInstance().setScrollSpeed(scrollPane);
+
+        //load buttons and images into arrayLists if they are empty
+        if(homeButtons.isEmpty() || allHomeButtons.isEmpty()){
+            loadHomeButtons();
+            loadAllHomeButtons();
+        }
+        if(homeImages.isEmpty()){
+            loadHomeImages();
+        }
+
+        GenericController.loadImages(homeImages);
+        GenericController.loadImagesButton(homeButtons);
+        addFocusRemovalListenerToButtons();
+        getAccountService.setIban(BankApplication.getCurrentlyLoggedIban());
+        getAccountService.restart();
+        getAccountService.setOnSucceeded(event -> {
+            if(event.getSource().getValue() instanceof Conto result)
+                balanceLabel.setText(df.format(result.getSaldo()) + " €");
+        });
+        getAccountService.setOnFailed(event -> {
+            SceneHandler.getInstance().setPage("errorPage.fxml");
+        });
+
+        createFilterPopUp();
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //service starts while main thread is loading the page
         GetTransactionService getTransactionService = new GetTransactionService(functionName, selectedFilters, selectedInOut, searchQuery);
         getTransactionService.start();
 
-        //in loadHomeAssets() viene anche aggiunto popUp sul filter
         loadHomeAssets();
         if(!transactions.isEmpty() && !distinctDates.isEmpty()){
             transactions.clear();
@@ -189,17 +194,20 @@ public class HomeController implements Initializable {
         getTransactionService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof List<?> result){
                 this.transactions = (List<Transazione>) result;
-
-                //TODO; FIXARE scelta both
                 if(!transactions.isEmpty())
                     if(selectedInOut.equals("iban_from")){
-                        //se il nome che cerco non è a sinistra del - allora rimuovo la transazione
+                        //if the name I'm looking for is not on the left of the "-" then I remove the transaction
                         transactions.removeIf(transaction -> transaction.getName().contains("-") && !transaction.getName().substring(0, transaction.getName().indexOf("-")).toLowerCase().contains(searchQuery.toLowerCase()));
                     } else if (selectedInOut.equals("iban_to")) {
                         transactions.removeIf(transaction -> transaction.getName().contains("-") && !transaction.getName().substring(transaction.getName().indexOf("-") + 1).toLowerCase().contains(searchQuery.toLowerCase()));
                     }
 
-                //fill dello Stack per gestire dettagli delle transazioni
+                /*
+                *   This method is used to fill the transaction stack with the transactions
+                *   it helps to pass the transactions to the next page
+                *   1) Push transactions into the stack
+                *   2) Poll transactions from the stack
+                 */
                 TransactionManager.getInstance().fillTransactionStack(transactions);
                 distinctDates = TransactionManager.getInstance().countDistinctDates(transactions);
                 int nVBox = distinctDates.size();
@@ -207,23 +215,26 @@ public class HomeController implements Initializable {
                 if (nVBox != 0) {
                     for (int i = 0; i < nVBox; i++) {
 
+                        //convert the date to localDate and then to string (Ex. "Oggi", "Ieri", "20/12/2020")
                         Label labelDate = new Label(convertedDates.get(i));
                         labelDate.setPrefHeight(Label.USE_COMPUTED_SIZE);
                         labelDate.setPrefWidth(Label.USE_COMPUTED_SIZE);
                         VBox.setMargin(labelDate, new Insets(0, 0, 2, 0));
                         vBox.getChildren().add(labelDate);
 
+                        //set style for the vBox
+                        //each transactionBox contains transactions of the selected date
                         VBox transactionBox = TransactionManager.getInstance().createTransactionBox();
-
-                        //cicla nel for per aggiungere le transazioni
+                        //add transactions to the vBox
                         TransactionManager.getInstance().addTransactions(transactionBox, TransactionManager.getInstance().countNumTransactionBox(transactions, distinctDates.get(i)));
 
                         vBox.getChildren().add(transactionBox);
                     }
-
                     homeVbox.getChildren().add(vBox);
                 } else {
                     try {
+                        //noTransaction.fxml is loaded if there are no transactions
+                        //it enables the user to reload the page by resetting the filters
                         Parent parent = SceneHandler.getInstance().loadPage(Settings.HOME_PATH + "noTransaction.fxml");
                         homeVbox.getChildren().add(parent);
                     } catch (IOException e) {
@@ -240,13 +251,6 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    void enterPressed(KeyEvent event) {
-        if(event.getCode()== KeyCode.ENTER){
-            searchTransactionName(new ActionEvent());
-        }
-    }
-
-    @FXML
     void searchTransactionName(ActionEvent event) {
         HomeController.functionName = "filterSelectedTransaction";
         searchQuery = searchTextField.getText();
@@ -255,18 +259,29 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    void openOperations(ActionEvent event) {
-        SceneHandler.getInstance().createPage(Settings.OPERATIONS_PATH + "operations.fxml");
-        MenuBarController.currentPage = "operations";
-        SceneHandler.getInstance().createMenuBar();
+    void enterPressed(KeyEvent event) {
+        if(event.getCode()== KeyCode.ENTER){
+            searchTransactionName(new ActionEvent());
+        }
     }
 
+    /*
+    *   These methods are used as shortcuts to open:
+    *  1) Operations page
+    *  2) Statistics page (subMenu of Manage page)
+     */
+    @FXML
+    void openOperations(ActionEvent event) {
+        openShortcut(Settings.OPERATIONS_PATH + "operations.fxml", "operations");
+    }
     @FXML
     void openStatistics(ActionEvent event) {
-        SceneHandler.getInstance().createPage(Settings.MANAGE_PATH+ "statistics.fxml");
-        MenuBarController.currentPage = "manage";
-        SceneHandler.getInstance().createMenuBar();
+        openShortcut(Settings.MANAGE_PATH + "statistics.fxml", "manage");
     }
 
-
+    void openShortcut(String pageName, String currentPage){
+        SceneHandler.getInstance().createPage(pageName);
+        MenuBarController.currentPage = currentPage;
+        SceneHandler.getInstance().createMenuBar();
+    }
 }

@@ -12,32 +12,31 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 public class TransactionController implements Initializable {
-
     private Transazione transaction;
     @FXML
     private ImageView tagImage;
-
     @FXML
     private Label amountLabel;
-
     @FXML
     private Label transactionLabel;
     DecimalFormat df = new DecimalFormat("#0.00");
 
     private void setTagImage(String tag){
-        //rimuovi spazi da tag
         tag = tag.replaceAll("\\s+","");
         GenericController.loadImage(tag, tagImage);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // get transaction from Stack
+        // transaction pushed previously by HomeController
         transaction = TransactionManager.getInstance().getNextTransaction();
+
+        // change style based on transaction type (positive or negative)
         if(transaction.getImporto() < 0){
             amountLabel.setText(df.format(transaction.getImporto()) + " €");
         } else {
@@ -51,7 +50,8 @@ public class TransactionController implements Initializable {
 
     @FXML
     void openTransactionDetails(MouseEvent event) {
-        //new TransactionDetailsController(transaction);
+        // push transaction to Stack
+        // it needs to be used by TransactionDetailsController
         TransactionManager.getInstance().putTransaction(transaction);
         SceneHandler.getInstance().createPage(Settings.HOME_PATH + "transactionDetails.fxml");
     }

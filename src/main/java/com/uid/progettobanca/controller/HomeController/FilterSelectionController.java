@@ -12,79 +12,62 @@ import java.net.URL;
 import java.util.*;
 
 public class FilterSelectionController implements Initializable {
-
     @FXML
     private CheckBox altro;
-
     @FXML
     private CheckBox amiciFamiglia;
-
     @FXML
     private CheckBox assicurazioneFinanza;
-
     @FXML
     private CheckBox benessere;
-
     @FXML
     private CheckBox ciboSpesa;
-
-    @FXML
-    private Button filterSelected;
-
-    @FXML
-    private RadioButton inOnly;
-
-    @FXML
-    private RadioButton inOut;
-
     @FXML
     private CheckBox intrattenimento;
-
     @FXML
     private CheckBox istruzione;
-
     @FXML
     private CheckBox multimediaElettronica;
-
-    @FXML
-    private RadioButton outOnly;
-
     @FXML
     private CheckBox salute;
-
     @FXML
     private CheckBox shopping;
-
     @FXML
     private CheckBox stipendio;
-
     @FXML
     private CheckBox viaggi;
+    @FXML
+    private RadioButton inOut;
+    @FXML
+    private RadioButton inOnly;
+    @FXML
+    private RadioButton outOnly;
     @FXML
     private ToggleGroup toggleGroup;
     @FXML
     private TextField nameTextField;
-
+    @FXML
+    private Button filterSelected;
     public static Set<String> memoryFilters = new HashSet<>();
+    // by default is searched in both in and out transactions
     public static String memoryRadioButton = "both";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Imposta il ToggleGroup per i RadioButton
+        // group the radio buttons together in a toggle group
         toggleGroup = new ToggleGroup();
         inOut.setToggleGroup(toggleGroup);
         inOnly.setToggleGroup(toggleGroup);
         outOnly.setToggleGroup(toggleGroup);
 
         nameTextField.setText(HomeController.searchQuery);
+        // set the radio button and filters to the last selected ones
         restoreSelections();
-
     }
 
     @FXML
     void filterSelectedItems(ActionEvent event) {
-        //bisogna modificare la funzione filter in HomeController
-        //affinchè la home venga modificata in base ai filtri selezionati
+        // change functioning in HomeController Initialize method
         HomeController.functionName = "filterSelectedTransaction";
 
         HomeController.searchQuery = nameTextField.getText();
@@ -195,18 +178,14 @@ public class FilterSelectionController implements Initializable {
         HomeController.selectedFilters = selectedFilters;
         HomeController.selectedInOut = radioButtonValue;
 
-        // Ottieni e chiudi poup
+        // Close the popup and set the standard filter (Show all transactions)
         Popup popup = (Popup) filterSelected.getScene().getWindow();
         popup.hide();
-
-        //Bisogna reimpostare filtro di partenza
         SceneHandler.getInstance().createPage(Settings.HOME_PATH + "home.fxml");
         HomeController.functionName = "filterAllTransaction";
-
     }
 
     private void restoreSelections() {
-        // Ripristina lo stato delle selezioni dalle variabili
         setSelectedFilters();
         setSelectedRadioValue(memoryRadioButton);
     }
