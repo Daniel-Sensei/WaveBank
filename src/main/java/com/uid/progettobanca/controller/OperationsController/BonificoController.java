@@ -135,6 +135,8 @@ public class BonificoController implements Initializable {
         fieldName.setText(contact.getNome());
         fieldSurname.setText(contact.getCognome());
         fieldIbanTo.setText(contact.getIban());
+
+        saveContact.setDisable(true);
     }
 
     private final GetUserService getUserService = new GetUserService();
