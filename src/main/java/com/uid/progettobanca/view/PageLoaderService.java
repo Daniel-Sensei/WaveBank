@@ -66,8 +66,9 @@ public class PageLoaderService extends Service {
                     try {
                         Parent page = SceneHandler.getInstance().loadPage(pageName);
                         SceneHandler.getInstance().addPage(pageName, page);
+
                     } catch (IOException e) {
-                        throw new RuntimeException(e);;
+                        throw new RuntimeException(e);
                     }
                 }
                 return null;
