@@ -69,9 +69,7 @@ public class FormCompilationThread extends Service<PDDocument> {
                     data.setValue(transaction.getDateTime().format(DateTimeFormatter.ofPattern("dd/MM/yyyy, HH:mm")));
                     //importo
                     PDTextField importo = (PDTextField) acroForm.getField("importo");
-                    double importoValue = transaction.getImporto();
-                    String importoString = String.format("%.2f €", importoValue);
-                    importo.setValue(importoString);
+                    importo.setValue(String.valueOf(transaction.getImporto()) + " €");
                     //nome
                     PDTextField nomeTransazione = (PDTextField) acroForm.getField("nomeTransazione");
                     nomeTransazione.setValue(transaction.getName());

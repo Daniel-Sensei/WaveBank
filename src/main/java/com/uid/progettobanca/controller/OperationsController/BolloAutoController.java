@@ -229,12 +229,6 @@ public class BolloAutoController implements Initializable {
                 mediaPlayer.stop();
                 videoStage = null;
             });
-
-            // Chiudo la finestra quando il video finisce
-            mediaPlayer.setOnEndOfMedia(() -> {
-                videoStage.close();
-                videoStage = null;
-            });
         } else {
             // Aggiorna il contenuto della scena
             ((StackPane) videoScene.getRoot()).getChildren().setAll(mediaView);
