@@ -255,8 +255,8 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    void onSendPress(ActionEvent event) {
-        SceneHandler.getInstance().createPage(Settings.OPERATIONS_PATH + Settings.sendButton);
+    void openOperations(ActionEvent event) {
+        SceneHandler.getInstance().createPage(Settings.OPERATIONS_PATH + "operations.fxml");
         MenuBarController.currentPage = "operations";
         SceneHandler.getInstance().createMenuBar();
     }

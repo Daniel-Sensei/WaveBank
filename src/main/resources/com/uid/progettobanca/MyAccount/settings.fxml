@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.MyAccountController.SettingsController">
+<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.MyAccountController.SettingsController">
    <padding>
       <Insets left="200.0" right="200.0" />
    </padding>
@@ -66,20 +66,6 @@
                                  <cursor>
                                     <Cursor fx:constant="CLOSED_HAND" />
                                  </cursor></ComboBox>
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-                           </padding>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="365.0" spacing="10.0" styleClass="card">
-                           <children>
-                              <Label text="%send2" />
-                              <VBox HBox.hgrow="ALWAYS" />
-                              <ComboBox fx:id="shortcutComboBox" onAction="#changeShortcut" prefWidth="150.0" promptText="%selectSendButton" styleClass="combo-box" visibleRowCount="2">
-                                 <cursor>
-                                    <Cursor fx:constant="CLOSED_HAND" />
-                                 </cursor>
-                              </ComboBox>
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />

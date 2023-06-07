@@ -20,8 +20,6 @@ public class Settings {
     public final static String SPACES_PATH = "/Spaces/";
     public final static String MY_ACCOUNT_PATH = "/MyAccount/";
 
-    public static String sendButton = "formBonifico.fxml";
-
     public static Locale locale = new Locale("IT");
     public static boolean darkTheme = false;
     public static String CSS_THEME = "light.css";
