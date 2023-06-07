@@ -70,9 +70,9 @@ public class SingleSpacePageController implements Initializable {
     @FXML
     private ImageView back;
 
+
     @FXML
     void deleteThisSpace(MouseEvent event) throws IOException {
-        if(SpacesManager.getInstance().getCurrentSpace().getSpaceId() != BankApplication.getCurrentlyLoggedMainSpace()) {
             SpaceService spaceService = new SpaceService("delete", currentSpace);
             spaceService.restart();
             spaceService.setOnSucceeded(e -> {
@@ -83,7 +83,6 @@ public class SingleSpacePageController implements Initializable {
                     throw new RuntimeException(ex);
                 }
             });
-        }
     }
 
     @FXML

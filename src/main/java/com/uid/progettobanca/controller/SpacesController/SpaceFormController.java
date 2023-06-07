@@ -27,6 +27,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class SpaceFormController implements Initializable {
@@ -54,6 +55,9 @@ public class SpaceFormController implements Initializable {
     private Label warningName;
     @FXML
     private ImageView back;
+
+    private List<Image> images = ImageUtils.getAllImageOfSpecificFolder("src/main/resources/assets/images/spacesImage");
+
 
     @FXML
     void createSpace(ActionEvent event) throws SQLException {
@@ -91,21 +95,19 @@ public class SpaceFormController implements Initializable {
 
     @FXML
     void openImageList(MouseEvent event) {
-
+        listOfImage.getChildren().clear();
         try{
-            List<Image> images = ImageUtils.getAllImageOfSpecificFolder("src/main/resources/assets/images/spacesImage");
-            listOfImage.getChildren().clear();
             ImageView image = new ImageView(imagePicked.getImage());
             setIMageProperties(image, imagePicked.getImage());
             listOfImage.getChildren().add(image);
 
+
             for(var el : images) {
-                if (el.getUrl().equals(imagePicked.getImage().getUrl())) {
-                    continue;
+                if(!el.equals(imagePicked.getImage())) {
+                    ImageView imageView = new ImageView(el);
+                    setIMageProperties(imageView, el);
+                    listOfImage.getChildren().add(imageView);
                 }
-                ImageView imageView = new ImageView(el);
-                setIMageProperties(imageView, el);
-                listOfImage.getChildren().add(imageView);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -119,6 +121,9 @@ public class SpaceFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Random random = new Random();
+        imagePicked.setImage(images.get(random.nextInt(images.size())));
+
         GenericController.loadImage(back);
 
         spaceCreationConfirm.setDisable(true);

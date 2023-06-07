@@ -34,6 +34,7 @@ public class SingleSpaceController implements Initializable {
     @FXML
     private Label spaceName;
 
+    //passo lo spazio attuale al manager così da avere tutte le informazioni necessarie per la pagina successiva
     @FXML
     void openSpacePage(MouseEvent event) throws IOException {
         SpacesManager.getInstance().setCurrentSpace(space);
@@ -45,6 +46,7 @@ public class SingleSpaceController implements Initializable {
         SceneHandler.getInstance().createPage(Settings.SPACES_PATH + "transactionPage.fxml");
     }
 
+    // alla creazione dello space gli passo tutte le informazioni che necessitano
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
