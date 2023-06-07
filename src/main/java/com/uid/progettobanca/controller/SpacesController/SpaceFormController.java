@@ -18,6 +18,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -60,7 +62,7 @@ public class SpaceFormController implements Initializable {
 
 
     @FXML
-    void createSpace(ActionEvent event) throws SQLException {
+    void createSpace(ActionEvent event) {
         String nome = inputSpaceName.getText();
         double saldo = 0;
         String image = ImageUtils.getImageViewImageName(imagePicked);
@@ -78,7 +80,7 @@ public class SpaceFormController implements Initializable {
             }
         });
         spaceService.setOnFailed(e2 -> {
-            throw new RuntimeException(e2.getSource().getException());
+            SceneHandler.getInstance().setPage("errorPage.fxml");
         });
     }
 
@@ -101,7 +103,6 @@ public class SpaceFormController implements Initializable {
             setIMageProperties(image, imagePicked.getImage());
             listOfImage.getChildren().add(image);
 
-
             for(var el : images) {
                 if(!el.equals(imagePicked.getImage())) {
                     ImageView imageView = new ImageView(el);
@@ -117,6 +118,13 @@ public class SpaceFormController implements Initializable {
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {
         BackStack.getInstance().loadPreviousPage();
+    }
+
+    @FXML
+    void enter(KeyEvent event) {
+        if(event.getCode()== KeyCode.ENTER && !inputSpaceName.getText().isEmpty()){
+            createSpace(new ActionEvent());
+        }
     }
 
     @Override

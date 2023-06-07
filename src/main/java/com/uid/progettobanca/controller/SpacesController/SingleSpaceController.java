@@ -24,13 +24,10 @@ public class SingleSpaceController implements Initializable {
     private Space space;
 
     private List <Parent> spacesFXML;
-
     @FXML
     private Label spaceBalance;
-
     @FXML
     private ImageView spaceImage;
-
     @FXML
     private Label spaceName;
 
@@ -46,7 +43,6 @@ public class SingleSpaceController implements Initializable {
         SceneHandler.getInstance().createPage(Settings.SPACES_PATH + "transactionPage.fxml");
     }
 
-    // alla creazione dello space gli passo tutte le informazioni che necessitano
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");

@@ -64,7 +64,7 @@ public class SpacesController implements Initializable {
         });
 
         getSpaceService.setOnFailed(e2 -> {
-            throw new RuntimeException(e2.getSource().getException());
+            SceneHandler.getInstance().setPage("errorPage.fxml");
         });
 
     }

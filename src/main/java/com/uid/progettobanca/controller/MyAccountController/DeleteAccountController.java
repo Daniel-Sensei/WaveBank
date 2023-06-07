@@ -13,6 +13,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -54,6 +56,13 @@ public class DeleteAccountController {
                         SceneHandler.getInstance().showMessage("error", "Error", "Wrong password", "The password entered is incorrect");
                 }
             });
+        }
+    }
+
+    @FXML
+    void enter(KeyEvent event) {
+        if(event.getCode()== KeyCode.ENTER && !password.getText().isEmpty()){
+            deleteAccount(new ActionEvent());
         }
     }
     @FXML

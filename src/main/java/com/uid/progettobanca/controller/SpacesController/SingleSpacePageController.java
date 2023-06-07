@@ -73,6 +73,12 @@ public class SingleSpacePageController implements Initializable {
 
     @FXML
     void deleteThisSpace(MouseEvent event) throws IOException {
+        boolean controllo = false;
+        if(Settings.locale.getLanguage().equals("it"))
+            controllo = SceneHandler.getInstance().showMessage("question", "Conferma","Conferma eliminazione spazio?", "Sei sicuro di voler eliminare lo spazio?").equals("OK");
+        else
+            controllo = SceneHandler.getInstance().showMessage("question", "Confirm","Confirm space deletion?", "Are you sure you want to delete this space?").equals("OK");
+        if(controllo) {
             SpaceService spaceService = new SpaceService("delete", currentSpace);
             spaceService.restart();
             spaceService.setOnSucceeded(e -> {
@@ -83,6 +89,7 @@ public class SingleSpacePageController implements Initializable {
                     throw new RuntimeException(ex);
                 }
             });
+        }
     }
 
     @FXML
@@ -184,7 +191,7 @@ public class SingleSpacePageController implements Initializable {
             }
         });
         getTransactionService.setOnFailed(event -> {
-            throw new RuntimeException(event.getSource().getException());
+            SceneHandler.getInstance().setPage("errorPage.fxml");
         });
     }
 }

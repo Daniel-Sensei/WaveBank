@@ -61,7 +61,7 @@
                         </Label>
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                            <children>
-                              <TextField fx:id="inputSpaceName" prefHeight="50.0" prefWidth="280.0" promptText="%nome">
+                              <TextField fx:id="inputSpaceName" onKeyPressed="#enter" prefHeight="50.0" prefWidth="280.0" promptText="%nome">
                                  <font>
                                     <Font size="18.0" />
                                  </font>

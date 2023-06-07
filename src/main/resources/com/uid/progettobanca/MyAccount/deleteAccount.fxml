@@ -47,7 +47,7 @@
                   <Label prefWidth="866.0" styleClass="subtitleLabel" text="%closeAccountDisclaimer" wrapText="true" />
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                      <children>
-                        <PasswordField fx:id="password" maxWidth="300.0" prefHeight="40.0" promptText="%confirmPassword" />
+                        <PasswordField fx:id="password" maxWidth="300.0" onKeyPressed="#enter" prefHeight="40.0" promptText="%confirmPassword" />
                         <Button mnemonicParsing="false" onAction="#deleteAccount" prefHeight="40.0" styleClass="redButton" text="%closeAccountButton">
                            <padding>
                               <Insets left="20.0" right="20.0" />
