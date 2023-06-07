@@ -33,7 +33,6 @@ public class FormCompilationThread extends Service<PDDocument> {
                 try {
                     document = PDDocument.load(new File("src/main/resources/assets/documents/FormDettagliTransazione.pdf"));
                 } catch (IOException e) {
-                    e.printStackTrace();
                     return null;
                 }
 
@@ -102,7 +101,6 @@ public class FormCompilationThread extends Service<PDDocument> {
                     iban.setValue(BankApplication.getCurrentlyLoggedIban());
 
                 } catch (IOException e) {
-                    e.printStackTrace();
                     try {
                         document.close();
                     } catch (IOException ex) {

@@ -162,7 +162,7 @@ public class SceneHandler {
             if(pages.containsKey(pageName)) {
                 pages.remove(pageName);
             }
-            //System.out.println("Replaced page: " + pageName);
+            //ln("Replaced page: " + pageName);
             pages.put(pageName, page);
         }
         catch (IOException e) {
@@ -187,7 +187,6 @@ public class SceneHandler {
             //questa parte dovrà essere gestita da in thread
             if(pages.containsKey(pageName)) {
                 pages.remove(pageName);
-                System.out.println("Replaced page: " + pageName);
             }
             pages.put(pageName, page);
             //Ogni volta che viene creata una pagina viene aggiunta nello stack
@@ -195,7 +194,7 @@ public class SceneHandler {
             //stampa contenuto dello stack
             /*
             for(int i=0; i<BackStack.getInstance().size(); i++){
-                System.out.println(BackStack.getInstance().get(i));
+                ln(BackStack.getInstance().get(i));
             }
 
              */
@@ -212,8 +211,8 @@ public class SceneHandler {
             Node centerNode = borderPane.getCenter();
             BorderPane.setMargin(centerNode, new Insets(0));
 
-        } catch (IOException ignored) {
-            System.out.println("Errore nella creazione della pagina: " + pageName);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -291,7 +290,7 @@ public class SceneHandler {
         //stampa valori dell'hash map
         /*
         for (Map.Entry<String, Parent> entry : pages.entrySet()) {
-            System.out.println(entry.getKey() + " " + entry.getValue());
+            ln(entry.getKey() + " " + entry.getValue());
         }
 
          */

@@ -35,7 +35,6 @@ public class DatabaseManager {
         try {
             return DriverManager.getConnection("jdbc:sqlite:" + dbPath);
         } catch (SQLException e) {
-            System.out.println("Errore di connessione al database");
             throw new RuntimeException(e);
         }
     }
@@ -143,7 +142,6 @@ public class DatabaseManager {
 
         } catch (SQLException e) {
             System.err.println("Error creating database: " + e.getMessage());
-            e.printStackTrace();
             return false;
         }finally {
             if (statement != null) {

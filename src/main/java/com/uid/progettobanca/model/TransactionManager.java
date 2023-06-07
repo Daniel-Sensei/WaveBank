@@ -102,7 +102,6 @@ public class TransactionManager {
                 }
                 transactionBox.getChildren().add(transaction);
             } catch (IOException e) {
-                System.out.println("Initialize transaction failed");
                 throw new RuntimeException(e);
             }
         }

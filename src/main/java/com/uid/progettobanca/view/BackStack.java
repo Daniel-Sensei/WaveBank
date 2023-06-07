@@ -68,9 +68,7 @@ public class BackStack extends Stack<String> {
     }
 
     public void printStack() {
-        System.out.println("STACK:");
         for (int i = 0; i < stack.size(); i++) {
-            System.out.println(stack.get(i).getTitle());
         }
     }
 

@@ -55,7 +55,6 @@ public class StatisticsController {
                 Parent singleChart = SceneHandler.getInstance().loadPage(Settings.MANAGE_PATH + "singleChart.fxml");
                 hBox.getChildren().add(singleChart);        //aggiunge il grafico alla riga
             } catch (IOException e) {
-                System.out.println("Initialize chart failed");
                 throw new RuntimeException(e);
             }
         }

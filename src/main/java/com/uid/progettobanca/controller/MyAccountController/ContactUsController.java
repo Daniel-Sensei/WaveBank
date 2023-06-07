@@ -23,7 +23,7 @@ public class ContactUsController {
             try {
                 Desktop.getDesktop().mail(new URI("mailto:" + "cmpglc01r25c616m@studenti.unical.it"));
             } catch (IOException | URISyntaxException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }
@@ -34,7 +34,7 @@ public class ContactUsController {
             try {
                 Desktop.getDesktop().mail(new URI("mailto:" + "crcdnl02e28m208a@studenti.unical.it"));
             } catch (IOException | URISyntaxException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);;
             }
         }
     }
@@ -45,7 +45,7 @@ public class ContactUsController {
             try {
                 Desktop.getDesktop().mail(new URI("mailto:" + "gglftn02e14m208l@studenti.unical.it"));
             } catch (IOException | URISyntaxException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);;
             }
         }
     }
@@ -56,7 +56,7 @@ public class ContactUsController {
             try {
                 Desktop.getDesktop().mail(new URI("mailto:" + "gttptr00b21m208d@studenti.unical.it"));
             } catch (IOException | URISyntaxException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);;
             }
         }
     }

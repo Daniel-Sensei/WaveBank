@@ -252,7 +252,6 @@ public class BolloAutoController implements Initializable {
         if (loadAttempts < MAX_LOAD_ATTEMPTS) {
             // Incrementa il numero di tentativi di caricamento
             loadAttempts++;
-            System.out.println("Errore durante il caricamento del video, tentativo " + loadAttempts + " di " + MAX_LOAD_ATTEMPTS + "...");
 
             // Riprova il caricamento del video dopo un ritardo
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
@@ -263,9 +262,6 @@ public class BolloAutoController implements Initializable {
                 openVideoPlayer();
             });
             delay.play();
-        } else {
-            // Numero massimo di tentativi di caricamento raggiunto, gestisci l'errore di caricamento
-            System.out.println("Errore durante il caricamento del video dopo " + MAX_LOAD_ATTEMPTS + " tentativi.");
         }
     }
 }

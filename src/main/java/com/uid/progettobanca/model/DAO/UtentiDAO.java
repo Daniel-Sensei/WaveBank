@@ -41,7 +41,6 @@ public class UtentiDAO {
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -153,7 +152,6 @@ public class UtentiDAO {
                 } else return false;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -172,7 +170,6 @@ public class UtentiDAO {
                 } else return false;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -190,7 +187,6 @@ public class UtentiDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -204,7 +200,6 @@ public class UtentiDAO {
                 return rs.next();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -218,7 +213,6 @@ public class UtentiDAO {
                 return rs.next();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -241,7 +235,6 @@ public class UtentiDAO {
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -257,7 +250,6 @@ public class UtentiDAO {
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -266,16 +258,13 @@ public class UtentiDAO {
     //  rimozione:
 
     public boolean delete(int user_id) {
-        System.out.println("Eliminazione utente: " + user_id + " in corso...");
         String query = "UPDATE utenti SET status = ? WHERE user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setBoolean(1, false);
             stmt.setInt(2, user_id);
             stmt.executeUpdate();
-            System.out.println("Utente eliminato");
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }

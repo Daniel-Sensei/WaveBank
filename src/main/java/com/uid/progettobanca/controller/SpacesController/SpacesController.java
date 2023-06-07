@@ -59,7 +59,6 @@ public class SpacesController implements Initializable {
                     listOfSpaces.getChildren().add(singleSpace);
                 }
             } catch (IOException exception) {
-                System.out.println("Initialize spaces failed");
                 throw new RuntimeException(exception);
             }
         });

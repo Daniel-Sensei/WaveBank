@@ -152,11 +152,8 @@ public class BonificoController implements Initializable {
         getUserService.restart();
         getUserService.setOnSucceeded(e -> {
             if(e.getSource().getValue() instanceof Utente result) {
-                System.out.println("utente");
                 utente.set((Utente) result);
                 boolean exists = utente.get() != null;
-
-                System.out.println(exists);
 
                 transactionService.setAction("transazione");
                 transactionService.setIbanFrom(BankApplication.getCurrentlyLoggedIban());
@@ -168,7 +165,6 @@ public class BonificoController implements Initializable {
                     if((Boolean) e7.getSource().getValue()){
                         String nome = fieldSurname.getText() + " " + fieldName.getText();
                         if(exists) {
-                            System.out.println("aggiorno nome");
                             nome += "-" + utente.get().getCognome() + " " + utente.get().getNome();
                         }
                         String finalNome = nome;

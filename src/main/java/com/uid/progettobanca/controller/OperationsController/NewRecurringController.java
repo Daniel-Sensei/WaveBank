@@ -232,7 +232,6 @@ public class NewRecurringController implements Initializable {
                         SceneHandler.getInstance().showMessage("error", "Error", "Error", "Error in inserting recurring payment");
                 }
                 else {
-                    System.out.println("Pagamento ricorrente inserito correttamente");
                     SceneHandler.getInstance().createPage(Settings.OPERATIONS_PATH + "formPagamentiRicorrenti.fxml");
                 }
             }

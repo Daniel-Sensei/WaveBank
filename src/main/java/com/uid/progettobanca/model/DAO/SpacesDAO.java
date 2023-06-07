@@ -44,7 +44,6 @@ public class SpacesDAO {
             }
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -111,7 +110,6 @@ public class SpacesDAO {
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -138,7 +136,6 @@ public class SpacesDAO {
             return true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }

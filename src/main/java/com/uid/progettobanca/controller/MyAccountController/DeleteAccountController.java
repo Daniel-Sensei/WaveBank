@@ -46,8 +46,6 @@ public class DeleteAccountController {
                     userService.setOnSucceeded(e1 -> {
                         if((Boolean) e1.getSource().getValue())
                             SceneHandler.getInstance().setPage(Settings.MY_ACCOUNT_PATH + "accountDeleted.fxml");
-                        else
-                            System.out.println("Errore");
                     });
                 } else {
                     if(Settings.locale.getLanguage().equals("it"))

@@ -33,6 +33,5 @@ public class CreateCard {
         InsertCardService insertCarteService = new InsertCardService();
         insertCarteService.setCarta(carta);
         insertCarteService.start();
-        System.out.println("Carta di debito creata per utente " + utente);
     }
 }

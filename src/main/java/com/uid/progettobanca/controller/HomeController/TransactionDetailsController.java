@@ -323,8 +323,7 @@ public class TransactionDetailsController implements Initializable {
                 document.close();
                 // Aggiungi ulteriori azioni post-salvataggio se necessario
             } catch (IOException e) {
-                e.printStackTrace();
-                // Gestisci eventuali errori durante il salvataggio
+                throw new RuntimeException(e);
             }
         }
     }
@@ -333,7 +332,7 @@ public class TransactionDetailsController implements Initializable {
         try {
             document.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }
