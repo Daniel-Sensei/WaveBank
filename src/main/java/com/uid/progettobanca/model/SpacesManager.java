@@ -6,8 +6,9 @@ import java.util.*;
 
 public class SpacesManager {
 
-    private static SpacesManager instance;  // Istanza singleton
+    private static SpacesManager instance;
 
+    //this queue is used to store the spaces to create the single spaces in space page
     private Queue<Space> spacesQueue = new LinkedList<>();
 
     private Set<Space> spacesList = new HashSet<>();

@@ -20,25 +20,13 @@ import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 public class SpacesController implements Initializable {
-
     private GetSpaceService getSpaceService = new GetSpaceService();
-
-
     @FXML
     private FlowPane listOfSpaces;
     @FXML
     private ScrollPane scrollPane;
     @FXML
     private Label saldo;
-
-    public FlowPane getListOfSpaces() {
-        return listOfSpaces;
-    }
-
-    @FXML
-    void createSpaceForm(ActionEvent event) throws IOException {
-        SceneHandler.getInstance().createPage(Settings.SPACES_PATH + "formCreateSpace.fxml");
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -55,6 +43,8 @@ public class SpacesController implements Initializable {
                 SpacesManager.getInstance().fillList(getSpaceService.getValue());
                 int nSpaces = SpacesManager.getInstance().getSize();
                 for (int i = 0; i < nSpaces; i++) {
+
+                    // Loading the spaces
                     Parent singleSpace = SceneHandler.getInstance().loadPage(Settings.SPACES_PATH + "singleSpace.fxml");
                     listOfSpaces.getChildren().add(singleSpace);
                 }
@@ -66,6 +56,9 @@ public class SpacesController implements Initializable {
         getSpaceService.setOnFailed(e2 -> {
             SceneHandler.getInstance().setPage("errorPage.fxml");
         });
-
+    }
+    @FXML
+    void createSpaceForm(ActionEvent event) throws IOException {
+        SceneHandler.getInstance().createPage(Settings.SPACES_PATH + "formCreateSpace.fxml");
     }
 }

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/17.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController.SpaceTransactionController">
+<AnchorPane prefHeight="640.0" prefWidth="1280.0" styleClass="background" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.uid.progettobanca.controller.SpacesController.SpaceTransactionController">
    <children>
       <VBox layoutX="200.0" layoutY="30.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
          <children>
@@ -22,7 +22,7 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="backButton" onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="%back">
+                  <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="%back">
                      <graphic>
                         <ImageView fx:id="back" fitHeight="12.0" fitWidth="12.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
                      </graphic>
@@ -42,7 +42,7 @@
                         <HBox fx:id="firstElement" layoutX="10.0" layoutY="10.0" />
                         <HBox HBox.hgrow="ALWAYS" />
                         <ImageView fx:id="sendSpace" fitHeight="25.0" fitWidth="25.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-                        <HBox fx:id="spaceTransactionBar" HBox.hgrow="ALWAYS" />
+                        <HBox HBox.hgrow="ALWAYS" />
                         <HBox fx:id="lastElement" layoutX="10.0" layoutY="10.0" />
                      </children>
                      <VBox.margin>
