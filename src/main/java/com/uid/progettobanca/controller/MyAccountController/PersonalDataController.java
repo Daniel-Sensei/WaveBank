@@ -50,6 +50,7 @@ public class PersonalDataController {
 
         getUserService.setAction("selectById");
         getUserService.start();
+        //gets the user from the database and sets the labels
         getUserService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof Utente result){
                 nomeLabel.setText(result.getNome());

@@ -20,14 +20,6 @@ public class CardsManager {
         cardsQueue = carte;
     }
 
-    public void addCard(Carta carta){
-        cardsQueue.add(carta);
-    }
-
-    public void removeCard(Carta carta){
-        cardsQueue.remove(carta);
-    }
-
     public static CardsManager getInstance() {
         if (instance == null) {
             instance = new CardsManager();

@@ -51,12 +51,11 @@ public class InfoCardController {
 
     public void initialize() {
         GenericController.loadImage(back);
-        cardCode.setText(FormUtils.getInstance().separateIban(CardsManager.getInstance().getCard().getNumCarta()));
-        cardCVV.setText(CardsManager.getInstance().getCard().getCvv());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
         String formattedDate = CardsManager.getInstance().getCard().getScadenza().format(formatter);
         cardExpiry.setText(formattedDate);
         cardPin.setText(CardsManager.getInstance().getCard().getPin());
+        //sets the card image and label based on the type of card
         if(CardsManager.getInstance().getCard().getTipo().equals("Debito")){
             GenericController.setCardImage("card", cardImage);
             if(Settings.locale.getLanguage().equals("it")) {
@@ -72,6 +71,7 @@ public class InfoCardController {
                 cardType.setText("Virtual");
             }
         }
+        //sets the other card values
         if(CardsManager.getInstance().getCard().isBloccata()){
             if(Settings.locale.getLanguage().equals("it")) {
                 cardBlocked.setText("Bloccata");
@@ -85,5 +85,7 @@ public class InfoCardController {
                 cardBlocked.setText("Unblocked");
             }
         }
+        cardCode.setText(FormUtils.getInstance().separateIban(CardsManager.getInstance().getCard().getNumCarta()));
+        cardCVV.setText(CardsManager.getInstance().getCard().getCvv());
     }
 }

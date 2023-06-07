@@ -90,14 +90,13 @@ public class ManageController {
     private final GetTransactionService transactionsService = new GetTransactionService("filterAllTransaction", null, null, "");
     public void initialize() {
 
+        //creates the chart
         daysInterval=30;
-
         transactionsService.start();
-
         transactionsService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof List<?> result){
                 chart.getData().clear();
-                chart.getData().add(graphCalculator.MainGraphCalculator(daysInterval, (List<Transazione>) result).getSeries());
+                chart.getData().add(graphCalculator.MainGraphCalculator(daysInterval, (List<Transazione>) result));
             }
         });
         transactionsService.setOnFailed(event -> {
@@ -108,22 +107,19 @@ public class ManageController {
         GenericController.loadImage(forward);
 
         getCardService.setAction("allByUser");;
-
         userService.setAction("selectById");
         userService.start();
-
-
+        //creates the list of cards and puts it in CardsManager
         CardsManager.getInstance().setPos(0);
         userService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof Utente result){
                 CardsManager.getInstance().setNome(result.getNome());
                 CardsManager.getInstance().setCognome(result.getCognome());
             }
-            getCardService.start();    //parte il thread per prendere le carte (se fatto partire prima, potrebbe essere più veloce del thread pecedente e perdere il setonsucceed)
+            getCardService.start();    //starts the service to get the cards
             getCardService.setOnSucceeded(event1 -> {
                 if(event1.getSource().getValue() instanceof List<?> result){
-                    //scorri result e controlla se la data di scadenza è passata, se si, cancella la carta
-
+                    //browse the result and check if the expiration date is passed, if yes, delete the card
                     List<Carta> carteScadute = new java.util.ArrayList<>();
                     for (Carta carta : (List<Carta>) result) {
                         if(carta.getScadenza().isBefore(java.time.LocalDate.now())){
@@ -134,7 +130,6 @@ public class ManageController {
                         }
                     }
                     result.removeAll(carteScadute);
-
                     CardsManager.getInstance().fillQueue((List<Carta>) result);
                     numcarte=result.size();
                     if(numcarte == 1){

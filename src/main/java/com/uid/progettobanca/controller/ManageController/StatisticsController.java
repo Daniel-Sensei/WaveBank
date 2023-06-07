@@ -44,7 +44,7 @@ public class StatisticsController {
         int nCharts = ChartsManager.getInstance().getSize();
         HBox hBox = new HBox();
         for (int i= 0; i < nCharts; i++) {
-            if(i%2==0){     //aggiunge una riga ogni 2 grafici
+            if(i%2==0){     //adds a new line every 2 charts
                 chartsList.getChildren().add(hBox);
                 hBox = new HBox();
                 hBox.setSpacing(80);
@@ -53,7 +53,7 @@ public class StatisticsController {
             }
             try {
                 Parent singleChart = SceneHandler.getInstance().loadPage(Settings.MANAGE_PATH + "singleChart.fxml");
-                hBox.getChildren().add(singleChart);        //aggiunge il grafico alla riga
+                hBox.getChildren().add(singleChart);        //adds chart to the line
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

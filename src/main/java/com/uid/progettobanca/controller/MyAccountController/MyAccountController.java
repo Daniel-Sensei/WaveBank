@@ -136,11 +136,8 @@ public class MyAccountController implements Initializable {
     void copyIban(MouseEvent event) {
         Clipboard clipboard = Clipboard.getSystemClipboard();
         ClipboardContent content = new ClipboardContent();
-
-        // Imposta la stringa da copiare
         content.putString(BankApplication.getCurrentlyLoggedIban());
         SceneHandler.getInstance().showInfoPopup(Settings.MY_ACCOUNT_PATH + "ibanCopiedPopup.fxml", (Stage) copy.getScene().getWindow(), 300, 75);
-        // Copia il contenuto negli appunti
         clipboard.setContent(content);
     }
 
@@ -158,6 +155,7 @@ public class MyAccountController implements Initializable {
         userService.setAction("selectById");
         userService.start();
 
+        //gets the users infos from the database and sets them
         userService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof Utente  result){
                 ibanLabel.setText(FormUtils.getInstance().separateIban(result.getIban()));

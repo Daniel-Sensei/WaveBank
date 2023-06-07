@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 public class RandomNumbers {
 
     public static String generateRandomNumbers(int count) {
+        //return "amount" of random numbers in a single integer
         List<Integer> randomNumbers = new ArrayList<>();
         Random random = new Random();
 

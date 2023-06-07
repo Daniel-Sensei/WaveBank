@@ -5,6 +5,7 @@ import javafx.scene.chart.XYChart;
 import java.text.DecimalFormat;
 
 public class ReturnChart {
+    //used to return the value and the series of the graph
 
     private String value;
     private XYChart.Series series;

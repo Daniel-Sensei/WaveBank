@@ -31,17 +31,20 @@ public class DeleteAccountController {
     @FXML
     void deleteAccount(ActionEvent event) {
         boolean controllo = false;
+        //popup warning asks the user to confirm the deletion of the account
         if(Settings.locale.getLanguage().equals("it"))
             controllo = SceneHandler.getInstance().showMessage("question", "Conferma","Conferma eliminazione account?", "Sei sicuro di voler eliminare l'account?").equals("OK");
         else
             controllo = SceneHandler.getInstance().showMessage("question", "Confirm","Confirm account deletion?", "Are you sure you want to delete the account?").equals("OK");
         if (controllo) {
+            //check if the password is correct
             userService.setAction("checkPassword");
             userService.setUserId(BankApplication.getCurrentlyLoggedUser());
             userService.setPassword(password.getText());
             userService.restart();
             userService.setOnSucceeded(e -> {
                 if ((Boolean) e.getSource().getValue()) {
+                    //delete the account
                     UserService userService = new UserService();
                     userService.setAction("delete");
                     userService.restart();

@@ -15,7 +15,7 @@ import java.util.List;
 
 public class SingleChartController {
 
-    private String chart;
+    private String Tag;
 
     @FXML
     private ImageView chartImage;
@@ -36,41 +36,43 @@ public class SingleChartController {
     private ReturnChart ritorno = new ReturnChart();
 
     private void setTagImage(){
-        //rimuovi spazi dal nome del tag
-        String tag = chart.replaceAll("\\s+","");
+        //removes spaces from tags
+        String tag = Tag.replaceAll("\\s+","");
         GenericController.loadImage(tag, chartImage);
     }
 
     @FXML
     void initialize() {
-        //chart rappresenta il nome del tag
-        chart = ChartsManager.getInstance().getNextChart();
+        //chart represents the tag name
+        Tag = ChartsManager.getInstance().getNextChart();
+        String Name = Tag;
         setTagImage();
 
         if(Settings.locale.getLanguage().equals("en"))
-            switch (chart){
-            case "Altro" -> chart = "Other";
-            case "Amici&Famiglia" -> chart = "Friends&Family";
-            case "Benessere" -> chart = "Wellness";
-            case "Cibo&Spesa" -> chart = "Food&Groceries";
-            case "Assicurazione&Finanza" -> chart = "Insurance&Finance";
-            case "Intrattenimento" -> chart = "Entertainment";
-            case "Istruzione" -> chart = "Education";
-            case "Multimedia&Elettronica" -> chart = "Multimedia&Electronics";
-            case "Salute" -> chart = "Health";
-            case "Shopping" -> chart = "Shopping";
-            case "Stipendio" -> chart = "Salary";
-            case "Viaggi" -> chart = "Travel";
+            switch (Tag){
+            case "Altro" -> Name = "Other";
+            case "Amici & Famiglia" -> Name = "Friends & Family";
+            case "Benessere" -> Name = "Wellness";
+            case "Cibo & Spesa" -> Name = "Food & Groceries";
+            case "Assicurazione & Finanza" -> Name = "Insurance & Finance";
+            case "Intrattenimento" -> Name = "Entertainment";
+            case "Istruzione" -> Name = "Education";
+            case "Multimedia & Elettronica" -> Name = "Multimedia & Electronics";
+            case "Salute" -> Name = "Health";
+            case "Shopping" -> Name = "Shopping";
+            case "Stipendio" -> Name = "Salary";
+            case "Viaggi" -> Name = "Travel";
             }
 
-        chartName.setText(chart);
+        chartName.setText(Name);
 
         getTransactionService.start();
 
-        //crea il grafico dopo aver preso i dati dal db
+
+        //creates the chart after taking the transactions
         getTransactionService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof List<?>  result){
-                ritorno = graphCalculator.TagGraphCalculator(daysInterval, chart, (List<Transazione>) result);
+                ritorno = graphCalculator.TagGraphCalculator(daysInterval, Tag, (List<Transazione>) result);
                 lineChart.getData().add(ritorno.getSeries());
                 spentBalance.setText(ritorno.getValue());
             }

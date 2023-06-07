@@ -53,7 +53,7 @@ public class FormCreateCardController {
     }
 
     public void initialize() {
-        //riempi la combo box con numeri da 1 A 12
+        //fill combo box from 1 to 12
         ObservableList<Integer> dates = FXCollections.observableArrayList();
         for (int i = 1; i <= 12; i++) { dates.add(i); }
         dateValue.setItems(dates);
@@ -61,7 +61,7 @@ public class FormCreateCardController {
         GenericController.loadImage(back);
         createButton.setDisable(true);
 
-        //Binding per gestire comboBox obbligatorie
+        //binding to manage mandatory comboBox
         BooleanBinding dateValid = dateValue.valueProperty().isNotNull();
         createButton.disableProperty().bind(dateValid.not());
 

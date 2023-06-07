@@ -4,7 +4,8 @@ import java.util.Collections;
 import java.util.Queue;
 
 public class ChartsManager {
-    private static ChartsManager instance;  // Istanza singleton
+    private static ChartsManager instance;
+    //contiene i nomi dei Tag dei grafici da caricare
     private Queue<String> chartsQueue = new java.util.LinkedList<>();
 
     private ChartsManager() {

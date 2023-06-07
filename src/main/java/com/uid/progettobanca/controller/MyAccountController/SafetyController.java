@@ -55,20 +55,12 @@ public class SafetyController {
     }
 
     @FXML
-    void pswGuide(MouseEvent event) {
-        try {
-            java.awt.Desktop.getDesktop().browse(new URI("https://www.youtube.com/watch?v=dFayOVDKHn0&ab"));
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    @FXML
     void sendButtonPressed(ActionEvent event) {
         userService.setAction("checkPassword");
         userService.setUserId(BankApplication.getCurrentlyLoggedUser());
         userService.setPassword(oldPsw.getText());
         userService.restart();
+        //checks if the old password is correct
         userService.setOnSucceeded(event1 -> {
             if(event1.getSource().getValue() instanceof Boolean result){
                 if (result) {
@@ -76,9 +68,10 @@ public class SafetyController {
                     userService2.setEmail(BankApplication.getCurrentlyLoggedMail());
                     userService2.setPassword(newPsw.getText());
                     userService2.restart();
-
+                    //updates the password
                     userService2.setOnSucceeded(event2 -> {
                         if(event2.getSource().getValue() instanceof Boolean){
+                            //shows a message if the password has been changed
                             if(Settings.locale.getLanguage().equals("it")){
                                 SceneHandler.getInstance().showMessage("info", "Cambio password", "Cambio password effettuato", "Hai cambiato password!");
                             }
@@ -112,7 +105,8 @@ public class SafetyController {
         GenericController.loadImage(back);
 
         newPsw.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
+            if (!newValue) { // check when the user loses focus on the TextField
+                //if the password is not valid, show the error message
                 if(Settings.locale.getLanguage().equals("it")){
                     FormUtils.getInstance().validateTextFieldRegister(newPswLabel, newPsw, FormUtils.getInstance().validatePassword(newPsw.getText()), "Nuova password*", "La password deve contenere almeno 8 caratteri, almeno una lettera minuscola, almeno una lettera maiuscola e un carattere speciale*");
                 }
@@ -124,7 +118,8 @@ public class SafetyController {
         });
 
         confirmPsw.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
+            if (!newValue) {
+                //if the passwords do not match, show the error message
                 if(Settings.locale.getLanguage().equals("it")){
                     FormUtils.getInstance().validateTextFieldRegister(confirmPswLabel, confirmPsw, confirmPsw.getText().equals(newPsw.getText()), "Conferma password*", "Le password non coincidono*");
                 }
