@@ -26,7 +26,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="backButton" onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="%back">
+                              <Label onMouseClicked="#loadPreviousPage" styleClass="subtitleLabel" text="%back">
                                  <graphic>
                                     <ImageView fx:id="back" fitHeight="12.0" fitWidth="12.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
                                  </graphic>
@@ -76,7 +76,7 @@
                   </VBox>
                   <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#editSpace" prefHeight="50.0" styleClass="greenButton" text="Modifica Spazio">
+                        <Button mnemonicParsing="false" onAction="#editSpace" prefHeight="50.0" styleClass="greenButton" text="%modificaSpace">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>

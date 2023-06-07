@@ -22,8 +22,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -32,22 +30,10 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 public class SpaceFormController implements Initializable {
-
-    @FXML
-    private Button cancel;
-
-    @FXML
-    private Label backButton;
-
-    @FXML
-    private HBox imageContainer;
-
     @FXML
     private ImageView imagePicked;
-
     @FXML
     private FlowPane listOfImage;
-
     @FXML
     private TextField inputSpaceName;
     @FXML
@@ -56,9 +42,20 @@ public class SpaceFormController implements Initializable {
     private Label warningName;
     @FXML
     private ImageView back;
-
     private List<Image> images = ImageUtils.getAllImageOfSpecificFolder("src/main/resources/assets/images/spacesImage");
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        //I'm picking a random image from the list of images
+        Random random = new Random();
+        imagePicked.setImage(images.get(random.nextInt(images.size())));
+
+        GenericController.loadImage(back);
+
+        spaceCreationConfirm.setDisable(true);
+        checkTextField(inputSpaceName, warningName, spaceCreationConfirm);
+    }
 
     @FXML
     void createSpace(ActionEvent event) {
@@ -82,39 +79,23 @@ public class SpaceFormController implements Initializable {
             SceneHandler.getInstance().setPage("errorPage.fxml");
         });
     }
-
-
     @FXML
     void openImageList(MouseEvent event) {
         GenericController.openImageFlowPane(listOfImage, imagePicked, images);
     }
-
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {
         BackStack.getInstance().loadPreviousPage();
     }
-
     @FXML
     void enter(KeyEvent event) {
         if(event.getCode()== KeyCode.ENTER && !inputSpaceName.getText().isEmpty()){
             createSpace(new ActionEvent());
         }
     }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        Random random = new Random();
-        imagePicked.setImage(images.get(random.nextInt(images.size())));
-
-        GenericController.loadImage(back);
-
-        spaceCreationConfirm.setDisable(true);
-        checkTextField(inputSpaceName, warningName, spaceCreationConfirm);
-    }
-
     public static void checkTextField(TextField inputSpaceName, Label warningName, Button spaceCreationConfirm) {
         inputSpaceName.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
+            if (!newValue) {
                 FormUtils.getInstance().validateTextField(inputSpaceName, !inputSpaceName.getText().isEmpty(), warningName);
             }
         });

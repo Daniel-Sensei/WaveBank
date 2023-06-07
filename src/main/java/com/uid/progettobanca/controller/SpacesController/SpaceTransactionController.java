@@ -29,9 +29,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SpaceTransactionController implements Initializable {
-
-    @FXML
-    private Label backButton;
     @FXML
     private ImageView back;
     @FXML
@@ -42,66 +39,17 @@ public class SpaceTransactionController implements Initializable {
     private HBox lastElement;
     @FXML
     private HBox firstElement;
-
     @FXML
     private TextField description;
     @FXML
     private Label descrLabel;
     @FXML
     private Label amountLabel;
-
     @FXML
     private TextField inputSpaceTransactionImport;
     @FXML
-    private HBox spaceTransactionBar;
-    @FXML
     private Button spaceTransactionConfirm;
     private ArrayList<ImageView> spaceTransactionImages = new ArrayList<>();
-
-    private void loadArray(){
-        spaceTransactionImages.add(back);
-        spaceTransactionImages.add(sendSpace);
-        spaceTransactionImages.add(euro);
-    }
-
-    private void transactionHandler(TransactionService transactionService){
-        transactionService.restart();
-        transactionService.setOnSucceeded(e -> {
-            SceneHandler.getInstance().reloadDynamicPageInHashMap();
-            if (transactionService.getValue()) {
-                SceneHandler.getInstance().setPage(Settings.SPACES_PATH + "spaceTransactionSuccess.fxml");
-            }
-            else{
-                SceneHandler.getInstance().setPage(Settings.SPACES_PATH + "spaceTransactionFailed.fxml");
-            }
-        });
-
-        transactionService.setOnFailed(e2 -> {
-            SceneHandler.getInstance().setPage("errorPage.fxml");
-        });
-    }
-
-    @FXML
-    void confirmTransaction(ActionEvent event) throws SQLException, IOException {
-        String iban = BankApplication.getCurrentlyLoggedIban();
-        double amount = FormUtils.getInstance().formatAmount(inputSpaceTransactionImport.getText());
-        String task = "betweenSpaces";
-        TransactionService transactionService1 = new TransactionService(task,iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), amount, description.getText());
-        TransactionService transactionService2 = new TransactionService(task,iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), amount, description.getText());
-
-        if (SpacesManager.getInstance().getTransactionDirection() == "Sx"){
-            transactionHandler(transactionService1);
-        }
-        else if (SpacesManager.getInstance().getTransactionDirection() == "Dx"){
-            transactionHandler(transactionService2);
-        }
-    }
-
-    @FXML
-    void loadPreviousPage(MouseEvent event) throws IOException {
-        BackStack.getInstance().loadPreviousPage();
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(spaceTransactionImages.isEmpty()){
@@ -110,6 +58,8 @@ public class SpaceTransactionController implements Initializable {
         GenericController.loadImages(spaceTransactionImages);
 
         try{
+
+            //load the correct combobox and label based on the transaction direction
             Parent comboBox = SceneHandler.getInstance().loadPage(Settings.SPACES_PATH + "spaceTransactionComboBox.fxml");
             Parent label = SceneHandler.getInstance().loadPage(Settings.SPACES_PATH + "spaceTransactionLabel.fxml");
             if(SpacesManager.getInstance().getTransactionDirection().equals("Sx")) {
@@ -125,6 +75,7 @@ public class SpaceTransactionController implements Initializable {
 
         spaceTransactionConfirm.setDisable(true);
 
+        //validation of the input fields
         inputSpaceTransactionImport.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
                 if (Settings.locale.getLanguage().equals("it"))
@@ -143,13 +94,56 @@ public class SpaceTransactionController implements Initializable {
         });
 
         BooleanBinding formValid = Bindings.createBooleanBinding(() ->
-                                FormUtils.getInstance().validateAmount(inputSpaceTransactionImport.getText()) &&
+                        FormUtils.getInstance().validateAmount(inputSpaceTransactionImport.getText()) &&
                                 !description.getText().isEmpty(),
-                                inputSpaceTransactionImport.textProperty(),
-                                description.textProperty()
+                inputSpaceTransactionImport.textProperty(),
+                description.textProperty()
         );
 
         spaceTransactionConfirm.disableProperty().bind(formValid.not());
+    }
+
+    private void loadArray(){
+        spaceTransactionImages.add(back);
+        spaceTransactionImages.add(sendSpace);
+        spaceTransactionImages.add(euro);
+    }
+    private void transactionHandler(TransactionService transactionService){
+        transactionService.restart();
+        transactionService.setOnSucceeded(e -> {
+            SceneHandler.getInstance().reloadDynamicPageInHashMap();
+            if (transactionService.getValue()) {
+                SceneHandler.getInstance().setPage(Settings.SPACES_PATH + "spaceTransactionSuccess.fxml");
+            }
+            else{
+                SceneHandler.getInstance().setPage(Settings.SPACES_PATH + "spaceTransactionFailed.fxml");
+            }
+        });
+
+        transactionService.setOnFailed(e2 -> {
+            SceneHandler.getInstance().setPage("errorPage.fxml");
+        });
+    }
+    @FXML
+    void confirmTransaction(ActionEvent event) throws SQLException, IOException {
+        String iban = BankApplication.getCurrentlyLoggedIban();
+        double amount = FormUtils.getInstance().formatAmount(inputSpaceTransactionImport.getText());
+        String task = "betweenSpaces";
+
+        //create two transaction services, one for the sender and one for the receiver
+        TransactionService transactionService1 = new TransactionService(task,iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), amount, description.getText());
+        TransactionService transactionService2 = new TransactionService(task,iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), amount, description.getText());
+
+        if (SpacesManager.getInstance().getTransactionDirection() == "Sx"){
+            transactionHandler(transactionService1);
+        }
+        else if (SpacesManager.getInstance().getTransactionDirection() == "Dx"){
+            transactionHandler(transactionService2);
+        }
+    }
+    @FXML
+    void loadPreviousPage(MouseEvent event) throws IOException {
+        BackStack.getInstance().loadPreviousPage();
     }
 }
 

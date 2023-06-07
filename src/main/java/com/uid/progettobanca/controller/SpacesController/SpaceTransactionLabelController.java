@@ -14,17 +14,12 @@ import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 public class SpaceTransactionLabelController implements Initializable {
-
     @FXML
     private ImageView receiverImage;
-
     @FXML
     private Label Balance;
-
     @FXML
     private Label receiverName;
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
