@@ -104,7 +104,7 @@ public class FormUtils {
             double value = Double.parseDouble(amount);
 
             int decimalPlaces = String.valueOf(value).length() - String.valueOf(value).indexOf('.') - 1;
-            return value >= 0 && decimalPlaces <= 2;
+            return value > 0 && decimalPlaces <= 2;
         } catch (NumberFormatException e) {
             return false;
         }
