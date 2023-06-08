@@ -2,7 +2,6 @@ package com.uid.progettobanca.controller.SpacesController;
 
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
-import com.uid.progettobanca.model.DAO.ContiDAO;
 import com.uid.progettobanca.model.objects.Conto;
 import com.uid.progettobanca.model.services.GetAccountService;
 import com.uid.progettobanca.model.services.GetSpaceService;

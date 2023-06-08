@@ -3,7 +3,6 @@ package com.uid.progettobanca.view;
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.model.DAO.SpacesDAO;
 import com.uid.progettobanca.model.objects.Space;
-import com.uid.progettobanca.model.services.GetSpaceService;
 import javafx.animation.TranslateTransition;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -159,33 +158,26 @@ public class FormUtils {
     }
 
     // method to fill comboBox in paymentForms with spaces names
-    private Queue<Space> spacesQueue = new LinkedList<>();
-
+    private List<Space> spaces = new LinkedList<>();
+    public void getSpaces() throws SQLException {
+        spaces.clear();
+        Queue<Space> spacesQueue = SpacesDAO.getInstance().selectAllByIban(BankApplication.getCurrentlyLoggedIban());
+        int size = spacesQueue.size();
+        for(int i=0; i<size; i++) {
+            Space space = spacesQueue.poll();
+            spaces.add(space);
+        }
+    }
     public void fillSpacesComboBox(ComboBox<String> spacesComboBox) throws SQLException {
         spacesComboBox.getItems().clear();
-        //spacesQueue.clear();
-        GetSpaceService getSpaceService = new GetSpaceService();
-        getSpaceService.setAction("selectAllByIban");
-        getSpaceService.setIban(BankApplication.getCurrentlyLoggedIban());
-        getSpaceService.restart();
-
-        getSpaceService.setOnSucceeded(event -> {
-            if(event.getSource().getValue() instanceof Queue<?> result){
-                spacesQueue = (Queue<Space>) result;
-                for(Space space : spacesQueue) {
-                    spacesComboBox.getItems().add(space.getNome());
-                }
-                spacesComboBox.setValue(spacesComboBox.getItems().get(0));
-            }
-        });
-
-        getSpaceService.setOnFailed(event -> {
-            SceneHandler.getInstance().setPage("errorPage.fxml");
-        });
-
+        getSpaces();
+        for(Space space : spaces) {
+            spacesComboBox.getItems().add(space.getNome());
+        }
+        spacesComboBox.setValue(spacesComboBox.getItems().get(0));
     }
     public int getSpaceIdFromName(String name) {
-        for(Space space : spacesQueue) {
+        for(Space space : spaces) {
             if(space.getNome().equals(name)) {
                 return space.getSpaceId();
             }
@@ -193,7 +185,7 @@ public class FormUtils {
         return -1;
     }
     public String getSpaceImage(String spaceName) {
-        for(Space space : spacesQueue) {
+        for(Space space : spaces) {
             if(space.getNome().equals(spaceName)) {
                 return space.getImage();
             }
@@ -201,12 +193,11 @@ public class FormUtils {
         return null;
     }
     public double getSpaceBalance(String spaceName){
-        for (Space space : spacesQueue){
+        for (Space space : spaces){
             if (space.getNome().equals(spaceName)){
                 return space.getSaldo();
             }
         }
         return Double.parseDouble(null);
     }
-
 }
