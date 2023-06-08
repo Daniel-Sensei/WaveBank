@@ -237,8 +237,17 @@ public class SceneHandler {
         }
     }
 
-
+    /**
+     * Show a message to the user based on the type chosen
+     *
+     * @param type The type of the message (error, info, question, warning)
+     * @param pageTitle The title of the message page
+     * @param headerMassage The header of the message (String that will be shown in the upped side in bold)
+     * @param contentText The content of the message (String that will be shown in the lower side in normal font)
+     * @return The button pressed by the user if the type is question, otherwise an empty string
+     */
     public String showMessage(String type, String pageTitle, String headerMassage, String contentText) {
+        // should be update with something scalable in case of new languages, because all the strings are hardcoded
         Alert alert;
         switch(type){
             case "error" -> {
@@ -255,9 +264,9 @@ public class SceneHandler {
                 alert = new Alert(Alert.AlertType.CONFIRMATION);
                 //imposta il css dei pulsanti
                 alert.getDialogPane().lookupButton(alert.getButtonTypes().get(0)).getStyleClass().add("greenButton");
+                // the second button is default "Annulla" in italian, "Cancel" in english, hardcoded based on the language chosen
                 if(Settings.locale.getLanguage().equals("en"))
                     alert.getButtonTypes().set(1, new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE));
-                            //getDialogPane().lookupButton(alert.getButtonTypes().get(1)).setText("Cancel");
                 alert.getDialogPane().lookupButton(alert.getButtonTypes().get(1)).getStyleClass().add("tertiaryButton");
             }
             default -> alert = new Alert(Alert.AlertType.WARNING);
