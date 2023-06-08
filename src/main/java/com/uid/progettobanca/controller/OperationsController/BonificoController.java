@@ -26,67 +26,79 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Queue;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * Controller class for the formBonifico.fxml file.
+ */
 public class BonificoController implements Initializable {
 
     @FXML
-    private TextField fieldAmount;
+    private TextField fieldAmount; // Text field for the amount of money to transfer
 
     @FXML
-    private TextField fieldDescr;
+    private TextField fieldDescr; // Text field for the description of the transaction
 
     @FXML
-    private TextField fieldIbanTo;
+    private TextField fieldIbanTo; // Text field for the IBAN of the receiver
 
     @FXML
-    private Label warningIban;
+    private Label warningIban; // Label for the warning of the IBAN
 
     @FXML
-    private TextField fieldName;
+    private TextField fieldName; // Text field for the name of the receiver
 
     @FXML
-    private TextField fieldSurname;
+    private TextField fieldSurname; // Text field for the surname of the receiver
 
     @FXML
-    private CheckBox saveContact;
+    private CheckBox saveContact; // Check box for saving the contact
 
     @FXML
-    private Button sendButton;
+    private Button sendButton; // Button for sending the transaction
 
     @FXML
-    private Label warningAmount;
+    private Label warningAmount; // Label for the warning of the amount
 
     @FXML
-    private Label warningName;
+    private Label warningName; // Label for the warning of the name
 
     @FXML
-    private Label warningSurname;
+    private Label warningSurname; // Label for the warning of the surname
 
     @FXML
-    private Label warningDescr;
+    private Label warningDescr; // Label for the warning of the description
 
     @FXML
-    private ComboBox<String> spacesComboBox;
+    private ComboBox<String> spacesComboBox; // Combo box for the spaces you can choose from
 
     @FXML
-    private ImageView back;
+    private ImageView back; // Image view for the back button
 
+    /**
+     * Initializes the controller.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         GenericController.loadImage(back);
+
+        // the send button is initially disabled
+        sendButton.setDisable(true);
+
         try {
+            // Fill the combo box with the spaces
             FormUtils.getInstance().fillSpacesComboBox(spacesComboBox);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
+        // Validate the IBAN on focus lost
         fieldIbanTo.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
                 FormUtils.getInstance().validateTextField(fieldIbanTo, FormUtils.getInstance().validateIban(fieldIbanTo.getText()), warningIban);
             }
         });
 
+        // Validate the name and surname on focus lost
         fieldName.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
                 FormUtils.getInstance().validateTextField(fieldName, FormUtils.getInstance().validateNameSurname(fieldName.getText()), warningName);
@@ -99,23 +111,22 @@ public class BonificoController implements Initializable {
             }
         });
 
+        // Validate the amount on focus lost
         fieldAmount.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
                 FormUtils.getInstance().validateTextField(fieldAmount, FormUtils.getInstance().validateAmount(fieldAmount.getText()), warningAmount);
             }
         });
 
+        // Validate the description on focus lost
         fieldDescr.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
                 FormUtils.getInstance().validateTextField(fieldDescr, !fieldDescr.getText().isEmpty(), warningDescr);
             }
         });
 
-        // Disabilita il pulsante di invio inizialmente
-        sendButton.setDisable(true);
-
-        // Aggiungi un listener per abilitare/disabilitare il pulsante di invio in base ai controlli
-        // dei campi nome, cognome, IBAN e importo
+        // Bind the button to the form validation
+        // The button is enabled only if all the fields are valid
         BooleanBinding formValid = Bindings.createBooleanBinding(() ->
                                                 FormUtils.getInstance().validateNameSurname(fieldName.getText()) &&
                                                 FormUtils.getInstance().validateNameSurname(fieldSurname.getText()) &&
@@ -131,6 +142,10 @@ public class BonificoController implements Initializable {
         sendButton.disableProperty().bind(formValid.not());
     }
 
+    /**
+     * Sets the contact's data into the form.
+     * @param contact The contact whose information ought to be inserted.
+     */
     public void setContactData(Contatto contact) {
         fieldName.setText(contact.getNome());
         fieldSurname.setText(contact.getCognome());
@@ -139,24 +154,35 @@ public class BonificoController implements Initializable {
         saveContact.setDisable(true);
     }
 
+    // various services initialization
     private final GetUserService getUserService = new GetUserService();
     private final GetContactService getContactService = new GetContactService();
     private final TransactionService transactionService = new TransactionService();
 
+    /**
+     * Handles the event when the send button is clicked. (Performs the payment)
+     */
     @FXML
     void onSendButtonClick(ActionEvent event) {
+        // Get the space ID from the selected value in the spacesComboBox
         int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
-        double amount = FormUtils.getInstance().formatAmount(fieldAmount.getText());
-        String iban = fieldIbanTo.getText().replace(" ", "").trim().toUpperCase();
-        AtomicReference<Utente> utente = new AtomicReference<>(null);
 
+        // Format the amount inserted in the fieldAmount text field
+        double amount = FormUtils.getInstance().formatAmount(fieldAmount.getText());
+
+        // Remove spaces and convert the IBAN to uppercase
+        String iban = fieldIbanTo.getText().replace(" ", "").trim().toUpperCase();
+
+
+        // Perform a database query to select the user by ID
         getUserService.setAction("selectById");
         getUserService.restart();
         getUserService.setOnSucceeded(e -> {
-            if(e.getSource().getValue() instanceof Utente result) {
-                utente.set((Utente) result);
-                boolean exists = utente.get() != null;
+            if (e.getSource().getValue() instanceof Utente result) {
+                Utente user = result;
+                boolean exists = user != null;
 
+                // Set the necessary information for the transaction service
                 transactionService.setAction("transazione");
                 transactionService.setIbanFrom(BankApplication.getCurrentlyLoggedIban());
                 transactionService.setIbanTo(iban);
@@ -164,78 +190,104 @@ public class BonificoController implements Initializable {
                 transactionService.setAmount(amount);
                 transactionService.restart();
                 transactionService.setOnSucceeded(e7 -> {
-                    if((Boolean) e7.getSource().getValue()){
+                    if ((Boolean) e7.getSource().getValue()) {
+                        // Construct the name for the transaction
                         String nome = fieldSurname.getText() + " " + fieldName.getText();
-                        if(exists) {
-                            nome += "-" + utente.get().getCognome() + " " + utente.get().getNome();
+                        if (exists) {
+                            nome += "-" + user.getCognome() + " " + user.getNome();
                         }
-                        String finalNome = nome;
+                        final String finalNome = nome;
+
+                        // Retrieve space information for the destination IBAN (if it exists)
                         GetSpaceService getSpaceService = new GetSpaceService();
                         getSpaceService.setAction("selectAllByIban");
                         getSpaceService.setIban(iban);
                         getSpaceService.restart();
                         getSpaceService.setOnSucceeded(e1 -> {
-                            if(e1.getSource().getValue() instanceof Queue<?> rs) {
+                            if (e1.getSource().getValue() instanceof Queue<?> rs) {
                                 int spaceTo = 0;
-                                if(!rs.isEmpty()) {
+                                if (!rs.isEmpty()) {
                                     Space temp = (Space) rs.poll();
                                     spaceTo = temp.getSpaceId();
                                 }
+
+                                // Set the transaction details and insert the transaction into the database
                                 transactionService.setAction("insert");
                                 transactionService.setTransaction(new Transazione(finalNome, BankApplication.getCurrentlyLoggedIban(), iban, space, spaceTo, LocalDateTime.now(), amount, fieldDescr.getText(), "Bonifico", "Altro", ""));
                                 transactionService.restart();
                                 transactionService.setOnSucceeded(e2 -> {
                                     if ((Boolean) e2.getSource().getValue()) {
+                                        // Save the contact if selected
                                         if (saveContact.isSelected()) {
+                                            // Retrieve all contacts for the current user
                                             getContactService.setAction("allByUser");
                                             getContactService.restart();
                                             getContactService.setOnSucceeded(e3 -> {
                                                 if (e3.getSource().getValue() instanceof Queue<?> res) {
                                                     Queue<Contatto> contacts = (Queue<Contatto>) res;
+
+                                                    // Check if the contact already exists
                                                     if (contacts.stream().noneMatch(c -> c.getIban().equals(iban))) {
+                                                        // Insert the new contact into the database
                                                         ContactService contactService = new ContactService();
                                                         contactService.setAction("insert");
                                                         contactService.setContact(new Contatto(fieldName.getText(), fieldSurname.getText(), iban, BankApplication.getCurrentlyLoggedUser()));
                                                         contactService.restart();
                                                         contactService.setOnSucceeded(e4 -> {
                                                             if ((Boolean) e4.getSource().getValue()) {
+                                                                // Reload the operations page
                                                                 SceneHandler.getInstance().reloadPageInHashMap(Settings.OPERATIONS_PATH + "operations.fxml");
                                                             }
                                                         });
                                                         contactService.setOnFailed(e4 -> {
-                                                            SceneHandler.getInstance().createPage("errorPage.fxml");                                                        });
+                                                            // Show the error page if something goes wrong
+                                                            SceneHandler.getInstance().createPage("errorPage.fxml");
+                                                        });
                                                     }
                                                 }
                                             });
                                             getContactService.setOnFailed(e3 -> {
-                                                SceneHandler.getInstance().createPage("errorPage.fxml");                                            });
+                                                // Show the error page if something goes wrong
+                                                SceneHandler.getInstance().createPage("errorPage.fxml");
+                                            });
                                         }
+
+                                        // Reload the dynamic page and set the success page as the current page
                                         SceneHandler.getInstance().reloadDynamicPageInHashMap();
                                         SceneHandler.getInstance().setPage(Settings.OPERATIONS_PATH + "transactionSuccess.fxml");
                                     }
                                 });
                                 transactionService.setOnFailed(e2 -> {
+                                    // Show the error page if something goes wrong
                                     SceneHandler.getInstance().createPage("errorPage.fxml");
                                 });
                             }
                         });
                         getSpaceService.setOnFailed(e1 -> {
+                            // Show the error page if something goes wrong
                             SceneHandler.getInstance().createPage("errorPage.fxml");
                         });
-                    }else{
+                    } else {
+                        // Set the failed transaction page as the current page
                         SceneHandler.getInstance().setPage(Settings.OPERATIONS_PATH + "transactionFailed.fxml");
                     }
                 });
                 transactionService.setOnFailed(e7 -> {
+                    // Show the error page if something goes wrong
                     SceneHandler.getInstance().createPage("errorPage.fxml");
                 });
             }
         });
         getUserService.setOnFailed(e -> {
+            // Show the error page if something goes wrong
             SceneHandler.getInstance().createPage("errorPage.fxml");
         });
     }
 
+    /**
+     * Method called when the "back button" is clicked. (Loads the previous page)
+     * @throws IOException
+     */
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {
         BackStack.getInstance().loadPreviousPage();

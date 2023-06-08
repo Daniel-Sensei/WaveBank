@@ -23,35 +23,44 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the formNewContact.fxml file.
+ */
 public class NewContactController implements Initializable {
 
     @FXML
-    private TextField fieldIban;
+    private TextField fieldIban; // contact's IBAN TextField
 
     @FXML
-    private TextField fieldName;
+    private TextField fieldName; // contact's name TextField
 
     @FXML
-    private TextField fieldSurname;
+    private TextField fieldSurname; // contact's surname TextField
 
     @FXML
-    private Button sendButton;
+    private Button sendButton; // send button
 
     @FXML
-    private Label warningIban;
+    private Label warningIban; // warning label for the IBAN TextField
 
     @FXML
-    private Label warningName;
+    private Label warningName; // warning label for the name TextField
 
     @FXML
-    private Label warningSurname;
+    private Label warningSurname; // warning label for the surname TextField
 
     @FXML
-    private ImageView back;
+    private ImageView back; // back button icon
 
+    /**
+     * Handles the event when the send button is clicked. (Performs the insertion)
+     */
     @FXML
     void onSendButtonClick(ActionEvent event) {
+        // remove spaces and convert to uppercase
         String iban = fieldIban.getText().replace(" ", "").trim().toUpperCase();
+
+        // create a new ContactService, set necessary values and start it to perform the actual insertion
         ContactService contactService = new ContactService();
         contactService.setAction("insert");
         contactService.setContact(new Contatto(fieldName.getText(), fieldSurname.getText(), iban, BankApplication.getCurrentlyLoggedUser()));
@@ -63,37 +72,40 @@ public class NewContactController implements Initializable {
                 SceneHandler.getInstance().showMessage("info", "Add Contact", "Contact added", "The contact has been successfully added.");
             SceneHandler.getInstance().createPage(Settings.OPERATIONS_PATH + "operations.fxml");
         });
-        contactService.setOnFailed(e -> {
-            SceneHandler.getInstance().createPage("errorPage.fxml");
-        });
+        contactService.setOnFailed(e -> SceneHandler.getInstance().createPage("errorPage.fxml"));
     }
 
+    /**
+     * Initializes the controller.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         GenericController.loadImage(back);
+
+        // the send button is initially disabled
+        sendButton.setDisable(true);
+
+        // validate the fields when the user loses focus on them
+
         fieldIban.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
+            if (!newValue) {
                 FormUtils.getInstance().validateTextField(fieldIban, FormUtils.getInstance().validateIban(fieldIban.getText()), warningIban);
             }
         });
 
         fieldName.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
+            if (!newValue) {
                 FormUtils.getInstance().validateTextField(fieldName, FormUtils.getInstance().validateNameSurname(fieldName.getText()), warningName);
             }
         });
 
         fieldSurname.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) { // Controllo quando l'utente perde il focus sulla TextField
+            if (!newValue) {
                 FormUtils.getInstance().validateTextField(fieldSurname, FormUtils.getInstance().validateNameSurname(fieldSurname.getText()), warningSurname);
             }
         });
 
-        // inizialmente disabilito il pulsante d'invio
-        sendButton.setDisable(true);
-
-        // Aggiungi un listener per abilitare/disabilitare il pulsante d'invio in base ai controlli della correttezza
-        // dei campi nome, cognome e IBAN, successivamente li imposto come obbligatori
+        // bind the send button to the form validation
         BooleanBinding formValid = Bindings.createBooleanBinding(() ->
                                 FormUtils.getInstance().validateNameSurname(fieldName.getText()) &&
                                 FormUtils.getInstance().validateNameSurname(fieldSurname.getText()) &&
@@ -102,10 +114,13 @@ public class NewContactController implements Initializable {
                                 fieldSurname.textProperty(),
                                 fieldIban.textProperty()
         );
-
         sendButton.disableProperty().bind(formValid.not());
     }
 
+    /**
+     * Method called when the "back button" is clicked. (Loads the previous page)
+     * @throws IOException
+     */
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {
         BackStack.getInstance().loadPreviousPage();

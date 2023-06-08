@@ -17,6 +17,9 @@ import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the recurring.fxml file. (single contact)
+ */
 public class PaymentController implements Initializable {
 
     private Ricorrente payment;

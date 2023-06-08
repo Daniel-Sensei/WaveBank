@@ -8,39 +8,36 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the contact.fxml file. (single contact)
+ */
 public class ContactController implements Initializable {
 
-    private Contatto contact;
+    @FXML
+    private Label ibanLabel; // label for contact's iban
 
     @FXML
-    private Label ibanLabel;
+    private Label nameLabel; // label for contact's name
 
     @FXML
-    private Label nameLabel;
+    private ImageView users; // icon
 
-    @FXML
-    private ImageView users;
-
-
+    /**
+     * Initializes the controller.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         GenericController.loadImage(users);
-        contact = ContactsManager.getInstance().getNextContact();
 
+        // set the contact to be displayed
+        Contatto contact = ContactsManager.getInstance().getNextContact();
+
+        // set the labels
         ibanLabel.setText(FormUtils.getInstance().separateIban(contact.getIban()));
         nameLabel.setText(contact.getCognome() + " " + contact.getNome());
     }
-
-    @FXML
-    void openQuickSend(MouseEvent event) {
-        //in questo metodo devi fare il push nella coda di ContactManager e dovrai riprendere quel contatto pushato nella pagina
-        // invio rapido. Una volta preso il contatto nella pagina invioRapido (ovviamente in inizialize) puoi automaticamente compilare
-        // i campi con i dati del contatto e inserire solo importo e causale
-    }
-
 }

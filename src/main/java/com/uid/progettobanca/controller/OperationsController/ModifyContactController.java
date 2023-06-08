@@ -22,43 +22,52 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the formModifyContact.fxml file.
+ */
 public class ModifyContactController implements Initializable {
 
-    private Contatto contatto;
+    private Contatto contatto; // contact to modify
 
     @FXML
-    private TextField fieldIban;
+    private TextField fieldIban; // iban field
 
     @FXML
-    private TextField fieldName;
+    private TextField fieldName; // name field
 
     @FXML
-    private TextField fieldSurname;
+    private TextField fieldSurname; // surname field
 
     @FXML
-    private Button sendButton;
+    private Button sendButton; // send button
 
     @FXML
-    private Label warningIban;
+    private Label warningIban; // warning label for iban field
 
     @FXML
-    private Label warningName;
+    private Label warningName; // warning label for name field
 
     @FXML
-    private Label warningSurname;
+    private Label warningSurname; // warning label for surname field
 
     @FXML
-    private ImageView back;
+    private ImageView back; // back button image
 
+    /**
+     * Handles the event when the send button is clicked. (Performs the update)
+     */
     @FXML
     void onSendButtonClick(ActionEvent event) {
+        // at least one field must be filled
         if(!fieldIban.getText().isEmpty()||!fieldName.getText().isEmpty()||!fieldSurname.getText().isEmpty()) {
+            // if a field is empty, the old value is kept
             if (!fieldName.getText().isEmpty())
                 contatto.setNome(fieldName.getText());
             if (!fieldSurname.getText().isEmpty())
                 contatto.setCognome(fieldSurname.getText());
             if (!fieldIban.getText().isEmpty())
                 contatto.setIban(fieldIban.getText());
+            // update contact
             ContactService contactService = new ContactService();
             contactService.setAction("update");
             contactService.setContact(contatto);
@@ -70,22 +79,26 @@ public class ModifyContactController implements Initializable {
                     SceneHandler.getInstance().showMessage("info", "Contact Update", "Contact updated", "The contact has been successfully modified.");
                 SceneHandler.getInstance().createPage(Settings.OPERATIONS_PATH + "operations.fxml");
             });
-            contactService.setOnFailed(e -> {
-                SceneHandler.getInstance().createPage("errorPage.fxml");
-            });
+            contactService.setOnFailed(e -> SceneHandler.getInstance().createPage("errorPage.fxml"));
         }
     }
 
+    /**
+     * Initializes the controller.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         GenericController.loadImage(back);
 
+        // get selected contact
         contatto = OperationsController.getSelectedContact();
 
+        // set validators
         BooleanProperty nameValid = new SimpleBooleanProperty(true);
         BooleanProperty surnameValid = new SimpleBooleanProperty(true);
         BooleanProperty ibanValid = new SimpleBooleanProperty(true);
 
+        // validate fields
         fieldName.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) { // Controllo quando il campo perde il focus
                 if (fieldName.getText().isEmpty()) {
@@ -119,15 +132,23 @@ public class ModifyContactController implements Initializable {
             }
         });
 
+        // set fields prompt text to the old values
         fieldName.setPromptText(contatto.getNome());
         fieldSurname.setPromptText(contatto.getCognome());
         fieldIban.setPromptText(contatto.getIban());
     }
 
+    /**
+     * Updates the state of the send button.
+     */
     private void updateButtonState(BooleanProperty ibanValid, BooleanProperty nameValid, BooleanProperty surnameValid) {
         sendButton.setDisable(!(ibanValid.get() && nameValid.get() && surnameValid.get()));
     }
 
+    /**
+     * Method called when the "back button" is clicked. (Loads the previous page)
+     * @throws IOException
+     */
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {
         BackStack.getInstance().loadPreviousPage();

@@ -118,6 +118,10 @@ public class RicaricaTelefonicaController implements Initializable {
         });
     }
 
+    /**
+     * Method called when the "back button" is clicked. (Loads the previous page)
+     * @throws IOException
+     */
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {
         BackStack.getInstance().loadPreviousPage();

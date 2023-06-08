@@ -20,40 +20,44 @@ import java.net.URL;
 import java.util.Queue;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the "formPagamentiRicorrenti.fxml" file
+ */
 public class PagamentiRicorrentiController implements Initializable {
 
     @FXML
-    private HBox addNew;
+    private HBox addNew; // HBox containing the "add new" button
 
     @FXML
-    private ImageView add;
+    private ImageView add; // ImageView of the "add new" button
 
     @FXML
-    private ImageView back;
+    private ImageView back; // ImageView of the "back" button
 
     @FXML
-    private VBox paymentsVBOX;
-
-    @FXML
-    void loadPreviousPage(MouseEvent event) throws IOException {
-        BackStack.getInstance().loadPreviousPage();
-    }
+    private VBox paymentsVBOX; // VBox containing the payments
 
     @FXML
     void onAddNewClick(MouseEvent event) {
         SceneHandler.getInstance().createPage(Settings.OPERATIONS_PATH + "formNewRecurring.fxml");
     }
 
-    GetRecurringService getRecurringService = new GetRecurringService();
+    private final GetRecurringService getRecurringService = new GetRecurringService();
 
+    /**
+     * Initializes the controller.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         GenericController.loadImage(back);
         GenericController.loadImage(add);
+
+        // gets all the recurring payments associated with the user
         getRecurringService.start();
         getRecurringService.setOnSucceeded(event -> {
             if (event.getSource().getValue() instanceof Queue<?> queue) {
                 RecurringManager.getInstance().fillPayments((Queue<Ricorrente>) queue);
+                // for each payment, loads the "recurring.fxml" file with it's data
                 int nPayments = RecurringManager.getInstance().getSize();
                 for(int i=0; i<nPayments; i++){
                     Parent payment = null;
@@ -67,8 +71,15 @@ public class PagamentiRicorrentiController implements Initializable {
                 }
             }
         });
-        getRecurringService.setOnFailed(event -> {
-            SceneHandler.getInstance().createPage("errorPage.fxml");
-        });
+        getRecurringService.setOnFailed(event -> SceneHandler.getInstance().createPage("errorPage.fxml"));
+    }
+
+    /**
+     * Method called when the "back button" is clicked. (Loads the previous page)
+     * @throws IOException
+     */
+    @FXML
+    void loadPreviousPage(MouseEvent event) throws IOException {
+        BackStack.getInstance().loadPreviousPage();
     }
 }
