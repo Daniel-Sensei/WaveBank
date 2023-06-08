@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -22,6 +23,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.List;
+;
 
 public class ManageController {
     int numcarte=0;
@@ -96,7 +98,14 @@ public class ManageController {
         transactionsService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof List<?> result){
                 chart.getData().clear();
-                chart.getData().add(graphCalculator.MainGraphCalculator(daysInterval, (List<Transazione>) result));
+                List<Double> valori = graphCalculator.MainGraphCalculator(daysInterval, (List<Transazione>) result);
+
+                XYChart.Series data = new XYChart.Series();
+                for(int i=0; i<valori.size(); i++){
+                    data.getData().add(new XYChart.Data(String.valueOf(i), valori.get(i)));
+                }
+                chart.getData().add(data);
+
             }
         });
         transactionsService.setOnFailed(event -> {

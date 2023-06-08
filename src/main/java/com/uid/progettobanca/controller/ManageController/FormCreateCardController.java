@@ -2,7 +2,7 @@ package com.uid.progettobanca.controller.ManageController;
 
 import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.controller.GenericController;
-import com.uid.progettobanca.model.CreateCard;
+import com.uid.progettobanca.model.CardsManager;
 import com.uid.progettobanca.model.services.InsertCardService;
 import com.uid.progettobanca.view.BackStack;
 import com.uid.progettobanca.view.SceneHandler;
@@ -35,7 +35,7 @@ public class FormCreateCardController {
     private InsertCardService cardService = new InsertCardService();
     @FXML
     void createPressed(ActionEvent event) {
-        cardService.setCarta(CreateCard.createVirtualCard(dateValue.getValue()));
+        cardService.setCarta(CardsManager.createVirtualCard(dateValue.getValue()));
         cardService.restart();
     }
 

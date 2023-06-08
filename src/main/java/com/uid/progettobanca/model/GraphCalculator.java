@@ -20,9 +20,36 @@ public class GraphCalculator {
         return transazioni;
     }
 
-    public XYChart.Series MainGraphCalculator(int DaysInterval, List<Transazione> transazioni){
+    private List<Double> SortValues (List<Transazione> transazioni, int DaysInterval, String tag){
         transazioni= RemoveOnSameIBAN(transazioni);
-        XYChart.Series data = new XYChart.Series();
+        //se tag è vuoto, cetag è false
+        Boolean ceTag=true;
+        if(tag.equals("")){ceTag=false;}
+
+
+        //make a list for each day
+        List<Double> DaysValues = new ArrayList<>();
+        for(int i =0; i<DaysInterval; i++){
+            DaysValues.add(0.0);
+        }
+
+        LocalDateTime now = LocalDateTime.now();
+        for(int i=0; i<transazioni.size(); i++) {
+            int iterations = 0;
+            for (LocalDateTime j = LocalDateTime.now().minusDays(DaysInterval); j.isBefore(now); j = j.plusDays(1)) {
+                //increase the value of the day if a transaction is found
+                if ((transazioni.get(i).getDateTime().isAfter(j) && transazioni.get(i).getDateTime().isBefore(j.plusDays(1))) && ((ceTag && transazioni.get(i).getTag().equals(tag)) || (!ceTag))) {
+                    DaysValues.set(iterations, DaysValues.get(iterations) + transazioni.get(i).getImporto());
+                    break;
+                }
+                iterations++;
+            }
+        }
+        return DaysValues;
+    }
+
+    public List<Double> MainGraphCalculator(int DaysInterval, List<Transazione> transazioni){
+        transazioni= RemoveOnSameIBAN(transazioni);
 
         double baseline=0;
         //find the baseline balance (before last displayed day)
@@ -34,26 +61,7 @@ public class GraphCalculator {
             }
         }
 
-        //make a list for each day
-        List<Double> DaysValues = new ArrayList<>();
-        for(int i =0; i<DaysInterval; i++){
-            DaysValues.add(0.0);
-        }
-        LocalDateTime now = LocalDateTime.now();
-        for(int i=0; i<transazioni.size(); i++) {
-            int iterations = 0;
-            for (LocalDateTime j = LocalDateTime.now().minusDays(DaysInterval); j.isBefore(now); j = j.plusDays(1)) {
-                //increase the value of the day if a transaction is found
-                if (transazioni.get(i).getDateTime().isAfter(j) && transazioni.get(i).getDateTime().isBefore(j.plusDays(1))) {
-                    DaysValues.set(iterations, DaysValues.get(iterations) + transazioni.get(i).getImporto());
-                    break;
-                }
-                iterations++;
-            }
-
-        }
-
-        Double max=0.0;
+        List<Double> DaysValues = SortValues(transazioni, DaysInterval, "");
 
         //add the baseline to the first value and add the values of previous days to each other
         for(int i=0; i<DaysValues.size(); i++){
@@ -63,53 +71,22 @@ public class GraphCalculator {
             else{
                 DaysValues.set(i, DaysValues.get(i)+DaysValues.get(i-1));
             }
-            data.getData().add(new XYChart.Data(String.valueOf(i), DaysValues.get(i)));
-            if (i==DaysValues.size()-1) {
-                max = DaysValues.get(i);
-            }
         }
 
-        return data;
+        return DaysValues;
     }
 
-    public ReturnChart TagGraphCalculator(int DaysInterval, String tag, List<Transazione> transazioni){
-        transazioni= RemoveOnSameIBAN(transazioni);
-        XYChart.Series data = new XYChart.Series<>();
+    public List<Double> TagGraphCalculator(int DaysInterval, String tag, List<Transazione> transazioni){
 
-        //make a list for each day
-        List<Double> DaysValues = new ArrayList<>();
-        for(int i =0; i<DaysInterval; i++){
-            DaysValues.add(0.0);
-        }
 
-        //increase the value of the day if a transaction is found
-        LocalDateTime now = LocalDateTime.now();
-        for(int i=0; i<transazioni.size(); i++){
-            int iterations=0;
-            for(LocalDateTime j=LocalDateTime.now().minusDays(DaysInterval); j.isBefore(now); j=j.plusDays(1)){
-                if(transazioni.get(i).getDateTime().isAfter(j) && transazioni.get(i).getDateTime().isBefore(j.plusDays(1)) && transazioni.get(i).getTag().equals(tag)){
-                    DaysValues.set(iterations, DaysValues.get(iterations)+transazioni.get(i).getImporto());
-                    break;
-                }
-                iterations++;
-            }
-
-        }
-
-        Double max = 0.0;
+        List<Double> DaysValues = SortValues(transazioni, DaysInterval, tag);
 
         //add the values of previous days to each other and save the value of the last day
         for(int i=0; i<DaysValues.size(); i++){
             if(i>0) {
                 DaysValues.set(i, DaysValues.get(i)+DaysValues.get(i-1));
             }
-            data.getData().add(new XYChart.Data(String.valueOf(i), DaysValues.get(i)));
-            if (i==DaysValues.size()-1){
-                max = DaysValues.get(i);
-            }
         }
-        ReturnChart doppio = new ReturnChart();
-        doppio.SetReturnChart(max, data);
-        return doppio;
+        return DaysValues;
     }
 }

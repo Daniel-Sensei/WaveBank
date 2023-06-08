@@ -8,10 +8,12 @@ import com.uid.progettobanca.model.services.GetTransactionService;
 import com.uid.progettobanca.view.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
 import java.util.List;
+
 
 public class SingleChartController {
 
@@ -32,8 +34,6 @@ public class SingleChartController {
 
     private GraphCalculator graphCalculator = new GraphCalculator();
     private int daysInterval = 30;
-
-    private ReturnChart ritorno = new ReturnChart();
 
     private void setTagImage(){
         //removes spaces from tags
@@ -72,9 +72,15 @@ public class SingleChartController {
         //creates the chart after taking the transactions
         getTransactionService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof List<?>  result){
-                ritorno = graphCalculator.TagGraphCalculator(daysInterval, Tag, (List<Transazione>) result);
-                lineChart.getData().add(ritorno.getSeries());
-                spentBalance.setText(ritorno.getValue());
+                List<Double> valori= graphCalculator.TagGraphCalculator(daysInterval, Tag, (List<Transazione>) result);
+
+                XYChart.Series data = new XYChart.Series();
+                for(int i=0; i<valori.size(); i++){
+                    data.getData().add(new XYChart.Data(String.valueOf(i), valori.get(i)));
+                }
+                lineChart.getData().add(data);
+
+                spentBalance.setText(String.format("%.2f", valori.get(valori.size()-1)) + "€");
             }
         });
         getTransactionService.setOnFailed(event -> {

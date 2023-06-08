@@ -1,8 +1,8 @@
 package com.uid.progettobanca.controller;
 
 import com.uid.progettobanca.Settings;
+import com.uid.progettobanca.model.CardsManager;
 import com.uid.progettobanca.model.objects.Utente;
-import com.uid.progettobanca.model.CreateCard;
 import com.uid.progettobanca.model.services.GetUserService;
 import com.uid.progettobanca.model.services.NewAccountService;
 import com.uid.progettobanca.model.services.UserService;
@@ -232,7 +232,7 @@ public class RegisterFormController implements Initializable {
                                     getUserService.setOnSucceeded(e4 -> {
 
                                         //create debit card
-                                        CreateCard.createDebitCard(getUserService.getValue().getUserId());
+                                        CardsManager.createDebitCard(getUserService.getValue().getUserId());
 
                                         //message account created
                                         if (Settings.locale.getLanguage().equals("it"))
