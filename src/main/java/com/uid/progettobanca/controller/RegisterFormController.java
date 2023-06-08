@@ -98,72 +98,72 @@ public class RegisterFormController implements Initializable {
         name.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
                 if(Settings.locale.getLanguage().equals("it"))
-                    FormUtils.getInstance().validateTextFieldRegister(nameLabel, name, FormUtils.getInstance().validateNameSurname(name.getText()), "Nome*", "Nome non valido*");
+                    FormUtils.getInstance().validateTextFieldSameLabel(nameLabel, name, FormUtils.getInstance().validateNameSurname(name.getText()), "Nome*", "Nome non valido*");
                 else if (Settings.locale.getLanguage().equals("en"))
-                    FormUtils.getInstance().validateTextFieldRegister(nameLabel, name, FormUtils.getInstance().validateNameSurname(name.getText()), "Name*", "Invalid name*");
+                    FormUtils.getInstance().validateTextFieldSameLabel(nameLabel, name, FormUtils.getInstance().validateNameSurname(name.getText()), "Name*", "Invalid name*");
             }
         });
 
         surname.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
                 if(Settings.locale.getLanguage().equals("it"))
-                    FormUtils.getInstance().validateTextFieldRegister(surnameLabel, surname, FormUtils.getInstance().validateNameSurname(surname.getText()), "Cognome*", "Cognome non valido*");
+                    FormUtils.getInstance().validateTextFieldSameLabel(surnameLabel, surname, FormUtils.getInstance().validateNameSurname(surname.getText()), "Cognome*", "Cognome non valido*");
                 else if (Settings.locale.getLanguage().equals("en"))
-                    FormUtils.getInstance().validateTextFieldRegister(surnameLabel, surname, FormUtils.getInstance().validateNameSurname(surname.getText()), "Surname*", "Invalid surname*");
+                    FormUtils.getInstance().validateTextFieldSameLabel(surnameLabel, surname, FormUtils.getInstance().validateNameSurname(surname.getText()), "Surname*", "Invalid surname*");
             }
         });
 
         email.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
                 if(Settings.locale.getLanguage().equals("it"))
-                    FormUtils.getInstance().validateTextFieldRegister(emailLabel, email, FormUtils.getInstance().validateEmail(email.getText()), "Email*", "Email non valida*");
+                    FormUtils.getInstance().validateTextFieldSameLabel(emailLabel, email, FormUtils.getInstance().validateEmail(email.getText()), "Email*", "Email non valida*");
                 else if (Settings.locale.getLanguage().equals("en"))
-                    FormUtils.getInstance().validateTextFieldRegister(emailLabel, email, FormUtils.getInstance().validateEmail(email.getText()), "Email*", "Invalid email*");
+                    FormUtils.getInstance().validateTextFieldSameLabel(emailLabel, email, FormUtils.getInstance().validateEmail(email.getText()), "Email*", "Invalid email*");
             }
         });
 
         password.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
                 if (Settings.locale.getLanguage().equals("it"))
-                    FormUtils.getInstance().validateTextFieldRegister(passwordLabel, password, FormUtils.getInstance().validatePassword(password.getText()), "Password*", "La password deve contenere almeno 8 caratteri, almeno una lettera minuscola, almeno una lettera maiuscola e un carattere speciale*");
+                    FormUtils.getInstance().validateTextFieldSameLabel(passwordLabel, password, FormUtils.getInstance().validatePassword(password.getText()), "Password*", "La password deve contenere almeno 8 caratteri, almeno una lettera minuscola, almeno una lettera maiuscola e un carattere speciale*");
                 else if (Settings.locale.getLanguage().equals("en"))
-                    FormUtils.getInstance().validateTextFieldRegister(passwordLabel, password, FormUtils.getInstance().validatePassword(password.getText()), "Password*", "Password must contain at least 8 characters, at least one lowercase letter, at least one uppercase letter and a special character*");
+                    FormUtils.getInstance().validateTextFieldSameLabel(passwordLabel, password, FormUtils.getInstance().validatePassword(password.getText()), "Password*", "Password must contain at least 8 characters, at least one lowercase letter, at least one uppercase letter and a special character*");
             }
         });
 
         confirmPassword.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
                 if(Settings.locale.getLanguage().equals("it"))
-                    FormUtils.getInstance().validateTextFieldRegister(confirmPasswordLabel, confirmPassword, FormUtils.getInstance().validateConfirmPassword(password.getText(), confirmPassword.getText()), "Conferma Password*", "Le password non corrispondono*");
+                    FormUtils.getInstance().validateTextFieldSameLabel(confirmPasswordLabel, confirmPassword, FormUtils.getInstance().validateConfirmPassword(password.getText(), confirmPassword.getText()), "Conferma Password*", "Le password non corrispondono*");
                 else if (Settings.locale.getLanguage().equals("en"))
-                    FormUtils.getInstance().validateTextFieldRegister(confirmPasswordLabel, confirmPassword, FormUtils.getInstance().validateConfirmPassword(password.getText(), confirmPassword.getText()), "Confirm Password*", "Passwords do not match*");
+                    FormUtils.getInstance().validateTextFieldSameLabel(confirmPasswordLabel, confirmPassword, FormUtils.getInstance().validateConfirmPassword(password.getText(), confirmPassword.getText()), "Confirm Password*", "Passwords do not match*");
             }
         });
 
         answer.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
                 if(Settings.locale.getLanguage().equals("it"))
-                    FormUtils.getInstance().validateTextFieldRegister(answerLabel, answer, FormUtils.getInstance().validateNameNumber(answer.getText()), "Risposta*", "Risposta non valida*");
+                    FormUtils.getInstance().validateTextFieldSameLabel(answerLabel, answer, FormUtils.getInstance().validateNameNumber(answer.getText()), "Risposta*", "Risposta non valida*");
                 else if (Settings.locale.getLanguage().equals("en"))
-                    FormUtils.getInstance().validateTextFieldRegister(answerLabel, answer, FormUtils.getInstance().validateNameNumber(answer.getText()), "Answer*", "Invalid answer*");
+                    FormUtils.getInstance().validateTextFieldSameLabel(answerLabel, answer, FormUtils.getInstance().validateNameNumber(answer.getText()), "Answer*", "Invalid answer*");
             }
         });
 
         address.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
                 if(Settings.locale.getLanguage().equals("it"))
-                    FormUtils.getInstance().validateTextFieldRegister(addressLabel, address, FormUtils.getInstance().validateAddress(address.getText()), "Indirizzo di residenza*", "Indirizzo non valido*");
+                    FormUtils.getInstance().validateTextFieldSameLabel(addressLabel, address, FormUtils.getInstance().validateAddress(address.getText()), "Indirizzo di residenza*", "Indirizzo non valido*");
                 else if (Settings.locale.getLanguage().equals("en"))
-                    FormUtils.getInstance().validateTextFieldRegister(addressLabel, address, FormUtils.getInstance().validateAddress(address.getText()), "Residential Address*", "Invalid address*");
+                    FormUtils.getInstance().validateTextFieldSameLabel(addressLabel, address, FormUtils.getInstance().validateAddress(address.getText()), "Residential Address*", "Invalid address*");
             }
         });
 
         phone.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
                 if(Settings.locale.getLanguage().equals("it"))
-                    FormUtils.getInstance().validateTextFieldRegister(phoneLabel, phone, FormUtils.getInstance().validatePhone(phone.getText()), "Cellulare*", "Telefono non valido*");
+                    FormUtils.getInstance().validateTextFieldSameLabel(phoneLabel, phone, FormUtils.getInstance().validatePhone(phone.getText()), "Cellulare*", "Telefono non valido*");
                 else if (Settings.locale.getLanguage().equals("en"))
-                    FormUtils.getInstance().validateTextFieldRegister(phoneLabel, phone, FormUtils.getInstance().validatePhone(phone.getText()), "Mobile Phone*", "Invalid phone*");
+                    FormUtils.getInstance().validateTextFieldSameLabel(phoneLabel, phone, FormUtils.getInstance().validatePhone(phone.getText()), "Mobile Phone*", "Invalid phone*");
             }
         });
 

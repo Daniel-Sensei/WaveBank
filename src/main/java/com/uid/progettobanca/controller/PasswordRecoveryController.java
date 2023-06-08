@@ -66,7 +66,7 @@ public class PasswordRecoveryController implements Initializable {
 
         fieldEmail.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
-                if(FormUtils.getInstance().validateTextFieldRegister(emailLabel, fieldEmail, FormUtils.getInstance().validateEmail(fieldEmail.getText()), "Email*", "Email non valida*")){
+                if(FormUtils.getInstance().validateTextFieldSameLabel(emailLabel, fieldEmail, FormUtils.getInstance().validateEmail(fieldEmail.getText()), "Email*", "Email non valida*")){
                     getUserService.setAction("selectByEmail");
                     getUserService.setEmail(fieldEmail.getText());
                     getUserService.restart();
@@ -85,9 +85,9 @@ public class PasswordRecoveryController implements Initializable {
                         }
                         if(!emailInDB){
                             if(Settings.locale.getLanguage().equals("it"))
-                                FormUtils.getInstance().validateTextFieldRegister(emailLabel, fieldEmail, false, "Email*", "Email non presente nel sistema*");
+                                FormUtils.getInstance().validateTextFieldSameLabel(emailLabel, fieldEmail, false, "Email*", "Email non presente nel sistema*");
                             else if(Settings.locale.getLanguage().equals("en"))
-                                FormUtils.getInstance().validateTextFieldRegister(emailLabel, fieldEmail, false, "Email*", "Email not present in the system*");
+                                FormUtils.getInstance().validateTextFieldSameLabel(emailLabel, fieldEmail, false, "Email*", "Email not present in the system*");
                         }
                     });
                     getUserService.setOnFailed(e -> {
@@ -100,18 +100,18 @@ public class PasswordRecoveryController implements Initializable {
         fieldPassword.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
                 if (Settings.locale.getLanguage().equals("it"))
-                    FormUtils.getInstance().validateTextFieldRegister(passwordLabel, fieldPassword, FormUtils.getInstance().validatePassword(fieldPassword.getText()), "Nuova Password*", "La password deve contenere almeno 8 caratteri, almeno una lettera minuscola, almeno una lettera maiuscola e un carattere speciale*");
+                    FormUtils.getInstance().validateTextFieldSameLabel(passwordLabel, fieldPassword, FormUtils.getInstance().validatePassword(fieldPassword.getText()), "Nuova Password*", "La password deve contenere almeno 8 caratteri, almeno una lettera minuscola, almeno una lettera maiuscola e un carattere speciale*");
                 else if (Settings.locale.getLanguage().equals("en"))
-                    FormUtils.getInstance().validateTextFieldRegister(passwordLabel, fieldPassword, FormUtils.getInstance().validatePassword(fieldPassword.getText()), "New Password*", "The password must contain at least 8 characters, at least one lowercase letter, at least one uppercase letter and a special character*");
+                    FormUtils.getInstance().validateTextFieldSameLabel(passwordLabel, fieldPassword, FormUtils.getInstance().validatePassword(fieldPassword.getText()), "New Password*", "The password must contain at least 8 characters, at least one lowercase letter, at least one uppercase letter and a special character*");
             }
         });
 
         confirmPassword.focusedProperty().addListener((obs, oldValue, newValue) -> {
             if (!newValue) {
                 if (Settings.locale.getLanguage().equals("it"))
-                    FormUtils.getInstance().validateTextFieldRegister(confirmPasswordLabel, confirmPassword, FormUtils.getInstance().validateConfirmPassword(fieldPassword.getText(), confirmPassword.getText()), "Conferma Password*", "Le password non corrispondono*");
+                    FormUtils.getInstance().validateTextFieldSameLabel(confirmPasswordLabel, confirmPassword, FormUtils.getInstance().validateConfirmPassword(fieldPassword.getText(), confirmPassword.getText()), "Conferma Password*", "Le password non corrispondono*");
                 else if (Settings.locale.getLanguage().equals("en"))
-                    FormUtils.getInstance().validateTextFieldRegister(confirmPasswordLabel, confirmPassword, FormUtils.getInstance().validateConfirmPassword(fieldPassword.getText(), confirmPassword.getText()), "Confirm Password*", "Passwords do not match*");
+                    FormUtils.getInstance().validateTextFieldSameLabel(confirmPasswordLabel, confirmPassword, FormUtils.getInstance().validateConfirmPassword(fieldPassword.getText(), confirmPassword.getText()), "Confirm Password*", "Passwords do not match*");
             }
         });
 

@@ -6,7 +6,6 @@ import com.uid.progettobanca.model.objects.Space;
 import javafx.animation.TranslateTransition;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
@@ -18,9 +17,7 @@ import java.util.Queue;
 public class FormUtils {
     private static FormUtils instance;
 
-
-    private FormUtils() {
-    }
+    private FormUtils() {}
 
     public static FormUtils getInstance() {
         if (instance == null) {
@@ -48,16 +45,8 @@ public class FormUtils {
         }
     }
 
-    public boolean validateTextField(TextField textField, String regex, Label warningLabel) {
-
-        String text = textField.getText().trim();
-        boolean isValid = text.matches(regex);
-        warningLabel.setVisible(!isValid);
-        setTextFieldStyle(textField, isValid);
-
-        return isValid;
-    }
-
+    // method to validate the textFields
+    // based on the return of isValid is set the visibility of the warning label (already set in the fxml)
     public boolean validateTextField(TextField textField, Boolean validateFunction, Label warningLabel) {
 
         String text = textField.getText().trim();
@@ -68,7 +57,9 @@ public class FormUtils {
         return isValid;
     }
 
-    public boolean validateTextFieldRegister(Label labelName, TextField textField, Boolean validateFunction, String correctLabel, String warningLabel) {
+    // method to validate the textFields
+    // based on the return of isValid set the style of the label before the textField
+    public boolean validateTextFieldSameLabel(Label labelName, TextField textField, Boolean validateFunction, String correctLabel, String warningLabel) {
 
         String text = textField.getText().trim();
         boolean isValid = validateFunction;
@@ -85,18 +76,18 @@ public class FormUtils {
         return isValid;
     }
 
+    // function to validate the textFields
+    // all these function uses regex to validate the input
     public boolean validateIban(String iban) {
-        // Rimuovi spazi e caratteri speciali dall'IBAN
+        //replace all the spaces and make the string uppercase
         String sanitizedIban = iban.replaceAll("\\s+", "").toUpperCase();
 
-        // Effettua la validazione dell'IBAN (esempio di logica semplificata) IBAN SEMPLIFICATO
         if (sanitizedIban.matches("[A-Z]{2}[0-9]{2}[A-Z0-9][0-9]{10}[A-Z0-9]{2}[0-9]{10}")) {
             return true; // L'IBAN è valido
         } else {
             return false; // L'IBAN non è valido
         }
     }
-
     public boolean validateAmount(String amount) {
         try {
             amount = amount.replaceAll("\\s+", "");
@@ -112,40 +103,32 @@ public class FormUtils {
     public boolean validateNameSurname(String name) {
         return name.matches("[A-Za-z ]+");
     }
-
     public boolean validateCC(String CC) {
         return CC.matches("[0-9]{18}");
     }
-
     public boolean validateCodeBollettino(String number) {
         return number.matches("[0-9]{40}");
     }
-
     public boolean validatePlate(String plate) {
         return plate.matches("[a-zA-Z]{2}\\d{3}[a-zA-Z]{2}");
     }
-
     public boolean validateCF(String CF) {
         return CF.matches("[a-zA-Z]{6}\\d{2}[a-zA-Z]\\d{2}[a-zA-Z]\\d{3}[a-zA-Z]");
     }
-
     public boolean validateDueBollo(String dueBollo) {
         return dueBollo.matches("\\d{2}[/\\-]\\d{4}");
     }
     public boolean validatePhone(String phone) {
         return phone.matches("(\\+\\d{2,3})? ?\\d{10}");
     }
-
     public boolean validateEmail(String email) {
         String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         return email.matches(regex);
     }
-
     public boolean validatePassword(String password) {
         String regex = "(?=^.{8,}$)(?=.*\\d)(?=.*[!@#$%^&*.]+)(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$";
         return password.matches(regex);
     }
-
     public boolean validateConfirmPassword(String password, String confirmPassword) {
         return password.equals(confirmPassword);
     }
@@ -156,6 +139,25 @@ public class FormUtils {
         return name.matches("[A-Za-z0-9 ]+");
     }
 
+    //formatters
+    public double formatAmount(String amountText) {
+        amountText = amountText.replaceAll("\\s+", "");
+        amountText = amountText.replace(',', '.');
+        amountText = amountText.replaceAll("€", "");
+        return Double.parseDouble(amountText);
+    }
+    public String separateIban(String iban) {
+        String ibanSeparated = "";
+        for (int i = 0; i < iban.length(); i++) {
+            if (i % 4 == 0 && i != 0) {
+                ibanSeparated += " ";
+            }
+            ibanSeparated += iban.charAt(i);
+        }
+        return ibanSeparated;
+    }
+
+    // method to fill comboBox in paymentForms with spaces names
     private List<Space> spaces = new LinkedList<>();
     public void getSpaces() throws SQLException {
         spaces.clear();
@@ -166,7 +168,6 @@ public class FormUtils {
             spaces.add(space);
         }
     }
-
     public void fillSpacesComboBox(ComboBox<String> spacesComboBox) throws SQLException {
         spacesComboBox.getItems().clear();
         getSpaces();
@@ -175,7 +176,6 @@ public class FormUtils {
         }
         spacesComboBox.setValue(spacesComboBox.getItems().get(0));
     }
-
     public int getSpaceIdFromName(String name) {
         for(Space space : spaces) {
             if(space.getNome().equals(name)) {
@@ -184,14 +184,6 @@ public class FormUtils {
         }
         return -1;
     }
-
-    public double formatAmount(String amountText) {
-        amountText = amountText.replaceAll("\\s+", "");
-        amountText = amountText.replace(',', '.');
-        amountText = amountText.replaceAll("€", "");
-        return Double.parseDouble(amountText);
-    }
-
     public String getSpaceImage(String spaceName) {
         for(Space space : spaces) {
             if(space.getNome().equals(spaceName)) {
@@ -200,7 +192,6 @@ public class FormUtils {
         }
         return null;
     }
-
     public double getSpaceBalance(String spaceName){
         for (Space space : spaces){
             if (space.getNome().equals(spaceName)){
@@ -208,16 +199,5 @@ public class FormUtils {
             }
         }
         return Double.parseDouble(null);
-    }
-
-    public String separateIban(String iban) {
-        String ibanSeparated = "";
-        for (int i = 0; i < iban.length(); i++) {
-            if (i % 4 == 0 && i != 0) {
-                ibanSeparated += " ";
-            }
-            ibanSeparated += iban.charAt(i);
-        }
-        return ibanSeparated;
     }
 }
