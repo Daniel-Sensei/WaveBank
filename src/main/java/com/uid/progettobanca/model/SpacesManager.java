@@ -7,11 +7,18 @@ import java.util.*;
 public class SpacesManager {
 
     private static SpacesManager instance;
+    private SpacesManager() {}
+    public static SpacesManager getInstance() {
+        if (instance == null) {
+            instance = new SpacesManager();
+        }
+        return instance;
+    }
 
     //this queue is used to store the spaces to create the single spaces in space page
     private Queue<Space> spacesQueue = new LinkedList<>();
 
-    private Set<Space> spacesList = new HashSet<>();
+    private List<Space> spacesList = new LinkedList<>();
 
     private Space currentSpace;
 
@@ -27,9 +34,6 @@ public class SpacesManager {
         this.transactionDirection = transactionDirection;
     }
 
-    private SpacesManager() {
-    }
-
     public void fillQueue(Queue<Space> a) {
         spacesQueue = a;
     }
@@ -41,13 +45,6 @@ public class SpacesManager {
 
     public int getSpacesListSize() {
         return spacesList.size();
-    }
-
-    public static SpacesManager getInstance() {
-        if (instance == null) {
-            instance = new SpacesManager();
-        }
-        return instance;
     }
 
     public Space getCurrentSpace() {
