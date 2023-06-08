@@ -24,7 +24,7 @@ public class GetUserService extends Service<Utente> {
             @Override
             protected Object call() throws Exception {
                 return switch (action) {
-                    case "selectById" -> UtentiDAO.getInstance().getUserById(BankApplication.getCurrentlyLoggedUser());
+                    case "selectById" -> UtentiDAO.getInstance().selectById(BankApplication.getCurrentlyLoggedUser());
                     case "selectByIban" -> UtentiDAO.getInstance().selectByIban(iban);
                     case "selectByEmail" -> UtentiDAO.getInstance().selectByEmail(email);
                     default -> null;

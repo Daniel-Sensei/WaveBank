@@ -10,12 +10,12 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class SpacesDAO {
+    // Data Access Object
+
+    // DAO singleton class for managing Space objects in the database
     private static Connection conn;
-
     private SpacesDAO() {}
-
     private static SpacesDAO instance = null;
-
     public static SpacesDAO getInstance() {
         if (instance == null) {
             conn = DatabaseManager.getInstance().getConnection();
@@ -25,9 +25,14 @@ public class SpacesDAO {
     }
 
 
-    //  inserimenti:
+    // Insertion:
 
-    //inserimento tramite oggetto di tipo space
+    /**
+     * Insert a space into the database.
+     *
+     * @param space The Space object representing the space.
+     * @return true if the insertion is successful, false otherwise.
+     */
     public boolean insert(Space space) {
         String query = "INSERT INTO spaces (iban, saldo, dataApertura, nome, imagePath) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -37,6 +42,7 @@ public class SpacesDAO {
             stmt.setString(4, space.getNome());
             stmt.setString(5, space.getImage());
             stmt.executeUpdate();
+            // Get the generated space ID and set it in the Space object passed as parameter
             try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
                     space.setSpaceId(rs.getInt(1));
@@ -49,9 +55,14 @@ public class SpacesDAO {
     }
 
 
-    //  getting:
+    // Data Retrieval:
 
-    //restituisce tutti gli spazi di un utente
+    /**
+     * Retrieve all spaces by IBAN.
+     *
+     * @param iban The IBAN.
+     * @return A Queue containing all Space objects representing the spaces.
+     */
     public Queue<Space> selectAllByIban(String iban) {
         String query = "SELECT * FROM spaces WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -73,7 +84,12 @@ public class SpacesDAO {
         }
     }
 
-    //return Space by space_id
+    /**
+     * Retrieve a space by its space ID.
+     *
+     * @param space_id The space ID.
+     * @return The Space object representing the space, or null if not found.
+     */
     public Space selectBySpaceId(int space_id) {
         String query = "SELECT * FROM spaces WHERE space_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -96,9 +112,14 @@ public class SpacesDAO {
     }
 
 
-    //  aggiornamento:
+    // Update:
 
-    //aggiornamento limitato a saldo, nome e imagePath tramite oggetto di tipo space
+    /**
+     * Update a space in the database.
+     *
+     * @param space The Space object representing the space.
+     * @return true if the update is successful, false otherwise.
+     */
     public boolean update(Space space) {
         String query = "UPDATE spaces SET saldo = ?, nome = ?, imagePath = ? WHERE iban = ? AND space_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -115,8 +136,14 @@ public class SpacesDAO {
     }
 
 
-    //  rimozione:
+    // Deletion:
 
+    /**
+     * Delete a space from the database.
+     *
+     * @param space The Space object representing the space.
+     * @return true if the deletion is successful, false otherwise.
+     */
     public boolean delete(Space space) {
         String query = "DELETE FROM spaces WHERE iban = ? AND space_id = ?";
 
@@ -134,11 +161,8 @@ public class SpacesDAO {
             stmt.setInt(2, id);
             stmt.executeUpdate();
             return true;
-
         } catch (SQLException e) {
             return false;
         }
     }
 }
-
-

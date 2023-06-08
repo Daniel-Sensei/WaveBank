@@ -7,13 +7,12 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class RicorrentiDAO {
+    // Data Access Object
 
+    // DAO singleton class for managing Ricorrente (Recurring Payment) objects in the database
     private static Connection conn;
-
     private RicorrentiDAO() {}
-
     private static RicorrentiDAO instance = null;
-
     public static RicorrentiDAO getInstance() {
         if (instance == null) {
             conn = DatabaseManager.getInstance().getConnection();
@@ -23,8 +22,14 @@ public class RicorrentiDAO {
     }
 
 
-    //inserimenti:
+    // Insertion:
 
+    /**
+     * Insert a recurring payment into the database.
+     *
+     * @param r The Ricorrente object representing the recurring payment.
+     * @return true if the insertion is successful, false otherwise.
+     */
     public boolean insert(Ricorrente r) {
         String query = "INSERT INTO ricorrenti (nome, importo, iban_to, date, nGiorni, causale, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -36,6 +41,7 @@ public class RicorrentiDAO {
             stmt.setString(6, r.getCausale());
             stmt.setInt(7, r.getUserId());
             stmt.executeUpdate();
+            // Get the generated payment ID and set it in the Ricorrente object r passed as parameter
             try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
                     r.setPaymentId(rs.getInt(1));
@@ -48,8 +54,14 @@ public class RicorrentiDAO {
     }
 
 
-    // getting:
+    // Data Retrieval:
 
+    /**
+     * Retrieve a recurring payment by its payment ID.
+     *
+     * @param id The payment ID.
+     * @return The Ricorrente object representing the recurring payment, or null if not found.
+     */
     public Ricorrente selectByPaymentId(int id) {
         String query = "SELECT * FROM ricorrenti WHERE payment_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -74,6 +86,12 @@ public class RicorrentiDAO {
         }
     }
 
+    /**
+     * Retrieve all recurring payments by user ID.
+     *
+     * @param user_id The user ID.
+     * @return A Queue containing all Ricorrente objects representing the recurring payments.
+     */
     public Queue<Ricorrente> selectAllByUserId(int user_id) {
         String query = "SELECT * FROM ricorrenti WHERE user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -98,8 +116,14 @@ public class RicorrentiDAO {
     }
 
 
-    // update :
+    // Update:
 
+    /**
+     * Update a recurring payment in the database.
+     *
+     * @param r The Ricorrente object representing the recurring payment.
+     * @return true if the update is successful, false otherwise.
+     */
     public boolean update(Ricorrente r) {
         String query = "UPDATE ricorrenti SET nome = ?, importo = ?, date = ? ,nGiorni = ?, causale = ? WHERE payment_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -116,8 +140,14 @@ public class RicorrentiDAO {
     }
 
 
-    //  rimozione:
+    // Deletion:
 
+    /**
+     * Delete a recurring payment from the database.
+     *
+     * @param payment The Ricorrente object representing the recurring payment.
+     * @return true if the deletion is successful, false otherwise.
+     */
     public boolean delete(Ricorrente payment) {
         String query = "DELETE FROM ricorrenti WHERE payment_id = ? AND user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
