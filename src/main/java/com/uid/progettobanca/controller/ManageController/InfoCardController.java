@@ -60,14 +60,14 @@ public class InfoCardController {
             GenericController.setCardImage("card", cardImage);
             if(Settings.locale.getLanguage().equals("it")) {
                 cardType.setText("Debito");
-            } else {
+            } else if(Settings.locale.getLanguage().equals("en")){
                 cardType.setText("Debit");
             }
         } else if (CardsManager.getInstance().getCard().getTipo().equals("Virtuale")) {
             GenericController.setCardImage("virtualcard", cardImage);
             if(Settings.locale.getLanguage().equals("it")) {
                 cardType.setText("Virtuale");
-            } else {
+            } else if(Settings.locale.getLanguage().equals("en")) {
                 cardType.setText("Virtual");
             }
         }
@@ -75,13 +75,13 @@ public class InfoCardController {
         if(CardsManager.getInstance().getCard().isBloccata()){
             if(Settings.locale.getLanguage().equals("it")) {
                 cardBlocked.setText("Bloccata");
-            } else {
+            } else if(Settings.locale.getLanguage().equals("en")) {
                 cardBlocked.setText("Blocked");
             }
         } else {
             if(Settings.locale.getLanguage().equals("it")) {
                 cardBlocked.setText("Non bloccata");
-            } else {
+            } else if(Settings.locale.getLanguage().equals("en")) {
                 cardBlocked.setText("Unblocked");
             }
         }

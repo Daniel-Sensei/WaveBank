@@ -10,25 +10,20 @@ import java.util.Random;
 
 public class CardsManager {
     private static CardsManager instance;  // Istanza singleton
-    private List<Carta> cardsQueue;
-
-    private String nome, cognome;
-
-    private int pos=0;
-
     private CardsManager() {
     }
-
-
-    public void fillQueue(List<Carta> carte) {
-        cardsQueue = carte;
-    }
-
     public static CardsManager getInstance() {
         if (instance == null) {
             instance = new CardsManager();
         }
         return instance;
+    }
+    private List<Carta> cardsQueue;
+
+    private String nome, cognome;
+    private int pos=0;
+    public void fillQueue(List<Carta> carte) {
+        cardsQueue = carte;
     }
 
     public Carta getCard() {
@@ -76,7 +71,7 @@ public class CardsManager {
         carta.setScadenza(LocalDate.now().plusYears(5));
         InsertCardService insertCarteService = new InsertCardService();
         insertCarteService.setCarta(carta);
-        insertCarteService.start();
+        insertCarteService.restart();
     }
 
     public void setPos(int pos){

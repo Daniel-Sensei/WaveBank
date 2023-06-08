@@ -34,7 +34,7 @@ public class DeleteAccountController {
         //popup warning asks the user to confirm the deletion of the account
         if(Settings.locale.getLanguage().equals("it"))
             controllo = SceneHandler.getInstance().showMessage("question", "Conferma","Conferma eliminazione account?", "Sei sicuro di voler eliminare l'account?").equals("OK");
-        else
+        else if(Settings.locale.getLanguage().equals("en"))
             controllo = SceneHandler.getInstance().showMessage("question", "Confirm","Confirm account deletion?", "Are you sure you want to delete the account?").equals("OK");
         if (controllo) {
             //check if the password is correct
@@ -55,7 +55,7 @@ public class DeleteAccountController {
                 } else {
                     if(Settings.locale.getLanguage().equals("it"))
                         SceneHandler.getInstance().showMessage("error", "Errore", "Password errata", "La password inserita non è corretta");
-                    else
+                    else if(Settings.locale.getLanguage().equals("en"))
                         SceneHandler.getInstance().showMessage("error", "Error", "Wrong password", "The password entered is incorrect");
                 }
             });

@@ -23,7 +23,6 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.List;
-;
 
 public class ManageController {
     int numcarte=0;

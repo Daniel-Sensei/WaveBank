@@ -26,9 +26,6 @@ public class FormCreateCardController {
     private ComboBox<Integer> dateValue;
 
     @FXML
-    private Label errorDate;
-
-    @FXML
     private Button createButton;
 
 
@@ -44,12 +41,8 @@ public class FormCreateCardController {
     private ImageView back;
 
     @FXML
-    void loadPreviousPage(MouseEvent event) {
-        try {
-            BackStack.getInstance().loadPreviousPage();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    void loadPreviousPage(MouseEvent event) throws IOException {
+        BackStack.getInstance().loadPreviousPage();
     }
 
     public void initialize() {
@@ -66,7 +59,7 @@ public class FormCreateCardController {
         createButton.disableProperty().bind(dateValid.not());
 
         cardService.setOnSucceeded(event -> {
-            if(event.getSource().getValue() instanceof Boolean result){
+            if(event.getSource().getValue() instanceof Boolean){
                 SceneHandler.getInstance().createPage(Settings.MANAGE_PATH + "manage.fxml");
             }
         });

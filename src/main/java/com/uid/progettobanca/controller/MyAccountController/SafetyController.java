@@ -74,7 +74,7 @@ public class SafetyController {
                             if(Settings.locale.getLanguage().equals("it")){
                                 SceneHandler.getInstance().showMessage("info", "Cambio password", "Cambio password effettuato", "Hai cambiato password!");
                             }
-                            else{
+                            else if(Settings.locale.getLanguage().equals("en")){
                                 SceneHandler.getInstance().showMessage("info", "Password change", "Password change completed", "You have changed your password!");
                             }
                             SceneHandler.getInstance().reloadPageInHashMap(Settings.MY_ACCOUNT_PATH + "safety.fxml");
@@ -89,7 +89,7 @@ public class SafetyController {
                     if(Settings.locale.getLanguage().equals("it")){
                         FormUtils.getInstance().validateTextFieldSameLabel(oldPswLaebl, oldPsw, false, "Vecchia password*", "La password non è corretta");
                     }
-                    else{
+                    else if(Settings.locale.getLanguage().equals("en")){
                         FormUtils.getInstance().validateTextFieldSameLabel(oldPswLaebl, oldPsw, false, "Old password*", "Password is not correct");
                     }
                 }
@@ -109,7 +109,7 @@ public class SafetyController {
                 if(Settings.locale.getLanguage().equals("it")){
                     FormUtils.getInstance().validateTextFieldSameLabel(newPswLabel, newPsw, FormUtils.getInstance().validatePassword(newPsw.getText()), "Nuova password*", "La password deve contenere almeno 8 caratteri, almeno una lettera minuscola, almeno una lettera maiuscola e un carattere speciale*");
                 }
-                else{
+                else if(Settings.locale.getLanguage().equals("en")){
                     FormUtils.getInstance().validateTextFieldSameLabel(newPswLabel, newPsw, FormUtils.getInstance().validatePassword(newPsw.getText()), "New password*", "Password must be at least 8 characters long, contain at least one lowercase letter, at least one uppercase letter and a special character*");
                 }
                 sendButton.setDisable(!(confirmPsw.getText().equals(newPsw.getText()) && FormUtils.getInstance().validatePassword(newPsw.getText())));
@@ -122,7 +122,7 @@ public class SafetyController {
                 if(Settings.locale.getLanguage().equals("it")){
                     FormUtils.getInstance().validateTextFieldSameLabel(confirmPswLabel, confirmPsw, confirmPsw.getText().equals(newPsw.getText()), "Conferma password*", "Le password non coincidono*");
                 }
-                else{
+                else if(Settings.locale.getLanguage().equals("en")){
                     FormUtils.getInstance().validateTextFieldSameLabel(confirmPswLabel, confirmPsw, confirmPsw.getText().equals(newPsw.getText()), "Confirm password*", "Passwords do not match*");
                 }
                 sendButton.setDisable(!(confirmPsw.getText().equals(newPsw.getText()) && FormUtils.getInstance().validatePassword(newPsw.getText())));

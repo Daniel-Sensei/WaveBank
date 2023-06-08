@@ -26,10 +26,6 @@ public class ContactsManager {
         return contacts;
     }
 
-    public void putContact(Contatto contatto) {
-        contacts.add(contatto);
-    }
-
     public Contatto getNextContact() {
         return contacts.poll();
     }

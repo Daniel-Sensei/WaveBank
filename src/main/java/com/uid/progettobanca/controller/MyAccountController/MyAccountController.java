@@ -93,10 +93,10 @@ public class MyAccountController implements Initializable {
 
     @FXML
     void userLogout(ActionEvent event) {
-        boolean conferma;
+        boolean conferma = false;
         if(Settings.locale.getLanguage().equals("it"))
             conferma = SceneHandler.getInstance().showMessage("question", "Conferma","Conferma logout", "Sei sicuro di voler effettuare il logout?").equals("OK");
-        else
+        else if(Settings.locale.getLanguage().equals("en"))
             conferma = SceneHandler.getInstance().showMessage("question", "Confirm","Confirm logout", "Are you sure you want to logout?").equals("OK");
         if(conferma) {
             SceneHandler.getInstance().createLoginScene((Stage) logout.getScene().getWindow());
@@ -113,8 +113,7 @@ public class MyAccountController implements Initializable {
     }
 
     @FXML
-    void openSafety(MouseEvent event) {
-        openGenericPage("safety.fxml");}
+    void openSafety(MouseEvent event) {openGenericPage("safety.fxml");}
 
 
     @FXML

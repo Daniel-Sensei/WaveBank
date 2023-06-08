@@ -46,7 +46,7 @@ public class SettingsController implements Initializable {
 
         if(Settings.locale.getLanguage().equals("it"))
             themeComboBox.getItems().addAll(themesITA);
-        else
+        else if(Settings.locale.getLanguage().equals("en"))
             themeComboBox.getItems().addAll(themesENG);
 
         GenericController.loadImage(back);

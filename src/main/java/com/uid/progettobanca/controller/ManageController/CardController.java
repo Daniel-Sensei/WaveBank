@@ -59,23 +59,24 @@ public class CardController {
 
         cardService.setOnSucceeded(event1 -> {
             if (event1.getSource().getValue() instanceof Boolean result) {
-                CardsManager.getInstance().getCard().setBloccata(!CardsManager.getInstance().getCard().isBloccata());
-                //when the card is blocked/unblocked updates text and image as well as showing a popup
-                if(CardsManager.getInstance().getCard().isBloccata()){
-                    GenericController.loadImageButton("unlock", security);
-                    if(Settings.locale.getLanguage().equals("it"))
-                        blockLabel.setText("Sblocca");
-                    else
-                        blockLabel.setText("Unlock");
-                    SceneHandler.getInstance().showInfoPopup(Settings.MANAGE_PATH + "cardLockedPopup.fxml", (Stage) security.getScene().getWindow(), 300, 75);
-                }
-                else{
-                    GenericController.loadImageButton(security);
-                    if(Settings.locale.getLanguage().equals("it"))
-                        blockLabel.setText("Blocca");
-                    else
-                        blockLabel.setText("Block");
-                    SceneHandler.getInstance().showInfoPopup(Settings.MANAGE_PATH + "cardUnlockedPopup.fxml", (Stage) security.getScene().getWindow(), 300, 75);
+                if (result) {
+                    CardsManager.getInstance().getCard().setBloccata(!CardsManager.getInstance().getCard().isBloccata());
+                    //when the card is blocked/unblocked updates text and image as well as showing a popup
+                    if (CardsManager.getInstance().getCard().isBloccata()) {
+                        GenericController.loadImageButton("unlock", security);
+                        if (Settings.locale.getLanguage().equals("it"))
+                            blockLabel.setText("Sblocca");
+                        else
+                            blockLabel.setText("Unlock");
+                        SceneHandler.getInstance().showInfoPopup(Settings.MANAGE_PATH + "cardLockedPopup.fxml", (Stage) security.getScene().getWindow(), 300, 75);
+                    } else {
+                        GenericController.loadImageButton(security);
+                        if (Settings.locale.getLanguage().equals("it"))
+                            blockLabel.setText("Blocca");
+                        else
+                            blockLabel.setText("Block");
+                        SceneHandler.getInstance().showInfoPopup(Settings.MANAGE_PATH + "cardUnlockedPopup.fxml", (Stage) security.getScene().getWindow(), 300, 75);
+                    }
                 }
             }
         });
@@ -113,14 +114,14 @@ public class CardController {
             GenericController.loadImageButton("unlock", security);
             if(Settings.locale.getLanguage().equals("it"))
                 blockLabel.setText("Sblocca");
-            else
+            else if(Settings.locale.getLanguage().equals("en"))
                 blockLabel.setText("Unlock");
         }
         else{
             GenericController.loadImageButton(security);
             if(Settings.locale.getLanguage().equals("it"))
                 blockLabel.setText("Blocca");
-            else
+            else if(Settings.locale.getLanguage().equals("en"))
                 blockLabel.setText("Block");
         }
         if(carta.getTipo().equals("Debito")){
