@@ -34,6 +34,8 @@ public class SingleSpacePageController implements Initializable {
 
     private Space currentSpace;
     @FXML
+    private Button editButton;
+    @FXML
     private VBox spaceVbox;
     @FXML
     private Label spacePageName;
@@ -61,7 +63,10 @@ public class SingleSpacePageController implements Initializable {
         loadSpaceAssets();
 
         //I'm disabling delete space button from the main space page
-        if (SpacesManager.getInstance().getCurrentSpace().getSpaceId() == BankApplication.getCurrentlyLoggedMainSpace()){deleteButton.setDisable(true);}
+        if (SpacesManager.getInstance().getCurrentSpace().getSpaceId() == BankApplication.getCurrentlyLoggedMainSpace()){
+            deleteButton.setDisable(true);
+            editButton.setDisable(true);
+        }
 
         //If we have only 1 space I disable all the button used to do a transaction between spaces
         if (SpacesManager.getInstance().getSpacesListSize() == 1) {
@@ -200,6 +205,6 @@ public class SingleSpacePageController implements Initializable {
 
     @FXML
     void editSpace(ActionEvent event) {
-        SceneHandler.getInstance().createPage(Settings.SPACES_PATH + "editSpace.fxml");
+            SceneHandler.getInstance().createPage(Settings.SPACES_PATH + "editSpace.fxml");
     }
 }

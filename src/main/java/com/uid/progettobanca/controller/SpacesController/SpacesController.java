@@ -3,6 +3,8 @@ package com.uid.progettobanca.controller.SpacesController;
 import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
 import com.uid.progettobanca.model.DAO.ContiDAO;
+import com.uid.progettobanca.model.objects.Conto;
+import com.uid.progettobanca.model.services.GetAccountService;
 import com.uid.progettobanca.model.services.GetSpaceService;
 import com.uid.progettobanca.model.SpacesManager;
 import com.uid.progettobanca.view.SceneHandler;
@@ -21,6 +23,8 @@ import java.util.ResourceBundle;
 
 public class SpacesController implements Initializable {
     private GetSpaceService getSpaceService = new GetSpaceService();
+
+    private GetAccountService getAccountService = new GetAccountService();
     @FXML
     private FlowPane listOfSpaces;
     @FXML
@@ -38,7 +42,15 @@ public class SpacesController implements Initializable {
         getSpaceService.setOnSucceeded(e -> {
             try {
                 DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-                saldo.setText(decimalFormat.format(ContiDAO.getInstance().getSaldoByIban(BankApplication.getCurrentlyLoggedIban())) + " €");
+                getAccountService.setIban(BankApplication.getCurrentlyLoggedIban());
+                getAccountService.restart();
+                getAccountService.setOnSucceeded(event -> {
+                    if(event.getSource().getValue() instanceof Conto result){saldo.setText(decimalFormat.format(result.getSaldo()) + " €");}
+                });
+                getAccountService.setOnFailed(event -> {
+                    SceneHandler.getInstance().setPage("errorPage.fxml");
+                });
+
                 SpacesManager.getInstance().fillQueue(getSpaceService.getValue());
                 SpacesManager.getInstance().fillList(getSpaceService.getValue());
                 int nSpaces = SpacesManager.getInstance().getSize();
