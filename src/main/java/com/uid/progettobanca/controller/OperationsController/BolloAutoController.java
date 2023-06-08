@@ -32,12 +32,11 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 /**
- * Controller class for the formBolloAuto.fxml file.
+ * Controller class for the "formBolloAuto.fxml" page.
  */
 public class BolloAutoController implements Initializable {
 
@@ -72,8 +71,6 @@ public class BolloAutoController implements Initializable {
     @FXML
     private Label warningPlate; // Label for the plate warning
 
-    private BooleanBinding formValid; // Boolean binding for the form validation
-
     @FXML
     private Label amountLabel; // Label for the amount
 
@@ -98,11 +95,7 @@ public class BolloAutoController implements Initializable {
         else
             typeComboBox.getItems().addAll(type);
 
-        try {
-            FormUtils.getInstance().fillSpacesComboBox(spacesComboBox);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        FormUtils.getInstance().fillSpacesComboBox(spacesComboBox);
 
         // Validate plate field on focus lost
         fieldPlate.focusedProperty().addListener((observable, oldValue, newValue) -> {
@@ -188,7 +181,8 @@ public class BolloAutoController implements Initializable {
         else if(scelta.equals("Motoveicolo")) amountLabel.setText("150,00 €");
         else amountLabel.setText("100,00 €");
         // enable the send button
-        formValid = Bindings.createBooleanBinding(() ->
+        // Boolean binding for the form validation
+        BooleanBinding formValid = Bindings.createBooleanBinding(() ->
                         FormUtils.getInstance().validatePlate(fieldPlate.getText()) &&
                                 FormUtils.getInstance().validateCF(fieldCF.getText()) &&
                                 FormUtils.getInstance().validateDueBollo(fieldDue.getText()),
@@ -200,7 +194,7 @@ public class BolloAutoController implements Initializable {
 
     /**
      * Method called when the "back button" is clicked. (Loads the previous page)
-     * @throws IOException
+     * @throws IOException if the page can't be loaded
      */
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {

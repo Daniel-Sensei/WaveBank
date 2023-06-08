@@ -56,7 +56,7 @@ public class ContattiDAO {
      * Retrieve all 'Contatto' objects associated with a user ID.
      *
      * @param user_id The ID of the user.
-     * @return A queue of 'Contatto' objects associated with the user.
+     * @return A queue of 'Contatto' objects associated with a user.
      */
     public Queue<Contatto> selectAllByUserID(int user_id) {
         String query = "SELECT * FROM contatti WHERE user_id = ? ORDER BY cognome ASC";

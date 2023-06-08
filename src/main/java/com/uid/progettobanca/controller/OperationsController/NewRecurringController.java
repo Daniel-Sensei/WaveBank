@@ -24,7 +24,7 @@ import java.util.Calendar;
 import java.util.ResourceBundle;
 
 /**
- * Controller class for the formNewRecurring.fxml file.
+ * Controller class for the "formNewRecurring.fxml" page.
  */
 public class NewRecurringController implements Initializable {
 
@@ -211,10 +211,10 @@ public class NewRecurringController implements Initializable {
     }
 
     /**
-     * Method used to handle the recurrency selection.
+     * Method used to handle the recurrence selection.
      */
     @FXML
-    void onRecurrencySelection(ActionEvent event) {
+    void onRecurrenceSelection(ActionEvent event) {
         // set the number of days based on the selected recurrent option
         switch (recurrencyComboBox.getValue()) {
             case "Settimanale" -> numDays = 7;
@@ -266,7 +266,7 @@ public class NewRecurringController implements Initializable {
 
     /**
      * Method called when the "back button" is clicked. (Loads the previous page)
-     * @throws IOException
+     * @throws IOException if the page can't be loaded
      */
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {

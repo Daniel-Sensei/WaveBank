@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.text.DecimalFormat;
 
@@ -24,20 +23,14 @@ public class SpaceTransactionComboBoxController implements Initializable {
     private ComboBox<String> spaceSelector;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-
-            // Fill the combobox with the spaces names
-            FormUtils.getInstance().fillSpacesComboBox(spaceSelector);
-            spaceSelector.getItems().remove(SpacesManager.getInstance().getCurrentSpace().getNome());
-            spaceSelector.getSelectionModel().selectFirst();
+        // Fill the combobox with the spaces names
+        FormUtils.getInstance().fillSpacesComboBox(spaceSelector);
+        spaceSelector.getItems().remove(SpacesManager.getInstance().getCurrentSpace().getNome());
+        spaceSelector.getSelectionModel().selectFirst();
+        setInformation(senderImage, Balance);
+        spaceSelector.setOnAction(e -> {
             setInformation(senderImage, Balance);
-            spaceSelector.setOnAction(e -> {
-                setInformation(senderImage, Balance);
-            });
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        });
     }
     private void setInformation(ImageView image, Label label){
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");

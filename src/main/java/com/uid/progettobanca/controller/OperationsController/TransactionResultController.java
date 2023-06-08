@@ -7,6 +7,9 @@ import com.uid.progettobanca.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+/**
+ * Controller class for the transaction result page. (both success and failure)
+ */
 public class TransactionResultController {
 
     @FXML

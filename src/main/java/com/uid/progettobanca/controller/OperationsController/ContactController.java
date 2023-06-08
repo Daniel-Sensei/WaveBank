@@ -13,7 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Controller class for the contact.fxml file. (single contact)
+ * Controller class for the "contact.fxml" file. (single contact)
  */
 public class ContactController implements Initializable {
 

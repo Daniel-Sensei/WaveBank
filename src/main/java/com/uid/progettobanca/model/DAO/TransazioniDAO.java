@@ -145,8 +145,7 @@ public class TransazioniDAO {
         to.setSaldo(to.getSaldo() + amount);
 
         // Create the transfer transaction
-        Transazione t = new Transazione("Trasferimento tra spaces da " + nomeFrom + " a " + nomeTo, iban, iban, spaceFrom, spaceTo, LocalDateTime.now(), amount, commenti, "Trasferimento tra spaces", "altro", "");
-
+        Transazione t = new Transazione("Trasferimento tra spaces da "+nomeFrom+" a "+nomeTo, iban, iban, spaceFrom, spaceTo, LocalDateTime.now(), amount, "Da "+nomeFrom+" a "+nomeTo, "Trasferimento tra spaces", "altro", commenti);
         // Insert the positive transaction
         insert(t);
 

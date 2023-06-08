@@ -22,12 +22,11 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 /**
- * Controller class for the formBollettino.fxml file.
+ * Controller class for the "formBollettino.fxml" page.
  */
 public class BollettinoController implements Initializable {
 
@@ -80,8 +79,6 @@ public class BollettinoController implements Initializable {
 
     private final TransactionService transactionService = new TransactionService();
 
-    private BooleanBinding formValid;
-
     /**
      * Initializes the controller.
      */
@@ -91,18 +88,13 @@ public class BollettinoController implements Initializable {
         // fills the combo box with the transaction types
         tipologiaComboBox.getItems().addAll(tipologia);
 
-
         // initially disables certain fields and buttons
         fieldCode.setDisable(true);
         fieldRecipient.setDisable(true);
         fieldDescr.setDisable(true);
         sendButton.setDisable(true);
 
-        try {
-            FormUtils.getInstance().fillSpacesComboBox(spacesComboBox);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        FormUtils.getInstance().fillSpacesComboBox(spacesComboBox);
 
         // Validate CC field on focus lost
         fieldCC.focusedProperty().addListener((observable, oldValue, newValue) -> {
@@ -194,6 +186,7 @@ public class BollettinoController implements Initializable {
     private void onTypeChoice(ActionEvent event) {
         // If the choice is NOT "123 - Bianco generico", disable and clear recipient and description fields, enable code field
         String scelta = tipologiaComboBox.getSelectionModel().getSelectedItem();
+        BooleanBinding formValid;
         if (!scelta.equals("123 - Bianco generico")) {
             fieldRecipient.setText("");
             fieldRecipient.setDisable(true);
@@ -230,7 +223,7 @@ public class BollettinoController implements Initializable {
 
     /**
      * Method called when the "back button" is clicked. (Loads the previous page)
-     * @throws IOException
+     * @throws IOException if the page can't be loaded
      */
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {

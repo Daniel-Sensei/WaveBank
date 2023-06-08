@@ -153,7 +153,7 @@ public class SpacesDAO {
 
         if(amount>0){
             TransazioniDAO.getInstance().transazione(iban, iban, id, amount);
-            TransazioniDAO.getInstance().insert(new Transazione("Rimborso saldo residuo", iban, iban, id, BankApplication.getCurrentlyLoggedMainSpace(), LocalDateTime.now(), amount, "Rimborso saldo residuo in space " + space.getNome(), "Rimborso", "Altro",""));
+            TransazioniDAO.getInstance().insert(new Transazione("Rimborso saldo residuo in " + space.getNome(), iban, iban, id, BankApplication.getCurrentlyLoggedMainSpace(), LocalDateTime.now(), amount, "Rimborso saldo residuo presente nello space " + space.getNome() + " al momento dell'eliminazione", "Rimborso", "altro",""));
         }
 
         try (PreparedStatement stmt = conn.prepareStatement(query)) {

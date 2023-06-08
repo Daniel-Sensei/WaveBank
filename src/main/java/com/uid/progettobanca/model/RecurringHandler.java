@@ -9,42 +9,47 @@ import com.uid.progettobanca.model.services.TransactionService;
 
 import java.time.LocalDate;
 import java.util.Queue;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * Singleton class that handles recurring payments
+ */
 public class RecurringHandler {
 
     private RecurringHandler() {}
-
     private static RecurringHandler instance = null;
-
     public static RecurringHandler getInstance(){
         if (instance == null) {
             instance = new RecurringHandler();
         }
         return instance;
     }
-    private final TransactionService transactionService = new TransactionService();
-    private final GetRecurringService grs = new GetRecurringService();
 
-    public void check(int user_id){
-        // prendo tutti i pagamenti ricorrenti
+    private final TransactionService transactionService = new TransactionService(); // service to execute transactions
+    private final GetRecurringService grs = new GetRecurringService(); // service for recurring payments
+
+    public void check(){
+        // get the recurring payments associated to the logged user
         grs.restart();
         grs.setOnSucceeded(e -> {
             if(e.getSource().getValue() instanceof Queue<?> result) {
                 Queue<Ricorrente> payments = (Queue<Ricorrente>) result;
 
-                //controllo che la lista non sia vuota
+                // if there are no recurring payments, return
                 if (payments.isEmpty()) return;
 
                 int space = BankApplication.getCurrentlyLoggedMainSpace();
                 String from = BankApplication.getCurrentlyLoggedIban();
 
-                // controllo la data di scadenza dei pagamenti
+                AtomicBoolean stop = new AtomicBoolean(false);
+
                 for(var p : payments){
+                    if (stop.get()) break;
                     LocalDate due = p.getDate();
+                    // if the payment is due, execute the transaction
                     if (due.isBefore(LocalDate.now())){
                         String to = p.getIbanTo();
                         double amount = p.getAmount();
-
                         transactionService.setAction("transazione");
                         transactionService.setIbanFrom(from);
                         transactionService.setIbanTo(to);
@@ -63,7 +68,7 @@ public class RecurringHandler {
                                     rs.setPayment(p);
                                     rs.restart();
                                 });
-                            } else return;
+                            } else stop.set(true); // if the transaction returns false, stop the loop (not enough money)
                         });
                     }
                 }

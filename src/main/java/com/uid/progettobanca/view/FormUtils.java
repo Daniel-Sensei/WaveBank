@@ -159,7 +159,7 @@ public class FormUtils {
 
     // method to fill comboBox in paymentForms with spaces names
     private List<Space> spaces = new LinkedList<>();
-    public void getSpaces() throws SQLException {
+    public void getSpaces() {
         spaces.clear();
         Queue<Space> spacesQueue = SpacesDAO.getInstance().selectAllByIban(BankApplication.getCurrentlyLoggedIban());
         int size = spacesQueue.size();
@@ -168,7 +168,7 @@ public class FormUtils {
             spaces.add(space);
         }
     }
-    public void fillSpacesComboBox(ComboBox<String> spacesComboBox) throws SQLException {
+    public void fillSpacesComboBox(ComboBox<String> spacesComboBox){
         spacesComboBox.getItems().clear();
         getSpaces();
         for(Space space : spaces) {

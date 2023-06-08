@@ -96,7 +96,7 @@
                               <Label fx:id="warningDescr" style="-fx-text-fill: redColor;" text="%warningCausale" visible="false" />
                            </children>
                         </HBox>
-                        <ComboBox fx:id="recurrencyComboBox" onAction="#onRecurrencySelection" prefHeight="50.0" prefWidth="350.0" promptText="%Ricorrenza">
+                        <ComboBox fx:id="recurrencyComboBox" onAction="#onRecurrenceSelection" prefHeight="50.0" prefWidth="350.0" promptText="%Ricorrenza">
                            <cursor>
                               <Cursor fx:constant="CLOSED_HAND" />
                            </cursor></ComboBox>

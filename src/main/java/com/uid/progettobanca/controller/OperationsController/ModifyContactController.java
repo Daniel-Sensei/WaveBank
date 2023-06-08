@@ -23,7 +23,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Controller class for the formModifyContact.fxml file.
+ * Controller class for the "formModifyContact.fxml" page.
  */
 public class ModifyContactController implements Initializable {
 
@@ -147,7 +147,7 @@ public class ModifyContactController implements Initializable {
 
     /**
      * Method called when the "back button" is clicked. (Loads the previous page)
-     * @throws IOException
+     * @throws IOException if the page can't be loaded
      */
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {

@@ -21,7 +21,7 @@ import java.util.Queue;
 import java.util.ResourceBundle;
 
 /**
- * Controller class for the "formPagamentiRicorrenti.fxml" file
+ * Controller class for the "formPagamentiRicorrenti.fxml" page.
  */
 public class PagamentiRicorrentiController implements Initializable {
 
@@ -57,10 +57,10 @@ public class PagamentiRicorrentiController implements Initializable {
         getRecurringService.setOnSucceeded(event -> {
             if (event.getSource().getValue() instanceof Queue<?> queue) {
                 RecurringManager.getInstance().fillPayments((Queue<Ricorrente>) queue);
-                // for each payment, loads the "recurring.fxml" file with it's data
+                // for each payment, loads the "recurring.fxml" file with its data
                 int nPayments = RecurringManager.getInstance().getSize();
                 for(int i=0; i<nPayments; i++){
-                    Parent payment = null;
+                    Parent payment;
                     try {
                         payment = SceneHandler.getInstance().loadPage(Settings.OPERATIONS_PATH + "recurring.fxml");
                     } catch (IOException e) {
@@ -76,7 +76,7 @@ public class PagamentiRicorrentiController implements Initializable {
 
     /**
      * Method called when the "back button" is clicked. (Loads the previous page)
-     * @throws IOException
+     * @throws IOException if the page can't be loaded
      */
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {

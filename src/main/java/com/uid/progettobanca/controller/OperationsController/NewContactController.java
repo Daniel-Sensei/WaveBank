@@ -24,7 +24,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Controller class for the formNewContact.fxml file.
+ * Controller class for the "formNewContact.fxml" page.
  */
 public class NewContactController implements Initializable {
 
@@ -106,20 +106,21 @@ public class NewContactController implements Initializable {
         });
 
         // bind the send button to the form validation
+        // binding for the form validation
         BooleanBinding formValid = Bindings.createBooleanBinding(() ->
-                                FormUtils.getInstance().validateNameSurname(fieldName.getText()) &&
+                        FormUtils.getInstance().validateNameSurname(fieldName.getText()) &&
                                 FormUtils.getInstance().validateNameSurname(fieldSurname.getText()) &&
                                 FormUtils.getInstance().validateIban(fieldIban.getText()),
-                                fieldName.textProperty(),
-                                fieldSurname.textProperty(),
-                                fieldIban.textProperty()
+                fieldName.textProperty(),
+                fieldSurname.textProperty(),
+                fieldIban.textProperty()
         );
         sendButton.disableProperty().bind(formValid.not());
     }
 
     /**
      * Method called when the "back button" is clicked. (Loads the previous page)
-     * @throws IOException
+     * @throws IOException if the page can't be loaded
      */
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {

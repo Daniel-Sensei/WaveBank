@@ -22,13 +22,12 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Queue;
 import java.util.ResourceBundle;
 
 /**
- * Controller class for the formBonifico.fxml file.
+ * Controller class for the "formBonifico.fxml" page.
  */
 public class BonificoController implements Initializable {
 
@@ -84,12 +83,8 @@ public class BonificoController implements Initializable {
         // the send button is initially disabled
         sendButton.setDisable(true);
 
-        try {
-            // Fill the combo box with the spaces
-            FormUtils.getInstance().fillSpacesComboBox(spacesComboBox);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        // Fills the combo box with the spaces
+        FormUtils.getInstance().fillSpacesComboBox(spacesComboBox);
 
         // Validate the IBAN on focus lost
         fieldIbanTo.focusedProperty().addListener((observable, oldValue, newValue) -> {
@@ -127,17 +122,18 @@ public class BonificoController implements Initializable {
 
         // Bind the button to the form validation
         // The button is enabled only if all the fields are valid
+        // Boolean binding for the form validation
         BooleanBinding formValid = Bindings.createBooleanBinding(() ->
-                                                FormUtils.getInstance().validateNameSurname(fieldName.getText()) &&
-                                                FormUtils.getInstance().validateNameSurname(fieldSurname.getText()) &&
-                                                FormUtils.getInstance().validateIban(fieldIbanTo.getText()) &&
-                                                FormUtils.getInstance().validateAmount(fieldAmount.getText()) &&
-                                                !fieldDescr.getText().isEmpty(),
-                                                fieldName.textProperty(),
-                                                fieldSurname.textProperty(),
-                                                fieldIbanTo.textProperty(),
-                                                fieldAmount.textProperty(),
-                                                fieldDescr.textProperty()
+                        FormUtils.getInstance().validateNameSurname(fieldName.getText()) &&
+                                FormUtils.getInstance().validateNameSurname(fieldSurname.getText()) &&
+                                FormUtils.getInstance().validateIban(fieldIbanTo.getText()) &&
+                                FormUtils.getInstance().validateAmount(fieldAmount.getText()) &&
+                                !fieldDescr.getText().isEmpty(),
+                fieldName.textProperty(),
+                fieldSurname.textProperty(),
+                fieldIbanTo.textProperty(),
+                fieldAmount.textProperty(),
+                fieldDescr.textProperty()
         );
         sendButton.disableProperty().bind(formValid.not());
     }
@@ -286,7 +282,7 @@ public class BonificoController implements Initializable {
 
     /**
      * Method called when the "back button" is clicked. (Loads the previous page)
-     * @throws IOException
+     * @throws IOException if the page can't be loaded
      */
     @FXML
     void loadPreviousPage(MouseEvent event) throws IOException {
