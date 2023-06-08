@@ -90,7 +90,7 @@ public class FormCompilationThread extends Service<PDDocument> {
 
                     //PIE DI PAGINA
                     //nomeUtente
-                    Utente user = UtentiDAO.getInstance().getUserById(BankApplication.getCurrentlyLoggedUser());
+                    Utente user = UtentiDAO.getInstance().selectById(BankApplication.getCurrentlyLoggedUser());
                     PDTextField nomeUtente = (PDTextField) acroForm.getField("nomeUtente");
                     nomeUtente.setValue((user.getNome()+ " " + user.getCognome()).toUpperCase());
                     //residenza

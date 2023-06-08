@@ -7,13 +7,12 @@ import java.util.List;
 import com.uid.progettobanca.model.objects.Carta;
 
 public class CarteDAO {
+    //Data Access Object
 
+    // DAO singleton class for managing Carta (Card) objects in the database
     private static Connection conn;
-
     private CarteDAO(){}
-
     private static CarteDAO instance = null;
-
     public static CarteDAO getInstance() {
         if (instance == null) {
             conn = DatabaseManager.getInstance().getConnection();
@@ -23,9 +22,14 @@ public class CarteDAO {
     }
 
 
-    //  Inserimenti:
+    // Insertions:
 
-    //inserimento tramite oggetto di tipo carta
+    /**
+     * Insert a 'Carta' object into the database.
+     *
+     * @param carta The 'Carta' object to be inserted.
+     * @return True if the insertion is successful, false otherwise.
+     */
     public boolean insert(Carta carta) {
         String query = "INSERT INTO carte (num, cvv, scadenza, pin, bloccata, tipo, user_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -38,16 +42,20 @@ public class CarteDAO {
             stmt.setInt(7, carta.getUserId());
             stmt.executeUpdate();
             return true;
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             return false;
         }
     }
 
 
-    //  getting:
+    // Data Retrieval:
 
-    //restiuisce tutte le carte di un cliente
+    /**
+     * Retrieve all 'Carta' objects associated with a user ID.
+     *
+     * @param user_id The ID of the user.
+     * @return A list of 'Carta' objects associated with the user.
+     */
     public List<Carta> selectAllByUserId(int user_id) {
         String query = "SELECT * FROM carte WHERE user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -56,14 +64,14 @@ public class CarteDAO {
                 List<Carta> carte = new ArrayList<>();
                 while (rs.next()) {
                     carte.add(new Carta(
-                                    rs.getString("num"),
-                                    rs.getString("cvv"),
-                                    rs.getDate("scadenza").toLocalDate(),
-                                    rs.getString("pin"),
-                                    rs.getBoolean("bloccata"),
-                                    rs.getString("tipo"),
-                                    user_id)
-                    );
+                            rs.getString("num"),
+                            rs.getString("cvv"),
+                            rs.getDate("scadenza").toLocalDate(),
+                            rs.getString("pin"),
+                            rs.getBoolean("bloccata"),
+                            rs.getString("tipo"),
+                            user_id
+                    ));
                 }
                 return carte;
             }
@@ -72,14 +80,20 @@ public class CarteDAO {
         }
     }
 
-    //restituisce una carta specifica
+    /**
+     * Retrieve a specific 'Carta' object based on its card number.
+     *
+     * @param num The card number.
+     * @return The 'Carta' object corresponding to the card number, or null if not found.
+     */
     public Carta selectByNumCarta(String num) {
         String query = "SELECT * FROM carte WHERE num = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, num);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return new Carta(num,
+                    return new Carta(
+                            num,
                             rs.getString("cvv"),
                             rs.getDate("scadenza").toLocalDate(),
                             rs.getString("pin"),
@@ -97,9 +111,14 @@ public class CarteDAO {
     }
 
 
-    //  aggiornamento:
+    // Updates:
 
-    //aggiorna lo stato di blocco di una carta
+    /**
+     * Update the lock status and PIN of a 'Carta' object.
+     *
+     * @param carta The 'Carta' object to be updated.
+     * @return True if the update is successful, false otherwise.
+     */
     public boolean update(Carta carta) {
         String query = "UPDATE carte SET bloccata = ?, pin = ? WHERE num = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -114,8 +133,14 @@ public class CarteDAO {
     }
 
 
-    //  rimozione:
+    // Deletion:
 
+    /**
+     * Delete a 'Carta' object from the database.
+     *
+     * @param carta The 'Carta' object to be deleted.
+     * @return True if the deletion is successful, false otherwise.
+     */
     public boolean delete(Carta carta) {
         String query = "DELETE FROM carte WHERE num = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {

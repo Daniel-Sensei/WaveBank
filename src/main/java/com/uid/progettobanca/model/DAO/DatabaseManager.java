@@ -1,13 +1,5 @@
 package com.uid.progettobanca.model.DAO;
 
-/****************************************************************
- *
- QUALUNQUE COSA FINO AL LIMETE INFERIORE DEFINITO DA UN COMMENTO NON VA IN ALCUN MODO ALTERATA
- *
- ****************************************************************/
-
-//PS: l'ho fatto funzionare per miracolo, non rompetelo pls :)
-
 import com.uid.progettobanca.model.objects.Altro;
 
 import java.io.File;
@@ -17,12 +9,12 @@ import java.sql.*;
 
 public class DatabaseManager {
 
+    //percorso del db
     private final String dbPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources"+ File.separator + "database.db";
+
+    // classe singleton
     private static DatabaseManager instance;
-    //se non funziona mettere l'assegnazione nel costruttore e togliere final
-
     private DatabaseManager() {}
-
     public static synchronized DatabaseManager getInstance() {
         if (instance == null) {
             instance = new DatabaseManager();
@@ -30,6 +22,7 @@ public class DatabaseManager {
         return instance;
     }
 
+    // metodo per ottenere la connessione al db
     public Connection getConnection(){
         //restituisce la connesione al db
         try {
@@ -39,6 +32,7 @@ public class DatabaseManager {
         }
     }
 
+    // metodo per controllare l'esistenza del bd ed in caso contrario crearlo
     public boolean checkAndCreateDatabase() throws Exception {
         //controlla se nelle risorse è presente il db ed in caso contrario lo crea
         Path path = Path.of(dbPath);
@@ -48,6 +42,7 @@ public class DatabaseManager {
         return true;
     }
 
+    // metodo per creare il db
     private boolean createDatabase(Path path) throws SQLException {
         Connection connection = null;
         Statement statement = null;
@@ -58,15 +53,10 @@ public class DatabaseManager {
             connection = getConnection();
 
             // qui vengono create le tabelle del db
-            // è l'unica parte che potete modificare all'interno della safe-zone, previa mia autorizzazione
-            // so che è presuntuoso ma in quanto admin del db preferirei sapere in anticipo le eventuali modifiche apportate
-
             statement = connection.createStatement();
 
             statement.execute("CREATE TABLE IF NOT EXISTS conti (iban CHAR(27) PRIMARY KEY, saldo REAL, dataApertura DATE);");
 
-            // è necessazio inserire il prefisso internazionale per il cellulare: es. 0039 Italia
-            // da controllare durante l'inserimento di ogni elemento
             statement.execute("CREATE TABLE IF NOT EXISTS utenti ("+
                                     "user_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
                                     "nome VARCHAR(50) not null, cognome VARCHAR(50) not null, "+
@@ -119,13 +109,14 @@ public class DatabaseManager {
                                 END;
                                 """);
 
-            //l'iban dell'azienda non è impostato come chiave esterna in quanto
+            // l'iban dell'azienda non è impostato come chiave esterna in quanto
             //vorrebbe dire che quell'azienda dovrebbe avere un conto aperto da noi
             statement.execute("CREATE TABLE IF NOT EXISTS altro ("+
                                     "iban  CHAR(27) PRIMARY KEY, "+
                                     "nome VARCHAR(50) not null);");
 
-            //il campo user_id chiave esterna indica l'utente che ha inserito la voce nella rubrica, così facendo possiamo dividere le voci associate per utente
+            //il campo user_id chiave esterna indica l'utente che ha inserito la voce nella rubrica,
+            // così facendo possiamo dividere le voci associate per utente
             statement.execute("CREATE TABLE IF NOT EXISTS contatti ("+
                                     "contatto_id INTEGER PRIMARY KEY AUTOINCREMENT, "+
                                     "nome VARCHAR not null, cognome VARCHAR(50) not null, "+
@@ -138,12 +129,14 @@ public class DatabaseManager {
                                     "date DATE not null, nGiorni INTEGER not null, causale VARCHAR not null, " +
                                     "user_id INTEGER NOT NULL, FOREIGN KEY (user_id) REFERENCES utenti(user_id));");
 
+            // viene inserito il pirata con radio nella rubrica
             return (AltroDAO.getInstance().insert( new Altro("Pirata con Radio", "IT0000000000000000000000000")));
 
-        } catch (SQLException e) {
-            System.err.println("Error creating database: " + e.getMessage());
+        } catch (SQLException ignored) {
             return false;
         }finally {
+            // nel finally avviene la chiusura delle connessioni e il rilascio delle risorse
+            // in maniera tala da essere sicuri che vengano rilasciate anche in caso di eccezione
             if (statement != null) {
                 statement.close();
             }
@@ -152,10 +145,4 @@ public class DatabaseManager {
             }
         }
     }
-
-    /****************************************************************************
-     *
-        TUTTO CIO' CHE SI TROVA AL DI SOPRA DI QUESTO COMMENTO NON VA MODIFICATO
-     *
-     ****************************************************************************/
 }

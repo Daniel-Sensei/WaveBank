@@ -12,13 +12,12 @@ import java.time.LocalDateTime;
 import java.util.Random;
 
 public class ContiDAO {
+    // Data Access Object
 
+    // DAO singleton class for managing Conto (Bank Account) objects in the database
     private static Connection conn;
-
     private ContiDAO() {}
-
     private static ContiDAO instance = null;
-
     public static ContiDAO getInstance() {
         if (instance == null) {
             conn = DatabaseManager.getInstance().getConnection();
@@ -28,9 +27,14 @@ public class ContiDAO {
     }
 
 
-    //  Inserimenti:
+    // Insertions:
 
-    //inserimento tramite oggetto di tipo conto
+    /**
+     * Insert a 'Conto' object into the database.
+     *
+     * @param conto The 'Conto' object to be inserted.
+     * @return True if the insertion is successful, false otherwise.
+     */
     public boolean insert(Conto conto) {
         String query = "INSERT INTO conti (iban, saldo, dataApertura) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -44,25 +48,43 @@ public class ContiDAO {
         }
     }
 
-    //inserimento tramite inizializzazione randomica
-
+    /**
+     * Generate a new random 'Conto' and insert it into the database.
+     *
+     * @return The generated IBAN.
+     */
     public String generateNew() {
+        // Generate a random IBAN
         String iban = generateItalianIban();
         LocalDate data = LocalDate.now();
+        // Insert the new Conto into the database
         insert(new Conto(iban, 0, data));
+
+        // Create a new Space and insert it into the database
         Space s = new Space(iban, 0, data, "Conto corrente Principale", "wallet.png");
         SpacesDAO.getInstance().insert(s);
+
+        // Set the currently logged main space in the BankApplication
         BankApplication.setCurrentlyLoggedMainSpace(s.getSpaceId());
-        int bonus = 500; //sarà 50 quando non avremo più bisogno di testare, come bonus di benvenuto
+
+        int bonus = 500; // Will be 50 when no longer needed for testing, as a welcome bonus
+        // Make a transaction from a dummy account to the new Conto
         TransazioniDAO.getInstance().transazione("IT0000000000000000000000000", iban, 0, bonus);
+        // Insert a bonus transaction record
         TransazioniDAO.getInstance().insert(new Transazione("Bonus di Benvenuto", "IT0000000000000000000000000", iban, 0, s.getSpaceId(), LocalDateTime.now(), bonus, "Il pirata ti dà il benvenuto nella banca più losca del mondo... Spendi bene questi dobloni!", "Bonus di Benvenuto", "altro", ""));
 
         return iban;
     }
 
 
-    //  getting:
+    // Data Retrieval:
 
+    /**
+     * Retrieve a 'Conto' object from the database based on the given IBAN.
+     *
+     * @param iban The IBAN to search for.
+     * @return The 'Conto' object corresponding to the given IBAN, or null if not found.
+     */
     public Conto selectByIban(String iban) {
         String query = "SELECT * FROM conti WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -70,9 +92,9 @@ public class ContiDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new Conto(iban,
-                                rs.getDouble("saldo"),
-                                rs.getDate("dataApertura").toLocalDate()
-                                );
+                            rs.getDouble("saldo"),
+                            rs.getDate("dataApertura").toLocalDate()
+                    );
                 } else {
                     return null;
                 }
@@ -82,8 +104,13 @@ public class ContiDAO {
         }
     }
 
-    // get saldo by iban
-
+    /**
+     * Retrieve only the saldo (balance) based on the given IBAN.
+     *
+     * @param iban The IBAN to search for.
+     * @return The saldo (balance) of the account corresponding to the given IBAN,
+     *         or 0 if not found.
+     */
     public double getSaldoByIban(String iban) {
         String query = "SELECT saldo FROM conti WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -101,10 +128,14 @@ public class ContiDAO {
     }
 
 
-    //  aggiornamenti:
+    // Updates:
 
-
-    //aggiornamento tramite oggetto di tipo conto
+    /**
+     * Update a 'Conto' object in the database.
+     *
+     * @param conto The 'Conto' object to be updated.
+     * @return True if the update is successful, false otherwise.
+     */
     public boolean update(Conto conto) {
         String query = "UPDATE conti SET saldo = ? WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -118,8 +149,14 @@ public class ContiDAO {
     }
 
 
-    //  rimozione:
+    // Deletion:
 
+    /**
+     * Delete a 'Conto' object from the database.
+     *
+     * @param conto The 'Conto' object to be deleted.
+     * @return True if the deletion is successful, false otherwise.
+     */
     public boolean delete(Conto conto) {
         String query = "DELETE FROM conti WHERE iban = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -132,8 +169,9 @@ public class ContiDAO {
     }
 
 
-    // funzioni di servizio per generare un iban realistico:
+    // Utility functions to generate a realistic IBAN:
 
+    // Generate a random Italian IBAN
     private String generateItalianIban() {
         String countryCode = "IT";
         String bankCode = generateRandomDigits(5);
@@ -147,6 +185,7 @@ public class ContiDAO {
         return countryCode + formattedCheckDigit + bankCode + branchCode + accountNumber;
     }
 
+    // Calculate the check digit for an IBAN
     private int calculateMod97(String iban) {
         String digitsOnly = iban.replaceAll("[^0-9]", "");
         BigInteger numericIban = new BigInteger(digitsOnly);
@@ -154,6 +193,7 @@ public class ContiDAO {
         return 98 - mod97.intValue();
     }
 
+    // Generate a random string of digits
     private String generateRandomDigits(int length) {
         Random random = new Random();
         StringBuilder sb = new StringBuilder(length);
@@ -163,4 +203,3 @@ public class ContiDAO {
         return sb.toString();
     }
 }
-
