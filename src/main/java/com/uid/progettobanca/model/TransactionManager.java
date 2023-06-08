@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -47,9 +46,9 @@ public class TransactionManager {
     }
 
     public void setTransactionName(Label transactionName, Transazione transaction){
-        //di default assegno come nome il tipo di transazione
-        transactionName.setText(transaction.getTipo());
         transactionName.setText(transaction.getName());
+        // set transaction name for bonifico
+        // is used to selected the name of the receiver or the sender
         if(transaction.getTipo().equals(("Bonifico")) && transaction.getName().contains("-")) {
             if(transaction.getIbanTo().equals(BankApplication.getCurrentlyLoggedIban())) {
                 transactionName.setText(transaction.getName().substring(transaction.getName().indexOf("-") + 1));
@@ -59,6 +58,7 @@ public class TransactionManager {
         }
     }
 
+    // method used to create "n" transaction boxes by taking the size of distinct dates
     public List<String> countDistinctDates(List<Transazione> transazioni) {
         Set<LocalDateTime> dateSet = new HashSet<>();
         Set<String> uniqueDates = new HashSet<>();
@@ -74,6 +74,7 @@ public class TransactionManager {
         }
 
         List<String> sortedDates = new ArrayList<>(uniqueDates);
+        //is used a reverse order because the transactions are sorted by date in descending order using a Stack to poll them
         Collections.sort(sortedDates, Collections.reverseOrder());
 
         return sortedDates;
@@ -89,8 +90,8 @@ public class TransactionManager {
         return transactionBox;
     }
 
+    //used to load the fxml file of transaction and add it to the transaction box
     public void addTransactions(VBox transactionBox, int nTransaction){
-
         for(int j=0; j<nTransaction; j++){
             try {
                 Parent transaction = SceneHandler.getInstance().loadPage(Settings.HOME_PATH + "transaction.fxml");
@@ -107,6 +108,7 @@ public class TransactionManager {
         }
     }
 
+    //count number of transaction for each date
     public int countNumTransactionBox(List<Transazione> transazioni, String data) {
         int count = 0;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -124,18 +126,14 @@ public class TransactionManager {
 
     public List<String> convertToLocalDates(List<String> dates) {
         if (Settings.locale.getLanguage().equals("it")) {
-            // Creazione del formatter per il formato desiderato
+            // format type for italian
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ITALIAN);
 
-            // Lista per memorizzare i risultati delle conversioni
             List<String> convertedDates = new ArrayList<>();
 
-            // Iterazione sulle date fornite
             for (String dateStr : dates) {
-                // Parsing della data fornita
                 LocalDate date = LocalDate.parse(dateStr, formatter);
-
-                // Calcolo delle differenze di giorni rispetto alla data odierna
+                // calculate the difference between the date and the current date
                 long daysDifference = ChronoUnit.DAYS.between(date, LocalDate.now());
 
                 if (daysDifference == 0) {
@@ -146,7 +144,7 @@ public class TransactionManager {
                     String dayOfWeek = date.getDayOfWeek().getDisplayName(TextStyle.FULL_STANDALONE, Locale.ITALIAN);
                     convertedDates.add(dayOfWeek.toUpperCase());
                 } else {
-                    // Formattazione della data nel formato desiderato
+                    // format date to the desired format
                     DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("EEEE d MMMM", Locale.ITALIAN);
                     convertedDates.add(date.format(outputFormatter).toUpperCase());
                 }
@@ -154,18 +152,12 @@ public class TransactionManager {
             return convertedDates;
         }
         else if(Settings.locale.getLanguage().equals("en")){
-            // Creazione del formatter per il formato desiderato in inglese
+            // format type for english
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
-
-            // Lista per memorizzare i risultati delle conversioni
             List<String> convertedDates = new ArrayList<>();
 
-            // Iterazione sulle date fornite
             for (String dateStr : dates) {
-                // Parsing della data fornita
                 LocalDate date = LocalDate.parse(dateStr, formatter);
-
-                // Calcolo delle differenze di giorni rispetto alla data odierna
                 long daysDifference = ChronoUnit.DAYS.between(date, LocalDate.now());
 
                 if (daysDifference == 0) {
@@ -176,7 +168,6 @@ public class TransactionManager {
                     String dayOfWeek = date.getDayOfWeek().getDisplayName(TextStyle.FULL_STANDALONE, Locale.ENGLISH);
                     convertedDates.add(dayOfWeek.toUpperCase());
                 } else {
-                    // Formattazione della data nel formato desiderato
                     DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("EEEE, MMMM d", Locale.ENGLISH);
                     convertedDates.add(date.format(outputFormatter).toUpperCase());
                 }

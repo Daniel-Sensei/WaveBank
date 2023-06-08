@@ -5,6 +5,10 @@ import javafx.scene.Parent;
 import java.io.IOException;
 import java.util.Stack;
 
+/*
+    Singleton class used to manage the back button
+    it stores the title of the page and the parent
+ */
 public class BackStack extends Stack<String> {
     private static BackStack instance;
     private Stack<BackStackItem> stack;
@@ -25,7 +29,7 @@ public class BackStack extends Stack<String> {
     }
 
     public void push(String title, Parent parent) {
-        //non effettua il push delle pagine gia presenti nello stack
+        // avoid pushing the same page twice
         if(!stack.isEmpty() && stack.peek().getTitle().equals(title)){
             return;
         }
@@ -41,6 +45,19 @@ public class BackStack extends Stack<String> {
         return null;
     }
 
+    public void loadPreviousPage() throws IOException {
+        if (this.size() > 1) {
+            this.popTitle();
+            String title = this.popTitle();
+            SceneHandler.getInstance().setPage(title);
+        }
+    }
+
+    public void clearStack() {
+        stack.clear();
+    }
+
+    // custom class used to store a pair of title and parent
     private class BackStackItem {
         private String title;
         private Parent parent;
@@ -53,26 +70,8 @@ public class BackStack extends Stack<String> {
         public String getTitle() {
             return title;
         }
-
         public Parent getParent() {
             return parent;
         }
-    }
-
-    public void loadPreviousPage() throws IOException {
-        if (this.size() > 1) {
-            this.popTitle(); //rimuove pagina attuale
-            String title = this.popTitle(); //preleva pagina precedente
-            SceneHandler.getInstance().setPage(title);
-        }
-    }
-
-    public void printStack() {
-        for (int i = 0; i < stack.size(); i++) {
-        }
-    }
-
-    public void clearStack() {
-        stack.clear();
     }
 }
