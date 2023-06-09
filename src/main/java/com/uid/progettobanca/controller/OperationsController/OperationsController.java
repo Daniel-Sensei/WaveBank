@@ -95,33 +95,33 @@ public class OperationsController implements Initializable {
         modifyContact.setDisable(true);
         deleteContact.setDisable(true);
 
+        // set the tooltip for the info icon to explain how to select a contact or open a fast bank transfer
         Tooltip tooltip = new Tooltip();
-
         String ttIta = "Esegui un clic per selezionare un contatto, o un doppio clic per aprire un bonifico veloce.";
         String ttEng = "Click to select a contact, or double click to open a fast bank transfer.";
-
+        // once again, like every other message, the text language is hardcoded
         if(Settings.locale.getLanguage().equals("it"))
             tooltip.setText(ttIta);
         else
             tooltip.setText(ttEng);
-
+        // settings the tooltip delay and duration
         tooltip.setShowDelay(new Duration(200)); // the tooltip is shown after 0.2 seconds of hovering
         tooltip.setShowDuration(new Duration(5000)); // the tooltip is hidden after 5 seconds of hovering (it is the default value, but I'll leave this as a reference)
-        
+        // setting the tooltip to the info icon
         Tooltip.install(info, tooltip);
 
-        if (operationsImages.isEmpty()) {
+        // load the operations' icon images
+        if (operationsImages.isEmpty())
             loadOperationsImages();
-        }
         GenericController.loadImages(operationsImages);
 
         // fill the contacts list
         contacts = new ArrayList<>(ContactsManager.getInstance().fillContacts());
 
-        int nContacts = ContactsManager.getInstance().getSize();
+        int nContacts = ContactsManager.getInstance().getSize(); // number of contacts
 
-        initializeContacts(nContacts);
-        outerClick();
+        initializeContacts(nContacts); // initialize the contacts
+        outerClick(); // initialize the outer click listener
 
     }
 
