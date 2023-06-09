@@ -14,10 +14,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -63,6 +65,9 @@ public class OperationsController implements Initializable {
     @FXML
     private ScrollPane scrollPane; // Scroll pane id
 
+    @FXML
+    private ImageView info; // Image view for the "info" icon
+
     private static int selectedContact = -1; // Index of the selected contact
 
     private static List<Contatto> contacts; // List of the contacts
@@ -85,9 +90,25 @@ public class OperationsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        GenericController.loadImage( "info", info);
         // initially disables modify and cancel buttons
         modifyContact.setDisable(true);
         deleteContact.setDisable(true);
+
+        Tooltip tooltip = new Tooltip();
+
+        String ttIta = "Esegui un clic per selezionare un contatto, o un doppio clic per aprire un bonifico veloce.";
+        String ttEng = "Click to select a contact, or double click to open a fast bank transfer.";
+
+        if(Settings.locale.getLanguage().equals("it"))
+            tooltip.setText(ttIta);
+        else
+            tooltip.setText(ttEng);
+
+        tooltip.setShowDelay(new Duration(200)); // the tooltip is shown after 0.2 seconds of hovering
+        tooltip.setShowDuration(new Duration(5000)); // the tooltip is hidden after 5 seconds of hovering
+        
+        Tooltip.install(info, tooltip);
 
         if (operationsImages.isEmpty()) {
             loadOperationsImages();
@@ -100,7 +121,7 @@ public class OperationsController implements Initializable {
         int nContacts = ContactsManager.getInstance().getSize();
 
         initializeContacts(nContacts);
-        initializeScrollPane();
+        outerClick();
 
     }
 
@@ -157,8 +178,6 @@ public class OperationsController implements Initializable {
 
     /**
      * Method to open addNewContact form
-     *
-     * @param event the mouse event
      */
     @FXML
     void onNewButtonClick(ActionEvent event) {
@@ -179,8 +198,6 @@ public class OperationsController implements Initializable {
 
     /**
      * Method to open the modifyContact form (if a contact is selected)
-     *
-     * @param event
      */
     @FXML
     void onModifyClick(ActionEvent event) {
@@ -192,8 +209,6 @@ public class OperationsController implements Initializable {
 
     /**
      * Method to delete the selected contact (if a contact is selected)
-     *
-     * @param event
      */
     @FXML
     void onDeleteClick(ActionEvent event) {
@@ -251,7 +266,7 @@ public class OperationsController implements Initializable {
     /**
      * Method to handle the deselection of a contact
      */
-    private void initializeScrollPane() {
+    private void outerClick() {
         scrollPane.setOnMouseClicked(event -> {
             if(!isContactSelected.get()) {
                 handleDeselectContact();
@@ -347,7 +362,6 @@ public class OperationsController implements Initializable {
 
     /**
      * Method to handle the deselection of a contact
-     *
      */
     private void handleDeselectContact() {
         if (lastSelectedContact[0] != null) {
@@ -360,7 +374,7 @@ public class OperationsController implements Initializable {
     }
 
     /**
-     * Method to be called when there are no contacts selected
+     * Method to be called when there are no contacts selected to reset the utility variables
      */
     private void noContactSelected(){
         lastSelectedContact[0] = null;

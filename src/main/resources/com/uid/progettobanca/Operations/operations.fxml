@@ -36,7 +36,12 @@
                      <children>
                         <VBox spacing="10.0">
                            <children>
-                              <Label styleClass="subtitleLabel" text="%contatti" />
+                              <AnchorPane>
+                                 <children>
+                                    <Label styleClass="subtitleLabel" text="%contatti" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <ImageView fx:id="info" fitHeight="17.0" fitWidth="17.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="383.0" AnchorPane.rightAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
                               <ScrollPane hbarPolicy="NEVER" prefHeight="245.0" prefWidth="400.0" styleClass="vbox-with-rounded-border">
                                  <content>
                                     <VBox fx:id="contactsVBox" alignment="TOP_CENTER" prefWidth="400.0" />
