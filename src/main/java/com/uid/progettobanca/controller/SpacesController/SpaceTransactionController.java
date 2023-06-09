@@ -131,8 +131,8 @@ public class SpaceTransactionController implements Initializable {
         String task = "betweenSpaces";
 
         //create two transaction services, one for the sender and one for the receiver
-        TransactionService transactionService1 = new TransactionService(task,iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), amount, description.getText());
-        TransactionService transactionService2 = new TransactionService(task,iban, SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), amount, description.getText());
+        TransactionService transactionService1 = new TransactionService(task,iban, "", SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), amount, description.getText());
+        TransactionService transactionService2 = new TransactionService(task,iban, "",  SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceLabelName()), SpacesManager.getInstance().getSpaceId(SpaceTransactionManager.getInstance().getSpaceComboBoxName()), amount, description.getText());
 
         if (SpacesManager.getInstance().getTransactionDirection() == "Sx"){
             transactionHandler(transactionService1);

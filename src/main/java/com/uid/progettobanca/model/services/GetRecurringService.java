@@ -8,6 +8,13 @@ import javafx.concurrent.Task;
 
 import java.util.Queue;
 
+/**
+ * Class to use a service to retrieve data from the Ricorrenti (recurring) table in the database.
+ * This class is used to retrieve all the recurring payments associated with the currently logged user.
+ *
+ * @see Ricorrente
+ * @see RicorrentiDAO
+ */
 public class GetRecurringService extends Service<Queue<Ricorrente>> {
 
     public GetRecurringService() {}
@@ -16,7 +23,7 @@ public class GetRecurringService extends Service<Queue<Ricorrente>> {
     protected Task<Queue<Ricorrente>> createTask() {
         return new Task() {
             @Override
-            protected Object call() throws Exception {
+            protected Object call() {
                 return RicorrentiDAO.getInstance().selectAllByUserId(BankApplication.getCurrentlyLoggedUser());
             }
         };
