@@ -39,21 +39,23 @@ public class CardsManager {
             this.pos += pos;
     }
 
+    private static String randomNumbers(int digits){
+        StringBuilder stringBuilder = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < digits; i++) {
+            int randomNumber = random.nextInt(10);
+            stringBuilder.append(randomNumber);
+        }
+        return stringBuilder.toString();
+    }
+
     public static Carta crea(){
         Carta carta = new Carta();
         carta.setBloccata(false);
-        //sets cvv and pin as 3 and 5 random numbers
-        carta.setCvv(String.valueOf((int) (Math.random() * 900) + 100));
-        carta.setPin(String.valueOf((int) (Math.random() * 90000) + 10000));
-        //creates 16 random numbers for cardNumber
-        StringBuilder stringBuilder = new StringBuilder();
-        Random random = new Random();
-        for (int i = 0; i < 16; i++) {
-            int randomNumber = random.nextInt(10);  // Genera un numero casuale da 0 a 9
-            stringBuilder.append(randomNumber);
-        }
-        carta.setNumCarta( stringBuilder.toString());
-
+        //sets generated parameters
+        carta.setCvv(randomNumbers(3));
+        carta.setPin(randomNumbers(5));
+        carta.setNumCarta(randomNumbers(16));
         return carta;
     }
     public static Carta createVirtualCard(int lasting){

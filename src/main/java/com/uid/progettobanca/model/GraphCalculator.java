@@ -3,7 +3,9 @@ package com.uid.progettobanca.model;
 import com.uid.progettobanca.model.objects.Transazione;
 import javafx.scene.chart.XYChart;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,17 +35,11 @@ public class GraphCalculator {
             DaysValues.add(0.0);
         }
 
-        LocalDateTime now = LocalDateTime.now();
+        //add the values of each day to the list
+        LocalDateTime firstDay = LocalDateTime.now().minusDays(DaysInterval);
         for(int i=0; i<transazioni.size(); i++) {
-            int iterations = 0;
-            for (LocalDateTime j = LocalDateTime.now().minusDays(DaysInterval); j.isBefore(now); j = j.plusDays(1)) {
-                //increase the value of the day if a transaction is found
-                if ((transazioni.get(i).getDateTime().isAfter(j) && transazioni.get(i).getDateTime().isBefore(j.plusDays(1))) && ((ceTag && transazioni.get(i).getTag().equals(tag)) || (!ceTag))) {
-                    DaysValues.set(iterations, DaysValues.get(iterations) + transazioni.get(i).getImporto());
-                    break;
-                }
-                iterations++;
-            }
+            if(!ceTag || transazioni.get(i).getTag().equals(tag))
+                DaysValues.set(Math.toIntExact(ChronoUnit.DAYS.between(firstDay, transazioni.get(i).getDateTime())), transazioni.get(i).getImporto());
         }
         return DaysValues;
     }
