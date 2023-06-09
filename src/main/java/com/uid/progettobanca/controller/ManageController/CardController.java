@@ -55,7 +55,7 @@ public class CardController {
 
         cardService.setAction("update");
         cardService.setCard(CardsManager.getInstance().getCard());
-        cardService.start();
+        cardService.restart();
 
         cardService.setOnSucceeded(event1 -> {
             if (event1.getSource().getValue() instanceof Boolean result) {

@@ -93,7 +93,7 @@ public class ManageController {
 
         //creates the chart
         daysInterval=30;
-        transactionsService.start();
+        transactionsService.restart();
         transactionsService.setOnSucceeded(event -> {
             if(event.getSource().getValue() instanceof List<?> result){
                 chart.getData().clear();
@@ -116,7 +116,7 @@ public class ManageController {
 
         getCardService.setAction("allByUser");;
         userService.setAction("selectById");
-        userService.start();
+        userService.restart();
         //creates the list of cards and puts it in CardsManager
         CardsManager.getInstance().setPos(0);
         userService.setOnSucceeded(event -> {
@@ -124,7 +124,7 @@ public class ManageController {
                 CardsManager.getInstance().setNome(result.getNome());
                 CardsManager.getInstance().setCognome(result.getCognome());
             }
-            getCardService.start();    //starts the service to get the cards
+            getCardService.restart();    //starts the service to get the cards
             getCardService.setOnSucceeded(event1 -> {
                 if(event1.getSource().getValue() instanceof List<?> result){
                     //browse the result and check if the expiration date is passed, if yes, delete the card
