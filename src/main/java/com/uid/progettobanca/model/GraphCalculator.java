@@ -24,9 +24,8 @@ public class GraphCalculator {
 
     private List<Double> SortValues (List<Transazione> transazioni, int DaysInterval, String tag){
         transazioni= RemoveOnSameIBAN(transazioni);
-        //se tag è vuoto, cetag è false
-        Boolean ceTag=true;
-        if(tag.equals("")){ceTag=false;}
+        Boolean withTag=true;
+        if(tag.equals("")){withTag=false;}
 
 
         //make a list for each day
@@ -38,7 +37,7 @@ public class GraphCalculator {
         //add the values of each day to the list
         LocalDateTime firstDay = LocalDateTime.now().minusDays(DaysInterval);
         for(int i=0; i<transazioni.size(); i++) {
-            if(!ceTag || transazioni.get(i).getTag().equals(tag))
+            if(((!withTag || transazioni.get(i).getTag().equals(tag)) && transazioni.get(i).getDateTime().isAfter(firstDay)))
                 DaysValues.set(Math.toIntExact(ChronoUnit.DAYS.between(firstDay, transazioni.get(i).getDateTime())), transazioni.get(i).getImporto());
         }
         return DaysValues;
