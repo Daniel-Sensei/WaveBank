@@ -106,7 +106,7 @@ public class OperationsController implements Initializable {
             tooltip.setText(ttEng);
 
         tooltip.setShowDelay(new Duration(200)); // the tooltip is shown after 0.2 seconds of hovering
-        tooltip.setShowDuration(new Duration(5000)); // the tooltip is hidden after 5 seconds of hovering
+        tooltip.setShowDuration(new Duration(5000)); // the tooltip is hidden after 5 seconds of hovering (it is the default value, but I'll leave this as a reference)
         
         Tooltip.install(info, tooltip);
 
