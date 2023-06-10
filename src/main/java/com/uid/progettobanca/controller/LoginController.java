@@ -102,14 +102,14 @@ public class LoginController implements Initializable {
         userService.setPassword(passwordField.getText());
         userService.restart();
         userService.setOnSucceeded(e -> {
-            // if the login is successful, get the user informations
+            // if the login is successful, get the user information
             if (userService.getValue()) {
                 GetUserService getUserService = new GetUserService();
                 getUserService.setAction("selectByEmail");
                 getUserService.setEmail(emailField.getText());
                 getUserService.restart();
                 getUserService.setOnSucceeded(e1 -> {
-                    // if the user informations are successfully retrieved, set the currently logged user, mail and iban
+                    // if the user information are successfully retrieved, set the currently logged user, mail and iban
                     BankApplication.setCurrentlyLoggedMail(getUserService.getValue().getEmail());
                     BankApplication.setCurrentlyLoggedUser(getUserService.getValue().getUserId());
                     String iban = getUserService.getValue().getIban();
