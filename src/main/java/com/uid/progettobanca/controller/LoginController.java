@@ -109,7 +109,7 @@ public class LoginController implements Initializable {
                 getUserService.setEmail(emailField.getText());
                 getUserService.restart();
                 getUserService.setOnSucceeded(e1 -> {
-                    // if the user informations are successfully retrieved, set the currently logged user and iban
+                    // if the user informations are successfully retrieved, set the currently logged user, mail and iban
                     BankApplication.setCurrentlyLoggedMail(getUserService.getValue().getEmail());
                     BankApplication.setCurrentlyLoggedUser(getUserService.getValue().getUserId());
                     String iban = getUserService.getValue().getIban();
