@@ -188,7 +188,7 @@ public class RegisterFormController implements Initializable {
                 phone.textProperty()
         );
 
-        //Binding per gestire comboBox obbligatorie
+        // Bindings for date and question (mandatory*)
         BooleanBinding dateAndQuestionValid = dayComboBox.valueProperty().isNotNull()
                 .and(monthComboBox.valueProperty().isNotNull())
                 .and(yearComboBox.valueProperty().isNotNull())

@@ -29,16 +29,17 @@ public class FormCompilationThread extends Service<PDDocument> {
         return new Task<PDDocument>() {
             @Override
             protected PDDocument call() throws Exception {
-                // Carica il documento PDF
+                // Load the PDF document created by Adobe Acrobat (Custom form PDF)
                 try {
                     document = PDDocument.load(new File("src/main/resources/assets/documents/FormDettagliTransazione.pdf"));
                 } catch (IOException e) {
                     return null;
                 }
 
-                // Ottieni il modulo interattivo del documento
+                // Get interactive form and construct the fields
                 PDAcroForm acroForm = document.getDocumentCatalog().getAcroForm();
 
+                // Set generic spaceId information (no name for privacy reasons)
                 try {
                     int spaceID = 0;
                     if(BankApplication.getCurrentlyLoggedIban() == transaction.getIbanFrom()){
@@ -47,8 +48,8 @@ public class FormCompilationThread extends Service<PDDocument> {
                     else {
                         spaceID = transaction.getSpaceFrom();
                     }
-                    //Compilazione di tutti i campi del form
 
+                    // Set all the fields
 
                     //INTESTAZIONE
                     //emissione
@@ -57,7 +58,6 @@ public class FormCompilationThread extends Service<PDDocument> {
                     String formattedDate = dateFormat.format(currentDate);
                     PDTextField emissione = (PDTextField) acroForm.getField("emissione");
                     emissione.setValue("Emissione documento: " + formattedDate);
-
 
                     //BODY
                     //ID
@@ -86,7 +86,6 @@ public class FormCompilationThread extends Service<PDDocument> {
                     //descrizione
                     PDTextField descrizione = (PDTextField) acroForm.getField("descrizione");
                     descrizione.setValue(transaction.getDescrizione());
-
 
                     //PIE DI PAGINA
                     //nomeUtente

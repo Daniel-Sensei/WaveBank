@@ -1,6 +1,5 @@
 package com.uid.progettobanca.view;
 
-import com.uid.progettobanca.BankApplication;
 import com.uid.progettobanca.Settings;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +17,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -29,20 +27,11 @@ public class SceneHandler {
     private static final SceneHandler instance = new SceneHandler();
     private Stage stage;
     private Scene scene;
-
-    private static final String separator = File.separator; //il path si adatta ai diversi sistemi operativi
-    //public final static String ABSOLUTE_PATH = System.getProperty("user.dir") + separator + "src" + separator + "main" + separator + "resources" + separator + "com" + separator + "uid" + separator + "progettobanca" + separator;
-
     private FXMLLoader fxmlLoader;
-
-    String[] dynamicPages = {Settings.HOME_PATH + "home.fxml", Settings.MANAGE_PATH + "manage.fxml", Settings.SPACES_PATH + "spaces.fxml"};
-
     public static BorderPane borderPane = new BorderPane();
-
-    Map<String, Parent> pages = new HashMap<>();
-
-    // Imposta la velocità di scrolling
     public final static double scrollSpeed = 0.05; // Regola questo valore per cambiare la velocità
+    String[] dynamicPages = {Settings.HOME_PATH + "home.fxml", Settings.MANAGE_PATH + "manage.fxml", Settings.SPACES_PATH + "spaces.fxml"};
+    Map<String, Parent> pages = new HashMap<>();
 
     public static SceneHandler getInstance() {
         return instance;
@@ -60,55 +49,59 @@ public class SceneHandler {
         this.stage = stage;
         this.stage.setTitle("Login");
 
-        // Ottieni le dimensioni dello schermo
+        // Get screen dimensions
         double screenWidth = Screen.getPrimary().getVisualBounds().getWidth();
         double screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
 
 
         borderPane = new BorderPane();
-        borderPane.getStyleClass().add("root"); /*imposta proprietà root per il font family*/
+        borderPane.getStyleClass().add("root"); // Set root properties for font family
         scene = new Scene(borderPane, 470, 720);
         loadFonts();
 
         createPage( "login.fxml");
 
+        //set CSS
         this.stage.setScene(scene);
         this.stage.getScene().getStylesheets().addAll(Settings.CSS_PATH + "fonts.css", Settings.CSS_PATH + Settings.CSS_THEME, Settings.CSS_PATH + "style.css");
         this.stage.setResizable(false);
-        // Centra la finestra dello stage sulla schermata
+
+        // Center the stage on the screen
         this.stage.setX((screenWidth - scene.getWidth()) / 2);
         this.stage.setY((screenHeight - scene.getHeight()) / 2);
         this.stage.show();
     }
 
     public void init(Stage stage) {
-        //inizializzazione della parte visiva del programma, da modificare all'aggiunta del login
-        //pulisco pagine caricate precedentemente da altri account se presenti
+        //clear the pages map when the app is restarted (logout and login
         pages.clear();
         this.stage = stage;
         this.stage.setTitle("Wave Bank");
 
-        // Ottieni le dimensioni dello schermo
+        // Get screen dimensions
         double screenWidth = Screen.getPrimary().getVisualBounds().getWidth();
         double screenHeight = Screen.getPrimary().getVisualBounds().getHeight();
 
         borderPane = new BorderPane();
-        borderPane.getStyleClass().add("root"); /*imposta proprietà root per il font family*/
+        borderPane.getStyleClass().add("root"); // set root properties for font family
 
         scene = new Scene(borderPane, 1280, 720);
         loadFonts();
 
+        // create MenuBar in top of the BorderPane
+        //create page in center of the BorderPane
         createMenuBar();
         createPage(Settings.HOME_PATH + "home.fxml");
 
         PageLoaderService pageLoaderService = new PageLoaderService();
         pageLoaderService.start();
 
-
+        //Set CSS
         this.stage.setScene(scene);
         this.stage.getScene().getStylesheets().addAll(Settings.CSS_PATH + "fonts.css", Settings.CSS_PATH + Settings.CSS_THEME, Settings.CSS_PATH + "style.css");
         this.stage.setResizable(false);
-        // Centra la finestra dello stage sulla schermata
+
+        // Center the stage on the screen
         this.stage.setX((screenWidth - scene.getWidth()) / 2);
         this.stage.setY((screenHeight - scene.getHeight()) / 2);
         this.stage.setOnCloseRequest(e -> {
@@ -119,7 +112,7 @@ public class SceneHandler {
                 conferma = SceneHandler.getInstance().showMessage("question", "Close App","Confirm App Closure", "Are you sure you want to close the application?").equals("Cancel");
             if(conferma)
                 e.consume();
-            else //salva il tema e la lingua selezionata in un file di configurazione
+            else //save theme
                 Settings.saveSettings();
         });
         this.stage.show();
@@ -127,16 +120,11 @@ public class SceneHandler {
     }
 
     private <T> T loadRootFromFXML(String resourceName) throws IOException {
-        // se inizia per / la rimuovo
         if(resourceName.startsWith("/"))
             resourceName = resourceName.substring(1);
         fxmlLoader = new FXMLLoader(getClass().getResource(Settings.RESOURCE_PATH + resourceName));
         fxmlLoader.setResources(ResourceBundle.getBundle("bundle", locale));
         return fxmlLoader.load();
-    }
-
-    public <T> T getController() {
-        return fxmlLoader.getController();
     }
 
     private void loadFonts() {
@@ -148,7 +136,6 @@ public class SceneHandler {
     public synchronized Parent loadPage(String pageName) throws IOException {
         return loadRootFromFXML(pageName);
     }
-
 
     public void reloadDynamicPageInHashMap() {
         for(String pageName : dynamicPages) {
@@ -162,7 +149,6 @@ public class SceneHandler {
             if(pages.containsKey(pageName)) {
                 pages.remove(pageName);
             }
-            //ln("Replaced page: " + pageName);
             pages.put(pageName, page);
         }
         catch (IOException e) {
@@ -171,12 +157,11 @@ public class SceneHandler {
     }
 
     public void createMenuBar() {
-        //creazione menù bar, l'unico che non dovete copiare, la menù bar viene creata una sola volta e in questa vengono inizializzate un paion di altre cose
+        // set MenuBar in top of BorderPane
         try {
             Parent menuBar = loadRootFromFXML("menuBar.fxml");
             borderPane.setTop(menuBar);
             BorderPane.setAlignment(menuBar, Pos.CENTER_RIGHT);
-            String iban = BankApplication.getCurrentlyLoggedIban();
         } catch (IOException ignored) {
         }
     }
@@ -184,30 +169,23 @@ public class SceneHandler {
     public void createPage(String pageName) {
         try {
             Parent page = loadRootFromFXML(pageName);
-            //questa parte dovrà essere gestita da in thread
+
+            //replace page in hashMap if already exists
             if(pages.containsKey(pageName)) {
                 pages.remove(pageName);
             }
             pages.put(pageName, page);
-            //Ogni volta che viene creata una pagina viene aggiunta nello stack
             BackStack.getInstance().push(pageName, page);
-            //stampa contenuto dello stack
-            /*
-            for(int i=0; i<BackStack.getInstance().size(); i++){
-                ln(BackStack.getInstance().get(i));
-            }
 
-             */
             borderPane.setCenter(page);
 
-
+            //used to reset focus on new page
             page.requestFocus();
             page.setOnMouseClicked(event -> {
-                // Rimuovi il focus da qualsiasi elemento attualmente in focus
                 page.requestFocus();
             });
 
-            //per rimuovere le parti inutilizzate del borderPane (inferiore, sinistra e destra)
+            //remove unnecessary margins
             Node centerNode = borderPane.getCenter();
             BorderPane.setMargin(centerNode, new Insets(0));
 
@@ -216,9 +194,8 @@ public class SceneHandler {
         }
     }
 
-    /* Bisognerebbe sostituire le chiamate a createPage() con questa funzione,
-    e se questa funzione restituisce true allora bisogna creare la pagina
-     */
+    //function used to setPage already in the hashMap
+    //if the page is not in the hashMap, it will be created
     public boolean setPage(String pageName){
         if(pages.containsKey(pageName)){
             BackStack.getInstance().push(pageName, pages.get(pageName));
@@ -226,7 +203,6 @@ public class SceneHandler {
 
             pages.get(pageName).requestFocus();
             pages.get(pageName).setOnMouseClicked(event -> {
-                // Rimuovi il focus da qualsiasi elemento attualmente in focus
                 pages.get(pageName).requestFocus();
             });
             return true;
@@ -247,22 +223,22 @@ public class SceneHandler {
      * @return The button pressed by the user if the type is question, otherwise an empty string
      */
     public String showMessage(String type, String pageTitle, String headerMassage, String contentText) {
-        // should be update with something scalable in case of new languages, because all the strings are hardcoded
+        // should be updated with something scalable in case of new languages, because all the strings are hardcoded
         Alert alert;
         switch(type){
             case "error" -> {
                 alert = new Alert(Alert.AlertType.ERROR);
-                //imposta il css dei pulsanti
+                // set the css of the buttons
                 alert.getDialogPane().lookupButton(alert.getButtonTypes().get(0)).getStyleClass().add("redButton");
             }
             case "info" -> {
                 alert = new Alert(Alert.AlertType.INFORMATION);
-                //imposta il css dei pulsanti
+                // set the css of the buttons
                 alert.getDialogPane().lookupButton(alert.getButtonTypes().get(0)).getStyleClass().add("greenButton");
             }
             case "question" -> {
                 alert = new Alert(Alert.AlertType.CONFIRMATION);
-                //imposta il css dei pulsanti
+                // set the css of the buttons
                 alert.getDialogPane().lookupButton(alert.getButtonTypes().get(0)).getStyleClass().add("greenButton");
                 // the second button is default "Annulla" in italian, "Cancel" in english, hardcoded based on the language chosen
                 if(Settings.locale.getLanguage().equals("en"))
@@ -276,13 +252,12 @@ public class SceneHandler {
         alert.setHeaderText(headerMassage);
         alert.setContentText(contentText);
 
-        //imposta all'alert il css in uso nelle altre pagine
+        //set css alert message
         alert.getDialogPane().getStylesheets().addAll(Settings.CSS_PATH + "fonts.css", Settings.CSS_PATH + Settings.CSS_THEME, Settings.CSS_PATH + "style.css");
-        //imposta il css dello sfondo a background
         alert.getDialogPane().getStyleClass().add("background");
         alert.getDialogPane().setStyle("-fx-padding: 0px 0px 10px 0px;");
 
-        // Centra la finestra di alert rispetto allo stage
+        // Center alert message to the stage
         alert.initOwner(stage);
         alert.initModality(Modality.WINDOW_MODAL);
 
@@ -296,16 +271,10 @@ public class SceneHandler {
 
     public void addPage(String pageName, Parent page) {
         pages.put(pageName, page);
-        //stampa valori dell'hash map
-        /*
-        for (Map.Entry<String, Parent> entry : pages.entrySet()) {
-            ln(entry.getKey() + " " + entry.getValue());
-        }
-
-         */
     }
 
     public void changeThemeLanguage() {
+        //clear pages and then start the service to reload pages in hashMap
         pages.clear();
         this.stage.getScene().getStylesheets().clear();
         this.stage.getScene().getStylesheets().addAll(Settings.CSS_PATH + "fonts.css", Settings.CSS_PATH + Settings.CSS_THEME, Settings.CSS_PATH + "style.css");
@@ -322,15 +291,14 @@ public class SceneHandler {
             throw new RuntimeException(e);
         }
 
-        // Creazione del popup
+        // Create popup
         Popup popup = new Popup();
         popup.getContent().add(popupContent);
-        popup.setAutoHide(true);  // Nascondi automaticamente il popup quando si fa clic al di fuori
+        popup.setAutoHide(true);  // Auto hide popup when it loses focus
 
-        // Ottenere la finestra corrente
         Stage currentStage = popupStage;
 
-        // Posizionamento del popup in alto al centro
+        // Set popUp to center on the stage
         popup.setOnShown(e -> {
             double popupX = currentStage.getX() + (currentStage.getWidth() - popupWidth) / 2;
             double popupY = currentStage.getY() + (currentStage.getHeight() - popupHeight) / 5;
@@ -338,10 +306,9 @@ public class SceneHandler {
             popup.setY(popupY);
         });
 
-        // Mostra il popup
         popup.show(currentStage);
 
-        // Chiudi il popup dopo 3 secondi
+        // Close popUp after 3 seconds
         javafx.util.Duration duration = javafx.util.Duration.seconds(3);
         javafx.animation.KeyFrame keyFrame = new javafx.animation.KeyFrame(duration, e -> popup.hide());
         javafx.animation.Timeline timeline = new javafx.animation.Timeline(keyFrame);
@@ -353,14 +320,17 @@ public class SceneHandler {
         scrollPane.addEventFilter(ScrollEvent.SCROLL, new EventHandler<ScrollEvent>() {
             @Override
             public void handle(ScrollEvent event) {
-                // Regola il valore di vvalue (o hvalue se necessario) in base alla direzione dello scrolling
                 if (event.getDeltaY() > 0) {
                     scrollPane.setVvalue(scrollPane.getVvalue() - scrollSpeed);
                 } else {
                     scrollPane.setVvalue(scrollPane.getVvalue() + scrollSpeed);
                 }
-                event.consume(); // Per evitare che l'evento di scrolling venga propagato ad altri nodi
+                event.consume();
             }
         });
+    }
+
+    public <T> T getController() {
+        return fxmlLoader.getController();
     }
 }

@@ -161,6 +161,7 @@ public class SingleSpacePageController implements Initializable {
             SpaceService spaceService = new SpaceService("delete", currentSpace);
             spaceService.restart();
             spaceService.setOnSucceeded(e -> {
+                SceneHandler.getInstance().reloadPageInHashMap(Settings.HOME_PATH + "home.fxml");
                 SceneHandler.getInstance().reloadPageInHashMap(Settings.SPACES_PATH + "spaces.fxml");
                 try {
                     BackStack.getInstance().loadPreviousPage();

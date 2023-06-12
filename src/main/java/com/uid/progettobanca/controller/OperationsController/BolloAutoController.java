@@ -116,7 +116,7 @@ public class BolloAutoController implements Initializable {
         // Validate due date field on focus lost
         fieldDue.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue){
-                FormUtils.getInstance().validateTextField(fieldDue, FormUtils.getInstance().validateDueBollo(fieldDue.getText()), warningDue);
+                FormUtils.getInstance().validateTextField(fieldDue, FormUtils.getInstance().validateDueDateBollo(fieldDue.getText()), warningDue);
             }
         });
     }
@@ -126,6 +126,8 @@ public class BolloAutoController implements Initializable {
      */
     @FXML
     void onSendButtonClick(ActionEvent event) {
+
+
         double amount = FormUtils.getInstance().formatAmount(amountLabel.getText());
         int space = FormUtils.getInstance().getSpaceIdFromName(spacesComboBox.getValue());
 
@@ -143,7 +145,7 @@ public class BolloAutoController implements Initializable {
             if ((Boolean) e.getSource().getValue()) {
                 // Set transaction details for insertion
                 transactionService.setAction("insert");
-                transactionService.setTransaction(new Transazione("Bollo Auto", BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, "Bollo " + typeComboBox.getValue() + "\nTarga: " + fieldPlate.getText().trim(), "Bollo", "Assicurazione & Finanza", ""));
+                transactionService.setTransaction(new Transazione("Bollo Auto", BankApplication.getCurrentlyLoggedIban(), "NO", space, 0, LocalDateTime.now(), amount, "Bollo " + typeComboBox.getValue() + "\nTarga: " + fieldPlate.getText().trim().toUpperCase(), "Bollo", "Assicurazione & Finanza", ""));
 
                 // Start the transaction service for insertion
                 transactionService.restart();
@@ -185,7 +187,7 @@ public class BolloAutoController implements Initializable {
         BooleanBinding formValid = Bindings.createBooleanBinding(() ->
                         FormUtils.getInstance().validatePlate(fieldPlate.getText()) &&
                                 FormUtils.getInstance().validateCF(fieldCF.getText()) &&
-                                FormUtils.getInstance().validateDueBollo(fieldDue.getText()),
+                                FormUtils.getInstance().validateDueDateBollo(fieldDue.getText()),
                 fieldPlate.textProperty(),
                 fieldCF.textProperty(),
                 fieldDue.textProperty());

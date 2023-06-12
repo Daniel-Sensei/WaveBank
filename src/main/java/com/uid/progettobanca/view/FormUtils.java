@@ -9,10 +9,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
-import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FormUtils {
     private static FormUtils instance;
@@ -26,6 +29,7 @@ public class FormUtils {
         return instance;
     }
 
+    // setStyle based on validation of the textFields
     private void setTextFieldStyle(TextField field, boolean isValid) {
         if (isValid) {
             field.setStyle("-fx-border-color: primaryColor;");
@@ -38,7 +42,7 @@ public class FormUtils {
             shakeAnimation.setCycleCount(5);
             shakeAnimation.setAutoReverse(true);
 
-            // Aggiungi un event handler per reimpostare la posizione X alla fine dell'animazione
+            // Event Handler to reset the position of the textField
             shakeAnimation.setOnFinished(event -> field.setTranslateX(initialX));
 
             shakeAnimation.play();
@@ -115,8 +119,31 @@ public class FormUtils {
     public boolean validateCF(String CF) {
         return CF.matches("[a-zA-Z]{6}\\d{2}[a-zA-Z]\\d{2}[a-zA-Z]\\d{3}[a-zA-Z]");
     }
-    public boolean validateDueBollo(String dueBollo) {
-        return dueBollo.matches("\\d{2}[/\\-]\\d{4}");
+    public static boolean validateDueDateBollo(String dueBollo) {
+        int currentYear = LocalDate.now().getYear();
+        int nextYear = currentYear + 1;
+
+        // Create the regex pattern to match the date format
+        Pattern pattern = Pattern.compile("(\\d{2})/(\\d{4})");
+        Matcher matcher = pattern.matcher(dueBollo);
+
+        if (matcher.matches()) {
+            // Extract the month and year from the groups
+            int month = Integer.parseInt(matcher.group(1));
+            int year = Integer.parseInt(matcher.group(2));
+
+            // Check if the month is between 01 and 12
+            if (month < 1 || month > 12) {
+                return false;
+            }
+            // Check if the year is between the current year and the next year
+            if (year < 2000 || year > 2100) {
+                return false;
+            }
+            return true;
+        }
+
+        return false;
     }
     public boolean validatePhone(String phone) {
         return phone.matches("(\\+\\d{2,3})? ?\\d{10}");

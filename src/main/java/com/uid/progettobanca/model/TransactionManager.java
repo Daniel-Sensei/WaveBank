@@ -48,7 +48,7 @@ public class TransactionManager {
     public void setTransactionName(Label transactionName, Transazione transaction){
         transactionName.setText(transaction.getName());
         // set transaction name for bonifico
-        // is used to selected the name of the receiver or the sender
+        // is used to select the name of the receiver or the sender
         if(transaction.getTipo().equals(("Bonifico")) && transaction.getName().contains("-")) {
             if(transaction.getIbanTo().equals(BankApplication.getCurrentlyLoggedIban())) {
                 transactionName.setText(transaction.getName().substring(transaction.getName().indexOf("-") + 1));

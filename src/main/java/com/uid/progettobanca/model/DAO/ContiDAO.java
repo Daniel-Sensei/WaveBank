@@ -71,7 +71,8 @@ public class ContiDAO {
         // Make a transaction from a dummy account to the new Conto
         TransazioniDAO.getInstance().transazione("IT0000000000000000000000000", iban, 0, bonus);
         // Insert a bonus transaction record
-        TransazioniDAO.getInstance().insert(new Transazione("Bonus di Benvenuto", "IT0000000000000000000000000", iban, 0, s.getSpaceId(), LocalDateTime.now(), bonus, "Il pirata ti dà il benvenuto nella banca più losca del mondo... Spendi bene questi dobloni!", "Bonus di Benvenuto", "altro", ""));
+        String descr = "Il team di Wave Bank le dà il benvenuto! Grazie per aver scaricato la nostra app in accesso anticipato. Per ringraziarla, le regaliamo il nostro bonus di benvenuto.\nOra può iniziare ad esplorare tutte le funzionalità nella nostra applicazione.";
+        TransazioniDAO.getInstance().insert(new Transazione("Bonus di Benvenuto", "IT0000000000000000000000000", iban, 0, s.getSpaceId(), LocalDateTime.now(), bonus, descr, "Bonus di Benvenuto", "altro", ""));
 
         return iban;
     }

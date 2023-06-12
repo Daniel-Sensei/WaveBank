@@ -9,48 +9,39 @@ import java.io.IOException;
 public class PageLoaderService extends Service {
 
     /*
-    Viene effettuato un caricamento intelligente delle pagine in background, in modo da velocizzare il caricamento
-    delle pagine quando vengono richieste dall'utente.
+    All the static pages are loaded at the start of the application in the background
+    Pages are saved into an hashMap to speed up the loading and the efficiency of the app
      */
+
+    //static pageNames
     private String[] pageNames = {
-            //SceneHandler.HOME_PATH + "home.fxml",
-            //SceneHandler.MANAGE_PATH + "manage.fxml",
-            //SceneHandler.MY_ACCOUNT_PATH + "myAccount.fxml",
+
             Settings.HOME_PATH + "commentsSavedPopup.fxml",
             Settings.HOME_PATH + "filterSelection.fxml",
             Settings.HOME_PATH + "noTransaction.fxml",
 
-            //SceneHandler.MANAGE_PATH + "card.fxml",
             Settings.MANAGE_PATH + "cardLockedPopup.fxml",
             Settings.MANAGE_PATH + "cardUnlockedPopup.fxml",
             Settings.MANAGE_PATH + "deleteCard.fxml",
             Settings.MANAGE_PATH + "formCreateCard.fxml",
-            //SceneHandler.MANAGE_PATH + "infoCard.fxml",
-            //SceneHandler.MANAGE_PATH + "statistics.fxml",
 
             Settings.MY_ACCOUNT_PATH + "accountDeleted.fxml",
             Settings.MY_ACCOUNT_PATH + "contactUs.fxml",
             Settings.MY_ACCOUNT_PATH + "deleteAccount.fxml",
             Settings.MY_ACCOUNT_PATH + "ibanCopiedPopup.fxml",
-            //SceneHandler.MY_ACCOUNT_PATH + "personalData.fxml",
             Settings.MY_ACCOUNT_PATH + "safety.fxml",
             Settings.MY_ACCOUNT_PATH + "settings.fxml",
 
-            //SceneHandler.OPERATIONS_PATH + "contact.fxml",
             Settings.OPERATIONS_PATH + "formBollettino.fxml",
             Settings.OPERATIONS_PATH + "formBolloAuto.fxml",
             Settings.OPERATIONS_PATH + "formBonifico.fxml",
-            //SceneHandler.OPERATIONS_PATH + "formModifyContact.fxml",
             Settings.OPERATIONS_PATH + "formNewContact.fxml",
             Settings.OPERATIONS_PATH + "formNewRecurring.fxml",
-            //SceneHandler.OPERATIONS_PATH + "formPagamentiRicorrenti.fxml",
             Settings.OPERATIONS_PATH + "formRicaricaTelefonica.fxml",
             Settings.OPERATIONS_PATH + "operations.fxml",
-            //SceneHandler.OPERATIONS_PATH + "recurring.fxml",
             Settings.OPERATIONS_PATH + "transactionFailed.fxml",
             Settings.OPERATIONS_PATH + "transactionSuccess.fxml",
 
-            //SceneHandler.SPACES_PATH + "spaces.fxml",
             Settings.SPACES_PATH + "formCreateSpace.fxml",
             Settings.SPACES_PATH + "noTransaction.fxml",
             Settings.SPACES_PATH + "spaceTransactionFailed.fxml",
