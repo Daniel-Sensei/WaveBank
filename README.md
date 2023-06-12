@@ -13,9 +13,9 @@ Project for UID exam:
 Banking Application
 
 TEST USER
-Email: mario@example.com
-Password: MarioRossi2000.
-Security answer: Luigi Verdi
+1. Email: mario@example.com
+2. Password: MarioRossi2000.
+3. Security answer: Luigi Verdi
 
 # Functionality
 1)	View income and expense transactions
