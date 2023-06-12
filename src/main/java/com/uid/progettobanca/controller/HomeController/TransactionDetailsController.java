@@ -158,7 +158,7 @@ public class TransactionDetailsController implements Initializable {
             }
         }
         else{
-            getSpaceService.setSpaceId(BankApplication.getCurrentlyLoggedMainSpace());
+            getSpaceService.setSpaceId(transaction.getSpaceFrom());
             getSpaceService.restart();
             getSpaceService.setOnSucceeded(e -> {
                 if(e.getSource().getValue() instanceof Queue<?> result){
