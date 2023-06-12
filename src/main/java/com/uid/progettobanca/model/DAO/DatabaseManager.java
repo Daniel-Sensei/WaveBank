@@ -10,7 +10,8 @@ import java.sql.*;
 public class DatabaseManager {
 
     //percorso del db
-    private final String dbPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources"+ File.separator + "database.db";
+    private final String dbPath = System.getProperty("user.dir") + "/src/main/resources/database.db";
+    //System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources"+ File.separator + "database.db";
 
     // classe singleton
     private static DatabaseManager instance;
