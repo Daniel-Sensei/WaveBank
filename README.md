@@ -12,7 +12,7 @@ All the rights belong to the respective owners.
 Project for UID exam: 
 Banking Application
 
-# Test User
+TEST USER
 Email: mario@example.com
 Password: MarioRossi2000.
 Security answer: Luigi Verdi
