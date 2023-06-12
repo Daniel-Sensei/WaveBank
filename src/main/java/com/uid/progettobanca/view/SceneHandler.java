@@ -129,7 +129,7 @@ public class SceneHandler {
 
     private void loadFonts() {
         for (String font : List.of(Settings.FONTS_PATH + "Roboto/Roboto-Regular.ttf", Settings.FONTS_PATH + "Roboto/Roboto-Bold.ttf", Settings.FONTS_PATH + "0crB/OcrB2.ttf")) {
-            Font.loadFont(Objects.requireNonNull(SceneHandler.class.getResource(font)).toExternalForm(), 10);
+            Font.loadFont(Objects.requireNonNull(SceneHandler.class.getResourceAsStream(font)), 10);
         }
     }
 
