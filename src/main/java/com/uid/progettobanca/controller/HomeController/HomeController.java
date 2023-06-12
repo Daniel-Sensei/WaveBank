@@ -199,8 +199,14 @@ public class HomeController implements Initializable {
                         transactions.removeIf(transaction -> transaction.getName().contains("-") && !transaction.getName().substring(0, transaction.getName().indexOf("-")).toLowerCase().contains(searchQuery.toLowerCase()));
                     } else if (selectedInOut.equals("iban_to")) {
                         transactions.removeIf(transaction -> transaction.getName().contains("-") && !transaction.getName().substring(transaction.getName().indexOf("-") + 1).toLowerCase().contains(searchQuery.toLowerCase()));
-                    } else {
-                        transactions.removeIf(transaction -> transaction.getName().contains("-") && (transaction.getName().substring(transaction.getName().indexOf("-")+1).toLowerCase().contains(searchQuery.toLowerCase()) ^ transaction.getName().substring(0, transaction.getName().indexOf("-")).toLowerCase().contains(searchQuery.toLowerCase())) && (transaction.getIbanFrom().equals(BankApplication.getCurrentlyLoggedIban())^transaction.getIbanTo().equals(BankApplication.getCurrentlyLoggedIban())));
+                    } else if (!searchQuery.isBlank()){
+                        // this is a complex if statement that checks if the transaction name contains the search query (in case of a "both" filter)
+                        // to be precise this if statement checks in order:
+                        // 1) if the transaction name contains a "-" (in case of a transaction between two accounts aka bank transfer)
+                        // 2) if the name we are looking for is in just one of the sides or both (in case of both just skip this)
+                        // 3) if the name we are looking for is in the "from" side of the transaction AND if the iban of the "from" side is the same as the currently logged iban then we should remove this
+                        // 4) if the name we are looking for is in the "to" side of the transaction AND if the iban of the "to" side is the same as the currently logged iban then we should remove this
+                        transactions.removeIf(transaction -> transaction.getName().contains("-") && (transaction.getName().substring(transaction.getName().indexOf("-")+1).toLowerCase().contains(searchQuery.toLowerCase())^transaction.getName().substring(0, transaction.getName().indexOf("-")).toLowerCase().contains(searchQuery.toLowerCase())) && ((transaction.getName().substring(transaction.getName().indexOf("-")+1).toLowerCase().contains(searchQuery.toLowerCase()) && transaction.getIbanFrom().equals(BankApplication.getCurrentlyLoggedIban())) ^ (transaction.getName().substring(0, transaction.getName().indexOf("-")).toLowerCase().contains(searchQuery.toLowerCase()) && transaction.getIbanTo().equals(BankApplication.getCurrentlyLoggedIban()))));
                     }
 
                 /*
