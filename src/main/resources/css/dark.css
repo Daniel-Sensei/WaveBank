@@ -1,28 +1,22 @@
-/* Colori Dark */
-
 * {
-  backgroundColor: #121212; /* nero N26 */
+  backgroundColor: #121212;
 
-  primaryColor: #36a18b; /* verde N26 */
-  secondaryColor: #1b1b1b; /* grigio scuro chiaro N26 */
-  tertiaryColor: #2D2D2D; /* grigio chiaro N26 */
-  quaternaryColor: #3b3b3b; /* grigio chiaro barra N26 */
+  primaryColor: #36a18b;
+  secondaryColor: #1b1b1b;
+  tertiaryColor: #2D2D2D;
+  quaternaryColor: #3b3b3b;
 
-  greenButtonColor: #48ac98; /* verde chiaro */
+  greenButtonColor: #48ac98;
 
-  borderColor: #808080; /* grigio chiaro */
+  borderColor: #808080;
 
-  textColor: #ffffff; /* bianco */
+  textColor: #ffffff;
   promptTextColor: #CCCCCC;
   redColor: #FF5858;
 
-  shade1: #5cb3a0; /* verde chiaro */
-  shade2: #252525; /* grigio scuro */
-
-
+  shade1: #5cb3a0;
+  shade2: #252525;
 
   accentColor:  #666666;
   accentColorDark: #1e1f23;
-
-
 }

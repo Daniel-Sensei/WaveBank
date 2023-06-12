@@ -1,24 +1,22 @@
-/* Colori light */
 * {
-  backgroundColor: #f9f9f9; /* bianco */
+  backgroundColor: #f9f9f9;
 
-  primaryColor: #36a18b; /* verde N26 */
-  secondaryColor: #ffffff; /* giallo medio */
-  tertiaryColor: #f2f2f2; /* grigio chiaro searchBar N26 */
-  quaternaryColor: #efeced; /* grigio scuro N26 */
+  primaryColor: #36a18b;
+  secondaryColor: #ffffff;
+  tertiaryColor: #f2f2f2;
+  quaternaryColor: #efeced;
 
-  greenButtonColor: #48ac98; /* verde chiaro */
+  greenButtonColor: #48ac98;
 
-  borderColor: #d8d8d8; /* grigio chiaro */
+  borderColor: #d8d8d8;
 
-  textColor: black; /* nero */
-  promptTextColor: #696969; /* grigio scuro */
+  textColor: black;
+  promptTextColor: #696969;
   redColor: #FF5858;
 
-  shade1: #5cb3a0; /* verde chiaro */
-  shade2: #f0f0f0; /* grigio chiaro */
+  shade1: #5cb3a0;
+  shade2: #f0f0f0;
 
-  /* DA COMPLETARE */
-  accentColor: #9a9a9a; /* grigio-scuro */
-  accentColorDark: #efe4b7; // giallo scuro */
+  accentColor: #9a9a9a;
+  accentColorDark: #efe4b7;
 }
