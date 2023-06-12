@@ -36,9 +36,11 @@ public class GraphCalculator {
 
         //add the values of each day to the list
         LocalDateTime firstDay = LocalDateTime.now().minusDays(DaysInterval);
+        int arrPos=0;
         for(int i=0; i<transazioni.size(); i++) {
             if(((!withTag || transazioni.get(i).getTag().equals(tag)) && transazioni.get(i).getDateTime().isAfter(firstDay)))
-                DaysValues.set(Math.toIntExact(ChronoUnit.DAYS.between(firstDay, transazioni.get(i).getDateTime())), transazioni.get(i).getImporto());
+                arrPos = Math.toIntExact(ChronoUnit.DAYS.between(firstDay, transazioni.get(i).getDateTime()));
+                DaysValues.set(arrPos, transazioni.get(i).getImporto()+DaysValues.get(arrPos));
         }
         return DaysValues;
     }
