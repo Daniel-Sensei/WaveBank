@@ -223,7 +223,7 @@ public class TransactionDetailsController implements Initializable {
 
             Popup popup = new Popup();
             popup.getContent().add(popupContent);
-            popup.setAutoHide(true);
+            popup.setAutoHide(false);
 
             Window parentWindow = tagHBox.getScene().getWindow();
             double parentX = parentWindow.getX();
