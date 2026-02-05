@@ -1,55 +1,193 @@
-# Wave Bank
+# 💳 Wave Bank
 
-# Disclaimer
-This project is for educational purposes only. 
-It is not intended to be used for any other purpose.
+![Java](https://img.shields.io/badge/Java-Application-orange)
+![JavaFX](https://img.shields.io/badge/UI-JavaFX-blue)
+![License](https://img.shields.io/badge/License-Educational-yellow)
+![Status](https://img.shields.io/badge/Status-Complete-green)
 
-# Copyright
-All the assets in the project are provided by www.flaticon.com. License is included in the repository.
-All the rights belong to the respective owners.
+A modern banking application developed for the User Interface Design (UID) exam. Features a comprehensive suite of banking operations with support for multiple accounts, spaces, transactions, and financial management tools.
 
-# Description
-Project for UID exam: 
-Banking Application
+---
 
-TEST USER
-1. Email: mario@example.com
-2. Password: MarioRossi2000.
-3. Security answer: Luigi Verdi
+## ⚠️ Disclaimer
 
-# Functionality
-1)	View income and expense transactions
-2)	Combined search by name and tags
-3)	Filters for tags and transaction type (income, expense)
-4)	Detailed transaction view
-5)	Download selected transaction as a PDF
-6)	Add comments to each transaction
-7)	Change the tag of a transaction
-8)	View all spaces
-9)	Create multiple spaces
-10)	View a detailed list of transactions for the selected space
-11)	Transfer transactions between spaces
-12)	Edit space details (image and name)
-13)	Delete a space
-14)	Contact list management (add, remove, or edit contacts)
-15)	Quick transfer by double-clicking on a contact
-16)	Multiple types of operations (SEPA transfer, Postal Bulletin, Mobile Top-up, Vehicle Tax)
-17)	Recurring payments
-18)	Overall graph representation
-19)	Change the graph view
-20)	View individual graphs by tag
-21)	Manage cards (view information, add, delete, block/unlock virtual cards)
-22)	View account details
-23)	Copy IBAN to clipboard
-24)	Change theme (dark or light)
-25)	Change language (Italian or English)
-26)	Change password
-27)	Close account
-28)	Log in with multiple accounts
-29)	Password recovery option if forgotten
+**This project is for educational purposes only.**  
+It is not intended for production use or real financial transactions.
 
-# Authors
-- Campanella Gianluca
-- Curcio Daniel
-- Gagliardi Fortunato Andrea
-- Gattuso Pietro
+---
+
+## 📖 Description
+
+Wave Bank is a full-featured banking application that simulates real-world banking operations with an intuitive user interface. The application demonstrates modern UI/UX principles while providing a comprehensive set of features for personal finance management.
+
+### Test Credentials
+
+```
+Email:            mario@example.com
+Password:         MarioRossi2000.
+Security Answer:  Luigi Verdi
+```
+
+---
+
+## ✨ Features
+
+### 💰 Transaction Management
+- View income and expense transactions with detailed breakdowns
+- Combined search by name and tags
+- Advanced filters for tags and transaction types (income/expense)
+- Detailed transaction view with full information
+- Download selected transactions as PDF
+- Add comments to individual transactions
+- Modify transaction tags for better organization
+
+### 🏦 Spaces & Organization
+- View all financial spaces (savings, budget categories, etc.)
+- Create multiple custom spaces
+- Detailed transaction lists per space
+- Transfer transactions between spaces
+- Edit space details (custom images and names)
+- Delete spaces when no longer needed
+
+### 👥 Contact Management
+- Comprehensive contact list management
+- Add, remove, or edit contact information
+- Quick transfer via double-click on contacts
+- Streamlined payment workflows
+
+### 💸 Payment Operations
+- **SEPA Transfers:** Standard European transfers
+- **Postal Bulletins:** Bill payments
+- **Mobile Top-ups:** Phone credit recharges
+- **Vehicle Tax:** Tax payments
+- **Recurring Payments:** Automated scheduled transactions
+
+### 📊 Analytics & Visualization
+- Overall financial graph representation
+- Multiple graph view options
+- Individual graphs filtered by tag
+- Visual spending/income tracking
+
+### 💳 Card Management
+- View all card information
+- Add new cards
+- Delete existing cards
+- Block/unlock virtual cards
+- Real-time card status management
+
+### ⚙️ Account Settings
+- View complete account details
+- Copy IBAN to clipboard with one click
+- **Theme Customization:** Dark or Light mode
+- **Language Support:** Italian and English
+- Change password securely
+- Account closure option
+- Multi-account login support
+- Password recovery system
+
+---
+
+## 🎨 User Interface
+
+Wave Bank features a modern, intuitive interface with:
+- Responsive design for optimal viewing
+- Dark and Light theme options
+- Multi-language support (IT/EN)
+- Smooth transitions and animations
+- Clear visual hierarchy
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Java 11 or higher
+- JavaFX SDK
+- IDE with JavaFX support (IntelliJ IDEA, Eclipse, NetBeans)
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/wave-bank.git
+
+# Navigate to project directory
+cd wave-bank
+
+# Import into your Java IDE
+```
+
+### Running the Application
+
+```bash
+# Compile
+javac --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -d bin src/*.java
+
+# Run
+java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -cp bin Main
+```
+
+---
+
+## 🛠️ Technology Stack
+
+| Technology | Purpose |
+|------------|---------|
+| **Java** | Core application logic |
+| **JavaFX** | User interface framework |
+| **FXML** | UI layout and design |
+| **CSS** | Custom styling and themes |
+| **PDF Library** | Transaction export functionality |
+
+---
+
+## 🎓 Academic Context
+
+This project was developed as part of the **User Interface Design (UID)** course, demonstrating:
+- Modern UI/UX design principles
+- User-centered design approach
+- Accessibility considerations
+- Responsive interface design
+- Internationalization best practices
+
+---
+
+## 👥 Authors
+
+| Name | Role |
+|------|------|
+| **Campanella Gianluca** | Developer |
+| **Curcio Daniel** | Developer |
+| **Gagliardi Fortunato Andrea** | Developer |
+| **Gattuso Pietro** | Developer |
+
+---
+
+## 📄 License & Copyright
+
+### Educational License
+This project is licensed for educational use only.
+
+### Assets Attribution
+All visual assets in this project are provided by [Flaticon](https://www.flaticon.com).  
+Full license information is included in the repository.  
+All rights belong to the respective owners.
+
+---
+
+## 🤝 Contributing
+
+This is an educational project and is not actively maintained. However, feel free to fork and experiment with your own improvements!
+
+---
+
+## 🙏 Acknowledgments
+
+- **Flaticon** for providing high-quality UI assets
+- Course instructors for guidance and feedback
+- All team members for their collaborative effort
+
+---
+
+**Wave Bank - Modern Banking, Educational Purpose** 🌊💳
